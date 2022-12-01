@@ -2,16 +2,16 @@
   <div class="reuse-container">
     <div class="reuse-list-label">
       <div class="reuse-label">
-        <div v-if="store.author && !store.work">
+        <div v-if="authorSelected && !workSelected">
           I verk av
-          <span class="author-name">{{ store.author.name }}</span> finner vi
+          <span class="author-name">{{ authorSelected?.name }}</span> finner vi
           {{ clusterCount }} grupper av likartade stycken, så kallade återbruk.
         </div>
-        <div v-if="store.author && store.work">
+        <div v-if="workSelected && authorSelected">
           I verket
-          <span class="work-title">{{ store.work.short_title }}</span>
-          av <span class="author-name">{{ store.author.name }}</span> finner vi
-          {{ clusterCount }} grupper av återbruk.
+          <span class="work-title">{{ workSelected.short_title }}</span>
+          av <span class="author-name">{{ authorSelected?.name }}</span> finner
+          vi {{ clusterCount }} grupper av återbruk.
         </div>
       </div>
       <v-pagination
@@ -34,24 +34,51 @@
 <script setup lang="ts">
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
-import { ref, watch, computed, onMounted } from "vue";
-import { list } from "@/services/diana";
-import ClusterCard from "@/components/ClusterCard.vue";
-import type { Cluster } from "@/types/litteraturlabbet";
-import { searchStore } from "@/stores/search";
+import { ref, watch, computed } from "vue";
+import { useRoute } from "vue-router";
 
-const store = searchStore();
+import { onBeforeRouteUpdate } from "vue-router";
+
+import { list, get } from "@/services/diana";
+import ClusterCard from "@/components/ClusterCard.vue";
+import type { Author, Cluster, Work } from "@/types/litteraturlabbet";
+
+const props = defineProps<{
+  author: number;
+  work?: number;
+}>();
+
+// const store = searchStore();
+const route = useRoute();
+const authorSelected = ref<Author>();
+const workSelected = ref<Work>();
 const clusters = ref<Array<Cluster>>([]);
 const clusterCount = ref<number>(0);
 const page = ref(1);
 const pages = computed(() => {
-  return clusterCount.value / 25 + 1;
+  return Math.floor(clusterCount.value / 25) + 1;
 });
 
-function fetchClusters(page: number) {
+await fetchData();
+
+async function fetchData() {
+  authorSelected.value = await get<Author>(props.author, "author");
+  workSelected.value = undefined;
+  if (props.work) {
+    workSelected.value = await get<Work>(props.work, "work");
+  }
+
+  fetchClusters(page.value, authorSelected.value?.id, workSelected.value?.id);
+}
+
+function fetchClusters(
+  page: number,
+  authorID: number | undefined,
+  workID: number | undefined
+) {
   const params = {
-    has_author: store.author?.id,
-    work: store.work?.id,
+    has_author: authorID,
+    work: workID,
     limit: 25,
     offset: 25 * (page - 1),
   };
@@ -63,20 +90,43 @@ function fetchClusters(page: number) {
 }
 
 function onPageChange() {
-  fetchClusters(page.value);
+  fetchClusters(page.value, authorSelected.value?.id, workSelected.value?.id);
 }
 
 watch(
-  () => [store.author, store.work],
-  () => fetchClusters(page.value),
+  () => route.params,
+  async (params) => {
+    fetchData();
+  },
   {
+    immediate: true,
     deep: true,
   }
 );
 
-onMounted(() => {
-  fetchClusters(page.value);
-});
+// watch(
+//   () => route.params,
+//   async (params) => {
+
+//     if (params.author) {
+//         authorSelected.value = await get<Author>(params.author, "author");
+//     }
+
+//     if (params.work) {
+//         workSelected.value = await get<Work>(params.work, "work");
+//     }
+
+//   },
+//   { immediate: true }
+// );
+
+// watch(
+//   () => route.params.work,
+//   async (workID) => {
+//     workSelected.value = await get<Work>(Number(workID), "work");
+//   },
+//   { immediate: true }
+// );
 </script>
 
 <style scoped>

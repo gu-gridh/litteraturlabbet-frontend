@@ -60,15 +60,31 @@
         <div class="count-label">
           <p>Totalt {{ workCount }} verk i samlingen.</p>
         </div>
+        <div>
+          <router-link
+            :to="{
+              name: 'explore',
+              query: {
+                author: author?.id,
+                work: work?.id,
+              },
+            }"
+            v-slot="{ href }"
+          >
+            <button :href="href" class="search-button">Sök</button>
+          </router-link>
+        </div>
       </div>
     </div>
     <div class="right-column">
       <div class="right-view-container">
-        <reuse-view />
+        <Suspense>
+        <router-view />
+        </Suspense>
+        <!-- <reuse-view /> -->
       </div>
     </div>
   </div>
-
 </template>
 
 <script setup lang="ts">
@@ -103,7 +119,8 @@ function searchWork(query: string, params: object): Promise<Array<Work>> {
 async function onSelectAuthor(value: Author, select$: any) {
   workSelect.value.clearSearch();
   workSelect.value.refreshOptions();
-
+  store.work = undefined;
+  work.value = undefined;
   // Update the work count
   countWorks();
 
@@ -275,5 +292,20 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: space-between;
+}
+
+.search-button {
+  padding: 1rem 2rem 1rem 2rem;
+  font-size: large;
+  background-color: white;
+  border-color: none !important;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+}
+
+.search-button:hover {
+  background-color: rgb(238, 236, 233);
 }
 </style>

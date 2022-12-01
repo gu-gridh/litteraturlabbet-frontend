@@ -5,7 +5,17 @@
         <p class="cluster-size-label">{{ cluster.size }}</p>
         återbruk i olika verk
       </div>
-      <!-- <div>{{ names }}</div> -->
+      <div>
+        <router-link
+          :to="{
+            name: 'cluster',
+            params: {
+              id: cluster.id,
+            },
+          }"
+          >Utforska</router-link
+        >
+      </div>
     </div>
     <div class="cluster-text-container">
       {{ cluster.segments[0].text.slice(0, 300) }}...
@@ -14,17 +24,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick } from "vue";
-import { list, get } from "@/services/diana";
-import type {
-  Author,
-  Page,
-  Work,
-  Segment,
-  Cluster,
-} from "@/types/litteraturlabbet";
+import type { Cluster } from "@/types/litteraturlabbet";
 
-const props = defineProps<{
+defineProps<{
   cluster: Cluster;
 }>();
 </script>
