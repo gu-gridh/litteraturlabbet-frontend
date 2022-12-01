@@ -2,7 +2,10 @@
   <div class="main-container">
     <div class="left-column">
       <div class="lb-logo-container">
-        <lb-logo></lb-logo>
+        
+      </div>
+      <div class="ll-logo-container">
+       Litteratur<br>Laboratoriet
       </div>
 
       <nav class="nav-links">
@@ -78,13 +81,22 @@
     </div>
     <div class="right-column">
       <div class="right-view-container">
+         <nav class="nav-links">
+        <router-link to="/" class="nav-link">Textåterbruk</router-link>
+        <router-link to="/about" class="nav-link">Ordvektorer</router-link>
+      </nav>
+       <div class="right-view-container-content">
         <Suspense>
         <router-view />
         </Suspense>
         <!-- <reuse-view /> -->
       </div>
+        </div>
     </div>
   </div>
+
+
+
 </template>
 
 <script setup lang="ts">
@@ -181,6 +193,36 @@ body {
   height: 100% !important;
   width: 100% !important;
   margin: 0 !important;
+
+  font-family: "Barlow Condensed", sans-serif !important;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(245, 245, 245, 1) 0,
+    rgba(220, 220, 220, 0.9) 750px,
+    rgba(210, 210, 210, 0.8) 1000px
+  )!important;
+  background-image:url("@/assets/lbbg1.jpg")!important;
+  Background-repeat:no-repeat!important;
+  background-size:cover!important;
+}
+
+a:link {
+  color: white;
+  text-decoration:none;
+ 
+}
+
+
+a:visited {
+  text-decoration:none;
+  color: white;
+  text-decoration-style: none;
+  
+}
+
+a:hover{
+
 }
 
 #app {
@@ -191,65 +233,85 @@ body {
   /* display: flex !important; */
 }
 
+.ll-logo-container {
+   font-family: 'Cormorant Garamond', serif;
+   letter-spacing: -6px;
+   color:white;
+width:100%;
+font-size:100px;
+line-height:0.75;
+  margin-top: 20px;
+  margin-bottom: 35px;
+  margin-left: 0px;
+  Height:145px;
+}
+
 .lb-logo-container {
   /* width: 360px !important; */
   /* height: 280px !important; */
-  margin-top: 30px;
-  margin-bottom: 65px;
+  margin-top: 50px;
+margin-left:-10px;
+  width:80px;
+  height:80px;
+    background-image:url("@/assets/lblogo.png")!important;
+    background-size:80px;
 }
 
 .nav-links {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 500ms;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  column-gap: 2rem;
+  column-gap: 1rem;
   width: 75%;
 }
 
 .nav-link {
-  font-size: large;
-  text-transform: uppercase;
-  padding: 1rem 2rem 1rem 2rem;
+  font-size: 25px;
+ font-weight:300;
+  padding: 0.4rem 0.8rem 0.4rem 0.8rem;
   margin-right: 0.25rem;
-  border-radius: 4px;
-  background-color: rgb(255, 255, 255, 0.8);
-
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255, 0.0);
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 500ms;
 }
 
 .nav-link:hover {
-  opacity: 0.4;
+  opacity: 1;
   background-color: rgb(255, 255, 255);
-  color: slategray;
+  color: black;
 }
 
 .multiselect-input {
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   margin-left: 2rem;
   margin-right: 2rem;
 }
 
 .select-label {
   font-size: large;
-  color: slategray;
-  font-style: italic;
+  color: black;
+  font-style: normal;
   margin-bottom: 0.5rem;
   margin-top: 1rem;
 }
 
 .count-label {
   font-size: large;
-  color: slategray;
-  font-style: italic;
-  margin-bottom: 2rem;
-  margin-left: 2rem;
-  /* margin-top: 1rem; */
+  color: black;
+  font-style: normal;
+  text-align:center;
+  margin-bottom: 1rem;
+ border-style:dotted;
+ border-color:grey;
+ border-width:1px 0 0 0;
+  margin-top: 2rem;
+  padding: 2rem 0 0 0;
 }
 
 .main-container {
@@ -259,50 +321,67 @@ body {
 }
 
 .left-column {
-  width: 35%;
+  width: 30%;
+  min-width:400px;
+  padding-left:80px;
   height: 100vh;
-  background-color: saddlebrown;
   display: flex;
   flex-direction: column;
   /* justify-content: flex-start; */
-  align-items: center;
+  align-items: left;
 }
+
 
 .right-column {
   display: flex;
   flex-direction: column;
-  width: 65%;
+  width: 70%;
   height: 100vh;
-  background-color: white;
+
 }
 
 .right-view-container {
   width: 80%;
-  height: 80%;
   margin: auto;
-  margin-top: 3rem;
+  margin-top: 330px;
+
+}
+
+.right-view-container-content {
+  background-color:white;
+  border-radius:12px;
+    background-color:white;
+  border-radius:10px;
+  min-height:330px;
+
+   overflow:hidden;
 }
 
 .search-container {
-  width: 75%;
+  
+  margin-left:0px;
+  width: 100%;
   /* height: 3px; */
-  background-color: rgb(255, 255, 255, 0.8);
-  border-radius: 8px;
+  background-color: rgb(255, 255, 255, 1.0);
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: space-between;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .search-button {
-  padding: 1rem 2rem 1rem 2rem;
-  font-size: large;
-  background-color: white;
+   font-family: "Barlow Condensed", sans-serif !important;
+    padding: 0.4rem 0.8rem 0.4rem 0.8rem;
+  font-size: 25px;
+  color:white;
+  background-color: grey;
   border-color: none !important;
-  border-radius: 12px;
+  border-radius: 10px;
   border: 2px solid transparent;
-  margin-left: 2rem;
-  margin-bottom: 2rem;
+  margin-left: calc(50% - 40px);
+  margin-bottom: 1.5rem;
 }
 
 .search-button:hover {

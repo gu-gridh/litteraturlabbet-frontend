@@ -145,7 +145,7 @@ watch(
   display: flex;
   margin-left: 1rem;
   margin-bottom: 2rem;
-  background-color: antiquewhite;
+  background-color: white;
   color: black;
   padding: 1rem 1.5rem 1rem 1.5rem;
   border-radius: 8px;
@@ -160,7 +160,7 @@ watch(
 
 .author-name,
 .work-title {
-  background-color: saddlebrown;
+  background-color: purple;
   color: white;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   border-radius: 8px;
