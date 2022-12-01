@@ -68,7 +68,7 @@
         <div class="button-container">
           <router-link
             :to="{
-              name: 'home',
+              name: 'explore',
               query: {
                 author: author?.id,
                 work: work?.id,
@@ -76,9 +76,7 @@
             }"
             v-slot="{ href }"
           >
-       
             <button :href="href" class="search-button">Sök</button>
-   
           </router-link>
         </div>
       </div>
@@ -90,7 +88,9 @@
         <router-link to="/wordvectors" class="nav-link">Ordvektorer</router-link>
       </nav>
           <div class="right-view-container-content">
-        <reuse-view />
+        <Suspense>
+          <router-view />
+        </Suspense>
       </div>
         </div>
     </div>
@@ -201,12 +201,12 @@ body {
   )!important;
   /* background-image:url("@/assets/lbbg1.jpg"); */
 
+
 }
 
 a:link {
   color: white;
-  text-decoration:none;
- 
+  text-decoration: none;
 }
 
 
@@ -267,7 +267,7 @@ margin-left:-10px;
 
 .nav-link {
   font-size: 25px;
- font-weight:300;
+  font-weight: 300;
   padding: 0.2rem 0.8rem 0.2rem 0.8rem;
   margin-right: 0.25rem;
   border-radius: 10px;
@@ -340,7 +340,6 @@ margin-left:-10px;
   width: 80%;
   margin: auto;
   margin-top: 330px;
-
 }
 
 .right-view-container-content {
@@ -351,6 +350,7 @@ margin-left:-10px;
   min-height:385px;
    overflow:hidden;
      margin-bottom:50px;
+
 }
 
 .search-container {
@@ -368,27 +368,27 @@ margin-left:-10px;
 
 .button-container {
   width: 100%;
-    display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 }
 
 .search-button {
-   font-family: "Barlow Condensed", sans-serif !important;
-    padding: 0.4rem 0.8rem 0.4rem 0.8rem;
+  font-family: "Barlow Condensed", sans-serif !important;
+  padding: 0.4rem 0.8rem 0.4rem 0.8rem;
   font-size: 25px;
-  color:white;
-   background-color: rgb(182, 82, 139);
+  color: white;
+  background-color: rgb(182, 82, 139);
   border-color: none !important;
   border-radius: 10px;
-  border: 2px solid transparent!important;
+  border: 2px solid transparent !important;
   margin-bottom: 1.5rem;
 }
 
 .search-button:hover {
-  background-color: rgb(233, 102, 176)!important;
-  color:black!important;
+  background-color: rgb(233, 102, 176) !important;
+  color: black !important;
 }
 
 </style>
