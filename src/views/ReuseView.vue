@@ -95,7 +95,7 @@ onMounted(() => {
   display: flex;
   margin-left: 1rem;
   margin-bottom: 2rem;
-  background-color: antiquewhite;
+  background-color: white;
   color: black;
   padding: 1rem 1.5rem 1rem 1.5rem;
   border-radius: 8px;
