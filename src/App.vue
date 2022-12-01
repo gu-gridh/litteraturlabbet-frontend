@@ -63,7 +63,8 @@
         <div class="count-label">
           <p>Totalt {{ workCount }} verk i samlingen.</p>
         </div>
-        <div>
+
+        <div class="button-container">
           <router-link
             :to="{
               name: 'explore',
@@ -74,7 +75,9 @@
             }"
             v-slot="{ href }"
           >
+       
             <button :href="href" class="search-button">Sök</button>
+   
           </router-link>
         </div>
       </div>
@@ -197,14 +200,13 @@ body {
   font-family: "Barlow Condensed", sans-serif !important;
 
   background: linear-gradient(
-    to bottom,
-    rgba(245, 245, 245, 1) 0,
-    rgba(220, 220, 220, 0.9) 750px,
-    rgba(210, 210, 210, 0.8) 1000px
+    to right,
+    rgb(80, 57, 108),
+    rgb(168, 107, 75),
+    rgb(239, 149, 67)
   )!important;
-  background-image:url("@/assets/lbbg1.jpg")!important;
-  Background-repeat:no-repeat!important;
-  background-size:cover!important;
+  background-image:url("@/assets/lbbg1.jpg");
+
 }
 
 a:link {
@@ -353,8 +355,8 @@ margin-left:-10px;
     background-color:white;
   border-radius:10px;
   min-height:330px;
-
    overflow:hidden;
+     margin-bottom:50px;
 }
 
 .search-container {
@@ -371,6 +373,17 @@ margin-left:-10px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+.button-container {
+  
+
+  width: 100%;
+    display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+}
+
 .search-button {
    font-family: "Barlow Condensed", sans-serif !important;
     padding: 0.4rem 0.8rem 0.4rem 0.8rem;
@@ -380,11 +393,11 @@ margin-left:-10px;
   border-color: none !important;
   border-radius: 10px;
   border: 2px solid transparent;
-  margin-left: calc(50% - 40px);
   margin-bottom: 1.5rem;
 }
 
 .search-button:hover {
   background-color: rgb(238, 236, 233);
+  color:black;
 }
 </style>
