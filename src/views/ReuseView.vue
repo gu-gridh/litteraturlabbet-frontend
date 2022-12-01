@@ -160,7 +160,7 @@ watch(
 
 .author-name,
 .work-title {
-  background-color: purple;
+   background-color: rgb(182, 82, 139);
   color: white;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   border-radius: 8px;

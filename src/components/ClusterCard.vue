@@ -10,7 +10,7 @@
   <div class="cluster-card">
     <div class="cluster-metadata-container">
       <div>
-        <p class="cluster-size-label">{{ cluster.size }} textåterbruk</p> 
+        <p class="cluster-size-label">{{ cluster.size }} </p> återbruk
        
       </div>
       <div>
@@ -46,15 +46,19 @@ defineProps<{
   /* padding: 2rem 1rem 2rem 1rem; */
   margin: 0rem 1rem 1rem 1rem;
   height: 6.5rem;
-  background-color: pink;
-  border-radius: 10px;
+  
+
   display: flex;
   flex-direction: row;
+  cursor:pointer;
 }
 
 .cluster-text-container {
   width: calc(100% - 180px);
   color: black;
+  cursor:pointer;
+    border-radius: 10px;
+ line-height:1.2;
   /* background-color: white; */
   /* opacity: 0.9; */
   padding: 1rem 1rem 1rem 1rem;
@@ -62,11 +66,13 @@ defineProps<{
 }
 
 .cluster-metadata-container {
-  width: 180px;
-  background-color: purple;
+  width: 105px;
+  line-height:1.3;
+  background-color: rgb(182, 82, 139);
+  text-align:center;
   color: white;
-  padding: 2rem 1rem 1rem 1rem;
-  border-radius: 8px 0 0 8px;
+  padding: 1.5rem 1rem 1rem 1rem;
+  border-radius: 50%;
   flex-grow: initial;
   font-size: large;
 }

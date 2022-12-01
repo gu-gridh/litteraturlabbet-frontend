@@ -274,7 +274,7 @@ margin-left:-10px;
 .nav-link {
   font-size: 25px;
  font-weight:300;
-  padding: 0.4rem 0.8rem 0.4rem 0.8rem;
+  padding: 0.2rem 0.8rem 0.2rem 0.8rem;
   margin-right: 0.25rem;
   border-radius: 10px;
   background-color: rgb(255, 255, 255, 0.0);
@@ -389,15 +389,15 @@ margin-left:-10px;
     padding: 0.4rem 0.8rem 0.4rem 0.8rem;
   font-size: 25px;
   color:white;
-  background-color: grey;
+   background-color: rgb(182, 82, 139);
   border-color: none !important;
   border-radius: 10px;
-  border: 2px solid transparent;
+  border: 2px solid transparent!important;
   margin-bottom: 1.5rem;
 }
 
 .search-button:hover {
-  background-color: rgb(238, 236, 233);
-  color:black;
+  background-color: rgb(233, 102, 176)!important;
+  color:black!important;
 }
 </style>
