@@ -131,7 +131,7 @@ watch(
 
 <style scoped>
 .card-container {
-  overflow-y: scroll;
+
   height: 100%;
 }
 

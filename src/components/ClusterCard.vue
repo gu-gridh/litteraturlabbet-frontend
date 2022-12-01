@@ -51,10 +51,16 @@ defineProps<{
   display: flex;
   flex-direction: row;
   cursor:pointer;
+    transition: all .2s ease-in-out;
+}
+.cluster-card:hover {
+ transform: scale(1.02);
+
+ 
 }
 
 .cluster-text-container {
-  width: calc(100% - 180px);
+  width: calc(100% - 110px);
   color: black;
   cursor:pointer;
     border-radius: 10px;
@@ -75,6 +81,13 @@ defineProps<{
   border-radius: 50%;
   flex-grow: initial;
   font-size: large;
+  transition: all .2s ease-in-out;
+}
+
+.cluster-metadata-container:hover {
+ transform: scale(1.04);
+  background-color: rgb(142, 42, 99);
+ 
 }
 
 .cluster-size-label {
