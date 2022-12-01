@@ -337,7 +337,7 @@ margin-left:-10px;
 }
 
 .right-view-container {
-  width: 80%;
+  width: 85%;
   margin: auto;
   margin-top: 330px;
 }
