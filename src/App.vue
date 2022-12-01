@@ -70,7 +70,8 @@
         <div class="count-label">
           <p>Totalt {{ workCount }} verk i samlingen.</p>
         </div>
-        <div>
+
+        <div class="button-container">
           <router-link
             :to="{
               name: 'home',
@@ -81,7 +82,9 @@
             }"
             v-slot="{ href }"
           >
+       
             <button :href="href" class="search-button">Sök</button>
+   
           </router-link>
         </div>
       </div>
@@ -188,6 +191,23 @@ body {
   height: 100% !important;
   width: 100% !important;
   margin: 0 !important;
+
+  font-family: "Barlow Condensed", sans-serif !important;
+
+  background: linear-gradient(
+    to right,
+    rgb(80, 57, 108),
+    rgb(168, 107, 75),
+    rgb(239, 149, 67)
+  )!important;
+  background-image:url("@/assets/lbbg1.jpg");
+
+}
+
+a:link {
+  color: white;
+  text-decoration:none;
+ 
 }
 
 #app {
@@ -218,9 +238,9 @@ body {
 }
 
 .nav-link {
-  font-size: large;
-  text-transform: uppercase;
-  padding: 1rem 2rem 1rem 2rem;
+  font-size: 25px;
+ font-weight:300;
+  padding: 0.2rem 0.8rem 0.2rem 0.8rem;
   margin-right: 0.25rem;
   border-radius: 4px;
   background-color: rgb(255, 255, 255, 0.8);
@@ -287,7 +307,18 @@ body {
   width: 80%;
   height: 80%;
   margin: auto;
-  margin-top: 3rem;
+  margin-top: 330px;
+
+}
+
+.right-view-container-content {
+  background-color:white;
+  border-radius:12px;
+    background-color:white;
+  border-radius:10px;
+  min-height:330px;
+   overflow:hidden;
+     margin-bottom:50px;
 }
 
 .search-container {
@@ -301,19 +332,31 @@ body {
   align-items: space-between;
 }
 
-.search-button {
-  padding: 1rem 2rem 1rem 2rem;
-  font-size: large;
-  background-color: white;
-  border-color: none !important;
-  border-radius: 12px;
-  border: 2px solid transparent;
-  margin-left: 2rem;
-  margin-bottom: 2rem;
+.button-container {
+  
+
+  width: 100%;
+    display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 
 }
 
+.search-button {
+   font-family: "Barlow Condensed", sans-serif !important;
+    padding: 0.4rem 0.8rem 0.4rem 0.8rem;
+  font-size: 25px;
+  color:white;
+   background-color: rgb(182, 82, 139);
+  border-color: none !important;
+  border-radius: 10px;
+  border: 2px solid transparent!important;
+  margin-bottom: 1.5rem;
+}
+
 .search-button:hover {
-  background-color: rgb(238, 236, 233);
+  background-color: rgb(233, 102, 176)!important;
+  color:black!important;
 }
 </style>

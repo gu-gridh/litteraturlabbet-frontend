@@ -1,12 +1,20 @@
 <template>
+   <router-link
+          :to="{
+            name: 'cluster',
+            params: {
+              id: cluster.id,
+            },
+          }"
+          >
   <div class="cluster-card">
     <div class="cluster-metadata-container">
       <div>
-        <p class="cluster-size-label">{{ cluster.size }}</p>
-        återbruk i olika verk
+        <p class="cluster-size-label">{{ cluster.size }} </p> återbruk
+       
       </div>
       <div>
-        <router-link
+        <!-- <router-link
           :to="{
             name: 'cluster',
             params: {
@@ -14,13 +22,15 @@
             },
           }"
           >Utforska</router-link
-        >
+        > -->
       </div>
     </div>
     <div class="cluster-text-container">
       {{ cluster.segments[0].text.slice(0, 300) }}...
     </div>
   </div>
+  </router-link
+        >
 </template>
 
 <script setup lang="ts">
@@ -34,33 +44,40 @@ defineProps<{
 <style scoped>
 .cluster-card {
   /* padding: 2rem 1rem 2rem 1rem; */
-  margin: 1rem 1rem 1rem 1rem;
-  background-color: antiquewhite;
-  border-radius: 8px;
+  margin: 0rem 1rem 1rem 1rem;
+  height: 6.5rem;
+  
+
   display: flex;
   flex-direction: row;
+  cursor:pointer;
 }
 
 .cluster-text-container {
-  width: 70%;
+  width: calc(100% - 180px);
   color: black;
+  cursor:pointer;
+    border-radius: 10px;
+ line-height:1.2;
   /* background-color: white; */
   /* opacity: 0.9; */
-  padding: 2rem 2rem 2rem 2rem;
-  font-style: italic;
+  padding: 1rem 1rem 1rem 1rem;
+  font-style: normal;
 }
 
 .cluster-metadata-container {
-  width: 30%;
-  background-color: sienna;
+  width: 105px;
+  line-height:1.3;
+  background-color: rgb(182, 82, 139);
+  text-align:center;
   color: white;
-  padding: 2rem 2rem 2rem 2rem;
-  border-radius: 8px 0 0 8px;
+  padding: 1.5rem 1rem 1rem 1rem;
+  border-radius: 50%;
   flex-grow: initial;
   font-size: large;
 }
 
 .cluster-size-label {
-  font-size: xx-large;
+  font-size: x-large;
 }
 </style>

@@ -79,8 +79,8 @@ function fetchClusters(
   const params = {
     has_author: authorID,
     work: workID,
-    limit: 25,
-    offset: 25 * (page - 1),
+    limit: 10,
+    offset: 10 * (page - 1),
   };
 
   list<Cluster>("cluster", params).then((d) => {
@@ -143,12 +143,12 @@ watch(
 
 .reuse-list-label {
   display: flex;
-  margin-left: 1rem;
+  margin-left: 0rem;
   margin-bottom: 2rem;
   background-color: white;
   color: black;
   padding: 1rem 1.5rem 1rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 0px;
   flex-direction: row;
   justify-content: space-between;
 }
@@ -160,7 +160,7 @@ watch(
 
 .author-name,
 .work-title {
-  background-color: purple;
+   background-color: rgb(182, 82, 139);
   color: white;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   border-radius: 8px;
