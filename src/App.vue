@@ -2,21 +2,15 @@
   <div class="main-container">
     <div class="left-column">
       <div class="lb-logo-container">
-        <lb-logo></lb-logo>
       </div>
 
+       <div class="ll-logo-container">
+        Litteratur<br>Laboratoriet
+      </div>
+      
+
       <nav class="nav-links">
-        <router-link
-          :to="{
-            name: 'home',
-            query: {
-              author: author?.id,
-              work: work?.id,
-            },
-          }"
-          class="nav-link"
-          >Utforska</router-link
-        >
+        <router-link to="/" class="nav-link">Utforska</router-link>
         <router-link to="/about" class="nav-link">Om</router-link>
       </nav>
 
@@ -91,9 +85,14 @@
     </div>
     <div class="right-column">
       <div class="right-view-container">
-        <router-view />
-        <!-- <reuse-view /> -->
+         <nav class="nav-links">
+        <router-link to="/textreuse" class="nav-link">Textåterbruk</router-link>
+        <router-link to="/wordvectors" class="nav-link">Ordvektorer</router-link>
+      </nav>
+          <div class="right-view-container-content">
+        <reuse-view />
       </div>
+        </div>
     </div>
   </div>
 </template>
@@ -200,7 +199,7 @@ body {
     rgb(168, 107, 75),
     rgb(239, 149, 67)
   )!important;
-  background-image:url("@/assets/lbbg1.jpg");
+  /* background-image:url("@/assets/lbbg1.jpg"); */
 
 }
 
@@ -208,6 +207,18 @@ a:link {
   color: white;
   text-decoration:none;
  
+}
+
+
+a:visited {
+  text-decoration:none;
+  color: white;
+  text-decoration-style: none;
+  
+}
+
+a:hover{
+
 }
 
 #app {
@@ -218,22 +229,39 @@ a:link {
   /* display: flex !important; */
 }
 
+.ll-logo-container {
+   font-family: 'Cormorant Garamond', serif;
+   letter-spacing: -6px;
+   color:white;
+width:100%;
+font-size:100px;
+line-height:0.75;
+  margin-top: 20px;
+  margin-bottom: 35px;
+  margin-left: 0px;
+  Height:145px;
+}
+
 .lb-logo-container {
   /* width: 360px !important; */
   /* height: 280px !important; */
-  margin-top: 30px;
-  margin-bottom: 65px;
+  margin-top: 50px;
+margin-left:-10px;
+  width:80px;
+  height:80px;
+    background-image:url("@/assets/lblogo.png")!important;
+    background-size:80px;
 }
 
 .nav-links {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 500ms;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  column-gap: 2rem;
+  column-gap: 1rem;
   width: 75%;
 }
 
@@ -242,41 +270,44 @@ a:link {
  font-weight:300;
   padding: 0.2rem 0.8rem 0.2rem 0.8rem;
   margin-right: 0.25rem;
-  border-radius: 4px;
-  background-color: rgb(255, 255, 255, 0.8);
-
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255, 0.0);
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 500ms;
 }
 
 .nav-link:hover {
-  opacity: 0.4;
+  opacity: 1;
   background-color: rgb(255, 255, 255);
-  color: slategray;
+  color: black;
 }
 
 .multiselect-input {
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   margin-left: 2rem;
   margin-right: 2rem;
 }
 
 .select-label {
   font-size: large;
-  color: slategray;
-  font-style: italic;
+  color: black;
+  font-style: normal;
   margin-bottom: 0.5rem;
   margin-top: 1rem;
 }
 
 .count-label {
   font-size: large;
-  color: slategray;
-  font-style: italic;
-  margin-bottom: 2rem;
-  margin-left: 2rem;
-  /* margin-top: 1rem; */
+  color: black;
+  font-style: normal;
+  text-align:center;
+  margin-bottom: 1rem;
+ border-style:dotted;
+ border-color:grey;
+ border-width:1px 0 0 0;
+  margin-top: 2rem;
+  padding: 2rem 0 0 0;
 }
 
 .main-container {
@@ -286,26 +317,27 @@ a:link {
 }
 
 .left-column {
-  width: 35%;
+  width: 30%;
+  min-width:400px;
+  padding-left:80px;
   height: 100vh;
-  background-color: saddlebrown;
   display: flex;
   flex-direction: column;
   /* justify-content: flex-start; */
-  align-items: center;
+  align-items: left;
 }
+
 
 .right-column {
   display: flex;
   flex-direction: column;
-  width: 65%;
+  width: 70%;
   height: 100vh;
-  background-color: white;
+
 }
 
 .right-view-container {
   width: 80%;
-  height: 80%;
   margin: auto;
   margin-top: 330px;
 
@@ -316,31 +348,30 @@ a:link {
   border-radius:12px;
     background-color:white;
   border-radius:10px;
-  min-height:330px;
+  min-height:385px;
    overflow:hidden;
      margin-bottom:50px;
 }
 
 .search-container {
-  width: 75%;
+  margin-left:0px;
+  width: 100%;
   /* height: 3px; */
-  background-color: rgb(255, 255, 255, 0.8);
-  border-radius: 8px;
+  background-color: rgb(255, 255, 255, 1.0);
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: space-between;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .button-container {
-  
-
   width: 100%;
     display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-
 }
 
 .search-button {
