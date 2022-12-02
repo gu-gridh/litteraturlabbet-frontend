@@ -26,19 +26,19 @@ const options: Options = {
   nodeStrokeWidth: 1.5, // node stroke width, in pixels
   nodeStrokeOpacity: 1, // node stroke opacity
   nodeStrength: -100,
-  nodeRadius: 15, // node radius, in pixels
+  nodeRadius: 20, // node radius, in pixels
   linkSource: ({ source }) => source, // given d in links, returns a node identifier string
   linkTarget: ({ target }) => target, // given d in links, returns a node identifier string
   linkStroke: "#999", // link stroke color
-  linkStrokeOpacity: 0.6, // link stroke opacity
+  linkStrokeOpacity: 0.1, // link stroke opacity
   linkStrokeWidth: (link) =>
-    link.weight ? 1.5 * Math.log(link.weight + 1) + 1 : 1, // given d in links, returns a stroke width in pixels
+    link.weight ? 2.5 * Math.log(link.weight + 1) + 1 : 1, // given d in links, returns a stroke width in pixels
   linkStrokeLinecap: "round", // link stroke linecap
-  linkDistance: 50,
-  linkStrength: 0.1,
-  colors: ["orange", "chocolate"], // an array of color strings, for the node groups
-  width: 700, // outer width, in pixels
-  height: 700, // outer height, in pixels
+  linkDistance: 150,
+  linkStrength: 0.05,
+  colors: ["rgba(182, 82, 139, 0.8)", "chocolate"], // an array of color strings, for the node groups
+  width: 1000, // outer width, in pixels
+  height: 500, // outer height, in pixels
 };
 
 const links = ref<Array<Link>>([]);
@@ -96,11 +96,12 @@ unpaginated<Link>("author_exchange", {}).then((l) => {
 
 .node-text {
   font-family: sans-serif;
-  font-size: 15px !important;
+  font-size: 20px !important;
+  font-weight:600;
 }
 
 .chart-container {
-  padding-top: 20px;
+  padding-top: 0px;
   padding-bottom: 20px;
   width: 100%;
   height: 100%;
