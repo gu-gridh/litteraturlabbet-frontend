@@ -15,6 +15,7 @@
     "@vueform/multiselect": "^2.5.7",
     "axios": "^1.2.0",
     "d3": "^7.6.1",
+    "force-graph": "^1.42.16",
     "lodash": "^4.17.21",
     "pinia": "^2.0.26",
     "vue": "^3.2.45",

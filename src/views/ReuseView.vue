@@ -1,7 +1,7 @@
 <template>
-  <network-chart></network-chart>
 
   <div class="reuse-container">
+    <network-chart :author="author"></network-chart>
     <div class="reuse-list-label">
       <div class="reuse-label">
         <div v-if="authorSelected && !workSelected">
@@ -38,12 +38,12 @@ import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 import { ref, watch, computed } from "vue";
 import { useRoute } from "vue-router";
+import NetworkChart from "@/components/NetworkChart.vue";
 
 import { onBeforeRouteUpdate } from "vue-router";
 
 import { list, get } from "@/services/diana";
 import ClusterCard from "@/components/ClusterCard.vue";
-import NetworkChart from "@/components/NetworkChart.vue";
 import type { Author, Cluster, Work } from "@/types/litteraturlabbet";
 
 const props = defineProps<{

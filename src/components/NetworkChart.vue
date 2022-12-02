@@ -1,49 +1,22 @@
 <template>
   <div class="chart-container">
-    <svg ref="element"></svg>
-    <!-- <span v-else class="placeholder">Välj en författare</span> -->
+    <div id="chart" ref="element"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-// import * as d3 from "d3";
-import { forceGraph } from "./network";
+import ForceGraph from "force-graph";
+import type { Author } from "@/types/litteraturlabbet";
+import { ref, watch } from "vue";
+import type { Node, Link } from "@/types/network";
+import { unpaginated, list } from "@/services/diana";
 
-import type { Author, Paginated, Cluster } from "@/types/litteraturlabbet";
-import { computed, ref, watchEffect } from "vue";
-import type { Node, Link, Options, Items } from "@/types/network";
-import { unpaginated, get, list } from "@/services/diana";
-
-const options: Options = {
-  nodeId: (d: Node) => d.id, // given d in nodes, returns a unique identifier (string)
-  nodeGroup: (d) => d.group, // given d in nodes, returns an (ordinal) value for color
-  nodeGroups: [1, 2],
-  nodeTitle: (d) => {
-    return d.name ? d.name : d.id.toString();
-  }, // given d in nodes, a title string
-  nodeFill: "currentColor", // node stroke fill (if not using a group color encoding)
-  nodeStroke: "#fff", // node stroke color
-  nodeStrokeWidth: 1.5, // node stroke width, in pixels
-  nodeStrokeOpacity: 1, // node stroke opacity
-  nodeStrength: -100,
-  nodeRadius: 15, // node radius, in pixels
-  linkSource: ({ source }) => source, // given d in links, returns a node identifier string
-  linkTarget: ({ target }) => target, // given d in links, returns a node identifier string
-  linkStroke: "#999", // link stroke color
-  linkStrokeOpacity: 0.6, // link stroke opacity
-  linkStrokeWidth: (link) =>
-    link.weight ? 1.5 * Math.log(link.weight + 1) + 1 : 1, // given d in links, returns a stroke width in pixels
-  linkStrokeLinecap: "round", // link stroke linecap
-  linkDistance: 50,
-  linkStrength: 0.1,
-  colors: ["orange", "chocolate"], // an array of color strings, for the node groups
-  width: 700, // outer width, in pixels
-  height: 700, // outer height, in pixels
-};
+const props = defineProps<{
+  author?: number;
+}>();
 
 const links = ref<Array<Link>>([]);
 const nodes = ref<Array<Node>>([]);
-// const authors = ref<Array<Author>>([]);
 const ids = ref<Array<number>>([]);
 const element = ref();
 
@@ -72,13 +45,43 @@ unpaginated<Link>("author_exchange", {}).then((l) => {
       } as Node;
     });
 
-    // console.log(nodes.value.filter(n => n.id == 3323))
+    // Filter the nodes and link after the selected author
+    if (props.author) {
+      links.value = links.value.filter(
+        (l) => l.source === props.author || l.target === props.author
+      );
+      let linkNodes = links.value
+        .map((l) => l.source)
+        .concat(links.value.map((l) => l.target));
+      nodes.value = nodes.value.filter((n) => linkNodes.includes(n.id));
+    }
+
     const items = {
       nodes: nodes.value,
       links: links.value,
-    } as Items;
+    };
 
-    forceGraph(element, items, options);
+    const graph = ForceGraph();
+
+    graph(element.value)
+      .graphData(items)
+      .width(700)
+      .height(300)
+      .linkWidth((link) => {
+        let weight = links.value.filter(
+          (l) => l.source === link.source && l.target === link.target
+        )[0].weight;
+
+        weight = weight ? 2 * Math.log(weight) : 1;
+
+        return weight;
+      })
+      .onNodeClick((node) => {
+        // Center/zoom on node
+        graph.centerAt(node.x, node.y, 1000);
+        graph.zoom(3, 2000);
+      });
+    // forceGraph(element, items, options);
   });
 });
 </script>
