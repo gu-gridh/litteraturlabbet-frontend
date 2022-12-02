@@ -1,4 +1,6 @@
 <template>
+  <network-chart></network-chart>
+
   <div class="reuse-container">
     <div class="reuse-list-label">
       <div class="reuse-label">
@@ -41,6 +43,7 @@ import { onBeforeRouteUpdate } from "vue-router";
 
 import { list, get } from "@/services/diana";
 import ClusterCard from "@/components/ClusterCard.vue";
+import NetworkChart from "@/components/NetworkChart.vue";
 import type { Author, Cluster, Work } from "@/types/litteraturlabbet";
 
 const props = defineProps<{
