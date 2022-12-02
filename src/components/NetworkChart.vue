@@ -11,16 +11,15 @@ import type { Author } from "@/types/litteraturlabbet";
 import { nextTick, ref, watch } from "vue";
 import type { Node, Link } from "@/types/network";
 import { unpaginated, list } from "@/services/diana";
+import { onBeforeRouteUpdate, useRoute } from "vue-router";
 
 const props = defineProps<{
   author?: number;
 }>();
 
 const element = ref();
+const route = useRoute()
 
-// Initial
-nextTick()
-// await fetchData(props.author)
 
 async function fetchData(author?: number) {
   let links = await unpaginated<Link>("author_exchange", {});
@@ -76,11 +75,17 @@ async function fetchData(author?: number) {
     });
 }
 
-watch(
-  () => props.author,
-  async () => await fetchData(props.author)
-);
 
+watch(
+  () => [route, props.author],
+  async (params) => {
+    await fetchData(props.author);
+  },
+  {
+    immediate: true,
+    deep: true,
+  }
+);
 </script>
 
 <style>
