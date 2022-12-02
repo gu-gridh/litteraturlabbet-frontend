@@ -4,7 +4,7 @@
       <div v-if="authorSelected && !workSelected">
         I verk av
         <span class="author-name">{{ authorSelected?.name }}</span> finner vi
-        {{ clusterCount }} grupper av likartade stycken, så kallade återbruk.
+        {{ clusterCount }} grupper av likartade stycken.
       </div>
       <div v-if="workSelected && authorSelected">
         I verket

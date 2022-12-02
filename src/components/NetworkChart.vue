@@ -38,7 +38,7 @@ async function fetchData(author?: number) {
       return {
         id: a.id,
         name: a.name,
-        color: "purple"
+        color: "rgb(182, 82, 139)"
       };
     });
   });
@@ -57,7 +57,7 @@ async function fetchData(author?: number) {
 
   graph(element.value)
     .graphData({ nodes: nodes, links: links })
-    .width(500)
+    .width(600)
     .height(300)
     .linkWidth((link) => {
       let weight = links.filter(
@@ -70,7 +70,7 @@ async function fetchData(author?: number) {
       return weight;
     })
     .onNodeClick((node) => {
-      // Center/zoom on node
+    // Center/zoom on node
       graph.centerAt(node.x, node.y, 1000);
       graph.zoom(3, 2000);
     });
@@ -86,7 +86,7 @@ watch(
 <style>
 .links line {
   stroke: #999;
-  stroke-opacity: 0.6;
+  stroke-opacity: 0.1;
 }
 
 .nodes circle {
@@ -97,11 +97,11 @@ watch(
 .node-text {
   font-family: sans-serif;
   font-size: 20px !important;
-  font-weight:600;
+  font-weight:100;
 }
 
 .chart-container {
-  padding-top: 0px;
+  margin-top: 20px;
   padding-bottom: 20px;
   width: inherit;
   height: inherit;
@@ -110,11 +110,12 @@ watch(
   justify-content: center;
   margin-left: 2rem;
   margin-right: 2rem;
+ 
+
 }
 
 .placeholder {
   font-size: 30px;
-  font-family: "Libre Baskerville";
   font-style: italic;
   margin-left: 20px;
   font-weight: normal;

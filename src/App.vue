@@ -332,7 +332,7 @@ display: flex;
 
 .left-column {
   width: 30%;
-  min-width: 400px;
+  min-width: 500px;
   padding-left: 80px;
   height: 100vh;
   display: flex;

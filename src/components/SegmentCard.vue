@@ -28,10 +28,12 @@ const author = await get<Author>(work.main_author as number, "author");
 .segment-card {
   /* padding: 2rem 1rem 2rem 1rem; */
   margin: 1rem 1rem 1rem 1rem;
-  background-color: antiquewhite;
+  background-color: rgb(350,240,230);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+    margin-bottom:30px;
 }
 
 .segment-text-container {
@@ -40,7 +42,9 @@ const author = await get<Author>(work.main_author as number, "author");
   /* background-color: white; */
   /* opacity: 0.9; */
   padding: 2rem 2rem 2rem 2rem;
-  font-style: italic;
+  font-style: normal;
+  line-height:1.2;
+  font-size:16px;
 }
 
 .segment-metadata-container {
