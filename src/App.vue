@@ -6,7 +6,7 @@
       <div class="ll-logo-container">Litteratur<br />Laboratoriet</div>
 
       <nav class="nav-links">
-        <router-link to="/" class="nav-link">Völkommen</router-link>
+        <router-link to="/" class="nav-link">Välkommen</router-link>
         <router-link to="/about" class="nav-link">Om verktyget</router-link>
       </nav>
 
