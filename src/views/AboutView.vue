@@ -6,7 +6,7 @@
          </div>
          <div class="about-content">
  Verktyget utvecklas av Centrum för Digital Humaniora i samarbete med Litteraturbanken. 
- Primära utvecklare har varit Victor Wåhlstrand Skärström (textåterbruk), Aram Karimi (ordvektorer) och Jonathan Westin (avändargränssnitt). 
+ Primära utvecklare har varit Victor Wåhlstrand Skärström (textåterbruk), Aram Karimi (ordvektorer) och Jonathan Westin (användargränssnitt). 
  Första versionen publicerades i december 2022. Kodbasen finns att hämta på GitHub: <a href="https://github.com/CDH-DevTeam">https://github.com/CDH-DevTeam</a>
          </div>
            </div>
