@@ -163,7 +163,7 @@ watch(
 .work-title {
    background-color: rgb(182, 82, 139);
   color: white;
-  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  padding: 0.5rem 0.7rem 0.5rem 0.7rem;
   border-radius: 8px;
 }
 </style>

@@ -400,7 +400,7 @@ display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: space-between;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
     z-index:1;
 }
 
