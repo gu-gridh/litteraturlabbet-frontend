@@ -1,21 +1,13 @@
 <template>
-
-    <div class="bgmask">
-     </div>
   <div class="main-container">
- 
     <div class="left-column">
-      <div class="lb-logo-container">
-      </div>
+      <div class="lb-logo-container"></div>
 
-       <div class="ll-logo-container">
-        Litteratur<br>Laboratoriet
-      </div>
-      
+      <div class="ll-logo-container">Litteratur<br />Laboratoriet</div>
 
       <nav class="nav-links">
-        <router-link to="/" class="nav-link">Utforska</router-link>
-        <router-link to="/about" class="nav-link">Om</router-link>
+        <router-link to="/" class="nav-link">Völkommen</router-link>
+        <router-link to="/about" class="nav-link">Om verktyget</router-link>
       </nav>
 
       <div class="search-container">
@@ -72,7 +64,7 @@
         <div class="button-container">
           <router-link
             :to="{
-              name: 'explore',
+              name: 'reuse',
               query: {
                 author: author?.id,
                 work: work?.id,
@@ -87,33 +79,29 @@
     </div>
     <div class="right-column">
       <div class="right-view-container">
-         <nav class="nav-links">
-        <router-link to="/textreuse" class="nav-link">Textåterbruk</router-link>
-        <router-link to="/wordvectors" class="nav-link">Ordvektorer</router-link>
-      </nav>
-          <div class="right-view-container-content">
-        <Suspense>
-          <router-view />
-        </Suspense>
-      </div>
+        <nav class="nav-links">
+          <router-link to="/reuse/" class="nav-link">Textåterbruk</router-link>
+          <router-link to="/embedding" class="nav-link"
+            >Ordvektorer</router-link
+          >
+        </nav>
+        <div class="right-view-container-content">
+          <Suspense>
+            <router-view />
+          </Suspense>
         </div>
+      </div>
     </div>
-   
   </div>
-        <!-- <Footer /> -->
-
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { RouterLink, RouterView } from "vue-router";
-import LbLogo from "./components/icons/LbLogo.vue";
 import Multiselect from "@vueform/multiselect";
-import ReuseView from "@/views/ReuseView.vue";
-import { list, get, count } from "@/services/diana";
-import type { Author, Work, Count } from "@/types/litteraturlabbet";
+import { list, get } from "@/services/diana";
+import type { Author, Work } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
-import Footer from "@/components/Footer.vue";
 
 const store = searchStore();
 
@@ -206,7 +194,7 @@ body {
     rgb(80, 57, 108),
     rgb(168, 107, 75),
     rgb(255, 144, 39)
-  )!important;
+  ) !important;
 }
 
 /* .bgmask {
@@ -228,16 +216,13 @@ a:link {
   text-decoration: none;
 }
 
-
 a:visited {
-  text-decoration:none;
+  text-decoration: none;
   color: white;
   text-decoration-style: none;
-  
 }
 
-a:hover{
-
+a:hover {
 }
 
 #app {
@@ -249,29 +234,29 @@ a:hover{
 }
 
 .ll-logo-container {
-   font-family: 'Cormorant Garamond', serif;
-   letter-spacing: -6px;
-   color:white;
-width:100%;
-font-size:100px;
-line-height:0.75;
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: -6px;
+  color: white;
+  width: 100%;
+  font-size: 100px;
+  line-height: 0.75;
   margin-top: 20px;
   margin-bottom: 35px;
   margin-left: 0px;
-  Height:145px;
-  z-index:1;
+  height: 145px;
+  z-index: 1;
 }
 
 .lb-logo-container {
   /* width: 360px !important; */
   /* height: 280px !important; */
   margin-top: 50px;
-margin-left:-10px;
-  width:80px;
-  height:80px;
-    background-image:url("@/assets/lblogo.png")!important;
-    background-size:80px;
-      z-index:1;
+  margin-left: -10px;
+  width: 80px;
+  height: 80px;
+  background-image: url("@/assets/lblogo.png") !important;
+  background-size: 80px;
+  z-index: 1;
 }
 
 .nav-links {
@@ -284,7 +269,7 @@ margin-left:-10px;
   justify-content: flex-start;
   column-gap: 1rem;
   width: 75%;
-    z-index:1;
+  z-index: 1;
 }
 
 .nav-link {
@@ -293,7 +278,7 @@ margin-left:-10px;
   padding: 0.2rem 0.8rem 0.2rem 0.8rem;
   margin-right: 0.25rem;
   border-radius: 10px;
-  background-color: rgb(255, 255, 255, 0.0);
+  background-color: rgb(255, 255, 255, 0);
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 500ms;
@@ -323,39 +308,45 @@ margin-left:-10px;
   font-size: large;
   color: black;
   font-style: normal;
-  text-align:center;
+  text-align: center;
   margin-bottom: 1rem;
- border-style:dotted;
- border-color:grey;
- border-width:1px 0 0 0;
+  border-style: dotted;
+  border-color: grey;
+  border-width: 1px 0 0 0;
   margin-top: 2rem;
   padding: 2rem 0 0 0;
 }
 
+.super-main-container {
+
+display: flex;
+  flex-direction: column;
+
+
+}
+
 .main-container {
-  display: flex;
+  display: flex;  
   flex-direction: row;
-  
 }
 
 .left-column {
   width: 30%;
-  min-width:400px;
-  padding-left:80px;
+  min-width: 400px;
+  padding-left: 80px;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: left;
-}
 
+}
 
 .right-column {
   display: flex;
   flex-direction: column;
-   min-width:600px;
+  min-width: 600px;
   width: 70%;
   height: 100vh;
-
 }
 
 .right-view-container {
@@ -365,28 +356,28 @@ margin-left:-10px;
 }
 
 .right-view-container-content {
-  background-color:white;
-  border-radius:12px;
-    background-color:white;
-  border-radius:10px;
-  min-height:400px;
-   overflow:hidden;
-     margin-bottom:50px;
-       z-index:1;
 
+  background-color: white;
+  border-radius: 12px;
+  background-color: white;
+  border-radius: 10px;
+  min-height: 400px;
+  overflow: hidden;
+  margin-bottom: 50px;
+  z-index: 1;
 }
 
 .search-container {
-  margin-left:0px;
+  margin-left: 0px;
   width: 100%;
   height: 400px;
-  background-color: rgb(255, 255, 255, 1.0);
+  background-color: rgb(255, 255, 255, 1);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: space-between;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
     z-index:1;
 }
 
@@ -400,42 +391,58 @@ margin-left:-10px;
 
 .search-button {
   font-family: "Barlow Condensed", sans-serif !important;
-  padding: 0.4rem 0.8rem 0.4rem 0.8rem;
+  padding: 0.4rem 1.0rem 0.4rem 1.0rem;
   font-size: 25px;
   color: white;
   background-color: rgb(182, 82, 139);
   border-color: none !important;
   border-radius: 10px;
-  border: 2px solid transparent !important;
+  border: 0px solid transparent !important;
   margin-bottom: 1.5rem;
+  position:absolute;
+  margin-left:-30px;
 }
+
+button{
+  color:white;
+  overflow:hidden;
+
+}
+
 
 .search-button:hover {
   background-color: rgb(233, 102, 176) !important;
   color: black !important;
 }
 
-.multiselect{
-  color:rgb(60,40,40);
-  --ms-bg:rgb(240,240,240);
+.multiselect {
+  color: rgb(60, 40, 40);
+  --ms-bg: rgb(240, 240, 240);
   --ms-ring-width: 0px;
   --ms-border-width: 0px;
   --ms-font-size: 1.5rem;
   --ms-radius: 8px;
-  --ms-option-color-pointed:black;
-   --ms-option-bg-selected:rgb(182, 82, 139);
-   --ms-option-font-size: 1.2rem;
---ms-option-line-height: 1.375;
---ms-option-bg-pointed: rgb(230,230,230);
---ms-option-color-pointed: Black;
+  --ms-option-color-pointed: black;
+  --ms-option-bg-selected: rgb(182, 82, 139);
+  --ms-option-font-size: 1.2rem;
+  --ms-option-line-height: 1.375;
+  --ms-option-bg-pointed: rgb(230, 230, 230);
+  --ms-option-color-pointed: Black;
 
---ms-option-color-selected: #FFF;
---ms-option-bg-disabled: black;
---ms-option-color-disabled: #D1D5DB;
---ms-option-bg-selected-pointed:rgb(182, 82, 139);
---ms-option-color-selected-pointed: #FFFFFF;
---ms-option-bg-selected-disabled: black;
---ms-option-color-selected-disabled: #D1FAE5;
+  --ms-option-color-selected: #fff;
+  --ms-option-bg-disabled: black;
+  --ms-option-color-disabled: #d1d5db;
+  --ms-option-bg-selected-pointed: rgb(182, 82, 139);
+  --ms-option-color-selected-pointed: #ffffff;
+  --ms-option-bg-selected-disabled: black;
+  --ms-option-color-selected-disabled: #d1fae5;
 }
+
+#foot{
+display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 
 </style>

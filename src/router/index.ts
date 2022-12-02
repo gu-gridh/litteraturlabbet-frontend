@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import ReuseView from "@/views/ReuseView.vue";
 import ClusterDetailView from "@/views/ClusterDetailView.vue";
 import HomeView from "@/views/HomeView.vue"
+import EmbeddingView from "@/views/EmbeddingView.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -11,13 +12,18 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: "/explore/",
-      name: "explore",
+      path: "/reuse/",
+      name: "reuse",
       component: ReuseView,
       props: (route) => ({
-        author: Number(route.query.author),
-        work: Number(route.query.work),
+        author: route.query.author ? Number(route.query.author): undefined,
+        work: route.query.work ? Number(route.query.work) : undefined,
       }),
+    },
+    {
+      path: "/embedding/",
+      name: "embedding",
+      component: EmbeddingView
     },
     {
       path: "/about",
@@ -28,7 +34,7 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
     {
-      path: "/explore/cluster/:id",
+      path: "/reuse/cluster/:id",
       name: "cluster",
       component: ClusterDetailView,
       props: true,
