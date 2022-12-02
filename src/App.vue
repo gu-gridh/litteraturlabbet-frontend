@@ -65,7 +65,7 @@
         <div class="button-container">
           <router-link
             :to="{
-              name: 'explore',
+              name: 'reuse',
               query: {
                 author: author?.id,
                 work: work?.id,
@@ -81,7 +81,7 @@
     <div class="right-column">
       <div class="right-view-container">
         <nav class="nav-links">
-          <router-link to="/reuse" class="nav-link">Textåterbruk</router-link>
+          <router-link to="/reuse/" class="nav-link">Textåterbruk</router-link>
           <router-link to="/embedding" class="nav-link"
             >Ordvektorer</router-link
           >
