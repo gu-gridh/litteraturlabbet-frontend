@@ -1,9 +1,7 @@
 <template>
 
-    <div class="bgmask">
-     </div>
   <div class="main-container">
- 
+
     <div class="left-column">
       <div class="lb-logo-container">
       </div>
@@ -97,11 +95,15 @@
         </Suspense>
       </div>
         </div>
+         
     </div>
-   
-  </div>
-        <!-- <Footer /> -->
 
+  </div>
+
+
+      <!-- <div id="foot">
+          <Footer /> 
+    </div> -->
 </template>
 
 <script setup lang="ts">
@@ -332,9 +334,18 @@ margin-left:-10px;
   padding: 2rem 0 0 0;
 }
 
+.super-main-container {
+
+display: flex;
+  flex-direction: column;
+
+
+}
+
 .main-container {
   display: flex;
-  flex-direction: row;
+  flex-direction:row;
+
   
 }
 
@@ -342,10 +353,11 @@ margin-left:-10px;
   width: 30%;
   min-width:400px;
   padding-left:80px;
-  height: 100vh;
+
   display: flex;
   flex-direction: column;
   align-items: left;
+
 }
 
 
@@ -355,6 +367,7 @@ margin-left:-10px;
    min-width:600px;
   width: 70%;
   height: 100vh;
+
 
 }
 
@@ -446,6 +459,12 @@ button{
 --ms-option-color-selected-pointed: #FFFFFF;
 --ms-option-bg-selected-disabled: black;
 --ms-option-color-selected-disabled: #D1FAE5;
+}
+
+#foot{
+display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 </style>

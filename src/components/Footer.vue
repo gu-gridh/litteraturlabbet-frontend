@@ -34,9 +34,10 @@ export default {};
   background-color: #222;
   color: white;
   line-height: 1.3;
-  height: auto;
+  height: 150px;
   width: 100%;
   font-size: 18px;
+overflow:hidden;
 }
 #SuperContainer {
   float: left;
@@ -50,9 +51,9 @@ export default {};
 }
 
  #CDHLogo {
-   float:right;
+   float:left;
 			margin-top:0px;
-			margin-right:20px;
+			left:20px;
             width: auto;
             height: auto;
             text-align: left;
@@ -63,6 +64,7 @@ export default {};
             padding: 30px 0px 10px 0px;
             vertical-align: middle;
             font-family: 'Barlow Condensed', sans-serif;
+  
         }
 
 .CitateContainer {
@@ -70,7 +72,7 @@ export default {};
   max-width: 320px;
   margin-left: 50px;
   border-style: solid;
-  border-width: 0 0px 0 0.5px;
+  border-width: 0 0px 0 0px;
   border-color: white;
   padding: 0.3rem 0px 0px 50px;
 }
