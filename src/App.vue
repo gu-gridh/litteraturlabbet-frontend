@@ -197,7 +197,7 @@ body {
     to right,
     rgb(80, 57, 108),
     rgb(168, 107, 75),
-    rgb(239, 149, 67)
+    rgb(255, 144, 39)
   )!important;
   /* background-image:url("@/assets/lbbg1.jpg"); */
 
