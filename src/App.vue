@@ -1,5 +1,9 @@
 <template>
+
+    <div class="bgmask">
+     </div>
   <div class="main-container">
+ 
     <div class="left-column">
       <div class="lb-logo-container">
       </div>
@@ -94,7 +98,10 @@
       </div>
         </div>
     </div>
+   
   </div>
+     
+
 </template>
 
 <script setup lang="ts">
@@ -199,10 +206,24 @@ body {
     rgb(168, 107, 75),
     rgb(255, 144, 39)
   )!important;
+
+  
   /* background-image:url("@/assets/lbbg1.jpg"); */
-
-
 }
+
+/* .bgmask {
+        width: 100%;
+        height:2000px;
+        background:url("@/assets/lbbgmask.png");
+        background-color:green;
+        background-repeat: no-repeat;
+        background-position:bottom;
+     background-size:cover%;
+        opacity: 1.0;
+       position:absolute;
+       margin-top:calc(105% - 2000px); 
+
+} */
 
 a:link {
   color: white;
@@ -240,6 +261,7 @@ line-height:0.75;
   margin-bottom: 35px;
   margin-left: 0px;
   Height:145px;
+  z-index:1;
 }
 
 .lb-logo-container {
@@ -251,6 +273,7 @@ margin-left:-10px;
   height:80px;
     background-image:url("@/assets/lblogo.png")!important;
     background-size:80px;
+      z-index:1;
 }
 
 .nav-links {
@@ -263,6 +286,7 @@ margin-left:-10px;
   justify-content: flex-start;
   column-gap: 1rem;
   width: 75%;
+    z-index:1;
 }
 
 .nav-link {
@@ -347,16 +371,17 @@ margin-left:-10px;
   border-radius:12px;
     background-color:white;
   border-radius:10px;
-  min-height:385px;
+  min-height:400px;
    overflow:hidden;
      margin-bottom:50px;
+       z-index:1;
 
 }
 
 .search-container {
   margin-left:0px;
   width: 100%;
-  /* height: 3px; */
+  height: 400px;
   background-color: rgb(255, 255, 255, 1.0);
   border-radius: 12px;
   display: flex;
@@ -364,6 +389,7 @@ margin-left:-10px;
   justify-content: flex-start;
   align-items: space-between;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    z-index:1;
 }
 
 .button-container {
