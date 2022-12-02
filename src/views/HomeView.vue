@@ -13,7 +13,7 @@
 
   .home {
     width:100%;
-padding:30px;
+padding:50px;
    font-family: "Barlow Condensed", sans-serif;
      
   }
@@ -31,10 +31,12 @@ padding:30px;
   }
 
     .home-content{
+      color:black;
      font-size:18px;
      padding:30px;
           text-align:justify;
          line-height:1.15;
+    
   }
  
   </style>

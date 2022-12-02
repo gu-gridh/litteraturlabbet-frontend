@@ -31,18 +31,17 @@ color:rgb(192, 92, 149);
     display:flex;
       align-items: center;
         flex-direction: row;
-         padding:30px;
+         padding:0px;
   }
 
        .about{
    
     width:100%;
-         padding:30px;
+         padding:50px;
   }
 
   
 .about-title{
-
        font-family: 'Cormorant Garamond', serif;
        letter-spacing: -3px;
     margin-top:30px;
@@ -51,17 +50,15 @@ color:rgb(192, 92, 149);
        text-align:center;
       color:rgb(182, 82, 139);
       width:100%;
-   
-
   }
 
     .about-content{
-
+color:black!important;
      font-size:18px;
-     padding:30px;
+padding:30px;
           text-align:justify;
          line-height:1.15;
-         padding:30px 60px 30px 60px;
+         
                width:100%;
   }
 
