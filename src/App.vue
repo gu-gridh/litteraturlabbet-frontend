@@ -100,7 +100,7 @@
     </div>
    
   </div>
-     
+        <!-- <Footer /> -->
 
 </template>
 
@@ -113,6 +113,7 @@ import ReuseView from "@/views/ReuseView.vue";
 import { list, get, count } from "@/services/diana";
 import type { Author, Work, Count } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
+import Footer from "@/components/Footer.vue";
 
 const store = searchStore();
 
@@ -206,9 +207,6 @@ body {
     rgb(168, 107, 75),
     rgb(255, 144, 39)
   )!important;
-
-  
-  /* background-image:url("@/assets/lbbg1.jpg"); */
 }
 
 /* .bgmask {
@@ -337,7 +335,7 @@ margin-left:-10px;
 .main-container {
   display: flex;
   flex-direction: row;
-  flex-flow: wrap;
+  
 }
 
 .left-column {
@@ -347,7 +345,6 @@ margin-left:-10px;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
   align-items: left;
 }
 
@@ -355,6 +352,7 @@ margin-left:-10px;
 .right-column {
   display: flex;
   flex-direction: column;
+   min-width:600px;
   width: 70%;
   height: 100vh;
 
