@@ -3,11 +3,9 @@
     <suspense>
       <network-chart :author="author"></network-chart>
     </suspense>
-    <reuse-list
-      v-if="author || work"
-      :author="author"
-      :work="work"
-    ></reuse-list>
+    <suspense>
+      <reuse-list v-if="author" :author="author" :work="work"></reuse-list>
+    </suspense>
   </div>
 </template>
 
@@ -19,11 +17,9 @@ defineProps<{
   author?: number;
   work?: number;
 }>();
-
 </script>
 
 <style scoped>
-
 .reuse-container {
   height: 100%;
   display: flex;
@@ -55,5 +51,4 @@ defineProps<{
   padding: 0.5rem 0.7rem 0.5rem 0.7rem;
   border-radius: 8px;
 }
-
 </style>

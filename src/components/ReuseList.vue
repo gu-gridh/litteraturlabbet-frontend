@@ -39,7 +39,7 @@ import ClusterCard from "@/components/ClusterCard.vue";
 import type { Author, Cluster, Work } from "@/types/litteraturlabbet";
 
 const props = defineProps<{
-  author?: number;
+  author: number;
   work?: number;
 }>();
 
@@ -55,27 +55,27 @@ const pages = computed(() => {
   return Math.floor(clusterCount.value / 25) + 1;
 });
 
-await fetchData();
+await fetchData(props.author, props.work);
 
-async function fetchData() {
-  if (props.author) {
-    authorSelected.value = await get<Author>(props.author, "author");
+async function fetchData(author: number, work?: number) {
+  if (author) {
+    authorSelected.value = await get<Author>(author, "author");
     workSelected.value = undefined;
   }
 
-  if (props.work) {
-    workSelected.value = await get<Work>(props.work, "work");
+  if (work) {
+    workSelected.value = await get<Work>(work, "work");
     workTitle.value = workSelected.value.short_title
       ? workSelected.value.short_title
       : workSelected.value.title;
   }
 
-  if (props.author) {
-    fetchClusters(page.value, authorSelected.value?.id, workSelected.value?.id);
+  if (author) {
+    await fetchClusters(page.value, author, work);
   }
 }
 
-function fetchClusters(
+async function fetchClusters(
   page: number,
   authorID: number | undefined,
   workID: number | undefined
@@ -87,26 +87,66 @@ function fetchClusters(
     offset: 10 * (page - 1),
   };
 
-  list<Cluster>("cluster", params).then((d) => {
-    clusters.value = d.results;
-    clusterCount.value = d.count;
-  });
+  const clusterResults = await list<Cluster>("cluster", params);
+  clusters.value = clusterResults.results;
+  clusterCount.value = clusterResults.count;
 }
 
-function onPageChange() {
-  fetchClusters(page.value, authorSelected.value?.id, workSelected.value?.id);
+async function onPageChange() {
+  await fetchClusters(
+    page.value,
+    authorSelected.value?.id,
+    workSelected.value?.id
+  );
 }
 
 watch(
-  () => [route.params, props.author],
-  async (params) => {
-    fetchData();
+  () => props.author,
+  async (newAuthor, oldAuthor) => {
+    console.log(newAuthor, oldAuthor);
+    await fetchData(props.author, props.work);
   },
   {
     immediate: true,
     deep: true,
   }
 );
+
+watch(
+  () => props.work,
+  async (newWork, oldWork) => {
+    await fetchData(props.author, props.work);
+  },
+  {
+    immediate: true,
+    deep: true,
+  }
+);
+
+
+// watch(
+//   [props.author, props.work],
+//   async ([newAuthor, oldAuthor], [newWork, oldWork]) => {
+//     console.log(newAuthor, oldAuthor, newWork, oldWork);
+//     await fetchData(props.author, props.work);
+//   },
+//   {
+//     immediate: true,
+//     deep: true,
+//   }
+// );
+
+// watch(
+//   [props.author, props.work],
+//   async ([newAuthor, oldAuthor], [newWork, oldWork]) => {
+//     console.log(newAuthor, oldAuthor, newWork, oldWork);
+//     await fetchData(props.author, props.work);
+//   },
+//   {
+//     immediate: true,
+//     deep: true,
+//   }
+// );
 </script>
 
 <style scoped>

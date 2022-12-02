@@ -96,7 +96,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import Multiselect from "@vueform/multiselect";
 import { list, get } from "@/services/diana";
@@ -104,7 +104,6 @@ import type { Author, Work } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
 
 const store = searchStore();
-
 // Search functions
 function searchAuthor(query: string): Promise<Array<Author>> {
   return list<Author>("author", { search: query, limit: 500 }).then((a) => {
@@ -125,6 +124,8 @@ function searchWork(query: string, params: object): Promise<Array<Work>> {
 async function onSelectAuthor(value: Author, select$: any) {
   workSelect.value.clearSearch();
   workSelect.value.refreshOptions();
+  store.work = undefined;
+  work.value = undefined;
 
   // Update the work count
   countWorks();
@@ -176,6 +177,7 @@ const workCount = ref<number>();
 onMounted(() => {
   countWorks();
 });
+
 </script>
 
 <style src="@vueform/multiselect/themes/default.css"></style>
