@@ -1,86 +1,86 @@
 <template>
   <div class="chart-container">
-    <svg ref="element"></svg>
-    <!-- <span v-else class="placeholder">Välj en författare</span> -->
+    <div id="chart" ref="element"></div>
   </div>
 </template>
 
 <script setup lang="ts">
-// import * as d3 from "d3";
-import { forceGraph } from "./network";
 
-import type { Author, Paginated, Cluster } from "@/types/litteraturlabbet";
-import { computed, ref, watchEffect } from "vue";
-import type { Node, Link, Options, Items } from "@/types/network";
-import { unpaginated, get, list } from "@/services/diana";
+import ForceGraph from "force-graph";
+import type { Author } from "@/types/litteraturlabbet";
+import { nextTick, ref, watch } from "vue";
+import type { Node, Link } from "@/types/network";
+import { unpaginated, list } from "@/services/diana";
 
-const options: Options = {
-  nodeId: (d: Node) => d.id, // given d in nodes, returns a unique identifier (string)
-  nodeGroup: (d) => d.group, // given d in nodes, returns an (ordinal) value for color
-  nodeGroups: [1, 2],
-  nodeTitle: (d) => {
-    return d.name ? d.name : d.id.toString();
-  }, // given d in nodes, a title string
-  nodeFill: "currentColor", // node stroke fill (if not using a group color encoding)
-  nodeStroke: "#fff", // node stroke color
-  nodeStrokeWidth: 1.5, // node stroke width, in pixels
-  nodeStrokeOpacity: 1, // node stroke opacity
-  nodeStrength: -100,
-  nodeRadius: 20, // node radius, in pixels
-  linkSource: ({ source }) => source, // given d in links, returns a node identifier string
-  linkTarget: ({ target }) => target, // given d in links, returns a node identifier string
-  linkStroke: "#999", // link stroke color
-  linkStrokeOpacity: 0.1, // link stroke opacity
-  linkStrokeWidth: (link) =>
-    link.weight ? 2.5 * Math.log(link.weight + 1) + 1 : 1, // given d in links, returns a stroke width in pixels
-  linkStrokeLinecap: "round", // link stroke linecap
-  linkDistance: 150,
-  linkStrength: 0.05,
-  colors: ["rgba(182, 82, 139, 0.8)", "chocolate"], // an array of color strings, for the node groups
-  width: 1000, // outer width, in pixels
-  height: 500, // outer height, in pixels
-};
+const props = defineProps<{
+  author?: number;
+}>();
 
-const links = ref<Array<Link>>([]);
-const nodes = ref<Array<Node>>([]);
-// const authors = ref<Array<Author>>([]);
-const ids = ref<Array<number>>([]);
 const element = ref();
 
-// Fetch all links
-unpaginated<Link>("author_exchange", {}).then((l) => {
-  links.value = l;
+// Initial
+nextTick()
+// await fetchData(props.author)
 
-  // Find the unique nodes used
-  ids.value = links.value
+async function fetchData(author?: number) {
+  let links = await unpaginated<Link>("author_exchange", {});
+  let ids = links
     .map((l) => l.source)
-    .concat(links.value.map((l) => l.target))
+    .concat(links.map((l) => l.target))
     .filter((value, index, self) => {
       return self.indexOf(value) === index;
     });
 
-  // Only use used Author nodes
-  list<Author>("author", { limit: 500 }).then((a) => {
-    const authors = a.results.filter((a) => ids.value.includes(a.id));
+  let nodes = await list<Author>("author", { limit: 500 }).then((a) => {
+    const authors = a.results.filter((a) => ids.includes(a.id));
 
-    nodes.value = authors.map((a) => {
+    return authors.map((a) => {
       return {
         id: a.id,
-        color: "purple",
-        group: 1,
         name: a.name,
-      } as Node;
+        color: "purple"
+      };
     });
-
-    // console.log(nodes.value.filter(n => n.id == 3323))
-    const items = {
-      nodes: nodes.value,
-      links: links.value,
-    } as Items;
-
-    forceGraph(element, items, options);
   });
-});
+
+  // Filter the nodes and link after the selected author
+  if (author) {
+    links = links.filter((l) => l.source === author || l.target === author);
+    let linkNodes = links
+      .map((l) => l.source)
+      .concat(links.map((l) => l.target));
+    nodes = nodes.filter((n) => linkNodes.includes(n.id));
+  }
+
+  // Create a graph
+  const graph = ForceGraph();
+
+  graph(element.value)
+    .graphData({ nodes: nodes, links: links })
+    .width(500)
+    .height(300)
+    .linkWidth((link) => {
+      let weight = links.filter(
+        (l) => l.source === link.source && l.target === link.target
+      )[0].weight;
+
+      // Filter them by their weight
+      weight = weight ? 2 * Math.log(weight) : 1;
+
+      return weight;
+    })
+    .onNodeClick((node) => {
+      // Center/zoom on node
+      graph.centerAt(node.x, node.y, 1000);
+      graph.zoom(3, 2000);
+    });
+}
+
+watch(
+  () => props.author,
+  async () => await fetchData(props.author)
+);
+
 </script>
 
 <style>
@@ -103,11 +103,13 @@ unpaginated<Link>("author_exchange", {}).then((l) => {
 .chart-container {
   padding-top: 0px;
   padding-bottom: 20px;
-  width: 100%;
-  height: 100%;
+  width: inherit;
+  height: inherit;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 .placeholder {
