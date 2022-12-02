@@ -8,6 +8,10 @@
  Verktyget utvecklas av Centrum för Digital Humaniora i samarbete med Litteraturbanken. 
  Primära utvecklare har varit Victor Wåhlstrand Skärström (textåterbruk), Aram Karimi (ordvektorer) och Jonathan Westin (användargränssnitt). 
  Första versionen publicerades i december 2022. Kodbasen finns att hämta på GitHub: <a href="https://github.com/CDH-DevTeam">https://github.com/CDH-DevTeam</a>
+<br>
+<br>
+Välj en författare med hälp av sökfältet till vänster. Vill du undersöka ett visst verk så välj det från den undra menyn. Klicka sedan på sök.
+
          </div>
            </div>
            </div>
