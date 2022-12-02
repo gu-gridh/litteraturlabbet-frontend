@@ -155,7 +155,8 @@ watch(
 
 .reuse-label {
   line-height: 2.5rem;
-  max-width: 65%;
+  max-width: 85%;
+  font-size:17px;
 }
 
 .author-name,

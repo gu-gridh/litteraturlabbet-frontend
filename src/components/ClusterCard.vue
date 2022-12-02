@@ -45,7 +45,7 @@ defineProps<{
 .cluster-card {
   /* padding: 2rem 1rem 2rem 1rem; */
   margin: 0rem 1rem 1rem 1rem;
-  height: 6.5rem;
+  height: 6rem;
   
 
   display: flex;
@@ -54,25 +54,30 @@ defineProps<{
     transition: all .2s ease-in-out;
 }
 .cluster-card:hover {
- transform: scale(1.02);
+ transform: scale(1.01);
 
  
 }
 
 .cluster-text-container {
-  width: calc(100% - 110px);
+  width: calc(100% - 150px);
   color: black;
   cursor:pointer;
     border-radius: 10px;
  line-height:1.2;
   /* background-color: white; */
   /* opacity: 0.9; */
-  padding: 1rem 1rem 1rem 1rem;
+  padding: 1rem 1rem 1rem 2rem;
   font-style: normal;
+  font-size:18px;
+   display: flex;
+
+  align-items: center;
+  cursor:pointer;
 }
 
 .cluster-metadata-container {
-  width: 105px;
+  width: 95px;
   line-height:1.3;
   background-color: rgb(182, 82, 139);
   text-align:center;
@@ -82,10 +87,11 @@ defineProps<{
   flex-grow: initial;
   font-size: large;
   transition: all .2s ease-in-out;
+  margin-left:20px;
 }
 
 .cluster-metadata-container:hover {
- transform: scale(1.04);
+ transform: scale(1.02);
   background-color: rgb(142, 42, 99);
  
 }

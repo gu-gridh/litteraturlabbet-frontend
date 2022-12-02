@@ -337,7 +337,7 @@ margin-left:-10px;
 }
 
 .right-view-container {
-  width: 80%;
+  width: 85%;
   margin: auto;
   margin-top: 330px;
 }
@@ -389,6 +389,29 @@ margin-left:-10px;
 .search-button:hover {
   background-color: rgb(233, 102, 176) !important;
   color: black !important;
+}
+
+.multiselect{
+  color:rgb(60,40,40);
+  --ms-bg:rgb(240,240,240);
+  --ms-ring-width: 0px;
+  --ms-border-width: 0px;
+  --ms-font-size: 1.5rem;
+  --ms-radius: 8px;
+  --ms-option-color-pointed:black;
+   --ms-option-bg-selected:rgb(182, 82, 139);
+   --ms-option-font-size: 1.2rem;
+--ms-option-line-height: 1.375;
+--ms-option-bg-pointed: rgb(230,230,230);
+--ms-option-color-pointed: Black;
+
+--ms-option-color-selected: #FFF;
+--ms-option-bg-disabled: black;
+--ms-option-color-disabled: #D1D5DB;
+--ms-option-bg-selected-pointed:rgb(182, 82, 139);
+--ms-option-color-selected-pointed: #FFFFFF;
+--ms-option-bg-selected-disabled: black;
+--ms-option-color-selected-disabled: #D1FAE5;
 }
 
 </style>
