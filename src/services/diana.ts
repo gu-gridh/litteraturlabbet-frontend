@@ -38,4 +38,15 @@ function search<T>(query: string, endpoint: string): Promise<Paginated<T>> {
     });
 }
 
-export { list, get, count, search };
+
+function unpaginated<T>(endpoint: string, params: any): Promise<Array<T>> {
+  return axios
+    .get<Array<T>>(`${project.urls.baseURL}/${endpoint}`, {
+      params: params,
+    })
+    .then((d) => {
+      return d.data;
+    });
+}
+
+export { list, get, count, search, unpaginated };

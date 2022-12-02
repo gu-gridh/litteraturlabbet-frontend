@@ -1,4 +1,6 @@
 <template>
+  <network-chart></network-chart>
+
   <div class="reuse-container">
     <div class="reuse-list-label">
       <div class="reuse-label">
@@ -9,7 +11,7 @@
         </div>
         <div v-if="workSelected && authorSelected">
           I verket
-          <span class="work-title">{{ workSelected.short_title }}</span>
+          <span class="work-title">{{ workTitle }}</span>
           av <span class="author-name">{{ authorSelected?.name }}</span> finner
           vi {{ clusterCount }} grupper av återbruk.
         </div>
@@ -41,6 +43,7 @@ import { onBeforeRouteUpdate } from "vue-router";
 
 import { list, get } from "@/services/diana";
 import ClusterCard from "@/components/ClusterCard.vue";
+import NetworkChart from "@/components/NetworkChart.vue";
 import type { Author, Cluster, Work } from "@/types/litteraturlabbet";
 
 const props = defineProps<{
@@ -52,6 +55,7 @@ const props = defineProps<{
 const route = useRoute();
 const authorSelected = ref<Author>();
 const workSelected = ref<Work>();
+const workTitle = ref<string>("");
 const clusters = ref<Array<Cluster>>([]);
 const clusterCount = ref<number>(0);
 const page = ref(1);
@@ -66,6 +70,9 @@ async function fetchData() {
   workSelected.value = undefined;
   if (props.work) {
     workSelected.value = await get<Work>(props.work, "work");
+    workTitle.value = workSelected.value.short_title
+      ? workSelected.value.short_title
+      : workSelected.value.title;
   }
 
   fetchClusters(page.value, authorSelected.value?.id, workSelected.value?.id);
@@ -103,35 +110,10 @@ watch(
     deep: true,
   }
 );
-
-// watch(
-//   () => route.params,
-//   async (params) => {
-
-//     if (params.author) {
-//         authorSelected.value = await get<Author>(params.author, "author");
-//     }
-
-//     if (params.work) {
-//         workSelected.value = await get<Work>(params.work, "work");
-//     }
-
-//   },
-//   { immediate: true }
-// );
-
-// watch(
-//   () => route.params.work,
-//   async (workID) => {
-//     workSelected.value = await get<Work>(Number(workID), "work");
-//   },
-//   { immediate: true }
-// );
 </script>
 
 <style scoped>
 .card-container {
-
   height: 100%;
 }
 
@@ -156,12 +138,12 @@ watch(
 .reuse-label {
   line-height: 2.5rem;
   max-width: 85%;
-  font-size:17px;
+  font-size: 17px;
 }
 
 .author-name,
 .work-title {
-   background-color: rgb(182, 82, 139);
+  background-color: rgb(182, 82, 139);
   color: white;
   padding: 0.5rem 0.7rem 0.5rem 0.7rem;
   border-radius: 8px;
