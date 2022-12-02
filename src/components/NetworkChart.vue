@@ -5,6 +5,7 @@
 </template>
 
 <script setup lang="ts">
+
 import ForceGraph from "force-graph";
 import type { Author } from "@/types/litteraturlabbet";
 import { nextTick, ref, watch } from "vue";
@@ -95,11 +96,12 @@ watch(
 
 .node-text {
   font-family: sans-serif;
-  font-size: 15px !important;
+  font-size: 20px !important;
+  font-weight:600;
 }
 
 .chart-container {
-  padding-top: 20px;
+  padding-top: 0px;
   padding-bottom: 20px;
   width: inherit;
   height: inherit;

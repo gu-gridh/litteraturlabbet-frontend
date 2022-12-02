@@ -45,7 +45,7 @@ const author = await get<Author>(work.main_author as number, "author");
 
 .segment-metadata-container {
   width: 100%;
-    background-color: rgb(142, 42, 99);
+   background-color:rgb(182, 82, 139);
   color: white;
   padding: 1rem 1rem 1rem 1rem;
   border-radius: 8px 8px 0 0px;

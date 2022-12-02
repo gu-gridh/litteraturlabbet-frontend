@@ -1,5 +1,4 @@
 <template>
-  <div class="bgmask"></div>
   <div class="main-container">
     <div class="left-column">
       <div class="lb-logo-container"></div>
@@ -7,8 +6,8 @@
       <div class="ll-logo-container">Litteratur<br />Laboratoriet</div>
 
       <nav class="nav-links">
-        <router-link to="/" class="nav-link">Utforska</router-link>
-        <router-link to="/about" class="nav-link">Om</router-link>
+        <router-link to="/" class="nav-link">Völkommen</router-link>
+        <router-link to="/about" class="nav-link">Om verktyget</router-link>
       </nav>
 
       <div class="search-container">
@@ -94,7 +93,6 @@
       </div>
     </div>
   </div>
-  <!-- <Footer /> -->
 </template>
 
 <script setup lang="ts">
@@ -319,8 +317,16 @@ a:hover {
   padding: 2rem 0 0 0;
 }
 
+.super-main-container {
+
+display: flex;
+  flex-direction: column;
+
+
+}
+
 .main-container {
-  display: flex;
+  display: flex;  
   flex-direction: row;
 }
 
@@ -332,6 +338,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: left;
+
 }
 
 .right-column {
@@ -349,6 +356,7 @@ a:hover {
 }
 
 .right-view-container-content {
+
   background-color: white;
   border-radius: 12px;
   background-color: white;
@@ -369,8 +377,8 @@ a:hover {
   flex-direction: column;
   justify-content: flex-start;
   align-items: space-between;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+    z-index:1;
 }
 
 .button-container {
@@ -383,15 +391,24 @@ a:hover {
 
 .search-button {
   font-family: "Barlow Condensed", sans-serif !important;
-  padding: 0.4rem 0.8rem 0.4rem 0.8rem;
+  padding: 0.4rem 1.0rem 0.4rem 1.0rem;
   font-size: 25px;
   color: white;
   background-color: rgb(182, 82, 139);
   border-color: none !important;
   border-radius: 10px;
-  border: 2px solid transparent !important;
+  border: 0px solid transparent !important;
   margin-bottom: 1.5rem;
+  position:absolute;
+  margin-left:-30px;
 }
+
+button{
+  color:white;
+  overflow:hidden;
+
+}
+
 
 .search-button:hover {
   background-color: rgb(233, 102, 176) !important;
@@ -420,4 +437,12 @@ a:hover {
   --ms-option-bg-selected-disabled: black;
   --ms-option-color-selected-disabled: #d1fae5;
 }
+
+#foot{
+display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
 </style>

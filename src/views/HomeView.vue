@@ -34,7 +34,7 @@ padding:30px;
      font-size:18px;
      padding:30px;
           text-align:justify;
-         line-height:1.1;
+         line-height:1.15;
   }
  
   </style>
