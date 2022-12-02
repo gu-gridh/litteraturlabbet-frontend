@@ -48,14 +48,14 @@ onBeforeMount(() => {
 }
 
 .back-button{
-  padding:10px;
-  font-size:20px;
+  padding:5px;
+  font-size:16px;
   text-align:center;
   color:white;
   border-radius:8px;
   cursor:pointer;
-  height:50px;
-  width:100px;
+  height:auto;
+  width:80px;
   margin:20px;
   background-color:rgb(182, 82, 139)
 }
@@ -63,11 +63,8 @@ onBeforeMount(() => {
 .back-button:hover{
     background-color:rgb(202, 102, 159);
     color:black;
+
 }
 
-.button{
-  padding:20px!important;
-  font-size:20px!important;
-  background-color:rgb(182, 82, 139)!important;
-}
+
 </style>
