@@ -373,6 +373,7 @@ margin-left:-10px;
    overflow:hidden;
      margin-bottom:50px;
        z-index:1;
+       padding:0 0 30px 0;
 
 }
 
