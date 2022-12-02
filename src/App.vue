@@ -401,15 +401,24 @@ margin-left:-10px;
 
 .search-button {
   font-family: "Barlow Condensed", sans-serif !important;
-  padding: 0.4rem 0.8rem 0.4rem 0.8rem;
+  padding: 0.4rem 1.0rem 0.4rem 1.0rem;
   font-size: 25px;
   color: white;
   background-color: rgb(182, 82, 139);
   border-color: none !important;
   border-radius: 10px;
-  border: 2px solid transparent !important;
+  border: 0px solid transparent !important;
   margin-bottom: 1.5rem;
+  position:absolute;
+  margin-left:-30px;
 }
+
+button{
+  color:white;
+  overflow:hidden;
+
+}
+
 
 .search-button:hover {
   background-color: rgb(233, 102, 176) !important;
