@@ -12,8 +12,8 @@
       
 
       <nav class="nav-links">
-        <router-link to="/" class="nav-link">Utforska</router-link>
-        <router-link to="/about" class="nav-link">Om</router-link>
+        <router-link to="/" class="nav-link">Völkommen</router-link>
+        <router-link to="/about" class="nav-link">Om verktyget</router-link>
       </nav>
 
       <div class="search-container">
