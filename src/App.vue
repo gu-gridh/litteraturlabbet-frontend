@@ -365,7 +365,8 @@ display: flex;
   border-radius: 10px;
   min-height: 400px;
   overflow: hidden;
-  margin-bottom: 50px;
+  margin-bottom:50px;
+    padding-bottom:20px;
   z-index: 1;
 }
 

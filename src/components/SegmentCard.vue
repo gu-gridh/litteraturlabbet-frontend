@@ -28,7 +28,7 @@ const author = await get<Author>(work.main_author as number, "author");
 .segment-card {
   /* padding: 2rem 1rem 2rem 1rem; */
   margin: 1rem 1rem 1rem 1rem;
-  background-color: rgb(350,240,230);
+  background-color: rgb(345,240,235);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
