@@ -272,18 +272,19 @@ a:hover {
   column-gap: 1rem;
   width: 75%;
   z-index: 1;
+  margin-left:-5px;
 }
 
 .nav-link {
   font-size: 25px;
   font-weight: 300;
-  padding: 0.2rem 0.8rem 0.2rem 0.8rem;
+  padding: 0rem 0.5rem 0rem 0.5rem;
   margin-right: 0.25rem;
   border-radius: 10px;
   background-color: rgb(255, 255, 255, 0);
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 500ms;
+  transition-duration: 200ms;
 }
 
 .nav-link:hover {

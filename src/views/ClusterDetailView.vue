@@ -57,6 +57,7 @@ onBeforeMount(() => {
   height:auto;
   width:80px;
   margin:20px;
+  margin-left:3em;
   background-color:rgb(182, 82, 139)
 }
 
