@@ -270,7 +270,7 @@ a:hover {
   flex-direction: row;
   justify-content: flex-start;
   column-gap: 1rem;
-  width: 75%;
+  width: 100%;
   z-index: 1;
   margin-left:-5px;
 }
@@ -335,7 +335,7 @@ display: flex;
 
 .left-column {
   width: 30%;
-  min-width: 500px;
+  min-width: 400px;
   padding-left: 80px;
   height: 100vh;
   display: flex;
