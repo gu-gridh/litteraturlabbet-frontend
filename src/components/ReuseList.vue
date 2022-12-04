@@ -170,12 +170,14 @@ watch(
   border-radius: 0px;
   flex-direction: row;
   justify-content: space-between;
+
 }
 
 .reuse-label {
   line-height: 2.5rem;
   max-width: 85%;
   font-size: 17px;
+  line-height:1.5 !important;
 }
 
 .author-name,

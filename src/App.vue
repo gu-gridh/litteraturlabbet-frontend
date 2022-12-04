@@ -518,6 +518,7 @@ font-size: 25px !important;
           width: 100%;
           display: block;
           float:left;
+           min-width: 600px;
          
   
 
