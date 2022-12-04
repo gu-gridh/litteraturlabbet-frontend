@@ -5,7 +5,7 @@
       <h1>Om verktyget</h1>
          </div>
          <div class="about-content">
- Verktyget utvecklas av Centrum för Digital Humaniora i samarbete med Litteraturbanken. 
+ Verktyget utvecklas av <a href="https://dh.gu.se">Centrum för Digital Humaniora</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a> . 
  Primära utvecklare har varit Victor Wåhlstrand Skärström (textåterbruk), Aram Karimi (ordvektorer) och Jonathan Westin (användargränssnitt). 
  Första versionen publicerades i december 2022. Kodbasen finns att hämta på GitHub: <a href="https://github.com/CDH-DevTeam">https://github.com/CDH-DevTeam</a>
 <br>
@@ -50,7 +50,7 @@ cursor:pointer !important;
 .about-title{
        font-family: 'Cormorant Garamond', serif;
        letter-spacing: -3px;
-    margin-top:30px;
+    margin-top:10px;
     font-size:30px;
     line-height:0.9;
        text-align:center;
@@ -61,17 +61,16 @@ cursor:pointer !important;
     .about-content{
 color:black!important;
      font-size:18px;
-padding:30px;
+padding:30px 30px 10px 30px;
           text-align:justify;
          line-height:1.15;
-         
                width:100%;
   }
 
    @media screen and (max-width: 950px) {
    .about-title{
    font-weight:600 !important;
-    margin-top:30px;
+    margin-top:20px;
     font-size:35px !important;
    }
 

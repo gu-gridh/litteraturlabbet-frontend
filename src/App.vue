@@ -91,8 +91,13 @@
           </Suspense>
         </div>
       </div>
+ 
     </div>
+    
   </div>
+        
+    <Footer />
+
 </template>
 
 <script setup lang="ts">
@@ -102,6 +107,8 @@ import Multiselect from "@vueform/multiselect";
 import { list, get } from "@/services/diana";
 import type { Author, Work } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
+import Footer from "@/components/Footer.vue";
+
 
 const store = searchStore();
 // Search functions
@@ -185,7 +192,7 @@ onMounted(() => {
 <style>
 html,
 body {
-  height: 100% !important;
+  height: auto !important;
   width: 100% !important;
   margin: 0 !important;
 
@@ -198,6 +205,8 @@ body {
     rgb(255, 144, 39) 100%
   ) !important;
 }
+
+
 
 /* .bgmask {
         width: 100%;
@@ -331,14 +340,18 @@ display: flex;
 .main-container {
   display: flex;  
   flex-direction: row;
+  float:left;
+ min-height:calc(100vh - 200px);
+ margin-bottom:20px;
+  width:100%;
 }
 
 
 .left-column {
+    float:left;
   width: 30%;
   min-width:350px;
   padding-left: 80px;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -347,11 +360,12 @@ display: flex;
 }
 
 .right-column {
+
   display: flex;
   flex-direction: column;
   min-width: 600px;
   width: 70%;
-  height: 100vh;
+  height: auto;
     transition: all .2s ease-in-out;
 }
 
@@ -369,8 +383,7 @@ display: flex;
   border-radius: 10px;
   min-height: 400px;
   overflow: hidden;
-  margin-bottom:50px;
-    padding-bottom:20px;
+  padding-bottom:20px;
   z-index: 1;
 }
 
@@ -508,7 +521,7 @@ font-size: 25px !important;
 
   .main-container {
   display: block;  
-  padding:0px 60px 60px 60px;
+  padding:0px 60px 20px 60px;
 
 }
 
@@ -535,17 +548,13 @@ font-size: 25px !important;
         .right-view-container {
   width: 100%;
   margin-top: 50px;
-  margin-bottom:50px;
+
 }
 
  }
 
 
-#foot{
-display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+
 
 
 </style>
