@@ -76,26 +76,15 @@ defineProps<{
   cursor:pointer;
 }
 
- @media screen and (max-width: 1150px) {
-  .cluster-text-container {
-      font-size:15px;
-  }
- }
-
-  @media screen and (max-width: 950px) {
-  .cluster-text-container {
-      font-size:19px;
-  }
- }
 
 
 .cluster-metadata-container {
   width: 95px;
-  line-height:1.3;
+  line-height:1.1;
   background-color: rgb(192, 92, 149);
   text-align:center;
   color: white;
-  padding: 1.5rem 1rem 1rem 1rem;
+  padding: 1.4rem 1rem 1rem 1rem;
   border-radius: 50%;
   flex-grow: initial;
   font-size: large;
@@ -110,6 +99,30 @@ defineProps<{
 }
 
 .cluster-size-label {
-  font-size: x-large;
+  font-size: 30px;
 }
+
+ @media screen and (max-width: 1150px) {
+  .cluster-text-container {
+      font-size:15px;
+  }
+ }
+
+  @media screen and (max-width: 950px) {
+  .cluster-text-container {
+      font-size:19px;
+  }
+
+  .cluster-size-label {
+  font-size: 35px;
+}
+
+.cluster-metadata-container {
+  width: 95px;
+  line-height:1.1;
+  padding: 1.0rem 1rem 1rem 1rem;
+}
+
+ }
+
 </style>

@@ -70,4 +70,24 @@ const author = await get<Author>(work.main_author as number, "author");
 .author-name {
     font-weight: 600;
 }
+
+   @media screen and (max-width: 950px) {
+    .segment-text-container {
+
+  font-size:24px;
+}
+
+.work-title {
+
+    font-size: 30px;
+}
+
+.segment-size-label {
+ font-size: 30px;
+}
+.author-name {
+  font-size: 30px;
+}
+   }
+
 </style>

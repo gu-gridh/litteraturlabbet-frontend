@@ -67,5 +67,14 @@ onBeforeMount(() => {
 
 }
 
+  @media screen and (max-width: 950px) {
+    .back-button{
+  margin-top:40px;
+  margin-left:50px;
+  font-size:28px;
+   width:120px;
+    }
+  }
+
 
 </style>

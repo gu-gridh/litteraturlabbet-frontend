@@ -185,4 +185,12 @@ watch(
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   border-radius: 8px;
 }
+
+  @media screen and (max-width: 950px) {
+    .reuse-label {
+  line-height: 2.5rem;
+  font-size: 20px;
+}
+  }
+
 </style>
