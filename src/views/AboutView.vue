@@ -68,6 +68,20 @@ padding:30px;
                width:100%;
   }
 
+   @media screen and (max-width: 950px) {
+   .about-title{
+   font-weight:600 !important;
+    margin-top:30px;
+    font-size:35px !important;
+   }
+
+    .about-content{
+ text-align:center !important;
+     font-size:22px !important;
+    
+  }
+ }
+
 
 
 

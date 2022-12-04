@@ -76,6 +76,19 @@ defineProps<{
   cursor:pointer;
 }
 
+ @media screen and (max-width: 1150px) {
+  .cluster-text-container {
+      font-size:15px;
+  }
+ }
+
+  @media screen and (max-width: 950px) {
+  .cluster-text-container {
+      font-size:19px;
+  }
+ }
+
+
 .cluster-metadata-container {
   width: 95px;
   line-height:1.3;

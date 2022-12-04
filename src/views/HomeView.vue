@@ -4,7 +4,7 @@
       <h1>Välkommen till<br>Litteraturlaboratoriet</h1>
          </div>
          <div class="home-content">
- Här kan du analysera verken från Litteraturbanken med olika verktyg. I dagsläget erbjuder vi verktygen <b>Textåterbruk</b>, för att hitta liknande textstycken, samt <b>Ordvektorer</b> som visar på relationer mellan ord. Under projektets gång kommer Litteraturlaboratoriet att utvecklas med fler verktyg, samt optimeringar av den datan från Litteraturbanken.
+ Här kan du analysera verken från Litteraturbanken med olika verktyg. I dagsläget erbjuder vi verktygen <b>Textåterbruk</b>, för att hitta liknande textstycken, samt <b>Ordvektorer</b> som visar på relationer mellan ord. Under projektets gång kommer Litteraturlaboratoriet att utvecklas med fler verktyg, samt optimeringar av datan från Litteraturbanken.
          </div>
     </div>
   </template>
@@ -14,6 +14,7 @@
   .home {
     width:100%;
 padding:50px;
+ font-weight:600 !important;
    font-family: "Barlow Condensed", sans-serif;
      
   }
@@ -38,6 +39,21 @@ padding:50px;
          line-height:1.15;
     
   }
+
+
+ @media screen and (max-width: 950px) {
+   .home-title{
+   font-weight:600 !important;
+    margin-top:30px;
+    font-size:35px !important;
+   }
+
+    .home-content{
+ text-align:center !important;
+     font-size:22px !important;
+    
+  }
+ }
  
   </style>
   

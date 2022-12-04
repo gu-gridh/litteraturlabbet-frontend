@@ -247,11 +247,10 @@ a:hover {
   margin-left: 0px;
   height: 145px;
   z-index: 1;
+    transition: all .2s ease-in-out;
 }
 
 .lb-logo-container {
-  /* width: 360px !important; */
-  /* height: 280px !important; */
   margin-top: 50px;
   margin-left: -10px;
   width: 80px;
@@ -259,6 +258,7 @@ a:hover {
   background-image: url("@/assets/lblogo.png") !important;
   background-size: 80px;
   z-index: 1;
+    transition: all .2s ease-in-out;
 }
 
 .nav-links {
@@ -333,14 +333,16 @@ display: flex;
   flex-direction: row;
 }
 
+
 .left-column {
   width: 30%;
-  min-width: 400px;
+  min-width:350px;
   padding-left: 80px;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: left;
+    transition: all .2s ease-in-out;
 
 }
 
@@ -350,6 +352,7 @@ display: flex;
   min-width: 600px;
   width: 70%;
   height: 100vh;
+    transition: all .2s ease-in-out;
 }
 
 .right-view-container {
@@ -441,6 +444,101 @@ button{
   --ms-option-bg-selected-disabled: black;
   --ms-option-color-selected-disabled: #d1fae5;
 }
+
+
+ @media screen and (max-width: 950px) {
+  .ll-logo-container {
+  font-size: 140px;
+    height: 240px;
+
+}
+
+.lb-logo-container {
+  width: 120px;
+  height: 120px;
+  background-image: url("@/assets/lblogo.png") !important;
+  background-size: 120px;
+
+}
+
+.nav-link {
+  font-size: 35px !important;
+  padding: 0rem 0.5rem 0rem 0.5rem;
+  margin-right: 0.25rem;
+  border-radius: 10px;
+
+}
+
+.select-label {
+  font-size: 25px !important;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+
+.count-label {
+font-size: 25px !important;
+  
+}
+
+.search-container {
+
+  height: 480px;
+}
+
+.multiselect {
+
+  --ms-font-size: 2.2rem;
+  --ms-option-font-size: 1.8rem;
+
+  
+}
+
+.search-button {
+  
+  font-size: 35px;
+  color: white;
+  background-color: rgb(182, 82, 139);
+  border-color: none !important;
+  border-radius: 10px;
+  border: 0px solid transparent !important;
+  margin-bottom: 1.5rem;
+  position:absolute;
+  margin-left:-30px;
+}
+
+  .main-container {
+  display: block;  
+  padding:0px 60px 60px 60px;
+
+}
+
+        .left-column {
+          padding-left: 0px;
+            height: auto;
+          width: 100%;
+          display: block;
+          float:left;
+         
+  
+
+        }
+        .right-column {
+           width: 100%;
+            min-width: 600px;
+             height: auto;
+           display: block;
+           float:left;
+  
+        }
+
+        .right-view-container {
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom:50px;
+}
+
+ }
+
 
 #foot{
 display: flex;
