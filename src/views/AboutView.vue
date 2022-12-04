@@ -10,7 +10,7 @@
  Första versionen publicerades i december 2022. Kodbasen finns att hämta på GitHub: <a href="https://github.com/CDH-DevTeam">https://github.com/CDH-DevTeam</a>
 <br>
 <br>
-Välj en författare med hälp av sökfältet till vänster. Vill du undersöka ett visst verk så välj det från den undra menyn. Klicka sedan på sök. Du kan också göra en sökning på samtliga verk i databasen genom att lämna sökfälten fria när du klickar på sök.
+Välj en författare med hjälp av sökfältet till vänster. Vill du undersöka ett visst verk så välj det från den undra menyn. Klicka sedan på sök. Du kan också göra en sökning på samtliga verk i databasen genom att lämna sökfälten fria när du klickar på sök.
 
          </div>
            </div>
