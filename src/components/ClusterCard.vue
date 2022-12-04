@@ -116,7 +116,7 @@ defineProps<{
 }
 
   .cluster-text-container {
-      font-size:19px;
+      font-size:22px;
   }
 
   .cluster-size-label {

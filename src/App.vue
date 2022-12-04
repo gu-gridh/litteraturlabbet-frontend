@@ -193,9 +193,9 @@ body {
 
   background: linear-gradient(
     to right,
-    rgb(80, 57, 108),
-    rgb(168, 107, 75),
-    rgb(255, 144, 39)
+    rgb(80, 57, 108) 0%,
+    rgb(168, 107, 75) 50%,
+    rgb(255, 144, 39) 100%
   ) !important;
 }
 

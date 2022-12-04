@@ -13,6 +13,7 @@
         {{ clusterCount }} grupper av återbruk.
       </div>
     </div>
+       <div class="pagination">
     <v-pagination
       v-model="page"
       :pages="pages"
@@ -21,6 +22,8 @@
       @update:modelValue="onPageChange"
     />
   </div>
+    </div>
+  
 
   <div class="card-container">
     <div v-for="cluster in clusters" v-bind:key="cluster.id">
@@ -184,14 +187,26 @@ watch(
 .work-title {
   background-color: rgb(182, 82, 139);
   color: white;
-  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  padding: 0.2rem 0.5rem 0.3rem 0.5rem;
   border-radius: 8px;
 }
 
   @media screen and (max-width: 950px) {
     .reuse-label {
   line-height: 2.5rem;
-  font-size: 20px;
+  font-size: 21px;  
+  max-width: 100%;
+
+}
+.reuse-list-label {
+  height: 100%;
+  display: block;
+  margin-bottom:30px;
+}
+.pagination {
+  float:right;
+  margin-right:30px;
+  margin-top:20px;
 }
   }
 
