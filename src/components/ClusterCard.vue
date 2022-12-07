@@ -46,43 +46,40 @@ defineProps<{
   /* padding: 2rem 1rem 2rem 1rem; */
   margin: 0rem 1rem 1rem 1rem;
   height: 6rem;
-  
-
   display: flex;
   flex-direction: row;
   cursor:pointer;
-    transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
 }
+
 .cluster-card:hover {
  transform: scale(1.01);
-
- 
 }
 
 .cluster-text-container {
   width: calc(100% - 150px);
   color: black;
   cursor:pointer;
-    border-radius: 10px;
- line-height:1.2;
-  /* background-color: white; */
-  /* opacity: 0.9; */
+  border-radius: 10px;
+  line-height:1.2;
   padding: 1rem 1rem 1rem 2rem;
   font-style: normal;
   font-size:18px;
    display: flex;
-
   align-items: center;
   cursor:pointer;
 }
 
+
+
 .cluster-metadata-container {
   width: 95px;
-  line-height:1.3;
+  height:95px;
+  line-height:1.1;
   background-color: rgb(192, 92, 149);
   text-align:center;
   color: white;
-  padding: 1.5rem 1rem 1rem 1rem;
+  padding: 1.4rem 1rem 1rem 1rem;
   border-radius: 50%;
   flex-grow: initial;
   font-size: large;
@@ -97,6 +94,44 @@ defineProps<{
 }
 
 .cluster-size-label {
-  font-size: x-large;
+  font-size: 30px;
 }
+
+ @media screen and (max-width: 1150px) {
+
+
+      .cluster-card {
+
+ margin: 1rem 1rem 5rem 1rem;
+ }
+ }
+
+  @media screen and (max-width: 950px) {
+
+      .cluster-card {
+
+ margin: 1rem 1rem 5rem 1rem;
+  
+
+}
+
+  .cluster-text-container {
+      font-size:22px;
+  }
+
+  .cluster-size-label {
+  font-size: 35px;
+}
+
+.cluster-metadata-container {
+  width: 120px;
+  height:120px;
+  margin-top:-0.5em;
+  line-height:1.1;
+  padding: 1.9rem 1rem 1rem 1rem;
+
+}
+
+ }
+
 </style>

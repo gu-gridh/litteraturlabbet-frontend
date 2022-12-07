@@ -57,6 +57,7 @@ onBeforeMount(() => {
   height:auto;
   width:80px;
   margin:20px;
+  margin-left:3em;
   background-color:rgb(182, 82, 139)
 }
 
@@ -65,6 +66,15 @@ onBeforeMount(() => {
     color:black;
 
 }
+
+  @media screen and (max-width: 950px) {
+    .back-button{
+  margin-top:40px;
+  margin-left:50px;
+  font-size:28px;
+   width:120px;
+    }
+  }
 
 
 </style>

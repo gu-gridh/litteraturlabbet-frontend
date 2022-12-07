@@ -27,11 +27,13 @@ const author = await get<Author>(work.main_author as number, "author");
 <style scoped>
 .segment-card {
   /* padding: 2rem 1rem 2rem 1rem; */
-  margin: 1rem 1rem 1rem 1rem;
-  background-color: antiquewhite;
+  margin: 1rem 3rem 1rem 3rem;
+  background-color: rgb(345,245,245);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+    margin-bottom:30px;
 }
 
 .segment-text-container {
@@ -40,7 +42,9 @@ const author = await get<Author>(work.main_author as number, "author");
   /* background-color: white; */
   /* opacity: 0.9; */
   padding: 2rem 2rem 2rem 2rem;
-  font-style: italic;
+  font-style: normal;
+  line-height:1.2;
+  font-size:16px;
 }
 
 .segment-metadata-container {
@@ -66,4 +70,24 @@ const author = await get<Author>(work.main_author as number, "author");
 .author-name {
     font-weight: 600;
 }
+
+   @media screen and (max-width: 950px) {
+    .segment-text-container {
+
+  font-size:24px;
+}
+
+.work-title {
+
+    font-size: 30px;
+}
+
+.segment-size-label {
+ font-size: 30px;
+}
+.author-name {
+  font-size: 30px;
+}
+   }
+
 </style>

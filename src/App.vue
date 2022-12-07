@@ -91,8 +91,13 @@
           </Suspense>
         </div>
       </div>
+ 
     </div>
+    
   </div>
+        
+    <Footer />
+
 </template>
 
 <script setup lang="ts">
@@ -102,6 +107,8 @@ import Multiselect from "@vueform/multiselect";
 import { list, get } from "@/services/diana";
 import type { Author, Work } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
+import Footer from "@/components/Footer.vue";
+
 
 const store = searchStore();
 // Search functions
@@ -185,7 +192,7 @@ onMounted(() => {
 <style>
 html,
 body {
-  height: 100% !important;
+  height: auto !important;
   width: 100% !important;
   margin: 0 !important;
 
@@ -193,11 +200,13 @@ body {
 
   background: linear-gradient(
     to right,
-    rgb(80, 57, 108),
-    rgb(168, 107, 75),
-    rgb(255, 144, 39)
+    rgb(80, 57, 108) 0%,
+    rgb(168, 107, 75) 50%,
+    rgb(255, 144, 39) 100%
   ) !important;
 }
+
+
 
 /* .bgmask {
         width: 100%;
@@ -247,11 +256,10 @@ a:hover {
   margin-left: 0px;
   height: 145px;
   z-index: 1;
+    transition: all .2s ease-in-out;
 }
 
 .lb-logo-container {
-  /* width: 360px !important; */
-  /* height: 280px !important; */
   margin-top: 50px;
   margin-left: -10px;
   width: 80px;
@@ -259,6 +267,7 @@ a:hover {
   background-image: url("@/assets/lblogo.png") !important;
   background-size: 80px;
   z-index: 1;
+    transition: all .2s ease-in-out;
 }
 
 .nav-links {
@@ -270,20 +279,21 @@ a:hover {
   flex-direction: row;
   justify-content: flex-start;
   column-gap: 1rem;
-  width: 75%;
+  width: 100%;
   z-index: 1;
+  margin-left:-5px;
 }
 
 .nav-link {
   font-size: 25px;
   font-weight: 300;
-  padding: 0.2rem 0.8rem 0.2rem 0.8rem;
+  padding: 0rem 0.5rem 0rem 0.5rem;
   margin-right: 0.25rem;
   border-radius: 10px;
   background-color: rgb(255, 255, 255, 0);
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 500ms;
+  transition-duration: 200ms;
 }
 
 .nav-link:hover {
@@ -330,25 +340,33 @@ display: flex;
 .main-container {
   display: flex;  
   flex-direction: row;
+  float:left;
+ min-height:calc(100vh - 200px);
+ margin-bottom:20px;
+  width:100%;
 }
 
+
 .left-column {
+    float:left;
   width: 30%;
-  min-width: 400px;
+  min-width:350px;
   padding-left: 80px;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: left;
+    transition: all .2s ease-in-out;
 
 }
 
 .right-column {
+
   display: flex;
   flex-direction: column;
   min-width: 600px;
   width: 70%;
-  height: 100vh;
+  height: auto;
+    transition: all .2s ease-in-out;
 }
 
 .right-view-container {
@@ -365,7 +383,7 @@ display: flex;
   border-radius: 10px;
   min-height: 400px;
   overflow: hidden;
-  margin-bottom: 50px;
+  padding-bottom:20px;
   z-index: 1;
 }
 
@@ -440,11 +458,103 @@ button{
   --ms-option-color-selected-disabled: #d1fae5;
 }
 
-#foot{
-display: flex;
-  flex-direction: column;
-  align-items: center;
+
+ @media screen and (max-width: 950px) {
+  .ll-logo-container {
+  font-size: 140px;
+    height: 240px;
+
 }
+
+.lb-logo-container {
+  width: 120px;
+  height: 120px;
+  background-image: url("@/assets/lblogo.png") !important;
+  background-size: 120px;
+
+}
+
+.nav-link {
+  font-size: 35px !important;
+  padding: 0rem 0.5rem 0rem 0.5rem;
+  margin-right: 0.25rem;
+  border-radius: 10px;
+
+}
+
+.select-label {
+  font-size: 25px !important;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+
+.count-label {
+font-size: 25px !important;
+  
+}
+
+.search-container {
+
+  height: 480px;
+}
+
+.multiselect {
+
+  --ms-font-size: 2.2rem;
+  --ms-option-font-size: 1.8rem;
+
+  
+}
+
+.search-button {
+  
+  font-size: 35px;
+  color: white;
+  background-color: rgb(182, 82, 139);
+  border-color: none !important;
+  border-radius: 10px;
+  border: 0px solid transparent !important;
+  margin-bottom: 1.5rem;
+  position:absolute;
+  margin-left:-30px;
+}
+
+  .main-container {
+  display: block;  
+  padding:0px 60px 20px 60px;
+
+}
+
+        .left-column {
+          padding-left: 0px;
+            height: auto;
+          width: 100%;
+          display: block;
+          float:left;
+           min-width: 600px;
+         
+  
+
+        }
+        .right-column {
+           width: 100%;
+            min-width: 600px;
+             height: auto;
+           display: block;
+           float:left;
+  
+        }
+
+        .right-view-container {
+  width: 100%;
+  margin-top: 50px;
+
+}
+
+ }
+
+
+
 
 
 </style>

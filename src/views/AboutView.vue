@@ -5,9 +5,13 @@
       <h1>Om verktyget</h1>
          </div>
          <div class="about-content">
- Verktyget utvecklas av Centrum för Digital Humaniora i samarbete med Litteraturbanken. 
+ Verktyget utvecklas av <a href="https://dh.gu.se">Centrum för Digital Humaniora</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a> . 
  Primära utvecklare har varit Victor Wåhlstrand Skärström (textåterbruk), Aram Karimi (ordvektorer) och Jonathan Westin (användargränssnitt). 
  Första versionen publicerades i december 2022. Kodbasen finns att hämta på GitHub: <a href="https://github.com/CDH-DevTeam">https://github.com/CDH-DevTeam</a>
+<br>
+<br>
+Välj en författare med hjälp av sökfältet till vänster. Vill du undersöka ett visst verk så välj det från den undra menyn. Klicka sedan på sök. Du kan också göra en sökning på samtliga verk i databasen genom att lämna sökfälten fria när du klickar på sök.
+
          </div>
            </div>
            </div>
@@ -24,7 +28,9 @@ color:rgb(182, 82, 139);
 }
 
 a:hover{
-color:rgb(192, 92, 149);
+color:rgb(202, 102, 159) !important;
+background-color:white !important;
+cursor:pointer !important;
 }
 
        .about-container{
@@ -44,7 +50,7 @@ color:rgb(192, 92, 149);
 .about-title{
        font-family: 'Cormorant Garamond', serif;
        letter-spacing: -3px;
-    margin-top:30px;
+    margin-top:10px;
     font-size:30px;
     line-height:0.9;
        text-align:center;
@@ -55,12 +61,25 @@ color:rgb(192, 92, 149);
     .about-content{
 color:black!important;
      font-size:18px;
-padding:30px;
+padding:30px 30px 10px 30px;
           text-align:justify;
          line-height:1.15;
-         
                width:100%;
   }
+
+   @media screen and (max-width: 950px) {
+   .about-title{
+   font-weight:600 !important;
+    margin-top:20px;
+    font-size:35px !important;
+   }
+
+    .about-content{
+ text-align:center !important;
+     font-size:22px !important;
+    
+  }
+ }
 
 
 

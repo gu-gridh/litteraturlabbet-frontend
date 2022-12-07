@@ -4,7 +4,7 @@
       <div v-if="authorSelected && !workSelected">
         I verk av
         <span class="author-name">{{ authorSelected?.name }}</span> finner vi
-        {{ clusterCount }} grupper av likartade stycken, så kallade återbruk.
+        {{ clusterCount }} grupper av likartade stycken.
       </div>
       <div v-if="workSelected && authorSelected">
         I verket
@@ -13,6 +13,7 @@
         {{ clusterCount }} grupper av återbruk.
       </div>
     </div>
+       <div class="pagination">
     <v-pagination
       v-model="page"
       :pages="pages"
@@ -21,6 +22,8 @@
       @update:modelValue="onPageChange"
     />
   </div>
+    </div>
+  
 
   <div class="card-container">
     <div v-for="cluster in clusters" v-bind:key="cluster.id">
@@ -170,19 +173,41 @@ watch(
   border-radius: 0px;
   flex-direction: row;
   justify-content: space-between;
+
 }
 
 .reuse-label {
   line-height: 2.5rem;
   max-width: 85%;
   font-size: 17px;
+  line-height:1.5 !important;
 }
 
 .author-name,
 .work-title {
   background-color: rgb(182, 82, 139);
   color: white;
-  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  padding: 0.2rem 0.5rem 0.3rem 0.5rem;
   border-radius: 8px;
 }
+
+  @media screen and (max-width: 950px) {
+    .reuse-label {
+  line-height: 2.5rem;
+  font-size: 21px;  
+  max-width: 100%;
+
+}
+.reuse-list-label {
+  height: 100%;
+  display: block;
+  margin-bottom:30px;
+}
+.pagination {
+  float:right;
+  margin-right:30px;
+  margin-top:20px;
+}
+  }
+
 </style>
