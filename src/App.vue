@@ -10,72 +10,9 @@
         <router-link to="/about" class="nav-link">Om verktyget</router-link>
       </nav>
 
-      <div class="search-container">
-        <div class="multiselect-input" id="author-select">
-          <div class="select-label"><p>Välj en författare...</p></div>
-          <Multiselect
-            v-model="author"
-            :value="author"
-            mode="single"
-            placeholder="Sök författare"
-            noResultsText="Inga författare matchar sökningen"
-            noOptionsText="Inga författare matchar sökningen"
-            :resolve-on-load="true"
-            :delay="1"
-            :searchable="true"
-            :object="true"
-            valueProp="id"
-            label="formatted_name"
-            :options="async (query: string, select$: any) => searchAuthor(query)"
-            :clear-on-select="true"
-            :clear-on-search="true"
-            @select="onSelectAuthor"
-            @clear="onClearAuthor"
-            ref="authorSelect"
-          />
-        </div>
-        <div class="multiselect-input" id="work-select">
-          <div class="select-label"><p>... eller sök på ett verk!</p></div>
-          <Multiselect
-            v-model="work"
-            :value="work"
-            mode="single"
-            placeholder="Sök verk"
-            noResultsText="Inga verk matchar sökningen"
-            noOptionsText="Inga verk matchar sökningen"
-            :resolve-on-load="true"
-            :delay="1"
-            :searchable="true"
-            :object="true"
-            valueProp="id"
-            label="title"
-            :clear-on-select="true"
-            :clear-on-search="true"
-            :options="async (query: string, select$: any) => searchWork(query, {main_author: author?.id})"
-            @select="onSelectWork"
-            @clear="onClearWork"
-            ref="workSelect"
-          />
-        </div>
-        <div class="count-label">
-          <p>Totalt {{ workCount }} verk i samlingen.</p>
-        </div>
-
-        <div class="button-container">
-          <router-link
-            :to="{
-              name: 'reuse',
-              query: {
-                author: author?.id,
-                work: work?.id,
-              },
-            }"
-            v-slot="{ href }"
-          >
-            <button :href="href" class="search-button">Sök</button>
-          </router-link>
-        </div>
-      </div>
+      <Suspense>
+        <collection-search></collection-search>
+      </Suspense>
     </div>
     <div class="right-column">
       <div class="right-view-container">
@@ -91,100 +28,16 @@
           </Suspense>
         </div>
       </div>
- 
     </div>
-    
   </div>
-        
-    <Footer />
 
+  <Footer></Footer>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
 import { RouterLink, RouterView } from "vue-router";
-import Multiselect from "@vueform/multiselect";
-import { list, get } from "@/services/diana";
-import type { Author, Work } from "@/types/litteraturlabbet";
-import { searchStore } from "@/stores/search";
 import Footer from "@/components/Footer.vue";
-
-
-const store = searchStore();
-// Search functions
-function searchAuthor(query: string): Promise<Array<Author>> {
-  return list<Author>("author", { search: query, limit: 500 }).then((a) => {
-    return a.results;
-  });
-}
-
-function searchWork(query: string, params: object): Promise<Array<Work>> {
-  return list<Work>("work", { search: query, limit: 500, ...params }).then(
-    (a) => {
-      return a.results;
-    }
-  );
-}
-
-// Callbacks
-// After selecting
-async function onSelectAuthor(value: Author, select$: any) {
-  workSelect.value.clearSearch();
-  workSelect.value.refreshOptions();
-  store.work = undefined;
-  work.value = undefined;
-
-  // Update the work count
-  countWorks();
-
-  // Set global store value
-  store.author = value;
-}
-
-async function onSelectWork(value: Work, select$: any) {
-  const work = await get<Work>(value.id, "work");
-  const workAuthor = await get<Author>(work.main_author as number, "author");
-
-  author.value = workAuthor;
-
-  workSelect.value.clearSearch();
-  workSelect.value.refreshOptions();
-
-  // Set global store value
-  store.work = value;
-  store.author = workAuthor;
-}
-
-function countWorks() {
-  list<Work>("work", {
-    main_author: author.value?.id,
-  }).then((w) => {
-    workCount.value = w.count;
-  });
-}
-
-// After clearing
-function onClearAuthor(event: undefined) {
-  store.author = undefined;
-  store.work = undefined;
-  work.value = undefined;
-}
-
-function onClearWork(event: undefined) {
-  store.work = undefined;
-  workSelect.value.refreshOptions();
-}
-
-const author = ref<Author | undefined>(undefined);
-const work = ref<Work | undefined>(undefined);
-const authorSelect = ref();
-const workSelect = ref();
-const workCount = ref<number>();
-
-onMounted(() => {
-  countWorks();
-});
-
+import CollectionSearch from "./components/CollectionSearch.vue";
 </script>
 
 <style src="@vueform/multiselect/themes/default.css"></style>
@@ -205,8 +58,6 @@ body {
     rgb(255, 144, 39) 100%
   ) !important;
 }
-
-
 
 /* .bgmask {
         width: 100%;
@@ -256,7 +107,7 @@ a:hover {
   margin-left: 0px;
   height: 145px;
   z-index: 1;
-    transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .lb-logo-container {
@@ -267,7 +118,7 @@ a:hover {
   background-image: url("@/assets/lblogo.png") !important;
   background-size: 80px;
   z-index: 1;
-    transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .nav-links {
@@ -281,7 +132,7 @@ a:hover {
   column-gap: 1rem;
   width: 100%;
   z-index: 1;
-  margin-left:-5px;
+  margin-left: -5px;
 }
 
 .nav-link {
@@ -330,43 +181,37 @@ a:hover {
 }
 
 .super-main-container {
-
-display: flex;
+  display: flex;
   flex-direction: column;
-
-
 }
 
 .main-container {
-  display: flex;  
+  display: flex;
   flex-direction: row;
-  float:left;
- min-height:calc(100vh - 200px);
- margin-bottom:20px;
-  width:100%;
+  float: left;
+  min-height: calc(100vh - 200px);
+  margin-bottom: 20px;
+  width: 100%;
 }
 
-
 .left-column {
-    float:left;
+  float: left;
   width: 30%;
-  min-width:350px;
+  min-width: 350px;
   padding-left: 80px;
   display: flex;
   flex-direction: column;
   align-items: left;
-    transition: all .2s ease-in-out;
-
+  transition: all 0.2s ease-in-out;
 }
 
 .right-column {
-
   display: flex;
   flex-direction: column;
   min-width: 600px;
   width: 70%;
   height: auto;
-    transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .right-view-container {
@@ -376,14 +221,13 @@ display: flex;
 }
 
 .right-view-container-content {
-
   background-color: white;
   border-radius: 12px;
   background-color: white;
   border-radius: 10px;
   min-height: 400px;
   overflow: hidden;
-  padding-bottom:20px;
+  padding-bottom: 20px;
   z-index: 1;
 }
 
@@ -398,7 +242,7 @@ display: flex;
   justify-content: flex-start;
   align-items: space-between;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
-    z-index:1;
+  z-index: 1;
 }
 
 .button-container {
@@ -411,7 +255,7 @@ display: flex;
 
 .search-button {
   font-family: "Barlow Condensed", sans-serif !important;
-  padding: 0.4rem 1.0rem 0.4rem 1.0rem;
+  padding: 0.4rem 1rem 0.4rem 1rem;
   font-size: 25px;
   color: white;
   background-color: rgb(182, 82, 139);
@@ -419,16 +263,14 @@ display: flex;
   border-radius: 10px;
   border: 0px solid transparent !important;
   margin-bottom: 1.5rem;
-  position:absolute;
-  margin-left:-30px;
+  position: absolute;
+  margin-left: -30px;
 }
 
-button{
-  color:white;
-  overflow:hidden;
-
+button {
+  color: white;
+  overflow: hidden;
 }
-
 
 .search-button:hover {
   background-color: rgb(233, 102, 176) !important;
@@ -458,103 +300,81 @@ button{
   --ms-option-color-selected-disabled: #d1fae5;
 }
 
-
- @media screen and (max-width: 950px) {
+@media screen and (max-width: 950px) {
   .ll-logo-container {
-  font-size: 140px;
+    font-size: 140px;
     height: 240px;
+  }
 
-}
+  .lb-logo-container {
+    width: 120px;
+    height: 120px;
+    background-image: url("@/assets/lblogo.png") !important;
+    background-size: 120px;
+  }
 
-.lb-logo-container {
-  width: 120px;
-  height: 120px;
-  background-image: url("@/assets/lblogo.png") !important;
-  background-size: 120px;
+  .nav-link {
+    font-size: 35px !important;
+    padding: 0rem 0.5rem 0rem 0.5rem;
+    margin-right: 0.25rem;
+    border-radius: 10px;
+  }
 
-}
+  .select-label {
+    font-size: 25px !important;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+  }
 
-.nav-link {
-  font-size: 35px !important;
-  padding: 0rem 0.5rem 0rem 0.5rem;
-  margin-right: 0.25rem;
-  border-radius: 10px;
+  .count-label {
+    font-size: 25px !important;
+  }
 
-}
+  .search-container {
+    height: 480px;
+  }
 
-.select-label {
-  font-size: 25px !important;
-  margin-bottom: 0.5rem;
-  margin-top: 1rem;
-}
+  .multiselect {
+    --ms-font-size: 2.2rem;
+    --ms-option-font-size: 1.8rem;
+  }
 
-.count-label {
-font-size: 25px !important;
-  
-}
-
-.search-container {
-
-  height: 480px;
-}
-
-.multiselect {
-
-  --ms-font-size: 2.2rem;
-  --ms-option-font-size: 1.8rem;
-
-  
-}
-
-.search-button {
-  
-  font-size: 35px;
-  color: white;
-  background-color: rgb(182, 82, 139);
-  border-color: none !important;
-  border-radius: 10px;
-  border: 0px solid transparent !important;
-  margin-bottom: 1.5rem;
-  position:absolute;
-  margin-left:-30px;
-}
+  .search-button {
+    font-size: 35px;
+    color: white;
+    background-color: rgb(182, 82, 139);
+    border-color: none !important;
+    border-radius: 10px;
+    border: 0px solid transparent !important;
+    margin-bottom: 1.5rem;
+    position: absolute;
+    margin-left: -30px;
+  }
 
   .main-container {
-  display: block;  
-  padding:0px 60px 20px 60px;
+    display: block;
+    padding: 0px 60px 20px 60px;
+  }
 
+  .left-column {
+    padding-left: 0px;
+    height: auto;
+    width: 100%;
+    display: block;
+    float: left;
+    min-width: 600px;
+  }
+  .right-column {
+    width: 100%;
+    min-width: 600px;
+    height: auto;
+    display: block;
+    float: left;
+  }
+
+  .right-view-container {
+    width: 100%;
+    margin-top: 50px;
+  }
 }
-
-        .left-column {
-          padding-left: 0px;
-            height: auto;
-          width: 100%;
-          display: block;
-          float:left;
-           min-width: 600px;
-         
-  
-
-        }
-        .right-column {
-           width: 100%;
-            min-width: 600px;
-             height: auto;
-           display: block;
-           float:left;
-  
-        }
-
-        .right-view-container {
-  width: 100%;
-  margin-top: 50px;
-
-}
-
- }
-
-
-
-
-
 </style>

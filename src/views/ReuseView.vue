@@ -5,11 +5,12 @@
         <p class="about-reuse">Om textåterbruk</p>
         <p>
           Textåterbruk utgör alla upprepade förekomster av textstycken utanför
-          ett visst verk. Detta kan bero på plagiat, citat, utbyten. 
-          Återbruk sker inte i en riktning - nätverket visar hur författare <i>delar</i> återbruk, vars 
-          ursprung kan vara svårt att bestämma utan närläsning.
+          ett visst verk. Detta kan bero på plagiat, citat, utbyten. Återbruk
+          sker inte i en riktning - nätverket visar hur författare
+          <i>delar</i> återbruk, vars ursprung kan vara svårt att bestämma utan
+          närläsning.
         </p>
-        <br/>
+        <br />
         <p class="about-reuse">Grupper av liknande stycken</p>
         <p v-if="author">
           Givet en författare eller ett verk kan vi identifiera mycket likartade
@@ -53,18 +54,26 @@
       <h1>Textåterbruk</h1>
     </div>
     <div class="reuse-content">
-      Textåterbruk, på engelska <i>textual reuse</i>, är ett fenomen där textstycken återkommer i flera olika skrivna verk. 
-      Detta kan bero på plagiat, citat, utbyten mellan författare, eller mer vardagliga orsaker. Eventuellt återbruk är inte alltid avsiktligt, utan kan bero på parafraser, 
-      vanliga talesätt eller helt enkelt redaktörers ingrepp i författares verk.
-      <br/>
-      <br/>
-      Återbruk är inte nödvändigtivs linjärt, om liknande textstycken förekommer hos flera författare behöver de inte ha lånat materialet från varandra 
-      - det kan exempelvis finnas en odokumenterad tredje part varifrån texten ursprungligen kommer. Av denna anledning kan man inte med enkla medel bestämma en källa 
-      av återbruket, eller vem som eventuellt plagierat vem.
-      <br/>
-      <br/>
-      I denna applikation kan användare undersöka nätverket av återbruk i delar av Litteraturbankens material. Interagera med nätverket för att utröna vilka författare
-      i samlingen som delar textstycken med varandra, en tjockare linje mellan två författare visar på fler utbyten. Sök sedan på en specifik författare för att detaljläsa återbruken.
+      Textåterbruk, på engelska <i>textual reuse</i>, är ett fenomen där
+      textstycken återkommer i flera olika skrivna verk. Detta kan bero på
+      plagiat, citat, utbyten mellan författare, eller mer vardagliga orsaker.
+      Eventuellt återbruk är inte alltid avsiktligt, utan kan bero på
+      parafraser, vanliga talesätt eller helt enkelt redaktörers ingrepp i
+      författares verk.
+      <br />
+      <br />
+      Återbruk är inte nödvändigtivs linjärt, om liknande textstycken förekommer
+      hos flera författare behöver de inte ha lånat materialet från varandra -
+      det kan exempelvis finnas en odokumenterad tredje part varifrån texten
+      ursprungligen kommer. Av denna anledning kan man inte med enkla medel
+      bestämma en källa av återbruket, eller vem som eventuellt plagierat vem.
+      <br />
+      <br />
+      I denna applikation kan användare undersöka nätverket av återbruk i delar
+      av Litteraturbankens material. Interagera med nätverket för att utröna
+      vilka författare i samlingen som delar textstycken med varandra, en
+      tjockare linje mellan två författare visar på fler utbyten. Sök sedan på
+      en specifik författare för att detaljläsa återbruken.
     </div>
   </div>
 </template>
@@ -72,11 +81,28 @@
 <script setup lang="ts">
 import NetworkChart from "@/components/NetworkChart.vue";
 import ReuseList from "@/components/ReuseList.vue";
+import type { Work, Author } from "@/types/litteraturlabbet";
+import { get } from "@/services/diana";
+import { searchStore } from "@/stores/search";
 
-defineProps<{
+const store = searchStore();
+
+const props = defineProps<{
   author?: number;
   work?: number;
 }>();
+
+if (props.author) {
+  get<Author>(props.author, "author").then((a) => {
+    store.author = a;
+  });
+}
+
+if (props.work) {
+  get<Work>(props.work, "work").then((w) => {
+    store.work = w;
+  });
+}
 </script>
 
 <style scoped>
