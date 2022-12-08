@@ -155,9 +155,9 @@ watch(
    float:right;
    height:auto;
    
-   padding:10px 10px 20px 0px;
+   padding:10px 10px 10px 0px;
    border-radius: 12px;
-    backdrop-filter: blur(100px);
+   
 }
 
 .dropdown-super:hover {
@@ -214,6 +214,7 @@ border-radius:10px;
   line-height:1.0;
   z-index: 100;
   
+  
 
 
 }
@@ -224,7 +225,8 @@ border-radius:10px;
 
 .dropdown-super:hover .dropbtn{
   background-color: rgb(233, 102, 176) !important;
-  color: black !important;
+   backdrop-filter: blur(10px);
+ 
 }
 
 
