@@ -1,15 +1,20 @@
 <template>
-  <div class="chart-container">
-    <div id="chart" ref="element"></div>
-    <div v-if="!loading" class="dropdown">
+<div class="dropdown-super">
+<div v-if="!loading" class="dropdown">
       <button class="dropbtn">Instruktioner</button>
       <div class="dropdown-content">
         <div>Håll muspekaren över punkterna för att visa författaren.</div>
         <div>Klicka på en punkt för att centrera nätverket.</div>
         <div>Klicka och dra för att flytta på nätverksvyn.</div>
-        <div>Skrolla med mushjulet eller -plattan för att zooma.</div>
+        <div>Skrolla för att zooma.</div>
       </div>
     </div>
+        </div>
+      <div class="chart-super-container">
+  <div class="chart-container">
+    <div id="chart" ref="element"></div>
+    </div>
+    
   </div>
 </template>
 
@@ -117,7 +122,14 @@ watch(
   top: 0px;
   right: 100px;
   z-index: 10;
+    
+
 }
+.chart-super-container {
+  width: inherit;
+    width: 100%;
+     margin-right: 4rem;
+  }
 
 .chart-container {
   margin-top: 20px;
@@ -129,6 +141,28 @@ watch(
   justify-content: center;
   margin-left: 2rem;
   margin-right: 2rem;
+
+
+}
+
+.dropdown-super {
+  position: absolute;
+  z-index: 10;
+  width: 340px;
+  top: 0px;
+  right: 0px;
+  margin-right:0em;
+   float:right;
+   height:auto;
+   
+   padding:10px 10px 20px 0px;
+   border-radius: 12px;
+    backdrop-filter: blur(100px);
+}
+
+.dropdown-super:hover {
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+   background-color:rgb(255,255,255,0.85);
 }
 
 .dropbtn {
@@ -141,31 +175,30 @@ watch(
   border-radius: 10px;
   border: 0px solid transparent !important;
   cursor: pointer;
+  display:block;
+  float:right;
+  right:0px;
+  margin-bottom:5px;
 }
 
-.dropbtn:hover {
-  background-color: rgb(233, 102, 176) !important;
-  color: black !important;
-}
+
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
-  position: absolute;
-  display: inline-block;
-  z-index: 10;
-  width: 20%;
-  top: 0px;
-  right: 0px;
-  margin-right: 1rem;
+  
+
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
+  padding:5px;
+   float:right;
   display: none;
-  position: absolute;
-  background-color: transparent;
+border-radius:10px;
+ font-size:16px;
   min-width: 160px;
-  /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
+  text-align:right;
+  
   z-index: 100;
 }
 
@@ -178,10 +211,21 @@ watch(
   padding-bottom: 0.5rem;
   text-decoration: none;
   display: block;
+  line-height:1.0;
   z-index: 100;
+  
+
+
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown-super:hover .dropdown-content {
   display: block;
 }
+
+.dropdown-super:hover .dropbtn{
+  background-color: rgb(233, 102, 176) !important;
+  color: black !important;
+}
+
+
 </style>
