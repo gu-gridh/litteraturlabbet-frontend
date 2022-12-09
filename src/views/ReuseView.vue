@@ -110,6 +110,12 @@ if (props.work) {
   /* width: 200px; */
   color: black;
   font-size: x-large;
+  
+}
+
+p{
+line-height:1.2;
+  font-size:16px;
 }
 .chart-container {
   display: flex;

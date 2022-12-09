@@ -153,32 +153,7 @@ a:hover {
   color: black;
 }
 
-.multiselect-input {
-  margin-bottom: 0.5rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
 
-.select-label {
-  font-size: large;
-  color: black;
-  font-style: normal;
-  margin-bottom: 0.5rem;
-  margin-top: 1rem;
-}
-
-.count-label {
-  font-size: large;
-  color: black;
-  font-style: normal;
-  text-align: center;
-  margin-bottom: 1rem;
-  border-style: dotted;
-  border-color: grey;
-  border-width: 1px 0 0 0;
-  margin-top: 2rem;
-  padding: 2rem 0 0 0;
-}
 
 .super-main-container {
   display: flex;
@@ -272,33 +247,8 @@ button {
   overflow: hidden;
 }
 
-.search-button:hover {
-  background-color: rgb(233, 102, 176) !important;
-  color: black !important;
-}
 
-.multiselect {
-  color: rgb(60, 40, 40);
-  --ms-bg: rgb(240, 240, 240);
-  --ms-ring-width: 0px;
-  --ms-border-width: 0px;
-  --ms-font-size: 1.5rem;
-  --ms-radius: 8px;
-  --ms-option-color-pointed: black;
-  --ms-option-bg-selected: rgb(182, 82, 139);
-  --ms-option-font-size: 1.2rem;
-  --ms-option-line-height: 1.375;
-  --ms-option-bg-pointed: rgb(230, 230, 230);
-  --ms-option-color-pointed: Black;
 
-  --ms-option-color-selected: #fff;
-  --ms-option-bg-disabled: black;
-  --ms-option-color-disabled: #d1d5db;
-  --ms-option-bg-selected-pointed: rgb(182, 82, 139);
-  --ms-option-color-selected-pointed: #ffffff;
-  --ms-option-bg-selected-disabled: black;
-  --ms-option-color-selected-disabled: #d1fae5;
-}
 
 @media screen and (max-width: 950px) {
   .ll-logo-container {
