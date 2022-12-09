@@ -18,7 +18,7 @@ import ForceGraph from "force-graph";
 import type { Author } from "@/types/litteraturlabbet";
 import { ref, watch } from "vue";
 import type { Link } from "@/types/network";
-import { unpaginated, list, get } from "@/services/diana";
+import { unpaginated, list } from "@/services/diana";
 import { useRoute } from "vue-router";
 import { searchStore } from "@/stores/search";
 
@@ -29,11 +29,18 @@ const props = defineProps<{
   width: number;
 }>();
 
+type NodeType<T> = {
+  id: number;
+  name: string;
+  color: string;
+  neighbors: Array<T>;
+  links: Array<Link>;
+};
+interface Node extends NodeType<Node> {}
+
 const element = ref();
-const hasSelected = ref<boolean>(false);
 const route = useRoute();
 const loading = ref(true);
-// let currentAuthor = props.author ? await get<Author>(props.author as number, "author") : undefined;
 
 async function fetchData(author?: number) {
   let links = await unpaginated<Link>("author_exchange", {});
@@ -51,22 +58,52 @@ async function fetchData(author?: number) {
       return {
         id: a.id,
         name: a.name,
-        color: "rgb(182, 82, 139)",
-      };
+        // color: "rgb(182, 82, 139)",
+        neighbors: new Array<Node>(),
+        links: new Array<Link>(),
+      } as Node;
     });
   });
 
   // Filter the nodes and link after the selected author
-  if (author) {
-    links = links.filter((l) => l.source === author || l.target === author);
-    let linkNodes = links
-      .map((l) => l.source)
-      .concat(links.map((l) => l.target));
-    nodes = nodes.filter((n) => linkNodes.includes(n.id));
-  }
+  // if (author) {
+  //   links = links.filter((l) => l.source === author || l.target === author);
+  //   let linkNodes = links
+  //     .map((l) => l.source)
+  //     .concat(links.map((l) => l.target));
+  //   nodes = nodes.filter((n) => linkNodes.includes(n.id));
+  // }
 
   // Create a graph
   const graph = ForceGraph();
+  const highlightNodes = new Set();
+  const highlightLinks = new Set();
+
+  const data = { nodes: nodes, links: links };
+  data.links.forEach((link) => {
+    const a = data.nodes.filter((n) => n.id === link.source)[0];
+    const b = data.nodes.filter((n) => n.id === link.target)[0];
+    !a.neighbors && (a.neighbors = []);
+    !b.neighbors && (b.neighbors = []);
+    a.neighbors.push(b);
+    b.neighbors.push(a);
+
+    !a.links && (a.links = []);
+    !b.links && (b.links = []);
+    a.links.push(link);
+    b.links.push(link);
+  });
+
+  let hoverNode: Node | null = null;
+
+  if (props.author) {
+    hoverNode = data.nodes.filter((n) => n.id === props.author)[0];
+    highlightNodes.add(hoverNode);
+    hoverNode.neighbors.forEach((neighbor: Node) =>
+      highlightNodes.add(neighbor)
+    );
+    hoverNode.links.forEach((link: Link) => highlightLinks.add(link));
+  }
 
   graph(element.value)
     .graphData({ nodes: nodes, links: links })
@@ -90,6 +127,64 @@ async function fetchData(author?: number) {
       if (store.author?.id !== node.id) {
         // store.author = await get<Author>(node.id as number, "author");
       }
+    })
+    .onNodeHover((node) => {
+      if (!props.author) {
+        highlightNodes.clear();
+        highlightLinks.clear();
+        if (node) {
+          highlightNodes.add(node);
+          node.neighbors.forEach((neighbor: Node) =>
+            highlightNodes.add(neighbor)
+          );
+          node.links.forEach((link: Link) => highlightLinks.add(link));
+        }
+
+        hoverNode = props.author
+          ? data.nodes.filter((n) => n.id === props.author)[0]
+          : node || null;
+      }
+    })
+    .onLinkHover((link) => {
+      if (!props.author) {
+        highlightNodes.clear();
+        highlightLinks.clear();
+
+        if (link) {
+          highlightLinks.add(link);
+          highlightNodes.add(link.source);
+          highlightNodes.add(link.target);
+        }
+      }
+    })
+    .autoPauseRedraw(false) // keep redrawing after engine has stopped
+    .linkDirectionalParticles(4)
+    .linkDirectionalParticleWidth((link) => (highlightLinks.has(link) ? 4 : 0))
+    .nodeCanvasObjectMode((node) =>
+      highlightNodes.has(node) ? "before" : undefined
+    )
+    .nodeColor((node) => {
+      if (node === hoverNode) {
+        return "darkorange";
+      } else if (highlightNodes.has(node)) {
+        return "violet";
+      } else {
+        return "rgb(182, 82, 139)";
+      }
+    })
+    .cooldownTime(4500)
+    .onEngineStop(() => {
+      if (props.author && hoverNode && !loading.value) {
+        setTimeout(() => {
+          hoverNode = data.nodes.filter((n) => n.id === props.author)[0];
+          graph.centerAt(hoverNode.x, hoverNode.y, 1000);
+          graph.zoom(2, 2000);
+        }, 3);
+      }
+    })
+    .onNodeDragEnd((node) => {
+      node.fx = node.x;
+      node.fy = node.y;
     });
 }
 
@@ -99,9 +194,6 @@ watch(
     loading.value = true;
     await fetchData(props.author);
     loading.value = false;
-    let currentAuthor = props.author
-      ? await get<Author>(props.author as number, "author")
-      : undefined;
   },
   {
     immediate: true,
@@ -133,7 +225,7 @@ watch(
 
 .dropbtn {
   font-family: "Barlow Condensed", sans-serif !important;
-  padding: 0.4rem 1.0rem 0.4rem 1.0rem;
+  padding: 0.4rem 1rem 0.4rem 1rem;
   font-size: 20px;
   color: white;
   background-color: rgb(182, 82, 139);
