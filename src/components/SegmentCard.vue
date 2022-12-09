@@ -1,12 +1,25 @@
 <template>
-  <div class="segment-card">
-    <div class="segment-metadata-container">
-      <p class="work-title">{{ work.short_title }}</p><p class="author-name">{{ author.name }}</p>
+  <router-link
+    :to="{
+            name: 'page',
+            params: {
+              id: segment.page as number,
+            },
+            query: {
+              segment: segment.id,
+            }
+          }"
+  >
+    <div class="segment-card">
+      <div class="segment-metadata-container">
+        <p class="work-title">{{ work.short_title }}</p>
+        <p class="author-name">{{ author.name }}</p>
+      </div>
+      <div class="segment-text-container">
+        {{ segment.text }}
+      </div>
     </div>
-    <div class="segment-text-container">
-      {{ segment.text }}
-    </div>
-  </div>
+  </router-link>
 </template>
 
 <script setup lang="ts">
@@ -21,19 +34,18 @@ const props = defineProps<{
 const page = await get<Page>(props.segment.page as number, "page");
 const work = await get<Work>(page.work as number, "work");
 const author = await get<Author>(work.main_author as number, "author");
-
 </script>
 
 <style scoped>
 .segment-card {
   /* padding: 2rem 1rem 2rem 1rem; */
   margin: 1rem 3rem 1rem 3rem;
-  background-color: rgb(345,245,245);
+  background-color: rgb(345, 245, 245);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
-    margin-bottom:30px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+  margin-bottom: 30px;
 }
 
 .segment-text-container {
@@ -43,13 +55,13 @@ const author = await get<Author>(work.main_author as number, "author");
   /* opacity: 0.9; */
   padding: 2rem 2rem 2rem 2rem;
   font-style: normal;
-  line-height:1.2;
-  font-size:16px;
+  line-height: 1.2;
+  font-size: 16px;
 }
 
 .segment-metadata-container {
   width: 100%;
-   background-color:rgb(182, 82, 139);
+  background-color: rgb(182, 82, 139);
   color: white;
   padding: 1rem 1rem 1rem 1rem;
   border-radius: 8px 8px 0 0px;
@@ -63,31 +75,28 @@ const author = await get<Author>(work.main_author as number, "author");
 }
 
 .work-title {
-    font-style: italic;
-    font-size: large;
+  font-style: italic;
+  font-size: large;
 }
 
 .author-name {
-    font-weight: 600;
+  font-weight: 600;
 }
 
-   @media screen and (max-width: 950px) {
-    .segment-text-container {
+@media screen and (max-width: 950px) {
+  .segment-text-container {
+    font-size: 24px;
+  }
 
-  font-size:24px;
-}
-
-.work-title {
-
+  .work-title {
     font-size: 30px;
-}
+  }
 
-.segment-size-label {
- font-size: 30px;
+  .segment-size-label {
+    font-size: 30px;
+  }
+  .author-name {
+    font-size: 30px;
+  }
 }
-.author-name {
-  font-size: 30px;
-}
-   }
-
 </style>

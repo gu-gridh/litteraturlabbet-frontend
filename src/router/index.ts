@@ -3,6 +3,7 @@ import ReuseView from "@/views/ReuseView.vue";
 import ClusterDetailView from "@/views/ClusterDetailView.vue";
 import HomeView from "@/views/HomeView.vue"
 import EmbeddingView from "@/views/EmbeddingView.vue";
+import PageView from "@/views/PageView.vue";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -38,6 +39,15 @@ const router = createRouter({
       name: "cluster",
       component: ClusterDetailView,
       props: true,
+    },
+    {
+      path: "/reuse/page/:id/",
+      name: "page",
+      component: PageView,
+      props: (route) => ({
+        id: route.params.id ? Number(route.params.id): undefined,
+        segment: route.query.segment ? Number(route.query.segment) : undefined,
+      }),
     },
   ],
 });
