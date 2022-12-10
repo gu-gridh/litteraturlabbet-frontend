@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="home-title">
-      <h1>Ordvektorverktyget</h1>
+      <h1>Ordvektorer</h1>
     </div>
     <div class="home-content">
         Denna sida är under uppbyggnad, men här kommer du snart att kunna utforska ordbruket i 
@@ -30,7 +30,7 @@
 .home-content {
   font-size: 18px;
   padding: 30px;
-  text-align: justify;
+  text-align: center;
   line-height: 1.1;
 }
 </style>

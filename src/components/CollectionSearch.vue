@@ -235,7 +235,7 @@ button {
 
 .search-button:hover {
   background-color: rgb(233, 102, 176) !important;
-  color: black !important;
+ 
 }
 
 .multiselect {
