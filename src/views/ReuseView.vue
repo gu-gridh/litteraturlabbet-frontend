@@ -107,7 +107,8 @@ if (props.work) {
 
 <style scoped>
 .about-reuse {
-  /* width: 200px; */
+
+  width: 250px;
   color: black;
   font-size: x-large;
   
@@ -117,6 +118,14 @@ p{
 line-height:1.2;
   font-size:16px;
 }
+
+ @media screen and (max-width: 1550px) {
+      p {
+    display:none;
+    line-height:3.0;
+      }
+ }
+
 .chart-container {
   display: flex;
   flex-direction: row;
@@ -124,14 +133,15 @@ line-height:1.2;
 }
 
 .reuse-container-wo-author {
+ 
   height: 100%;
-  display: flex;
+   
   flex-direction: column;
 }
 
 .reuse-container-w-author {
   height: 100%;
-  display: flex;
+    
   flex-direction: column;
   flex-wrap: wrap;
 }
@@ -179,4 +189,7 @@ line-height:1.2;
   text-align: justify;
   line-height: 1.15;
 }
+
+
+
 </style>

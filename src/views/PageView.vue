@@ -80,6 +80,8 @@ if (props.segment) {
 
 .page-text {
   font-size: 20px;
+  line-height: 1.2;
+
 }
 
 .title-container {
@@ -90,13 +92,15 @@ if (props.segment) {
   font-family: "Cormorant Garamond", serif;
   letter-spacing: -3px;
   margin-top: 30px;
-  font-size: 30px;
-  line-height: 0.9;
+   margin-bottom: 10px;
+  font-size: 40px;
+  line-height: 1.0;
   color: rgb(182, 82, 139);
 }
 
 .author {
   font-size: 20px;
+  font-weight:500;
 }
 
 .back-button:hover {

@@ -172,18 +172,18 @@ async function fetchData(author?: number) {
       if (node === hoverNode) {
         return "darkorange";
       } else if (highlightNodes.has(node)) {
-        return "violet";
+        return "lightblue";
       } else {
         return "rgb(182, 82, 139)";
       }
     })
-    .cooldownTime(4500)
+    .cooldownTime(2000)
     .onEngineStop(() => {
       if (props.author && hoverNode && !loading.value) {
         setTimeout(() => {
           hoverNode = data.nodes.filter((n) => n.id === props.author)[0];
           graph.centerAt(hoverNode.x, hoverNode.y, 1000);
-          graph.zoom(2, 2000);
+          graph.zoom(1.8, 1500);
         }, 3);
       }
     })
@@ -214,8 +214,6 @@ watch(
   top: 0px;
   right: 100px;
   z-index: 10;
-    
-
 }
 .chart-super-container {
   width: inherit;
@@ -240,12 +238,12 @@ watch(
 .dropdown-super {
   position: absolute;
   z-index: 10;
-  width: 340px;
+  width: 110px;
   top: 0px;
-  right: 0px;
+  right: -1em;
   margin-right:0em;
    float:right;
-   height:auto;
+   height:30px;
    
    padding:10px 10px 10px 0px;
    border-radius: 12px;
@@ -255,6 +253,9 @@ watch(
 .dropdown-super:hover {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
    background-color:rgb(255,255,255,0.85);
+     width: 340px;
+        height:auto;
+   
 }
 
 .dropbtn {
@@ -319,6 +320,20 @@ border-radius:10px;
   background-color: rgb(233, 102, 176) !important;
    backdrop-filter: blur(10px);
  
+}
+
+.force-graph-container .graph-tooltip {
+  position: absolute;
+  top: 0;
+    font-family: "Barlow Condensed", sans-serif !important;
+  font-size: 18px;
+ white-space: nowrap;
+  padding: 3px 10px 3px 10px;
+  border-radius: 6px;
+  color: black;
+  background: rgba(255,255,255,0.85);
+   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  visibility: hidden; /* by default */
 }
 
 

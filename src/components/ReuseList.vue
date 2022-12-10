@@ -169,7 +169,7 @@ watch(
   margin-bottom: 2rem;
   background-color: white;
   color: black;
-  padding: 1rem 1.5rem 1rem 1.5rem;
+  padding: 1rem 1.5rem 1rem 2rem;
   border-radius: 0px;
   flex-direction: row;
   justify-content: space-between;
