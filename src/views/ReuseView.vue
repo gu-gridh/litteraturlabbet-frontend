@@ -28,14 +28,12 @@
           och stavning.
         </p>
       </div>
-      <suspense>
         <network-chart
+          :data="data"
           :author="author"
           :width="500"
           :height="300"
         ></network-chart>
-        <template #fallback> Laddar... </template>
-      </suspense>
     </div>
 
     <suspense>
@@ -45,10 +43,7 @@
 
   <div v-else class="reuse-container-wo-author">
     <div class="chart-container">
-      <suspense>
-        <network-chart :width="800" :height="400"></network-chart>
-        <template #fallback> Laddar... </template>
-      </suspense>
+        <network-chart :data="data" :width="800" :height="400"></network-chart>
     </div>
     <div class="reuse-title">
       <h1>Textåterbruk</h1>
@@ -84,13 +79,20 @@ import ReuseList from "@/components/ReuseList.vue";
 import type { Work, Author } from "@/types/litteraturlabbet";
 import { get } from "@/services/diana";
 import { searchStore } from "@/stores/search";
-
+import { networkStore } from "@/stores/network";
+import type { Link, Node } from "@/types/network";
+import { unpaginated, list } from "@/services/diana";
+import { nextTick, ref, onMounted } from "vue";
 const store = searchStore();
+const dataStore = networkStore();
 
 const props = defineProps<{
   author?: number;
   work?: number;
 }>();
+
+const data = await fetch();
+// dataStore.data = data;
 
 if (props.author) {
   get<Author>(props.author, "author").then((a) => {
@@ -103,12 +105,42 @@ if (props.work) {
     store.work = w;
   });
 }
+
+
+// onMounted(async () => {
+//   data.value = await fetch();
+
+// })
+
+async function fetch() {
+  let links = await unpaginated<Link>("author_exchange", {});
+  let ids = links
+    .map((l) => l.source)
+    .concat(links.map((l) => l.target))
+    .filter((value, index, self) => {
+      return self.indexOf(value) === index;
+    });
+
+  let nodes = await list<Author>("author", { limit: 500 }).then((a) => {
+    const authors = a.results.filter((a) => ids.includes(a.id));
+
+    return authors.map((a) => {
+      return {
+        id: a.id,
+        name: a.name,
+        neighbors: new Array<Node>(),
+        links: new Array<Link>(),
+      } as Node;
+    });
+  });
+
+  return { nodes: nodes, links: links };
+}
 </script>
 
 <style scoped>
 .about-reuse {
-
-  width: 250px;
+  /* width: 200px; */
   color: black;
   font-size: x-large;
   
@@ -118,14 +150,6 @@ p{
 line-height:1.2;
   font-size:16px;
 }
-
- @media screen and (max-width: 1550px) {
-      p {
-    display:none;
-    line-height:3.0;
-      }
- }
-
 .chart-container {
   display: flex;
   flex-direction: row;
@@ -133,15 +157,14 @@ line-height:1.2;
 }
 
 .reuse-container-wo-author {
- 
   height: 100%;
-   
+  display: flex;
   flex-direction: column;
 }
 
 .reuse-container-w-author {
   height: 100%;
-    
+  display: flex;
   flex-direction: column;
   flex-wrap: wrap;
 }
@@ -190,6 +213,17 @@ line-height:1.2;
   line-height: 1.15;
 }
 
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
 
-
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
-<div class="dropdown-super">
-<div v-if="!loading" class="dropdown">
+  <div class="dropdown-super">
+    <div class="dropdown">
       <button class="dropbtn">Instruktioner</button>
       <div class="dropdown-content">
         <div>Håll muspekaren över punkterna för att visa författaren.</div>
@@ -9,82 +9,68 @@
         <div>Skrolla för att zooma.</div>
       </div>
     </div>
-        </div>
-      <div class="chart-super-container">
-  <div class="chart-container">
-    <div id="chart" ref="element"></div>
+  </div>
+  <div class="chart-super-container">
+    <div class="chart-container">
+      <div id="chart" ref="element"></div>
     </div>
-    
   </div>
 </template>
 
 <script setup lang="ts">
-import ForceGraph from "force-graph";
+import ForceGraph, { type GraphData } from "force-graph";
 import type { Author } from "@/types/litteraturlabbet";
-import { ref, watch } from "vue";
-import type { Link } from "@/types/network";
+import { ref, watch, onMounted, nextTick } from "vue";
+import type { Link, Node } from "@/types/network";
 import { unpaginated, list } from "@/services/diana";
 import { useRoute } from "vue-router";
 import { searchStore } from "@/stores/search";
+import { networkStore } from "@/stores/network";
 
-const store = searchStore();
+const authorStore = searchStore();
+const nodeAndLinkStore = networkStore();
+
 const props = defineProps<{
+  data: { nodes: Array<Node> | undefined; links: Array<Link> | undefined };
   author?: number;
   height: number;
   width: number;
 }>();
 
-type NodeType<T> = {
-  id: number;
-  name: string;
-  color: string;
-  neighbors: Array<T>;
-  links: Array<Link>;
-};
-interface Node extends NodeType<Node> {}
-
 const element = ref();
 const route = useRoute();
 const loading = ref(true);
+// const graph = build(props.data, props.author);
+const graph = ref();
 
-async function fetchData(author?: number) {
-  let links = await unpaginated<Link>("author_exchange", {});
-  let ids = links
-    .map((l) => l.source)
-    .concat(links.map((l) => l.target))
-    .filter((value, index, self) => {
-      return self.indexOf(value) === index;
-    });
+onMounted(() => {
+  if (props.data) {
+    graph.value = build(props.data, props.author);
+  }
+});
 
-  let nodes = await list<Author>("author", { limit: 500 }).then((a) => {
-    const authors = a.results.filter((a) => ids.includes(a.id));
+watch(
+  () => props,
+  () => {
+    graph.value = build(props.data, props.author);
+  },
+  { deep: true }
+);
 
-    return authors.map((a) => {
-      return {
-        id: a.id,
-        name: a.name,
-        // color: "rgb(182, 82, 139)",
-        neighbors: new Array<Node>(),
-        links: new Array<Link>(),
-      } as Node;
-    });
-  });
-
-  // Filter the nodes and link after the selected author
-  // if (author) {
-  //   links = links.filter((l) => l.source === author || l.target === author);
-  //   let linkNodes = links
-  //     .map((l) => l.source)
-  //     .concat(links.map((l) => l.target));
-  //   nodes = nodes.filter((n) => linkNodes.includes(n.id));
-  // }
-
-  // Create a graph
+function build(graphData: any, author?: number) {
+  console.log(graphData);
   const graph = ForceGraph();
   const highlightNodes = new Set();
   const highlightLinks = new Set();
 
-  const data = { nodes: nodes, links: links };
+  const data = structuredClone(graphData);
+  
+  // Check if node is in the network
+  // If not, return empty graph
+  if (author && data.nodes.filter((n: any) => n.id === author).length === 0) {
+    return graph
+  }
+
   data.links.forEach((link) => {
     const a = data.nodes.filter((n) => n.id === link.source)[0];
     const b = data.nodes.filter((n) => n.id === link.target)[0];
@@ -99,24 +85,21 @@ async function fetchData(author?: number) {
     b.links.push(link);
   });
 
-  let hoverNode: Node | null = null;
+  let hoverNode: Node;
 
-  if (props.author) {
-    hoverNode = data.nodes.filter((n) => n.id === props.author)[0];
+  if (author) {
+    hoverNode = data.nodes.filter((n) => n.id === author)[0];
     highlightNodes.add(hoverNode);
-    hoverNode.neighbors.forEach((neighbor: Node) =>
-      highlightNodes.add(neighbor)
-    );
+    hoverNode.neighbors.forEach((neighbor) => highlightNodes.add(neighbor));
     hoverNode.links.forEach((link: Link) => highlightLinks.add(link));
   }
-
-  graph(element.value)
-    .graphData({ nodes: nodes, links: links })
+  return graph(element.value)
+    .graphData(data)
     .width(props.width)
     .height(props.height)
     .linkWidth((link) => {
-      let weight = links.filter(
-        (l) => l.source === link.source && l.target === link.target
+      let weight = data.links.filter(
+        (l: Link) => l.source === link.source && l.target === link.target
       )[0].weight;
 
       // Filter them by their weight
@@ -129,12 +112,12 @@ async function fetchData(author?: number) {
       graph.centerAt(node.x, node.y, 1000);
       graph.zoom(3, 2000);
 
-      if (store.author?.id !== node.id) {
+      if (authorStore.author?.id !== node.id) {
         // store.author = await get<Author>(node.id as number, "author");
       }
     })
     .onNodeHover((node) => {
-      if (!props.author) {
+      if (!author) {
         highlightNodes.clear();
         highlightLinks.clear();
         if (node) {
@@ -145,13 +128,13 @@ async function fetchData(author?: number) {
           node.links.forEach((link: Link) => highlightLinks.add(link));
         }
 
-        hoverNode = props.author
-          ? data.nodes.filter((n) => n.id === props.author)[0]
+        hoverNode = author
+          ? data.nodes.filter((n: Node) => n.id === author)[0]
           : node || null;
       }
     })
     .onLinkHover((link) => {
-      if (!props.author) {
+      if (!author) {
         highlightNodes.clear();
         highlightLinks.clear();
 
@@ -172,18 +155,18 @@ async function fetchData(author?: number) {
       if (node === hoverNode) {
         return "darkorange";
       } else if (highlightNodes.has(node)) {
-        return "lightblue";
+        return "violet";
       } else {
         return "rgb(182, 82, 139)";
       }
     })
-    .cooldownTime(2000)
+    .cooldownTime(4500)
     .onEngineStop(() => {
-      if (props.author && hoverNode && !loading.value) {
+      if (author && hoverNode && !loading.value) {
         setTimeout(() => {
-          hoverNode = data.nodes.filter((n) => n.id === props.author)[0];
+          hoverNode = data.nodes.filter((n) => n.id === author)[0];
           graph.centerAt(hoverNode.x, hoverNode.y, 1000);
-          graph.zoom(1.8, 1500);
+          graph.zoom(2, 2000);
         }, 3);
       }
     })
@@ -195,14 +178,14 @@ async function fetchData(author?: number) {
 
 watch(
   () => [route, props.author],
-  async (params) => {
+  () => {
     loading.value = true;
-    await fetchData(props.author);
+    // graph.value = build(data.value, props.author);
     loading.value = false;
   },
   {
-    immediate: true,
-    deep: true,
+    // immediate: true,
+    // deep: true,
   }
 );
 </script>
@@ -217,9 +200,9 @@ watch(
 }
 .chart-super-container {
   width: inherit;
-    width: 100%;
-     margin-right: 4rem;
-  }
+  width: 100%;
+  margin-right: 4rem;
+}
 
 .chart-container {
   margin-top: 20px;
@@ -231,31 +214,25 @@ watch(
   justify-content: center;
   margin-left: 2rem;
   margin-right: 2rem;
-
-
 }
 
 .dropdown-super {
   position: absolute;
   z-index: 10;
-  width: 110px;
+  width: 340px;
   top: 0px;
-  right: -1em;
-  margin-right:0em;
-   float:right;
-   height:30px;
-   
-   padding:10px 10px 10px 0px;
-   border-radius: 12px;
-   
+  right: 0px;
+  margin-right: 0em;
+  float: right;
+  height: auto;
+
+  padding: 10px 10px 10px 0px;
+  border-radius: 12px;
 }
 
 .dropdown-super:hover {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-   background-color:rgb(255,255,255,0.85);
-     width: 340px;
-        height:auto;
-   
+  background-color: rgb(255, 255, 255, 0.85);
 }
 
 .dropbtn {
@@ -268,30 +245,26 @@ watch(
   border-radius: 10px;
   border: 0px solid transparent !important;
   cursor: pointer;
-  display:block;
-  float:right;
-  right:0px;
-  margin-bottom:5px;
+  display: block;
+  float: right;
+  right: 0px;
+  margin-bottom: 5px;
 }
-
-
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
-  
-
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-  padding:5px;
-   float:right;
+  padding: 5px;
+  float: right;
   display: none;
-border-radius:10px;
- font-size:16px;
+  border-radius: 10px;
+  font-size: 16px;
   min-width: 160px;
-  text-align:right;
-  
+  text-align: right;
+
   z-index: 100;
 }
 
@@ -304,37 +277,16 @@ border-radius:10px;
   padding-bottom: 0.5rem;
   text-decoration: none;
   display: block;
-  line-height:1.0;
+  line-height: 1;
   z-index: 100;
-  
-  
-
-
 }
 
 .dropdown-super:hover .dropdown-content {
   display: block;
 }
 
-.dropdown-super:hover .dropbtn{
+.dropdown-super:hover .dropbtn {
   background-color: rgb(233, 102, 176) !important;
-   backdrop-filter: blur(10px);
- 
+  backdrop-filter: blur(10px);
 }
-
-.force-graph-container .graph-tooltip {
-  position: absolute;
-  top: 0;
-    font-family: "Barlow Condensed", sans-serif !important;
-  font-size: 18px;
- white-space: nowrap;
-  padding: 3px 10px 3px 10px;
-  border-radius: 6px;
-  color: black;
-  background: rgba(255,255,255,0.85);
-   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  visibility: hidden; /* by default */
-}
-
-
 </style>
