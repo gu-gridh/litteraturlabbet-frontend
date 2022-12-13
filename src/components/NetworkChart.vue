@@ -155,7 +155,7 @@ function build(graphData: any, author?: number) {
       if (node === hoverNode) {
         return "darkorange";
       } else if (highlightNodes.has(node)) {
-        return "lightblue";
+        return "cyan";
       } else {
         return "rgb(182, 82, 139)";
       }

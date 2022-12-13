@@ -226,4 +226,17 @@ line-height:1.2;
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+  @media screen and (max-width: 1550px) {
+.about-reuse {
+display:none;
+  
+}
+
+p {
+display:none;
+  
+}
+
+}
 </style>
