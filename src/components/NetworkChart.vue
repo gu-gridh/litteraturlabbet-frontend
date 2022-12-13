@@ -219,7 +219,7 @@ watch(
 .dropdown-super {
   position: absolute;
   z-index: 10;
-  width: 340px;
+  width: 130px;
   top: 0px;
   right: 0px;
   margin-right: 0em;
@@ -233,6 +233,7 @@ watch(
 .dropdown-super:hover {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   background-color: rgb(255, 255, 255, 0.85);
+    width: 340px;
 }
 
 .dropbtn {
