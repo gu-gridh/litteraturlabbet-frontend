@@ -155,12 +155,12 @@ function build(graphData: any, author?: number) {
       if (node === hoverNode) {
         return "darkorange";
       } else if (highlightNodes.has(node)) {
-        return "violet";
+        return "lightblue";
       } else {
         return "rgb(182, 82, 139)";
       }
     })
-    .cooldownTime(4500)
+    .cooldownTime(2500)
     .onEngineStop(() => {
       if (author && hoverNode && !loading.value) {
         setTimeout(() => {
@@ -288,5 +288,19 @@ watch(
 .dropdown-super:hover .dropbtn {
   background-color: rgb(233, 102, 176) !important;
   backdrop-filter: blur(10px);
+}
+
+.force-graph-container .graph-tooltip {
+  position: absolute;
+ white-space: nowrap;
+  top: 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  padding: 2px 8px 0px 8px;
+  border-radius: 5px;
+  color: black;
+  background: rgba(255,255,255,0.9);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  visibility: hidden; /* by default */
 }
 </style>
