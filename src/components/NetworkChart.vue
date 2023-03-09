@@ -46,6 +46,7 @@ const graph = ref();
 onMounted(() => {
   if (props.data) {
     graph.value = build(props.data, props.author);
+   
   }
 });
 
@@ -97,15 +98,17 @@ function build(graphData: any, author?: number) {
     .graphData(data)
     .width(props.width)
     .height(props.height)
+
     .linkWidth((link) => {
       let weight = data.links.filter(
         (l: Link) => l.source === link.source && l.target === link.target
       )[0].weight;
-
+      
       // Filter them by their weight
       weight = weight ? 2 * Math.log(weight) : 1;
 
       return weight;
+      
     })
     .onNodeClick(async (node) => {
       // Center/zoom on node
@@ -117,6 +120,7 @@ function build(graphData: any, author?: number) {
       }
     })
     .onNodeHover((node) => {
+      
       if (!author) {
         highlightNodes.clear();
         highlightLinks.clear();
@@ -145,6 +149,7 @@ function build(graphData: any, author?: number) {
         }
       }
     })
+  
     .autoPauseRedraw(false) // keep redrawing after engine has stopped
     .linkDirectionalParticles(4)
     .linkDirectionalParticleWidth((link) => (highlightLinks.has(link) ? 4 : 0))
@@ -157,7 +162,7 @@ function build(graphData: any, author?: number) {
       } else if (highlightNodes.has(node)) {
         return "#66ccff";
       } else {
-        return "rgb(182, 82, 139)";
+        return "rgb(200, 100, 150)";
       }
     })
     .cooldownTime(2500)
@@ -166,7 +171,7 @@ function build(graphData: any, author?: number) {
         setTimeout(() => {
           hoverNode = data.nodes.filter((n) => n.id === author)[0];
           graph.centerAt(hoverNode.x, hoverNode.y, 1000);
-          graph.zoom(2, 2000);
+          graph.zoom(3, 2000);
         }, 3);
       }
     })
@@ -199,21 +204,23 @@ watch(
   z-index: 10;
 }
 .chart-super-container {
-  width: inherit;
   width: 100%;
-  margin-right: 4rem;
+  margin-right: 0rem;
 }
 
 .chart-container {
-  margin-top: 20px;
-  padding-bottom: 20px;
+  left: 0%;
+  width:100%;
+
+  /* padding-bottom: 20px; */
   width: inherit;
   height: inherit;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  margin-left: 2rem;
-  margin-right: 2rem;
+ justify-content: center;
+   /*  margin-left: 2rem;
+  right: 100px;
+  margin-right: 2rem; */
 }
 
 .dropdown-super {

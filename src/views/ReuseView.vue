@@ -1,7 +1,7 @@
 <template>
   <div v-if="author" class="reuse-container-w-author">
     <div class="chart-container">
-      <div>
+      <div style="display:none;">
         <p class="about-reuse">Om textåterbruk</p>
         <p>
           Textåterbruk utgör alla upprepade förekomster av textstycken utanför
@@ -28,13 +28,19 @@
           och stavning.
         </p>
       </div>
+  
         <network-chart
           :data="data"
           :author="author"
-          :width="500"
-          :height="300"
+          :width="3000"
+          :height="500"
         ></network-chart>
-    </div>
+        
+       
+
+  </div>
+  <div class="Fade"></div>
+  
 
     <suspense>
       <reuse-list v-if="author" :author="author" :work="work"></reuse-list>
@@ -43,8 +49,9 @@
 
   <div v-else class="reuse-container-wo-author">
     <div class="chart-container">
-        <network-chart :data="data" :width="800" :height="400"></network-chart>
+        <network-chart :data="data" :width="3000" :height="500"></network-chart>
     </div>
+    <div class="Fade"></div>
     <div class="reuse-title">
       <h1>Textåterbruk</h1>
     </div>
@@ -139,11 +146,18 @@ async function fetch() {
 </script>
 
 <style scoped>
+
+.Fade{
+  background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 5%, rgba(255,255,255,0) 100%);
+  width:100%;
+  height:150px;
+  margin-top:-150px;
+  pointer-events: none;
+}
 .about-reuse {
   /* width: 200px; */
   color: black;
   font-size: x-large;
-  
 }
 
 p{
@@ -151,9 +165,9 @@ line-height:1.2;
   font-size:16px;
 }
 .chart-container {
-  display: flex;
+/*   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: flex-start; */
 }
 
 .reuse-container-wo-author {
@@ -166,7 +180,7 @@ line-height:1.2;
   height: 100%;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+
 }
 
 .reuse-list-label {
