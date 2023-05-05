@@ -33,7 +33,7 @@
           :data="data"
           :author="author"
           :width="3000"
-          :height="500"
+          :height="370"
         ></network-chart>
         
        
