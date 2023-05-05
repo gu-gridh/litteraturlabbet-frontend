@@ -150,7 +150,7 @@ async function fetch() {
 .Fade{
   background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 5%, rgba(255,255,255,0) 100%);
   width:100%;
-  height:150px;
+  height:152px;
   margin-top:-150px;
   pointer-events: none;
 }
