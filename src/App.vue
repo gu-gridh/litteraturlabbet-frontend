@@ -50,14 +50,19 @@ body {
   margin: 0 !important;
 
   font-family: "Barlow Condensed", sans-serif !important;
-
-  background: linear-gradient(
+   background: linear-gradient(
+    to right,
+    rgb(250, 250, 250) 0%,
+    rgb(255, 255, 255) 100%
+  ) !important; 
+}
+  /* background: linear-gradient(
     to right,
     rgb(80, 57, 108) 0%,
     rgb(168, 107, 75) 50%,
     rgb(255, 144, 39) 100%
-  ) !important;
-}
+  ) !important; 
+}*/
 
 /* .bgmask {
         width: 100%;
@@ -74,13 +79,13 @@ body {
 } */
 
 a:link {
-  color: white;
+  color: black;
   text-decoration: none;
 }
 
 a:visited {
   text-decoration: none;
-  color: white;
+  color: black;
   text-decoration-style: none;
 }
 
@@ -98,7 +103,7 @@ a:hover {
 .ll-logo-container {
   font-family: "Cormorant Garamond", serif;
   letter-spacing: -6px;
-  color: white;
+  color: black;
   width: 100%;
   font-size: 100px;
   line-height: 0.75;
@@ -115,7 +120,7 @@ a:hover {
   margin-left: -10px;
   width: 80px;
   height: 80px;
-  background-image: url("@/assets/lblogo.png") !important;
+  background-image: url("@/assets/lblogoblack.png") !important;
   background-size: 80px;
   z-index: 1;
   transition: all 0.2s ease-in-out;
@@ -204,6 +209,7 @@ a:hover {
   overflow: hidden;
   padding-bottom: 20px;
   z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
 }
 
 .search-container {
@@ -228,22 +234,9 @@ a:hover {
   align-items: center;
 }
 
-.search-button {
-  font-family: "Barlow Condensed", sans-serif !important;
-  padding: 0.4rem 1rem 0.4rem 1rem;
-  font-size: 25px;
-  color: white;
-  background-color: rgb(182, 82, 139);
-  border-color: none !important;
-  border-radius: 10px;
-  border: 0px solid transparent !important;
-  margin-bottom: 1.5rem;
-  position: absolute;
-  margin-left: -30px;
-}
 
 button {
-  color: white;
+  color: black;
   overflow: hidden;
 }
 

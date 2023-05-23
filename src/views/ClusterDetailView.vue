@@ -58,12 +58,12 @@ onBeforeMount(() => {
   width:80px;
   margin:20px;
   margin-left:3em;
-  background-color:rgb(182, 82, 139)
+  background-color:black;
 }
 
 .back-button:hover{
-    background-color:rgb(202, 102, 159);
-    color:black;
+  background-color: rgb(80,80,80);
+  color: white;
 
 }
 

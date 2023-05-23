@@ -68,7 +68,7 @@ if (props.segment) {
   width: 80px;
   margin: 20px;
   margin-left: 3em;
-  background-color: rgb(182, 82, 139);
+  background-color: black;
 }
 
 .page-container {
@@ -95,7 +95,7 @@ if (props.segment) {
    margin-bottom: 10px;
   font-size: 40px;
   line-height: 1.0;
-  color: rgb(182, 82, 139);
+  color: black;
 }
 
 .author {
@@ -104,8 +104,8 @@ if (props.segment) {
 }
 
 .back-button:hover {
-  background-color: rgb(202, 102, 159);
-  color: black;
+  background-color: rgb(80,80,80);
+  color: white;
 }
 
 @media screen and (max-width: 950px) {

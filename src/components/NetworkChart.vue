@@ -162,7 +162,7 @@ function build(graphData: any, author?: number) {
       } else if (highlightNodes.has(node)) {
         return "#66ccff";
       } else {
-        return "rgb(200, 100, 150)";
+        return "rgb(0, 0, 0)";
       }
     })
     .cooldownTime(2500)
@@ -248,7 +248,7 @@ watch(
   padding: 0.4rem 1rem 0.4rem 1rem;
   font-size: 20px;
   color: white;
-  background-color: rgb(182, 82, 139);
+  background-color: black;
   border-color: none !important;
   border-radius: 10px;
   border: 0px solid transparent !important;
@@ -294,7 +294,7 @@ watch(
 }
 
 .dropdown-super:hover .dropbtn {
-  background-color: rgb(233, 102, 176) !important;
+  background-color: rgb(80,80,80) !important;
   backdrop-filter: blur(10px);
 }
 

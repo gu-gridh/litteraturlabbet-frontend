@@ -203,7 +203,7 @@ line-height:1.2;
 
 .author-name,
 .work-title {
-  background-color: rgb(182, 82, 139);
+  background-color: black;
   color: white;
   padding: 0.5rem 0.7rem 0.5rem 0.7rem;
   border-radius: 8px;
@@ -216,7 +216,7 @@ line-height:1.2;
   font-size: 30px;
   line-height: 0.9;
   text-align: center;
-  color: rgb(182, 82, 139);
+  color: black;
 }
 
 .reuse-content {

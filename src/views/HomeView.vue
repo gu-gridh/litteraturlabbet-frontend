@@ -26,7 +26,7 @@ padding:50px;
     font-size:30px;
     line-height:0.9;
        text-align:center;
-      color:rgb(182, 82, 139);
+      color:black;
    
 
   }
