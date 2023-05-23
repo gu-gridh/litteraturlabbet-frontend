@@ -62,7 +62,7 @@ onBeforeMount(() => {
 }
 
 .back-button:hover{
-  background-color: rgb(80,80,80);
+  background-color: rgb(85,85,85);
   color: white;
 
 }

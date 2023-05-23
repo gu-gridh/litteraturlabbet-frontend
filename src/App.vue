@@ -285,7 +285,7 @@ button {
   .search-button {
     font-size: 35px;
     color: white;
-    background-color: rgb(182, 82, 139);
+    background-color: rgb(180, 80, 80);
     border-color: none !important;
     border-radius: 10px;
     border: 0px solid transparent !important;

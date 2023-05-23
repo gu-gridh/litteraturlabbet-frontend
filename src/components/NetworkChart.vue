@@ -162,7 +162,7 @@ function build(graphData: any, author?: number) {
       } else if (highlightNodes.has(node)) {
         return "#66ccff";
       } else {
-        return "rgb(0, 0, 0)";
+        return "rgb(85, 85, 85)";
       }
     })
     .cooldownTime(2500)
