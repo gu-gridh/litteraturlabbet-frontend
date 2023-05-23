@@ -145,7 +145,7 @@ a:hover {
   font-weight: 300;
   padding: 0rem 0.5rem 0rem 0.5rem;
   margin-right: 0.25rem;
-  border-radius: 10px;
+  border-radius: 8px;
   background-color: rgb(255, 255, 255, 0);
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -154,7 +154,7 @@ a:hover {
 
 .nav-link:hover {
   opacity: 1;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(235, 235, 235);
   color: black;
 }
 
