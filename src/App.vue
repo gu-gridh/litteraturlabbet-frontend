@@ -252,7 +252,7 @@ button {
   .lb-logo-container {
     width: 120px;
     height: 120px;
-    background-image: url("@/assets/lblogo.png") !important;
+    background-image: url("@/assets/lblogoblack.png") !important;
     background-size: 120px;
   }
 
