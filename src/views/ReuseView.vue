@@ -61,10 +61,7 @@
       plagiat, citat, utbyten mellan författare, eller mer vardagliga orsaker.
       Eventuellt återbruk är inte alltid avsiktligt, utan kan bero på
       parafraser, vanliga talesätt eller helt enkelt redaktörers ingrepp i
-      författares verk.
-      <br />
-      <br />
-      Återbruk är inte nödvändigtivs linjärt, om liknande textstycken förekommer
+      författares verk. Återbruk är inte nödvändigtivs linjärt, om liknande textstycken förekommer
       hos flera författare behöver de inte ha lånat materialet från varandra -
       det kan exempelvis finnas en odokumenterad tredje part varifrån texten
       ursprungligen kommer. Av denna anledning kan man inte med enkla medel
