@@ -74,6 +74,20 @@
       tjockare linje mellan två författare visar på fler utbyten. Sök sedan på
       en specifik författare för att detaljläsa återbruken.
     </div>
+    <div class="topLists">
+      <div class="list">
+        <ol>
+          <h2>Författare</h2>
+          <li v-for="author in topAuthors"> {{ author.name }}</li>
+        </ol>
+      </div>
+      <div class="list">
+        <ol>
+          <h2>Verk</h2>
+          <li v-for="title in topTitles">{{ title }}</li>
+        </ol>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -87,6 +101,7 @@ import { networkStore } from "@/stores/network";
 import type { Link, Node } from "@/types/network";
 import { unpaginated, list } from "@/services/diana";
 import { nextTick, ref, onMounted } from "vue";
+import  topList from "@/assets/topList.json"
 const store = searchStore();
 const dataStore = networkStore();
 
@@ -140,6 +155,10 @@ async function fetch() {
 
   return { nodes: nodes, links: links };
 }
+
+const topTitles = topList.titles.slice(0,10)
+const topAuthors = topList.authors.slice(0,10)
+
 </script>
 
 <style scoped>
@@ -249,5 +268,16 @@ display:none;
   
 }
 
+
+}
+.topLists {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  /* align-items: flex-start; */
+}
+.list {
+  text-align: left;
+  flex: 0 0 50%;
 }
 </style>
