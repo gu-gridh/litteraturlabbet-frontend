@@ -78,13 +78,34 @@
       <div class="list">
         <ol>
           <h2>Författare</h2>
-          <li v-for="author in topAuthors"> {{ author.name }}</li>
+          <li v-for="topAuthor in topAuthors" @click="showTopList(topAuthor.id)" class="clickable">
+            <router-link 
+              :to="{
+                name: 'reuse',
+                query: {
+                  author: topAuthor.id,
+                },
+              }">
+            {{ topAuthor.name }}
+          </router-link>
+          </li>
         </ol>
       </div>
       <div class="list">
         <ol>
           <h2>Verk</h2>
-          <li v-for="title in topTitles">{{ title }}</li>
+          <li v-for="topTitle in topTitles" @click="showTopList(topTitle.id)" class="clickable">
+            <router-link 
+              :to="{
+                name: 'reuse',
+                query: {
+                  author: topTitle.authorId,
+                  work: topTitle.id,
+                },
+              }">
+            {{ topTitle.title }}
+            </router-link>
+          </li>
         </ol>
       </div>
     </div>
@@ -156,8 +177,17 @@ async function fetch() {
   return { nodes: nodes, links: links };
 }
 
+//Top lists logic
 const topTitles = topList.titles.slice(0,10)
 const topAuthors = topList.authors.slice(0,10)
+// const authorSelect = ref();
+// const workSelect = ref();
+
+const showTopList = (val: number) => {
+  console.log(val)
+}
+
+
 
 </script>
 
@@ -279,5 +309,8 @@ display:none;
 .list {
   text-align: left;
   flex: 0 0 50%;
+}
+.clickable {
+  cursor: pointer;
 }
 </style>
