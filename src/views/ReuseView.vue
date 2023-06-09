@@ -78,7 +78,7 @@
       <div class="list">
         <ol>
           <h2>Författare</h2>
-          <li v-for="topAuthor in topAuthors" @click="router.push({ path: '/reuse', query: { author: topAuthor.id } }).then(() => { router.go(0) })" class="clickable">
+          <li v-for="topAuthor in topAuthors" @click="getAuthorReuse(topAuthor.lbauthorid)" class="clickable">
             {{ topAuthor.name }}
           </li>
         </ol>
@@ -86,7 +86,7 @@
       <div class="list">
         <ol>
           <h2>Verk</h2>
-          <li v-for="topTitle in topTitles" @click="router.push({ path: '/reuse', query: { author: topTitle.authorId, work: topTitle.id } }).then(() => { router.go(0) })" class="clickable">
+          <li v-for="topTitle in topTitles" @click="getWorkReuse(topTitle.lbworkid, topTitle.lbauthorid)" class="clickable">
             {{ topTitle.title }}
           </li>
         </ol>
@@ -107,6 +107,7 @@ import { unpaginated, list } from "@/services/diana";
 import { nextTick, ref, onMounted } from "vue";
 import  topList from "@/assets/topList.json"
 import router from '@/router/index'
+import { stringifyQuery } from "vue-router";
 
 const store = searchStore();
 const dataStore = networkStore();
@@ -164,6 +165,15 @@ async function fetch() {
 
 const topTitles = topList.titles.slice(0,10)
 const topAuthors = topList.authors.slice(0,10)
+
+const getAuthorReuse = (lbworkid: string) => {
+  console.log(lbworkid)
+  //router.push({ path: '/reuse', query: { author: topAuthor.lbauthorid } }).then(() => { router.go(0) })
+}
+
+const getWorkReuse = (lbworkid: string, lbauthorid: string) => {
+  console.log(lbworkid, lbauthorid)
+}
 
 </script>
 
