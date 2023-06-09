@@ -78,33 +78,16 @@
       <div class="list">
         <ol>
           <h2>Författare</h2>
-          <li v-for="topAuthor in topAuthors" @click="showTopList(topAuthor.id)" class="clickable">
-            <router-link 
-              :to="{
-                name: 'reuse',
-                query: {
-                  author: topAuthor.id,
-                },
-              }">
+          <li v-for="topAuthor in topAuthors" @click="router.push({ path: '/reuse', query: { author: topAuthor.id } }).then(() => { router.go(0) })" class="clickable">
             {{ topAuthor.name }}
-          </router-link>
           </li>
         </ol>
       </div>
       <div class="list">
         <ol>
           <h2>Verk</h2>
-          <li v-for="topTitle in topTitles" @click="showTopList(topTitle.id)" class="clickable">
-            <router-link 
-              :to="{
-                name: 'reuse',
-                query: {
-                  author: topTitle.authorId,
-                  work: topTitle.id,
-                },
-              }">
+          <li v-for="topTitle in topTitles" @click="router.push({ path: '/reuse', query: { author: topTitle.authorId, work: topTitle.id } }).then(() => { router.go(0) })" class="clickable">
             {{ topTitle.title }}
-            </router-link>
           </li>
         </ol>
       </div>
@@ -123,6 +106,8 @@ import type { Link, Node } from "@/types/network";
 import { unpaginated, list } from "@/services/diana";
 import { nextTick, ref, onMounted } from "vue";
 import  topList from "@/assets/topList.json"
+import router from '@/router/index'
+
 const store = searchStore();
 const dataStore = networkStore();
 
@@ -177,17 +162,8 @@ async function fetch() {
   return { nodes: nodes, links: links };
 }
 
-//Top lists logic
 const topTitles = topList.titles.slice(0,10)
 const topAuthors = topList.authors.slice(0,10)
-// const authorSelect = ref();
-// const workSelect = ref();
-
-const showTopList = (val: number) => {
-  console.log(val)
-}
-
-
 
 </script>
 
