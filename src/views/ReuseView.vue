@@ -99,7 +99,7 @@
 import NetworkChart from "@/components/NetworkChart.vue";
 import ReuseList from "@/components/ReuseList.vue";
 import type { Work, Author } from "@/types/litteraturlabbet";
-import { get } from "@/services/diana";
+import { get, getByLbId } from "@/services/diana";
 import { searchStore } from "@/stores/search";
 import { networkStore } from "@/stores/network";
 import type { Link, Node } from "@/types/network";
@@ -107,7 +107,6 @@ import { unpaginated, list } from "@/services/diana";
 import { nextTick, ref, onMounted } from "vue";
 import  topList from "@/assets/topList.json"
 import router from '@/router/index'
-import { stringifyQuery } from "vue-router";
 
 const store = searchStore();
 const dataStore = networkStore();
@@ -163,16 +162,27 @@ async function fetch() {
   return { nodes: nodes, links: links };
 }
 
+//toplist logic
 const topTitles = topList.titles.slice(0,10)
 const topAuthors = topList.authors.slice(0,10)
 
-const getAuthorReuse = (lbworkid: string) => {
-  console.log(lbworkid)
-  //router.push({ path: '/reuse', query: { author: topAuthor.lbauthorid } }).then(() => { router.go(0) })
+//fetch Author/Work, get id and go to ReuseList
+const getAuthorReuse = (lbauthorid: string) => {
+  getByLbId("author", {lbauthorid: lbauthorid})
+    .then((a: any) => {
+      const authId = a.results[0].id
+      router.push({ name: 'reuse', query: { author: authId } }).then(() => { router.go(0) })
+    }) 
 }
 
 const getWorkReuse = (lbworkid: string, lbauthorid: string) => {
-  console.log(lbworkid, lbauthorid)
+  getByLbId("work", {lbworkid: lbworkid})
+    .then((a: any) => {
+      console.log(a)
+      const workId = a.results[0].id
+      const authId = a.results[0].authors[0]
+      router.push({ name: 'reuse', query: { work: workId, author: authId } }).then(() => { router.go(0) })
+    }) 
 }
 
 </script>
