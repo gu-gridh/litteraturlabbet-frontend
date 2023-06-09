@@ -280,6 +280,8 @@ display:none;
   display: flex;
   flex-flow: wrap;
   justify-content: center;
+  padding: 100px;
+  font-size: 18px;
   /* align-items: flex-start; */
 }
 .list {
