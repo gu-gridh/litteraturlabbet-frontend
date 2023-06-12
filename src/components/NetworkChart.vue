@@ -48,6 +48,7 @@ onMounted(() => {
     graph.value = build(props.data, props.author);
    
   }
+  else {console.log('error')}
 });
 
 watch(
@@ -59,7 +60,7 @@ watch(
 );
 
 function build(graphData: any, author?: number) {
-  console.log(graphData);
+  console.log('graph data',graphData);
   const graph = ForceGraph();
   const highlightNodes = new Set();
   const highlightLinks = new Set();
@@ -72,9 +73,9 @@ function build(graphData: any, author?: number) {
     return graph
   }
 
-  data.links.forEach((link) => {
-    const a = data.nodes.filter((n) => n.id === link.source)[0];
-    const b = data.nodes.filter((n) => n.id === link.target)[0];
+  data.links.forEach((link: any) => {
+    const a = data.nodes.filter((n: any) => n.id === link.source)[0];
+    const b = data.nodes.filter((n: any) => n.id === link.target)[0];
     !a.neighbors && (a.neighbors = []);
     !b.neighbors && (b.neighbors = []);
     a.neighbors.push(b);
@@ -89,7 +90,7 @@ function build(graphData: any, author?: number) {
   let hoverNode: Node;
 
   if (author) {
-    hoverNode = data.nodes.filter((n) => n.id === author)[0];
+    hoverNode = data.nodes.filter((n: any) => n.id === author)[0];
     highlightNodes.add(hoverNode);
     hoverNode.neighbors.forEach((neighbor) => highlightNodes.add(neighbor));
     hoverNode.links.forEach((link: Link) => highlightLinks.add(link));

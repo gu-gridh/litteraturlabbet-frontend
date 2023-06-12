@@ -3,205 +3,245 @@
         {
             "title": "Epigrammer, satirer och berättelser",
             "lbworkid": "lb1595709",
-            "lbauthorid": "CederborghF"
+            "lbauthorid": "CederborghF",
+            "id": 0
         },
         {
             "title": "Sjökadetten i konung Gustaf den tredjes tid af Pehr Sparre. Förf. till »Den siste friseglaren», »Adolf Findling» och »Standaret»",
             "lbworkid":"lb2228705",
-            "lbauthorid":"SparreP"
+            "lbauthorid":"SparreP",
+            "id": 0
         },
         {
             "title": "Det yttersta skäret [1899]",
             "lbworkid":"lb19466852",
-            "lbauthorid":"GeijerstamG"
+            "lbauthorid":"GeijerstamG",
+            "id": 0
 
         },
         {
             "title": "Berättelser skizzer och noveller af C. A. Wetterbergh (Onkel Adam). Tredje bandet",
             "lbworkid":"lb307357",
-            "lbauthorid":"WetterberghCA"
+            "lbauthorid":"WetterberghCA",
+            "id": 0
         },
         {
             "title": "Skämtsamma dikter",
             "lbworkid":"lb2223582",
-            "lbauthorid":"BraunWvon"
+            "lbauthorid":"BraunWvon",
+            "id": 0
         },
         {
             "title": "Berättelser skizzer och noveller af C. A. Wetterbergh (Onkel Adam). Fjerde bandet",
             "lbworkid":"lb307358",
-            "lbauthorid":"WetterberghCA"
+            "lbauthorid":"WetterberghCA",
+            "id": 0
         },
         {
             "title": "Millionärens dotterson. Öden och äfventyr till lands och sjös. Berättelse af Lodbrok",
             "lbworkid": "lb8222204",
-            "lbauthorid": "PihlstrandR"
+            "lbauthorid": "PihlstrandR",
+            "id": 0
         },
         {
             "title": "Ungdoms tidsfördrif. Andra Bandet",
             "lbworkid": "lb1575672",
-            "lbauthorid": "CederborghF"
+            "lbauthorid": "CederborghF",
+            "id": 0
         },
         {
             "title": "Ungdoms tidsfördrif. Första Bandet",
             "lbworkid": "lb1575671",
-            "lbauthorid": "CederborghF"
+            "lbauthorid": "CederborghF",
+            "id": 0
         },
         {
             "title": "Samlade dikter jemte lefnadsteckning utgifna af J. Oskar I. Rancken. Med Leistenii porträtt och facsimile",
             "lbworkid": "lb10088367",
-            "lbauthorid": "LeisteniusJG"
+            "lbauthorid": "LeisteniusJG",
+            "id": 0
         },
         {
             "title": "Emancipationsvurmen. Berättelse",
             "lbworkid": "lb1158285",
-            "lbauthorid": "SchwartzMS"
+            "lbauthorid": "SchwartzMS",
+            "id": 0
         },
         {
             "title": "Kronofogdens berättelser af Gustaf af Geijerstam",
             "lbworkid": "lb1622785",
-            "lbauthorid": "GeijerstamG"
+            "lbauthorid": "GeijerstamG",
+            "id": 0
         },
         {
             "title": "Också en julklapp. Innehållande berättelser och utkast",
             "lbworkid": "",
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "title": "Styckegods af signaturen Skoglar",
             "lbworkid": "",
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "title": "Berättelser skizzer och noveller af C. A. Wetterbergh (Onkel Adam). Första bandet",
             "lbworkid": "",
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "title": "Fosterländska sånger [II]",
             "lbworkid": "",
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "title": "Tre historiska noveller af Wilhelmina. I. Studentkriget. II. Angelica Lillie. III. En annan Cendrillon",
             "lbworkid": "",
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "title": "Läs! Noveller och skizzer af Nepomuk",
             "lbworkid": "",
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         }
     ],
     "authors": [
         {
             "name": "Carl Anton Wetterbergh",
             "titles": 12,
-            "lbauthorid": "WetterberghCA"
+            "lbauthorid": "WetterberghCA",
+            "id": 0
         },
         {
             "name": "Gustaf Henrik Mellin",
             "titles": 9,
-            "lbauthorid":"MellinGH"
+            "lbauthorid":"MellinGH",
+            "id": 0
         },
         {
             "name": "Anonym",
             "titles": 6,
-            "lbauthorid": "Anonym"
+            "lbauthorid": "Anonym",
+            "id": 0
         },
         {
             "name": "Fredrik Cederborgh",
             "titles": 5,
-            "lbauthorid": "CederborghF"
+            "lbauthorid": "CederborghF",
+            "id": 0
         },
         {
             "name": "Julius Axel Kiellman-Göranson",
             "titles": 4,
-            "lbauthorid": "Kiellman-GöransonJA"
+            "lbauthorid": "Kiellman-GöransonJA",
+            "id": 0
         },
         {
             "name": "Ludvig Teodor Öberg",
             "titles": 3,
-            "lbauthorid": "ÖbergLT"
+            "lbauthorid": "ÖbergLT",
+            "id": 0
         },
         {
             "name": "Gustaf af Geijerstam",
             "titles": 3,
-            "lbauthorid": "GeijerstamG"
+            "lbauthorid": "GeijerstamG",
+            "id": 0
         },
         {
             "name": "Johan Olof Ekmark",
             "titles": 3,
-            "lbauthorid": "EkmarkJO"
+            "lbauthorid": "EkmarkJO",
+            "id": 0
         },
         {
             "name": "Carl Fredrik Ridderstad",
             "titles": 3,
-            "lbauthorid": "RidderstadCF"
+            "lbauthorid": "RidderstadCF",
+            "id": 0
         },
         {
             "name": "Richard Lundeblom",
             "titles": 3,
-            "lbauthorid": "LundeblomR"
+            "lbauthorid": "LundeblomR",
+            "id": 0
         },
         {
             "name": "Herman Bjursten",
             "titles": 2,
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "name": "Pehr Sparre",
             "titles": 2,
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "name": "Ragnar Pihlstrand",
             "titles": 2,
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "name": "Oskar II",
             "titles": 2,
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "name": "Marie Sophie Schwartz",
             "titles": 2,
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "name": "Louis De Geer",
             "titles": 2,
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "name": "Erik Gustaf Geijer",
             "titles": 2,
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "name": "Johan Ludvig Runeberg",
             "titles": 2,
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "name": "Carl Vilhelm August Strandberg",
             "titles": 2,
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "name": "Karl Robert Malmström",
             "titles": 2,
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "name": "Anders Flodman",
             "titles": 2,
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         },
         {
             "name": "Theodor Björck",
             "titles": 2,
-            "lbauthorid": ""
+            "lbauthorid": "",
+            "id": 0
         }
     ]
 

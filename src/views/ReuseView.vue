@@ -74,7 +74,7 @@
       tjockare linje mellan två författare visar på fler utbyten. Sök sedan på
       en specifik författare för att detaljläsa återbruken.
     </div>
-    <div class="topLists">
+    <!-- <div class="topLists">
       <div class="list">
         <ol>
           <h2>Författare</h2>
@@ -91,7 +91,8 @@
           </li>
         </ol>
       </div>
-    </div>
+    </div> -->
+    <top-lists/>
   </div>
 </template>
 
@@ -104,9 +105,8 @@ import { searchStore } from "@/stores/search";
 import { networkStore } from "@/stores/network";
 import type { Link, Node } from "@/types/network";
 import { unpaginated, list } from "@/services/diana";
-import { nextTick, ref, onMounted } from "vue";
-import  topList from "@/assets/topList.json"
-import router from '@/router/index'
+import { watch } from "vue";
+import TopLists from "./TopLists.vue";
 
 const store = searchStore();
 const dataStore = networkStore();
@@ -130,6 +130,10 @@ if (props.work) {
     store.work = w;
   });
 }
+
+watch(() => store.author, () => {
+  console.log('store changed')
+})
 
 
 // onMounted(async () => {
@@ -160,29 +164,6 @@ async function fetch() {
   });
 
   return { nodes: nodes, links: links };
-}
-
-//toplist logic
-const topTitles = topList.titles.slice(0,10)
-const topAuthors = topList.authors.slice(0,10)
-
-//fetch Author/Work, get id and go to ReuseList
-const getAuthorReuse = (lbauthorid: string) => {
-  getByLbId("author", {lbauthorid: lbauthorid})
-    .then((a: any) => {
-      const authId = a.results[0].id
-      router.push({ name: 'reuse', query: { author: authId } }).then(() => { router.go(0) })
-    }) 
-}
-
-const getWorkReuse = (lbworkid: string, lbauthorid: string) => {
-  getByLbId("work", {lbworkid: lbworkid})
-    .then((a: any) => {
-      console.log(a)
-      const workId = a.results[0].id
-      const authId = a.results[0].authors[0]
-      router.push({ name: 'reuse', query: { work: workId, author: authId } }).then(() => { router.go(0) })
-    }) 
 }
 
 </script>

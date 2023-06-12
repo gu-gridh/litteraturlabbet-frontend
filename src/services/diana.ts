@@ -18,8 +18,8 @@ function get<T>(id: number, endpoint: string): Promise<T> {
   });
 }
 
-function getByLbId(endpoint: string, params: any){
-  return axios.get(`${project.urls.baseURL}/${endpoint}`, {
+function getByLbId<T>(endpoint: string, params: any): Promise<T>{
+  return axios.get<T>(`${project.urls.baseURL}/${endpoint}`, {
     params: params,
   })
   .then((d) => {
