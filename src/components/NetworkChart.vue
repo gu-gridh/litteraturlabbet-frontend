@@ -44,11 +44,11 @@ const loading = ref(true);
 const graph = ref();
 
 onMounted(() => {
-  if (props.data) {
+  try {
     graph.value = build(props.data, props.author);
-   
+  } catch (error) {
+    console.log(error);
   }
-  else {console.log('error')}
 });
 
 watch(
