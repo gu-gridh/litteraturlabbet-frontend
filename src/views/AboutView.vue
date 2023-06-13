@@ -20,15 +20,15 @@ Välj en författare med hjälp av sökfältet till vänster. Vill du undersöka
 <style scoped>
 
 a:link{
-color:rgb(182, 82, 139);
+font-weight:500;
 }
 
 a:visited{
-color:rgb(182, 82, 139);
+
 }
 
 a:hover{
-color:rgb(202, 102, 159) !important;
+color:rgb(100, 100, 100) !important;
 background-color:white !important;
 cursor:pointer !important;
 }
@@ -54,7 +54,6 @@ cursor:pointer !important;
     font-size:30px;
     line-height:0.9;
        text-align:center;
-      color:rgb(182, 82, 139);
       width:100%;
   }
 

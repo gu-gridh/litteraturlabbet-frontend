@@ -74,8 +74,11 @@
       tjockare linje mellan två författare visar på fler utbyten. Sök sedan på
       en specifik författare för att detaljläsa återbruken.
     </div>
+    <h1 style="padding-left:40px;">Ofta förekommande återbruk</h1>
+    
     <div class="topLists">
-      <div class="list">
+     
+      <div class="list-left">
         <ol>
           <h2>Författare</h2>
           <li v-for="topAuthor in topAuthors" @click="router.push({ path: '/reuse', query: { author: topAuthor.id } }).then(() => { router.go(0) })" class="clickable">
@@ -83,7 +86,7 @@
           </li>
         </ol>
       </div>
-      <div class="list">
+      <div class="list-right">
         <ol>
           <h2>Verk</h2>
           <li v-for="topTitle in topTitles" @click="router.push({ path: '/reuse', query: { author: topTitle.authorId, work: topTitle.id } }).then(() => { router.go(0) })" class="clickable">
@@ -278,15 +281,39 @@ display:none;
 }
 .topLists {
   display: flex;
-  flex-flow: wrap;
-  justify-content: center;
+  padding-right:20px;
+  justify-content: left;
   /* align-items: flex-start; */
 }
-.list {
+
+.list-left {
+  flex-grow:1;
   text-align: left;
-  flex: 0 0 50%;
+  width:300px;
+  min-width:280px;
+  padding-left:0px;
 }
+
+.list-right {
+  flex-grow:1;
+  text-align: left;
+  padding-left:10px;
+}
+
 .clickable {
   cursor: pointer;
+}
+
+li{
+  font-size:18px;
+  margin-left:20px;
+  border-radius:5px;
+  padding:3px 6px;
+  line-height:1.1;
+  margin-bottom:5px;
+}
+
+li:hover{
+  background-color:rgb(240,240,240);
 }
 </style>

@@ -52,8 +52,8 @@ body {
   font-family: "Barlow Condensed", sans-serif !important;
    background: linear-gradient(
     to right,
-    rgb(250, 250, 250) 0%,
-    rgb(255, 255, 255) 100%
+    rgb(240, 240, 240) 0%,
+    rgb(250, 250, 250) 100%
   ) !important; 
 }
   /* background: linear-gradient(
