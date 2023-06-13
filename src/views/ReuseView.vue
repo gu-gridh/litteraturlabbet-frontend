@@ -282,6 +282,7 @@ display:none;
 .topLists {
   display: flex;
   padding-right:20px;
+  padding-bottom:30px;
   justify-content: left;
   /* align-items: flex-start; */
 }
