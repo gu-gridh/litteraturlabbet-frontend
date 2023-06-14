@@ -70,27 +70,38 @@ function build(graphData: any, author?: number) {
   // Check if node is in the network
   // If not, return empty graph
   if (author && data.nodes.filter((n: any) => n.id === author).length === 0) {
-    return graph
+    return graph;
   }
 
-  data.links.forEach((link: any) => {
-    const a = data.nodes.filter((n: any) => n.id === link.source)[0];
-    const b = data.nodes.filter((n: any) => n.id === link.target)[0];
-    !a.neighbors && (a.neighbors = []);
-    !b.neighbors && (b.neighbors = []);
-    a.neighbors.push(b);
-    b.neighbors.push(a);
+  // Convert node ids to node objects for force-graph
+  data.links = data.links.map((link) => {
+    const a = data.nodes.find((n) => n.id === link.source);
+    const b = data.nodes.find((n) => n.id === link.target);
+    if (a && b) {
+      !a.neighbors && (a.neighbors = []);
+      !b.neighbors && (b.neighbors = []);
+      a.neighbors.push(b);
+      b.neighbors.push(a);
 
-    !a.links && (a.links = []);
-    !b.links && (b.links = []);
-    a.links.push(link);
-    b.links.push(link);
-  });
+      !a.links && (a.links = []);
+      !b.links && (b.links = []);
+      a.links.push(link);
+      b.links.push(link);
+
+      return {
+        ...link,
+        source: a,
+        target: b,
+      };
+    }
+    return null;
+  }).filter(link => link); // removes null values
+
 
   let hoverNode: Node;
 
   if (author) {
-    hoverNode = data.nodes.filter((n: any) => n.id === author)[0];
+    hoverNode = data.nodes.filter((n) => n.id === author)[0];
     highlightNodes.add(hoverNode);
     hoverNode.neighbors.forEach((neighbor) => highlightNodes.add(neighbor));
     hoverNode.links.forEach((link: Link) => highlightLinks.add(link));
