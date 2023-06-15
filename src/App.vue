@@ -38,6 +38,7 @@
 import { RouterLink, RouterView } from "vue-router";
 import Footer from "@/components/Footer.vue";
 import CollectionSearch from "./components/CollectionSearch.vue";
+import { watch } from "vue";
 </script>
 
 <style src="@vueform/multiselect/themes/default.css"></style>

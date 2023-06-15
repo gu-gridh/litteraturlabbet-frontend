@@ -74,27 +74,25 @@
       tjockare linje mellan två författare visar på fler utbyten. Sök sedan på
       en specifik författare för att detaljläsa återbruken.
     </div>
-    <h1 style="padding-left:40px;">Ofta förekommande återbruk</h1>
-    
-    <div class="topLists">
-     
-      <div class="list-left">
+    <!-- <div class="topLists">
+      <div class="list">
         <ol>
           <h2>Författare</h2>
-          <li v-for="topAuthor in topAuthors" @click="router.push({ path: '/reuse', query: { author: topAuthor.id } }).then(() => { router.go(0) })" class="clickable">
+          <li v-for="topAuthor in topAuthors" @click="getAuthorReuse(topAuthor.lbauthorid)" class="clickable">
             {{ topAuthor.name }}
           </li>
         </ol>
       </div>
-      <div class="list-right">
+      <div class="list">
         <ol>
           <h2>Verk</h2>
-          <li v-for="topTitle in topTitles" @click="router.push({ path: '/reuse', query: { author: topTitle.authorId, work: topTitle.id } }).then(() => { router.go(0) })" class="clickable">
+          <li v-for="topTitle in topTitles" @click="getWorkReuse(topTitle.lbworkid, topTitle.lbauthorid)" class="clickable">
             {{ topTitle.title }}
           </li>
         </ol>
       </div>
-    </div>
+    </div> -->
+    <top-lists/>
   </div>
 </template>
 
@@ -102,14 +100,13 @@
 import NetworkChart from "@/components/NetworkChart.vue";
 import ReuseList from "@/components/ReuseList.vue";
 import type { Work, Author } from "@/types/litteraturlabbet";
-import { get } from "@/services/diana";
+import { get, getByLbId } from "@/services/diana";
 import { searchStore } from "@/stores/search";
 import { networkStore } from "@/stores/network";
 import type { Link, Node } from "@/types/network";
 import { unpaginated, list } from "@/services/diana";
-import { nextTick, ref, onMounted } from "vue";
-import  topList from "@/assets/topList.json"
-import router from '@/router/index'
+import { watch } from "vue";
+import TopLists from "./TopLists.vue";
 
 const store = searchStore();
 const dataStore = networkStore();
@@ -133,6 +130,10 @@ if (props.work) {
     store.work = w;
   });
 }
+
+watch(() => store.author, () => {
+  console.log('store changed')
+})
 
 
 // onMounted(async () => {
@@ -164,9 +165,6 @@ async function fetch() {
 
   return { nodes: nodes, links: links };
 }
-
-const topTitles = topList.titles.slice(0,10)
-const topAuthors = topList.authors.slice(0,10)
 
 </script>
 
@@ -281,40 +279,17 @@ display:none;
 }
 .topLists {
   display: flex;
-  padding-right:20px;
-  padding-bottom:30px;
-  justify-content: left;
+  flex-flow: wrap;
+  justify-content: center;
+  padding: 100px;
+  font-size: 18px;
   /* align-items: flex-start; */
 }
-
-.list-left {
-  flex-grow:1;
+.list {
   text-align: left;
-  width:300px;
-  min-width:280px;
-  padding-left:0px;
+  flex: 0 0 50%;
 }
-
-.list-right {
-  flex-grow:1;
-  text-align: left;
-  padding-left:10px;
-}
-
 .clickable {
   cursor: pointer;
-}
-
-li{
-  font-size:18px;
-  margin-left:20px;
-  border-radius:5px;
-  padding:3px 6px;
-  line-height:1.1;
-  margin-bottom:5px;
-}
-
-li:hover{
-  background-color:rgb(240,240,240);
 }
 </style>

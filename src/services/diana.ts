@@ -18,6 +18,15 @@ function get<T>(id: number, endpoint: string): Promise<T> {
   });
 }
 
+function getByLbId<T>(endpoint: string, params: any): Promise<T>{
+  return axios.get<T>(`${project.urls.baseURL}/${endpoint}`, {
+    params: params,
+  })
+  .then((d) => {
+    return d.data
+  })
+}
+
 function count<Count>(endpoint: string, params: any): Promise<Count> {
   return axios
     .get<Count>(`${project.urls.baseURL}/${endpoint}/count/`, {
@@ -49,4 +58,4 @@ function unpaginated<T>(endpoint: string, params: any): Promise<Array<T>> {
     });
 }
 
-export { list, get, count, search, unpaginated };
+export { list, get, count, search, unpaginated, getByLbId };
