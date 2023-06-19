@@ -106,7 +106,6 @@ async function onPageChange() {
 watch(
   () => props.author,
   async (newAuthor, oldAuthor) => {
-    console.log(newAuthor, oldAuthor);
     await fetchData(props.author, props.work);
   },
   {

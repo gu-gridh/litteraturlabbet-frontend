@@ -5,6 +5,7 @@
       <div class="dropdown-content">
         <div>Håll muspekaren över punkterna för att visa författaren.</div>
         <div>Klicka på en punkt för att centrera nätverket.</div>
+        <div>Dubbel- eller högerklicka på punkten för att söka.</div>
         <div>Klicka och dra för att flytta på nätverksvyn.</div>
         <div>Skrolla för att zooma.</div>
       </div>
@@ -16,17 +17,18 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
 import ForceGraph, { type GraphData } from "force-graph";
 import type { Author } from "@/types/litteraturlabbet";
 import { ref, watch, onMounted, nextTick } from "vue";
 import type { Link, Node } from "@/types/network";
-import { unpaginated, list, get } from "@/services/diana";
+import { get } from "@/services/diana";
 import { useRoute } from "vue-router";
 import { searchStore } from "@/stores/search";
-import { networkStore } from "@/stores/network";
+
+
 const authorStore = searchStore();
-const nodeAndLinkStore = networkStore();
 const props = defineProps<{
   data: { nodes: Array<Node> | undefined; links: Array<Link> | undefined };
   author?: number;
@@ -63,9 +65,13 @@ function build(graphData: any, author?: number) {
     return graph;
   }
   // Convert node ids to node objects for force-graph
-  data.links = data.links.map((link) => {
-    const a = data.nodes.find((n) => n.id === link.source);
-    const b = data.nodes.find((n) => n.id === link.target);
+  data.links = data.links.map((link: Link) => {
+    // console.log("this is the link", link);
+    // console.log("this is the source", data.nodes.find((n) => n.id === link.source));
+    // console.log("this is the target", data.nodes.find((n) => n.id === link.target));
+
+    const a = data.nodes.find((n: any) => n.id === link.source);
+    const b = data.nodes.find((n: any) => n.id === link.target);
     if (a && b) {
       !a.neighbors && (a.neighbors = []);
       !b.neighbors && (b.neighbors = []);
@@ -85,7 +91,7 @@ function build(graphData: any, author?: number) {
   }).filter(link => link); // removes null values
   let hoverNode: Node;
   if (author) {
-    hoverNode = data.nodes.filter((n) => n.id === author)[0];
+    hoverNode = data.nodes.filter((n: any) => n.id === author)[0];
     highlightNodes.add(hoverNode);
     hoverNode.neighbors.forEach((neighbor) => highlightNodes.add(neighbor));
     hoverNode.links.forEach((link: Link) => highlightLinks.add(link));
@@ -148,7 +154,7 @@ function build(graphData: any, author?: number) {
     //dotted links
     //.linkDirectionalParticles(4)
     //.linkDirectionalParticleWidth((link) => (highlightLinks.has(link) ? 4 : 0))
-    
+
     //link color change on hover
     .linkColor((link) => {
       if (highlightLinks.has(link)) {
@@ -156,6 +162,14 @@ function build(graphData: any, author?: number) {
       } else {
         return "rgb(211, 211, 211, 0.6)";
       }
+    })
+    .onLinkClick((link) => {
+      //TODO on click go to reuse page
+      console.log(link);
+      // const tId = link.target?.id
+      // let segment = link.source?.neighbors.find(item => item.id === tId)
+      // console.log(segment)
+
     })
     .nodeCanvasObjectMode((node) =>
       highlightNodes.has(node) ? "before" : undefined

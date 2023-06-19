@@ -28,8 +28,7 @@ const topAuthors = ref(topList.authors.slice(0,10))
     const goToWork = (id: number) => {
         get<Work>(id, "work")
             .then((a: any) => {
-                console.log(a)
-                const authorId = a.authors[0]
+                const authorId = a.main_author
                 router.push({ name: 'reuse', query: { work: id, author: authorId } }).then(() => { router.go(0) })
             })
     }
