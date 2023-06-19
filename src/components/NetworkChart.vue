@@ -21,7 +21,7 @@ import ForceGraph, { type GraphData } from "force-graph";
 import type { Author } from "@/types/litteraturlabbet";
 import { ref, watch, onMounted, nextTick } from "vue";
 import type { Link, Node } from "@/types/network";
-import { unpaginated, list } from "@/services/diana";
+import { unpaginated, list, get } from "@/services/diana";
 import { useRoute } from "vue-router";
 import { searchStore } from "@/stores/search";
 import { networkStore } from "@/stores/network";
@@ -38,6 +38,7 @@ const route = useRoute();
 const loading = ref(true);
 // const graph = build(props.data, props.author);
 const graph = ref();
+
 onMounted(() => {
   if (props.data) {
     graph.value = build(props.data, props.author);
@@ -106,7 +107,7 @@ function build(graphData: any, author?: number) {
       graph.centerAt(node.x, node.y, 1000);
       graph.zoom(3, 2000);
       if (authorStore.author?.id !== node.id) {
-        // store.author = await get<Author>(node.id as number, "author");
+        authorStore.author = await get<Author>(node.id as number, "author");
       }
     })
     .onNodeHover((node) => {
