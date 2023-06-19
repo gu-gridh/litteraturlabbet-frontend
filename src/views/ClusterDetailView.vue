@@ -35,6 +35,7 @@ const segments = ref<Array<Segment>>();
 
 onBeforeMount(() => {
   get<Cluster>(props.id, "cluster").then((c) => {
+    console.log('in clusterdetailview',props.id)
     cluster.value = c;
     segments.value = c.segments;
   });

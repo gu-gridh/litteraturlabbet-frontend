@@ -135,6 +135,7 @@ export function forceGraph(ref: Ref, items: Items, options: Options) {
     return `${title}`;
   });
 
+
   link.append("title").text((d: any) => {
     const title = d.weight;
 

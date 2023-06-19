@@ -74,25 +74,7 @@
       tjockare linje mellan två författare visar på fler utbyten. Sök sedan på
       en specifik författare för att detaljläsa återbruken.
     </div>
-    <!-- <div class="topLists">
-      <div class="list">
-        <ol>
-          <h2>Författare</h2>
-          <li v-for="topAuthor in topAuthors" @click="getAuthorReuse(topAuthor.lbauthorid)" class="clickable">
-            {{ topAuthor.name }}
-          </li>
-        </ol>
-      </div>
-      <div class="list">
-        <ol>
-          <h2>Verk</h2>
-          <li v-for="topTitle in topTitles" @click="getWorkReuse(topTitle.lbworkid, topTitle.lbauthorid)" class="clickable">
-            {{ topTitle.title }}
-          </li>
-        </ol>
-      </div>
-    </div> -->
-    <top-lists/>
+    <TopLists/>
   </div>
 </template>
 
