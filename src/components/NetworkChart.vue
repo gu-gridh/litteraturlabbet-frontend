@@ -110,6 +110,11 @@ function build(graphData: any, author?: number) {
         authorStore.author = await get<Author>(node.id as number, "author");
       }
     })
+    .onNodeRightClick(async (node) => {
+      if (authorStore.author?.id !== node.id) {
+        authorStore.author = await get<Author>(node.id as number, "author");
+      }
+    })
     .onNodeHover((node) => {
       if (!author) {
         highlightNodes.clear();
@@ -126,7 +131,8 @@ function build(graphData: any, author?: number) {
           : node || null;
       }
     })
-    .onLinkHover((link) => {
+    .onLinkHover((link: any) => {
+      
       if (!author) {
         highlightNodes.clear();
         highlightLinks.clear();
@@ -138,8 +144,19 @@ function build(graphData: any, author?: number) {
       }
     })
     .autoPauseRedraw(false) // keep redrawing after engine has stopped
-    .linkDirectionalParticles(4)
-    .linkDirectionalParticleWidth((link) => (highlightLinks.has(link) ? 4 : 0))
+
+    //dotted links
+    //.linkDirectionalParticles(4)
+    //.linkDirectionalParticleWidth((link) => (highlightLinks.has(link) ? 4 : 0))
+    
+    //link color change on hover
+    .linkColor((link) => {
+      if (highlightLinks.has(link)) {
+        return "#66CCFF";
+      } else {
+        return "rgb(211, 211, 211, 0.6)";
+      }
+    })
     .nodeCanvasObjectMode((node) =>
       highlightNodes.has(node) ? "before" : undefined
     )
