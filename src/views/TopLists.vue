@@ -37,8 +37,9 @@ const topAuthors = ref(topList.authors.slice(0,10))
 </script>
 
 <template>
+   <h1 style="padding-left:40px; padding-bottom:10px;">Ofta förekommande återbruk</h1>
     <div class="topLists">
-      <div class="list">
+      <div class="list-left">
         <ol>
           <h2>Författare</h2>
           <li v-for="topAuthor in topAuthors" class="clickable" @click="goToAuthor(topAuthor.id)">
@@ -46,7 +47,8 @@ const topAuthors = ref(topList.authors.slice(0,10))
           </li>
         </ol>
       </div>
-      <div class="list">
+
+      <div class="list-right">
         <ol>
           <h2>Verk</h2>
           <li v-for="topTitle in topTitles" class="clickable"  @click="goToWork(topTitle.id)">
@@ -54,5 +56,47 @@ const topAuthors = ref(topList.authors.slice(0,10))
           </li>
         </ol>
       </div>
+
     </div>
 </template>
+
+<style scoped>
+
+.topLists {
+  display: flex;
+  padding-right:20px;
+  padding-bottom:30px;
+  font-size: 18px;
+  width:100%;
+}
+
+.list-left {
+  flex-grow:1;
+  text-align: left;
+  max-width:300px;
+  min-width:280px;
+}
+
+.list-right {
+  flex-grow:1;
+  text-align: left;
+  padding-left:10px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+li{
+  font-size:18px;
+  margin-left:20px;
+  border-radius:5px;
+  padding:3px 6px;
+  line-height:1.1;
+  margin-bottom:5px;
+}
+
+li:hover{
+  background-color:rgb(240,240,240);
+}
+</style>

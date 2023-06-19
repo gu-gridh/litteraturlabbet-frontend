@@ -227,7 +227,7 @@ line-height:1.2;
 .reuse-content {
   color: black;
   font-size: 18px;
-  padding: 30px;
+  padding: 40px;
   text-align: justify;
   line-height: 1.15;
 }
@@ -254,24 +254,7 @@ display:none;
 
 p {
 display:none;
-  
+}
 }
 
-
-}
-.topLists {
-  display: flex;
-  flex-flow: wrap;
-  justify-content: center;
-  padding: 100px;
-  font-size: 18px;
-  /* align-items: flex-start; */
-}
-.list {
-  text-align: left;
-  flex: 0 0 50%;
-}
-.clickable {
-  cursor: pointer;
-}
 </style>

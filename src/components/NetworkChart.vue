@@ -136,11 +136,6 @@ function build(graphData: any, author?: number) {
         }
       }
     })
-    .onLinkClick((link) => {
-      console.log("link clicked: ", link)
-      console.log('author1 = ', link.source.id)
-      console.log('author2 = ', link.target.id)
-    })
     .autoPauseRedraw(false) // keep redrawing after engine has stopped
     .linkDirectionalParticles(4)
     .linkDirectionalParticleWidth((link) => (highlightLinks.has(link) ? 4 : 0))
