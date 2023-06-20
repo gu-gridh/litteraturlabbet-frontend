@@ -26,6 +26,7 @@ import type { Link, Node } from "@/types/network";
 import { get } from "@/services/diana";
 import { useRoute } from "vue-router";
 import { searchStore } from "@/stores/search";
+import { link } from "d3";
 
 
 const authorStore = searchStore();
@@ -53,8 +54,38 @@ watch(
   },
   { deep: true }
 );
+
+function findSecondaryConnections(nodes: any, authorId: any) {
+  const visited = new Set();
+  const secondaryConnections: any[] = [];
+
+  const stack = [];
+  stack.push(authorId);
+
+  while (stack.length > 0) {
+    const currentId = stack.pop();
+
+    if (visited.has(currentId)) {
+      continue;
+    }
+
+    visited.add(currentId);
+
+    const currentNode = nodes.find((n) => n.id === currentId);
+
+    if (currentNode) {
+      currentNode.neighbors.forEach((neighbor) => {
+        secondaryConnections.push(neighbor);
+        stack.push(neighbor.id);
+      });
+    }
+  }
+
+  return secondaryConnections;
+}
 function build(graphData: any, author?: number) {
   console.log(graphData);
+  console.log(author);
   const graph = ForceGraph();
   const highlightNodes = new Set();
   const highlightLinks = new Set();
@@ -64,31 +95,54 @@ function build(graphData: any, author?: number) {
   if (author && data.nodes.filter((n: any) => n.id === author).length === 0) {
     return graph;
   }
+  let seenNeighbors: any[] = [];
+  /*
+  
   // Convert node ids to node objects for force-graph
-  data.links = data.links.map((link: Link) => {
-    // console.log("this is the link", link);
-    // console.log("this is the source", data.nodes.find((n) => n.id === link.source));
-    // console.log("this is the target", data.nodes.find((n) => n.id === link.target));
+  const authorNode = data.nodes.filter((n: any) => n.id === author)[0];
+  const primaryConnections = [];
+  const sourceLinks = data.links.filter((l: Link) => l.source === author);
+  const targetLinks = data.links.filter((l: Link) => l.target === author);
+  */
+console.log(data.links);
+  data.links = data.links.map(function (link: Link) {
+  //console.log("Link:", link);
+  //console.log("Source Node:", data.nodes.find(function (n) { return n.id === link.source; }));
+  //console.log("Target Node:", data.nodes.find(function (n) { return n.id === link.target; }));
 
-    const a = data.nodes.find((n: any) => n.id === link.source);
-    const b = data.nodes.find((n: any) => n.id === link.target);
-    if (a && b) {
-      !a.neighbors && (a.neighbors = []);
-      !b.neighbors && (b.neighbors = []);
-      a.neighbors.push(b);
-      b.neighbors.push(a);
-      !a.links && (a.links = []);
-      !b.links && (b.links = []);
-      a.links.push(link);
-      b.links.push(link);
+  const sourceNode = data.nodes.find(function (n) { return n.id === link.source; });
+  const targetNode = data.nodes.find(function (n) { return n.id === link.target; });
+
+  if (sourceNode && targetNode) {
+    const isCurrentAuthor = sourceNode.id === author || targetNode.id === author;
+    const isNeighbor = seenNeighbors.indexOf(sourceNode.id) > -1;
+    if (isCurrentAuthor || isNeighbor) {
+      // Ensure source and target have the neighbors and links properties
+      sourceNode.neighbors = sourceNode.neighbors || [];
+      targetNode.neighbors = targetNode.neighbors || [];
+      sourceNode.links = sourceNode.links || [];
+      targetNode.links = targetNode.links || [];
+
+      // Update the connections
+      sourceNode.neighbors.push(targetNode);
+      targetNode.neighbors.push(sourceNode);
+      sourceNode.links.push(link);
+      targetNode.links.push(link);
+
+      seenNeighbors.push(targetNode.id);
+      
       return {
         ...link,
-        source: a,
-        target: b,
+        source: sourceNode,
+        target: targetNode,
       };
     }
-    return null;
-  }).filter(link => link); // removes null values
+    
+  }
+
+  return null;
+}).filter((link: Link) => link); // removes null values
+console.log(data.links);
   let hoverNode: Node;
   if (author) {
     hoverNode = data.nodes.filter((n: any) => n.id === author)[0];
@@ -202,7 +256,7 @@ watch(
   () => [route, props.author],
   () => {
     loading.value = true;
-    // graph.value = build(data.value, props.author);
+    //graph.value = build(props.data, props.author);
     loading.value = false;
   },
   {
