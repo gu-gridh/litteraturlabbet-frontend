@@ -25,9 +25,9 @@ import { ref, watch, onMounted, nextTick } from "vue";
 import type { Link, Node } from "@/types/network";
 import { get } from "@/services/diana";
 import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 import { searchStore } from "@/stores/search";
 import { link } from "d3";
-
 
 const authorStore = searchStore();
 const props = defineProps<{
@@ -38,6 +38,7 @@ const props = defineProps<{
 }>();
 const element = ref();
 const route = useRoute();
+const router = useRouter();
 const loading = ref(true);
 // const graph = build(props.data, props.author);
 const graph = ref();
@@ -169,8 +170,16 @@ console.log(data.links);
       // Center/zoom on node
       graph.centerAt(node.x, node.y, 1000);
       graph.zoom(3, 2000);
-      if (authorStore.author?.id !== node.id) {
+        if (authorStore.author?.id !== node.id) {
         authorStore.author = await get<Author>(node.id as number, "author");
+          await router.push({
+          name: "reuse",
+          query: {
+            author: node.id,
+            work: undefined,
+          },
+        });
+    
       }
     })
     .onNodeRightClick(async (node) => {
