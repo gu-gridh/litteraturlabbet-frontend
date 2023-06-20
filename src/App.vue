@@ -18,9 +18,9 @@
       <div class="right-view-container">
         <nav class="nav-links">
           <router-link to="/reuse/" class="nav-link">Textåterbruk</router-link>
-          <router-link to="/embedding" class="nav-link"
+          <!--<router-link to="/embedding" class="nav-link"
             >Ordvektorer</router-link
-          >
+          >-->
         </nav>
         <div class="right-view-container-content">
           <Suspense>
