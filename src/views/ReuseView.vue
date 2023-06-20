@@ -114,7 +114,7 @@ if (props.work) {
 }
 
 watch(() => store.author, () => {
-  console.log('store changed')
+  console.log('store changed');
 })
 
 
@@ -132,7 +132,7 @@ async function fetch() {
       return self.indexOf(value) === index;
     });
 
-  let nodes = await list<Author>("author", { limit: 500 }).then((a) => {
+  let nodes = await list<Author>("author", { limit: 1500 }).then((a) => {
     const authors = a.results.filter((a) => ids.includes(a.id));
 
     return authors.map((a) => {
@@ -144,7 +144,6 @@ async function fetch() {
       } as Node;
     });
   });
-
   return { nodes: nodes, links: links };
 }
 
