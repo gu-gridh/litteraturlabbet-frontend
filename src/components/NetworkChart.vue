@@ -120,7 +120,7 @@ console.log(data.links);
   if (sourceNode && targetNode) {
     const isCurrentAuthor = sourceNode.id === author || targetNode.id === author;
     const isNeighbor = seenNeighbors.indexOf(sourceNode.id) > -1;
-    if (isCurrentAuthor || isNeighbor) {
+    if (isCurrentAuthor) {
       // Ensure source and target have the neighbors and links properties
       sourceNode.neighbors = sourceNode.neighbors || [];
       targetNode.neighbors = targetNode.neighbors || [];
@@ -146,6 +146,7 @@ console.log(data.links);
 
   return null;
 }).filter((link: Link) => link); // removes null values
+data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
 console.log(data.links);
   let hoverNode: Node;
   if (author) {
