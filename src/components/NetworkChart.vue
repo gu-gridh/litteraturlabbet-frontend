@@ -171,7 +171,7 @@ console.log(data.links);
         (l: Link) => l.source === link.source && l.target === link.target
       )[0].weight;
       // Filter them by their weight
-      weight = weight ? 2 * Math.log(weight) : 1;
+      weight = weight ? 1.2 * Math.log(weight) : 1;
       return weight;
     })
     .onNodeClick(async (node) => {
