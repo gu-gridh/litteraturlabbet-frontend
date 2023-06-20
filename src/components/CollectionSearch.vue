@@ -81,14 +81,13 @@ const workCount = ref<number>();
 // Search functions
 // Search for authors given an id
 function searchAuthor(query: string): Promise<Array<Author>> {
-  return list<Author>("author", { search: query, limit: 500 }).then((a) => {
+  return list<Author>("author", { search: query, limit: 1500 }).then((a) => {
     return a.results;
   });
 }
 
 // Search for works given for example an author id
 function searchWork(query: string, params: object): Promise<Array<Work>> {
-  console.log(params);
   return list<Work>("work", { search: query, limit: 500, ...params }).then(
     (a) => {
       return a.results;

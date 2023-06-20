@@ -124,12 +124,6 @@
             "id": 0
         },
         {
-            "name": "Anonym",
-            "titles": 6,
-            "lbauthorid": "Anonym",
-            "id": 0
-        },
-        {
             "name": "Fredrik Cederborgh",
             "titles": 5,
             "lbauthorid": "CederborghF",
@@ -174,13 +168,13 @@
         {
             "name": "Herman Bjursten",
             "titles": 2,
-            "lbauthorid": "",
+            "lbauthorid": "BjurstenH",
             "id": 0
         },
         {
             "name": "Pehr Sparre",
             "titles": 2,
-            "lbauthorid": "",
+            "lbauthorid": "SparreP",
             "id": 0
         },
         {

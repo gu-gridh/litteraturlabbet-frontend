@@ -82,7 +82,7 @@
 import NetworkChart from "@/components/NetworkChart.vue";
 import ReuseList from "@/components/ReuseList.vue";
 import type { Work, Author } from "@/types/litteraturlabbet";
-import { get, getByLbId } from "@/services/diana";
+import { get } from "@/services/diana";
 import { searchStore } from "@/stores/search";
 import { networkStore } from "@/stores/network";
 import type { Link, Node } from "@/types/network";
@@ -116,7 +116,6 @@ if (props.work) {
 watch(() => store.author, () => {
   console.log('store changed');
 })
-
 
 // onMounted(async () => {
 //   data.value = await fetch();
