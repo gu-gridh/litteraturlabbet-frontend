@@ -95,6 +95,9 @@ function build(graphData: any, author?: number) {
   if (author && data.nodes.filter((n: any) => n.id === author).length === 0) {
     return graph;
   }
+  if (!author) {
+    return graph;
+  }
   let seenNeighbors: any[] = [];
   /*
   
