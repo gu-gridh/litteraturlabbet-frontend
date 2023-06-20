@@ -5,7 +5,7 @@
       <h1>Om verktyget</h1>
          </div>
          <div class="about-content">
- Verktyget utvecklas av <a href="https://dh.gu.se">Göteborgs forskningsinfrastruktur för digital humaniora</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a>. 
+ Verktyget utvecklas av <a href="https://dh.gu.se">Centrum för Digital Humaniora</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a>. 
  Primära utvecklare har varit Victor Wåhlstrand Skärström (textåterbruk), Aram Karimi (ordvektorer) och Jonathan Westin (användargränssnitt). 
  Första versionen publicerades i december 2022. Kodbasen finns att hämta på GitHub: <a href="https://github.com/CDH-DevTeam">https://github.com/CDH-DevTeam</a>
 <br>
