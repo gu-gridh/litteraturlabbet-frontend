@@ -120,7 +120,9 @@ console.log(data.links);
   if (sourceNode && targetNode) {
     const isCurrentAuthor = sourceNode.id === author || targetNode.id === author;
     const isNeighbor = seenNeighbors.indexOf(sourceNode.id) > -1;
-    if (isCurrentAuthor) {
+
+    // just connection or also the connections of the connections
+    if (isCurrentAuthor || isNeighbor) {
       // Ensure source and target have the neighbors and links properties
       sourceNode.neighbors = sourceNode.neighbors || [];
       targetNode.neighbors = targetNode.neighbors || [];
@@ -164,7 +166,7 @@ console.log(data.links);
         (l: Link) => l.source === link.source && l.target === link.target
       )[0].weight;
       // Filter them by their weight
-      weight = weight ? 2 * Math.log(weight) : 1;
+      weight = weight ? 1.2 * Math.log(weight) : 1;
       return weight;
     })
     .onNodeClick(async (node) => {
