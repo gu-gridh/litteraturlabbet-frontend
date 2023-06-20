@@ -1,6 +1,6 @@
 <template>
   <div class="dropdown-super">
-    <div class="dropdown">
+    <div class="dropdown" v-if="graphVisible">
       <button class="dropbtn">Instruktioner</button>
       <div class="dropdown-content">
         <div>Håll muspekaren över punkterna för att visa författaren.</div>
@@ -42,6 +42,7 @@ const router = useRouter();
 const loading = ref(true);
 // const graph = build(props.data, props.author);
 const graph = ref();
+let graphVisible = ref(false);
 
 onMounted(() => {
   if (props.data) {
@@ -85,6 +86,7 @@ function findSecondaryConnections(nodes: any, authorId: any) {
   return secondaryConnections;
 }
 function build(graphData: any, author?: number) {
+  graphVisible = ref(false);
   console.log(graphData);
   console.log(author);
   const graph = ForceGraph();
@@ -99,6 +101,7 @@ function build(graphData: any, author?: number) {
   if (!author) {
     return graph;
   }
+  graphVisible = ref(true);
   let seenNeighbors: any[] = [];
   /*
   
@@ -120,7 +123,7 @@ console.log(data.links);
   if (sourceNode && targetNode) {
     const isCurrentAuthor = sourceNode.id === author || targetNode.id === author;
     const isNeighbor = seenNeighbors.indexOf(sourceNode.id) > -1;
-    if (isCurrentAuthor) {
+    if (isCurrentAuthor || isNeighbor) {
       // Ensure source and target have the neighbors and links properties
       sourceNode.neighbors = sourceNode.neighbors || [];
       targetNode.neighbors = targetNode.neighbors || [];
@@ -133,7 +136,11 @@ console.log(data.links);
       sourceNode.links.push(link);
       targetNode.links.push(link);
 
+      if (sourceNode.id === author) {
       seenNeighbors.push(targetNode.id);
+    } else if (targetNode.id === author) {
+      seenNeighbors.push(sourceNode.id);
+    }
       
       return {
         ...link,
