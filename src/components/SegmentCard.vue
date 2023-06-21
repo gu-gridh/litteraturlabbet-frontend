@@ -12,7 +12,7 @@
   >
     <div class="segment-card">
       <div class="segment-metadata-container">
-        <p class="work-title">{{ work.short_title }}</p>
+        <p class="work-title">{{ work.short_title ? work.short_title : work.title }}</p>
         <p class="author-name">{{ author.name }}</p>
       </div>
       <div class="segment-text-container">
