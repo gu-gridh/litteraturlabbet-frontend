@@ -117,7 +117,7 @@ function build(graphData: any, author?: number) {
   const sourceLinks = data.links.filter((l: Link) => l.source === author);
   const targetLinks = data.links.filter((l: Link) => l.target === author);
   */
-console.log(data.links);
+
 let neighborCount = 0;
   data.links = data.links.map(function (link: Link) {
   const sourceNode = data.nodes.find(function (n: any) { return n.id === link.source; });
@@ -227,7 +227,7 @@ data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
       }
     })
     .onLinkHover((link: any) => {
-      highlightNodes.clear();
+      highlightLinks.clear();
         highlightLinks.clear();
 
         if (link) {
