@@ -79,11 +79,14 @@ const authorSelect = ref();
 const workSelect = ref();
 const workCount = ref<number>();
 
+const collator = new Intl.Collator('sv-u-co-trad');
+
 // Search functions
 // Search for authors given an id
 function searchAuthor(query: string): Promise<Array<Author>> {
   return list<Author>("author", { search: query, limit: 1500 }).then((a) => {
-    return a.results.filter((b) => reuseAuthors["ids"].includes(b.id));
+    return a.results.filter((b) => reuseAuthors["ids"].includes(b.id))
+    .sort((x,y)=>collator.compare(x.formatted_name||"",y.formatted_name||""));
   });
 }
 
