@@ -4,8 +4,7 @@
       <button class="dropbtn">Instruktioner</button>
       <div class="dropdown-content">
         <div>Håll muspekaren över punkterna för att visa författaren.</div>
-        <div>Klicka på en punkt för att centrera nätverket.</div>
-        <div>Dubbel- eller högerklicka på punkten för att söka.</div>
+        <div>Klicka på en punkt eller koppling för att göra en sökning.</div>
         <div>Klicka och dra för att flytta på nätverksvyn.</div>
         <div>Skrolla för att zooma.</div>
       </div>
