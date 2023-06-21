@@ -228,12 +228,10 @@ data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
     })
     .onLinkHover((link: any) => {
       highlightLinks.clear();
-        highlightLinks.clear();
+      highlightLinks.clear();
 
         if (link) {
           highlightLinks.add(link);
-          highlightNodes.add(link.source);
-          highlightNodes.add(link.target);
         }    
     })
     //dotted links
