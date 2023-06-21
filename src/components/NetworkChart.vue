@@ -1,6 +1,6 @@
 <template>
-  <div class="dropdown-super">
-    <div class="dropdown" v-if="graphVisible">
+  <div class="dropdown-super" v-if="graphVisible">
+    <div class="dropdown">
       <button class="dropbtn">Instruktioner</button>
       <div class="dropdown-content">
         <div>Håll muspekaren över punkterna för att visa författaren.</div>
@@ -101,6 +101,12 @@ function build(graphData: any, author?: number) {
   if (!author) {
     return graph;
   }
+  /*
+  if (author === 3292) {
+    graphVisible = ref(false);
+    return;
+  }
+  */
   graphVisible = ref(true);
   let seenNeighbors: any[] = [];
   /*
@@ -112,6 +118,7 @@ function build(graphData: any, author?: number) {
   const targetLinks = data.links.filter((l: Link) => l.target === author);
   */
 console.log(data.links);
+let neighborCount = 0;
   data.links = data.links.map(function (link: Link) {
   //console.log("Link:", link);
   //console.log("Source Node:", data.nodes.find(function (n) { return n.id === link.source; }));
@@ -124,6 +131,12 @@ console.log(data.links);
     const isCurrentAuthor = sourceNode.id === author || targetNode.id === author;
     const isNeighbor = seenNeighbors.indexOf(sourceNode.id) > -1;
     if (isCurrentAuthor || isNeighbor) {
+      if (isNeighbor) {
+        if (neighborCount > 50) {
+          return;
+        }
+        neighborCount++;
+      }
       // Ensure source and target have the neighbors and links properties
       sourceNode.neighbors = sourceNode.neighbors || [];
       targetNode.neighbors = targetNode.neighbors || [];
