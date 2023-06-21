@@ -67,7 +67,7 @@ async function fetchData(author: number, work?: number) {
   }
 
   if (work) {
-    workSelected.value = await get<Work>(work, "work");
+    workSelected.value = await get<Work>(work, "work/19th_century");
     workTitle.value = workSelected.value.short_title
       ? workSelected.value.short_title
       : workSelected.value.title;

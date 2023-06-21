@@ -32,7 +32,7 @@ const props = defineProps<{
 }>();
 
 const page = await get<Page>(props.segment.page as number, "page");
-const work = await get<Work>(page.work as number, "work");
+const work = await get<Work>(page.work as number, "work/19th_century");
 const author = await get<Author>(work.main_author as number, "author");
 </script>
 

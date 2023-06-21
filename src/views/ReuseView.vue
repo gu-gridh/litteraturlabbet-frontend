@@ -108,7 +108,7 @@ if (props.author) {
 }
 
 if (props.work) {
-  get<Work>(props.work, "work").then((w) => {
+  get<Work>(props.work, "work/19th_century").then((w) => {
     store.work = w;
   });
 }
