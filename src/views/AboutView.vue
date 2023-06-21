@@ -7,7 +7,7 @@
          <div class="about-content">
  Verktyget utvecklas av <a href="https://dh.gu.se">Centrum för Digital Humaniora</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a>. 
  Primära utvecklare har varit Victor Wåhlstrand Skärström (textåterbruk), Aram Karimi (ordvektorer) och Jonathan Westin (användargränssnitt). 
- Första versionen publicerades i december 2022. Kodbasen finns att hämta på GitHub: <a href="https://github.com/CDH-DevTeam">https://github.com/CDH-DevTeam</a>
+ Första versionen publicerades i december 2022. Kodbasen finns att hämta på GitHub: <a href="https://github.com/gu-gridh/">https://github.com/gu-gridh/</a>
 <br>
 <br>
 Välj en författare med hjälp av sökfältet till vänster. Vill du undersöka ett visst verk så välj det från den undra menyn. Klicka sedan på sök. Du kan också göra en sökning på samtliga verk i databasen genom att lämna sökfälten fria när du klickar på sök.
