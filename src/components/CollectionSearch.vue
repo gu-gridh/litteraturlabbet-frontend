@@ -89,11 +89,16 @@ function searchAuthor(query: string): Promise<Array<Author>> {
 
 // Search for works given for example an author id
 function searchWork(query: string, params: object): Promise<Array<Work>> {
-  return list<Work>("work", { search: query, limit: 500, ...params }).then(
+  return list<Work>("work/19th_century", { search: query, limit: 500, ...params }).then(
     (a) => {
       return a.results;
     }
   );
+}
+
+//sort the results alpahebtically
+const sortSearchResults = (res: any) => {
+  return Object.keys(res).sort((a, b) => !/[a-z]/i.test(a) ? 1 : (/[a-z]/i.test(b) ? 0 : -1))
 }
 
 // Callbacks
@@ -113,7 +118,7 @@ async function onSelectAuthor(value: Author, select$: any) {
 
 async function onSelectWork(value: Work, select$: any) {
   // Fetch the current work and full author
-  const work = await get<Work>(value.id, "work");
+  const work = await get<Work>(value.id, "work/19th_century");
   const author = await get<Author>(work.main_author as number, "author");
 
   workSelect.value.clearSearch();
@@ -125,7 +130,7 @@ async function onSelectWork(value: Work, select$: any) {
 }
 
 function countWorks() {
-  list<Work>("work", {
+  list<Work>("work/19th_century", {
     main_author: store.author?.id,
   }).then((w) => {
     workCount.value = w.count;

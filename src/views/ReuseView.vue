@@ -1,47 +1,16 @@
 <template>
   <div v-if="author" class="reuse-container-w-author">
     <div class="chart-container">
-      <div style="display:none;">
-        <p class="about-reuse">Om textåterbruk</p>
-        <p>
-          Textåterbruk utgör alla upprepade förekomster av textstycken utanför
-          ett visst verk. Detta kan bero på plagiat, citat, utbyten. Återbruk
-          sker inte i en riktning - nätverket visar hur författare
-          <i>delar</i> återbruk, vars ursprung kan vara svårt att bestämma utan
-          närläsning.
-        </p>
-        <br />
-        <p class="about-reuse">Grupper av liknande stycken</p>
-        <p v-if="author">
-          Givet en författare eller ett verk kan vi identifiera mycket likartade
-          stycken, grupper av återbruk som förekommer i flera verk. I listan
-          nedan visas ett exempel ur respektive grupp. Även om styckena är
-          mycket likartade, kan det ändå skilja sig i ord och stavning.
-          <br />
-          <br />
-          Klicka på en grupp för att detaljläsa alla exempel!
-        </p>
-        <p v-else>
-          Sök på en författare eller ett verk för att identifiera mycket
-          likartade stycken, grupper av återbruk som förekommer i flera verk.
-          Även om styckena är mycket likartade, kan det ändå skilja sig i ord
-          och stavning.
-        </p>
-      </div>
-  
         <network-chart
           :data="data"
           :author="author"
           :width="3000"
           :height="370"
-        ></network-chart>
-        
-       
-
+        >
+      </network-chart>
   </div>
   <div class="Fade"></div>
   
-
     <suspense>
       <reuse-list v-if="author" :author="author" :work="work"></reuse-list>
     </suspense>
@@ -49,9 +18,15 @@
 
   <div v-else class="reuse-container-wo-author">
     <div class="chart-container">
-        <network-chart :data="data" :width="3000" :height="500"></network-chart>
+        <network-chart 
+        :data="data" 
+        :width="3000" 
+        :height="500"
+        >
+      </network-chart>
     </div>
     <div class="Fade"></div>
+
     <div class="reuse-title">
       <h1>Textåterbruk</h1>
     </div>
@@ -108,7 +83,7 @@ if (props.author) {
 }
 
 if (props.work) {
-  get<Work>(props.work, "work").then((w) => {
+  get<Work>(props.work, "work/19th_century").then((w) => {
     store.work = w;
   });
 }
