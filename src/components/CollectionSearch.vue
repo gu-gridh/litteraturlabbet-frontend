@@ -72,6 +72,7 @@ import Multiselect from "@vueform/multiselect";
 import { list, get } from "@/services/diana";
 import type { Author, Work } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
+import reuseAuthors from "@/assets/authors_with_reuse_copy.json";
 
 const store = searchStore();
 const authorSelect = ref();
@@ -82,7 +83,7 @@ const workCount = ref<number>();
 // Search for authors given an id
 function searchAuthor(query: string): Promise<Array<Author>> {
   return list<Author>("author", { search: query, limit: 1500 }).then((a) => {
-    return a.results;
+    return a.results.filter((b) => reuseAuthors["ids"].includes(b.id));
   });
 }
 
