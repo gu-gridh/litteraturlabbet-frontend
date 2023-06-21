@@ -4,8 +4,7 @@
       <button class="dropbtn">Instruktioner</button>
       <div class="dropdown-content">
         <div>Håll muspekaren över punkterna för att visa författaren.</div>
-        <div>Klicka på en punkt för att centrera nätverket.</div>
-        <div>Dubbel- eller högerklicka på punkten för att söka.</div>
+        <div>Klicka på en punkt eller koppling för att göra en sökning.</div>
         <div>Klicka och dra för att flytta på nätverksvyn.</div>
         <div>Skrolla för att zooma.</div>
       </div>
@@ -117,15 +116,11 @@ function build(graphData: any, author?: number) {
   const sourceLinks = data.links.filter((l: Link) => l.source === author);
   const targetLinks = data.links.filter((l: Link) => l.target === author);
   */
-console.log(data.links);
+
 let neighborCount = 0;
   data.links = data.links.map(function (link: Link) {
-  //console.log("Link:", link);
-  //console.log("Source Node:", data.nodes.find(function (n) { return n.id === link.source; }));
-  //console.log("Target Node:", data.nodes.find(function (n) { return n.id === link.target; }));
-
-  const sourceNode = data.nodes.find(function (n) { return n.id === link.source; });
-  const targetNode = data.nodes.find(function (n) { return n.id === link.target; });
+  const sourceNode = data.nodes.find(function (n: any) { return n.id === link.source; });
+  const targetNode = data.nodes.find(function (n: any) { return n.id === link.target; });
 
   if (sourceNode && targetNode) {
     const isCurrentAuthor = sourceNode.id === author || targetNode.id === author;
@@ -167,7 +162,6 @@ let neighborCount = 0;
   return null;
 }).filter((link: Link) => link); // removes null values
 data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
-console.log(data.links);
   let hoverNode: Node;
   if (author) {
     hoverNode = data.nodes.filter((n: any) => n.id === author)[0];
@@ -206,6 +200,13 @@ console.log(data.links);
     .onNodeRightClick(async (node) => {
       if (authorStore.author?.id !== node.id) {
         authorStore.author = await get<Author>(node.id as number, "author");
+          await router.push({
+          name: "reuse",
+          query: {
+            author: node.id,
+            work: undefined,
+          },
+        })
       }
     })
     .onNodeHover((node) => {
@@ -225,23 +226,16 @@ console.log(data.links);
       }
     })
     .onLinkHover((link: any) => {
-      
-      if (!author) {
-        highlightNodes.clear();
-        highlightLinks.clear();
+      highlightLinks.clear();
+      highlightLinks.clear();
+
         if (link) {
           highlightLinks.add(link);
-          highlightNodes.add(link.source);
-          highlightNodes.add(link.target);
-        }
-      }
+        }    
     })
-    .autoPauseRedraw(false) // keep redrawing after engine has stopped
-
     //dotted links
     //.linkDirectionalParticles(4)
     //.linkDirectionalParticleWidth((link) => (highlightLinks.has(link) ? 4 : 0))
-
     //link color change on hover
     .linkColor((link) => {
       if (highlightLinks.has(link)) {
@@ -250,12 +244,10 @@ console.log(data.links);
         return "rgb(211, 211, 211, 0.6)";
       }
     })
+    .autoPauseRedraw(false) // keep redrawing after engine has stopped
     .onLinkClick((link) => {
       //TODO on click go to reuse page
-      console.log(link);
-      // const tId = link.target?.id
-      // let segment = link.source?.neighbors.find(item => item.id === tId)
-      // console.log(segment)
+      console.log('go to reuse page',link);
 
     })
     .nodeCanvasObjectMode((node) =>
@@ -401,4 +393,5 @@ watch(
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   visibility: hidden; /* by default */
 }
+
 </style>
