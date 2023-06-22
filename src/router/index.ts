@@ -5,6 +5,7 @@ import HomeView from "@/views/HomeView.vue"
 import EmbeddingView from "@/views/EmbeddingView.vue";
 import PageView from "@/views/PageView.vue";
 import GalleryView from "@/views/GalleryView.vue";
+import ImageViewer from "@/views/ImageViewer.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,7 +58,13 @@ const router = createRouter({
       component: GalleryView,
       //TBD
       // props: (route) => ({})
-    }
+    },
+    {
+      path: "/gallery/:id",
+      name: "image-viewer",
+      component: ImageViewer,
+      props: true,
+    },
   ],
 });
 
