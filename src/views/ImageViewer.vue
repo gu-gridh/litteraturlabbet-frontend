@@ -38,6 +38,6 @@ export default {
 <style scoped>
 #viewer {
   height: 600px;
-  width: 800px;
+  width: 100%;
 }
 </style>

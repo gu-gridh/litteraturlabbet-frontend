@@ -40,5 +40,10 @@ const viewImage = (index: number) => {
   width: 100%;
   height: auto;
   object-fit: cover;
+  transition: all 0.2s ease-in-out;
+}
+
+.grid img:hover{
+  transform:scale(1.03);
 }
 </style>
