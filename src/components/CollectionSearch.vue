@@ -190,9 +190,9 @@ a:hover {
 }
 
 .slider-input {
-  margin-top: 2.2rem;
-  margin-left: 1.3rem;
-  margin-right: 1.3rem;
+  margin-top: 4rem;
+  margin-left: 3rem;
+  margin-right: 3rem;
 }
 
 .sliderColor {
@@ -225,7 +225,7 @@ a:hover {
 .search-container {
   margin-left: 0px;
   width: 100%;
-  height: 450px;
+  height: 480px;
   background-color: rgb(255, 255, 255, 1);
   border-radius: 12px;
   display: flex;
