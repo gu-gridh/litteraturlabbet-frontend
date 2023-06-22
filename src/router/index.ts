@@ -4,6 +4,8 @@ import ClusterDetailView from "@/views/ClusterDetailView.vue";
 import HomeView from "@/views/HomeView.vue"
 import EmbeddingView from "@/views/EmbeddingView.vue";
 import PageView from "@/views/PageView.vue";
+import GalleryView from "@/views/GalleryView.vue";
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -49,6 +51,13 @@ const router = createRouter({
         segment: route.query.segment ? Number(route.query.segment) : undefined,
       }),
     },
+    {
+      path: "/gallery",
+      name: "gallery",
+      component: GalleryView,
+      //TBD
+      // props: (route) => ({})
+    }
   ],
 });
 
