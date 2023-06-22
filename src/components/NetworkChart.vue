@@ -56,34 +56,6 @@ watch(
   { deep: true }
 );
 
-function findSecondaryConnections(nodes: any, authorId: any) {
-  const visited = new Set();
-  const secondaryConnections: any[] = [];
-
-  const stack = [];
-  stack.push(authorId);
-
-  while (stack.length > 0) {
-    const currentId = stack.pop();
-
-    if (visited.has(currentId)) {
-      continue;
-    }
-
-    visited.add(currentId);
-
-    const currentNode = nodes.find((n) => n.id === currentId);
-
-    if (currentNode) {
-      currentNode.neighbors.forEach((neighbor) => {
-        secondaryConnections.push(neighbor);
-        stack.push(neighbor.id);
-      });
-    }
-  }
-
-  return secondaryConnections;
-}
 function build(graphData: any, author?: number) {
   graphVisible = ref(false);
   console.log(graphData);
@@ -119,8 +91,8 @@ function build(graphData: any, author?: number) {
 
 let neighborCount = 0;
   data.links = data.links.map(function (link: Link) {
-  const sourceNode = data.nodes.find(function (n: any) { return n.id === link.source; });
-  const targetNode = data.nodes.find(function (n: any) { return n.id === link.target; });
+  const sourceNode = data.nodes.find(function (n: Node) { return n.id === link.source; });
+  const targetNode = data.nodes.find(function (n: Node) { return n.id === link.target; });
 
   if (sourceNode && targetNode) {
     const isCurrentAuthor = sourceNode.id === author || targetNode.id === author;
@@ -164,7 +136,7 @@ let neighborCount = 0;
 data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
   let hoverNode: Node;
   if (author) {
-    hoverNode = data.nodes.filter((n: any) => n.id === author)[0];
+    hoverNode = data.nodes.filter((n: Node) => n.id === author)[0];
     highlightNodes.add(hoverNode);
     hoverNode.neighbors.forEach((neighbor) => highlightNodes.add(neighbor));
     hoverNode.links.forEach((link: Link) => highlightLinks.add(link));
@@ -215,10 +187,10 @@ data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
         highlightLinks.clear();
         if (node) {
           highlightNodes.add(node);
-          node.neighbors.forEach((neighbor: Node) =>
+          node.neighbors.forEach((neighbor) =>
             highlightNodes.add(neighbor)
           );
-          node.links.forEach((link: Link) => highlightLinks.add(link));
+          node.links.forEach((link) => highlightLinks.add(link));
         }
         hoverNode = author
           ? data.nodes.filter((n: Node) => n.id === author)[0]
@@ -266,7 +238,7 @@ data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
     .onEngineStop(() => {
       if (author && hoverNode && !loading.value) {
         setTimeout(() => {
-          hoverNode = data.nodes.filter((n) => n.id === author)[0];
+          hoverNode = data.nodes.filter((n: Node) => n.id === author)[0];
           graph.centerAt(hoverNode.x, hoverNode.y, 1000);
           graph.zoom(3, 2000);
         }, 3);
