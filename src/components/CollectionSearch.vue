@@ -46,6 +46,10 @@
         ref="workSelect"
       />
     </div>
+    <div class="slider-input">
+      <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor"/>
+    </div>
+    
     <div class="count-label">
       <p>Totalt {{ workCount }} verk i samlingen.</p>
     </div>
@@ -64,11 +68,13 @@
       </router-link>
     </div>
   </div>
+
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import Multiselect from "@vueform/multiselect";
+import Slider from '@vueform/slider'
 import { list, get } from "@/services/diana";
 import type { Author, Work } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
@@ -80,6 +86,8 @@ const workSelect = ref();
 const workCount = ref<number>();
 
 const collator = new Intl.Collator('sv-u-co-trad');
+
+const timeRange = [1800, 1900];
 
 // Search functions
 // Search for authors given an id
@@ -158,6 +166,8 @@ onMounted(() => {
 });
 </script>
 
+<style src="@vueform/slider/themes/default.css"></style>
+
 <style scoped>
 a:link {
   color: white;
@@ -177,6 +187,18 @@ a:hover {
   margin-bottom: 0.5rem;
   margin-left: 2rem;
   margin-right: 2rem;
+}
+
+.slider-input {
+  margin-top: 2.2rem;
+  margin-left: 1.3rem;
+  margin-right: 1.3rem;
+}
+
+.sliderColor {
+  --slider-connect-bg: #000000;
+  --slider-tooltip-bg: #000000;
+  --slider-handle-ring-color: #423d3d;
 }
 
 .select-label {
@@ -203,7 +225,7 @@ a:hover {
 .search-container {
   margin-left: 0px;
   width: 100%;
-  height: 400px;
+  height: 450px;
   background-color: rgb(255, 255, 255, 1);
   border-radius: 12px;
   display: flex;

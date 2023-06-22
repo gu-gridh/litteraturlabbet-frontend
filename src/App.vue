@@ -207,7 +207,7 @@ a:hover {
   border-radius: 12px;
   background-color: white;
   border-radius: 10px;
-  min-height: 400px;
+  min-height: 450px;
   overflow: hidden;
   padding-bottom: 20px;
   z-index: 1;
