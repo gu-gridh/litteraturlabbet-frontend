@@ -21,6 +21,7 @@
           <!--<router-link to="/embedding" class="nav-link"
             >Ordvektorer</router-link
           >-->
+          <router-link to="/gallery" class="nav-link">Bildgalleri</router-link>
         </nav>
         <div class="right-view-container-content">
           <Suspense>
