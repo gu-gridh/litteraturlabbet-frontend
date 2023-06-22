@@ -36,6 +36,19 @@ const segments = ref<Array<Segment>>();
 onBeforeMount(() => {
   get<Cluster>(props.id, "cluster").then((c) => {
     console.log('in clusterdetailview',props.id)
+    console.log(c);
+    let seenSegmentIds = new Set();
+    for (let i = 0; i < c.segments.length; i++) {
+      const segment_i = c.segments[i];
+      const gid = segment_i.gid;
+      if (seenSegmentIds.has(gid)) {
+        c.segments.splice(i, 1);
+        i--;
+      } else {
+        seenSegmentIds.add(gid);
+      }
+    }
+    c.size = 0;//c.size - seenSegmentIds.size + 1;
     cluster.value = c;
     segments.value = c.segments;
   });

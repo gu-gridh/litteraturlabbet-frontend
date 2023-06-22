@@ -91,6 +91,22 @@ async function fetchClusters(
   };
 
   const clusterResults = await list<Cluster>("cluster", params);
+  console.log(clusterResults);
+  clusterResults.results.forEach((cluster) => {
+    let seenSegmentIds = new Set();
+    for (let i = 0; i < cluster.segments.length; i++) {
+      const segment_i = cluster.segments[i];
+      const gid = segment_i.gid;
+      if (seenSegmentIds.has(gid)) {
+        cluster.segments.splice(i, 1);
+        i--;
+      } else {
+        seenSegmentIds.add(gid);
+      }
+    }
+    cluster.size = cluster.segments.length;
+  });
+  clusterResults.results.sort((a, b) => b.size - a.size);
   clusters.value = clusterResults.results;
   clusterCount.value = clusterResults.count;
 }
