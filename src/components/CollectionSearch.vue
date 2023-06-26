@@ -46,7 +46,7 @@
         ref="workSelect"
       />
     </div>
-    <div class="slider-input">
+    <div class="slider-input" v-show="showSlider">
       <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor"/>
     </div>
     
@@ -72,13 +72,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import Multiselect from "@vueform/multiselect";
 import Slider from '@vueform/slider'
 import { list, get } from "@/services/diana";
 import type { Author, Work } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
 import reuseAuthors from "@/assets/authors_with_reuse_copy.json";
+import { useRoute } from 'vue-router'
 
 const store = searchStore();
 const authorSelect = ref();
@@ -88,6 +89,10 @@ const workCount = ref<number>();
 const collator = new Intl.Collator('sv-u-co-trad');
 
 const timeRange = [1800, 1900];
+
+const showSlider = ref(false);
+
+const route = useRoute()
 
 // Search functions
 // Search for authors given an id
@@ -164,6 +169,15 @@ function onClearWork(event: undefined) {
 onMounted(() => {
   countWorks();
 });
+
+//watch if route = gallery. if so, show slider
+watch(() => route.path, (path) => {
+  if (path === '/gallery') {
+    showSlider.value = true;
+  } else {
+    showSlider.value = false;
+  }
+})
 </script>
 
 <style src="@vueform/slider/themes/default.css"></style>
