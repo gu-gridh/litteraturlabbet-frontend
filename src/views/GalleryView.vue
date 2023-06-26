@@ -9,6 +9,7 @@ import img6 from '@/assets/gallery/6.jpeg'
 import { useRouter } from "vue-router";
 
 const images = ref([img1, img2, img3, img4, img5, img6])
+const galleryLabels = ref(["Alla", "Figur", "Ornament", "Anfang", "Noter"])
 
 const router = useRouter() 
 
@@ -18,6 +19,16 @@ const viewImage = (index: number) => {
 </script>
 
 <template>
+  <div class="galleryLabel">
+    <div class="galleryLabelButtons">
+      <button class="button"
+        v-for="(label, index) in galleryLabels"
+        :key="index"
+      >
+        {{ label }}
+      </button>
+    </div>
+  </div>
   <div class="grid">
     <img
       v-for="(image, index) in images"
@@ -29,6 +40,31 @@ const viewImage = (index: number) => {
 </template>
 
 <style scoped>
+.galleryLabel {
+  display: flex;
+  justify-content: center;
+  margin: 30px 30px 10px 30px;
+}
+
+.button {
+  padding:5px;
+  font-size:14px;
+  text-align:center;
+  color:white;
+  border-radius:6px;
+  border: none;
+  cursor:pointer;
+  height:auto;
+  width:80px;
+  margin:10px;
+  background-color:black;
+}
+.button:hover{
+  background-color:darkorange;
+}
+.button:active{
+  background-color:darkorange;
+}
 .grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
