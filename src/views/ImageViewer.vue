@@ -1,4 +1,5 @@
 <template>
+  <div class="back-button" onclick="history.back()">Tillbaka</div>
   <div id="viewer"></div>
 </template>
 
@@ -39,5 +40,19 @@ export default {
 #viewer {
   height: 600px;
   width: 100%;
+}
+
+.back-button{
+  padding:5px;
+  font-size:16px;
+  text-align:center;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+  height:auto;
+  width:80px;
+  margin:20px;
+  margin-left:3em;
+  background-color:black;
 }
 </style>
