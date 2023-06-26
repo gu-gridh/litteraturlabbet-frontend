@@ -25,7 +25,7 @@ const viewImage = (index: number) => {
     <div class="module-content">
       I litteraturen finner vi grafiska element i form av figurer, ornament, anfanger och musikaliska noter. 
       Med detta verktyg kan vi extrahera dessa element antingen från författare och enskilda verk, eller från all litteratur under ett eller flera årtionden.
-      Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska ornamenten är sorterade kronologiskt.
+      Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska elementen är sorterade kronologiskt.
     </div>
   <div class="galleryLabel">
     <div class="galleryLabelButtons">
