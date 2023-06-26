@@ -46,9 +46,11 @@
         ref="workSelect"
       />
     </div>
+    <div class="slider-container">
     <div class="slider-input" v-show="showSlider">
       <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor"/>
     </div>
+  </div>
     
     <div class="count-label">
       <p>Totalt {{ workCount }} verk i samlingen.</p>
@@ -201,6 +203,10 @@ a:hover {
   margin-bottom: 0.5rem;
   margin-left: 2rem;
   margin-right: 2rem;
+}
+
+.slider-container {
+  min-height:80px;
 }
 
 .slider-input {
