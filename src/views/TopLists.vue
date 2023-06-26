@@ -36,7 +36,7 @@ const topAuthors = ref(topList.authors.slice(0,10))
 </script>
 
 <template>
-   <h1 style="padding-left:40px; padding-bottom:10px;">Ofta förekommande återbruk</h1>
+   <h1 style="padding-left:35px; padding-bottom:5px;">Ofta förekommande återbruk</h1>
     <div class="topLists">
       <div class="list-left">
         <ol>

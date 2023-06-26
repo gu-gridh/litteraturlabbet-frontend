@@ -27,10 +27,10 @@
     </div>
     <div class="Fade"></div>
 
-    <div class="reuse-title">
+    <div class="module-title">
       <h1>Textåterbruk</h1>
     </div>
-    <div class="reuse-content">
+    <div class="module-content">
       Textåterbruk, på engelska <i>textual reuse</i>, är ett fenomen där
       textstycken återkommer i flera olika skrivna verk. Detta kan bero på
       plagiat, citat, utbyten mellan författare, eller mer vardagliga orsaker.
@@ -132,6 +132,7 @@ async function fetch() {
   margin-top:-150px;
   pointer-events: none;
 }
+
 .about-reuse {
   /* width: 200px; */
   color: black;
@@ -140,10 +141,11 @@ async function fetch() {
 
 p{
 line-height:1.2;
-  font-size:16px;
+font-size:16px;
 }
+
 .chart-container {
-/*   display: flex;
+/*display: flex;
   flex-direction: row;
   justify-content: flex-start; */
 }
@@ -185,24 +187,6 @@ line-height:1.2;
   color: white;
   padding: 0.5rem 0.7rem 0.5rem 0.7rem;
   border-radius: 8px;
-}
-
-.reuse-title {
-  font-family: "Cormorant Garamond", serif;
-  letter-spacing: -3px;
-  margin-top: 30px;
-  font-size: 30px;
-  line-height: 0.9;
-  text-align: center;
-  color: black;
-}
-
-.reuse-content {
-  color: black;
-  font-size: 18px;
-  padding: 40px;
-  text-align: justify;
-  line-height: 1.15;
 }
 
 .loader {

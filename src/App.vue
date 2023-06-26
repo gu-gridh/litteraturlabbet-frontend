@@ -21,7 +21,7 @@
           <!--<router-link to="/embedding" class="nav-link"
             >Ordvektorer</router-link
           >-->
-          <router-link to="/gallery" class="nav-link">Bildgalleri</router-link>
+          <router-link to="/gallery" class="nav-link">Grafiska element</router-link>
         </nav>
         <div class="right-view-container-content">
           <Suspense>
@@ -209,7 +209,7 @@ a:hover {
   border-radius: 10px;
   min-height: 480px;
   overflow: hidden;
-  padding-bottom: 20px;
+  padding-bottom: 0px;
   z-index: 1;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
 }
@@ -243,7 +243,25 @@ button {
 }
 
 
+.module-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size:1.5em !important;
+  letter-spacing: -3px;
+  padding-left:35px;
+  margin-top: 30px;
+  font-size: 30px;
+  line-height: 0.9;
+  text-align: left;
+  color: black;
+}
 
+.module-content {
+  color: black;
+  font-size: 18px;
+  padding: 20px 40px 20px 35px;
+  text-align: justify;
+  line-height: 1.15;
+}
 
 @media screen and (max-width: 950px) {
   .ll-logo-container {

@@ -19,6 +19,14 @@ const viewImage = (index: number) => {
 </script>
 
 <template>
+    <div class="module-title">
+      <h1>Grafiska element</h1>
+    </div>
+    <div class="module-content">
+      I litteraturen finner vi grafiska element i form av figurer, ornament, anfanger och musikaliska noter. 
+      Med detta verktyg kan vi extrahera dessa element antingen från författare och enskilda verk, eller från all litteratur under ett eller flera årtionden.
+      Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska ornamenten är sorterade kronologiskt.
+    </div>
   <div class="galleryLabel">
     <div class="galleryLabelButtons">
       <button class="button"
@@ -42,22 +50,22 @@ const viewImage = (index: number) => {
 <style scoped>
 .galleryLabel {
   display: flex;
-  justify-content: center;
-  margin: 30px 30px 10px 30px;
+  justify-content: left;
+  margin: 10px 30px 10px 30px;
 }
 
 .button {
   padding:5px;
   font-size:14px;
   text-align:center;
-  color:white;
+  color:black;
   border-radius:6px;
   border: none;
   cursor:pointer;
   height:auto;
   width:80px;
-  margin:10px;
-  background-color:black;
+  margin:5px;
+  background-color:rgb(230,230,230);
 }
 .button:hover{
   background-color:darkorange;
@@ -69,7 +77,7 @@ const viewImage = (index: number) => {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
-  margin: 30px 30px 10px 30px;
+  margin: 30px 30px 30px 35px;
 }
 
 .grid img {

@@ -213,11 +213,15 @@ a:hover {
   margin-top: 4rem;
   margin-left: 3rem;
   margin-right: 3rem;
+  font-size: 2em;
 }
 
 .sliderColor {
   --slider-connect-bg: #000000;
-  --slider-tooltip-bg: #000000;
+  --slider-tooltip-bg: #333333;
+  --slider-tooltip-font-size: 0.65em;
+  --slider-tooltip-py: 5px;
+  --slider-tooltip-px: 6px;
   --slider-handle-ring-color: #423d3d;
 }
 
