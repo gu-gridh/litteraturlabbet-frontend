@@ -160,6 +160,7 @@ font-size:16px;
   height: 100%;
   display: flex;
   flex-direction: column;
+  padding-bottom:20px;
 
 }
 

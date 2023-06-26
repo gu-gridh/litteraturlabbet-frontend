@@ -3,9 +3,11 @@
     <div class="multiselect-input" id="author-select">
       <div class="select-label"><p>Välj en författare...</p></div>
       <Multiselect
+      :type="search"
         v-model="store.author"
         :value="store.author"
         mode="single"
+        spellcheck="false"
         placeholder="Sök författare"
         noResultsText="Inga författare matchar sökningen"
         noOptionsText="Inga författare matchar sökningen"
@@ -29,6 +31,7 @@
         v-model="store.work"
         :value="store.work"
         mode="single"
+        spellcheck="false"
         placeholder="Sök verk"
         noResultsText="Inga verk matchar sökningen"
         noOptionsText="Inga verk matchar sökningen"
