@@ -63,7 +63,7 @@ const author = await get<Author>(work.main_author as number, "author");
   padding: 2rem 2rem 2rem 2rem;
   font-style: normal;
   line-height: 1.2;
-  font-size: 16px;
+  font-size: 19px;
  
 
  
@@ -71,9 +71,9 @@ const author = await get<Author>(work.main_author as number, "author");
 
 .segment-metadata-container {
   width: 100%;
-  background-color: rgb(85,85,85);
-  color: white;
-  padding: 1rem 1rem 1rem 1rem;
+  background-color: rgb(215,215,215);
+  color: black;
+  padding: 1rem 2rem 1rem 2rem;
   border-radius: 8px 8px 0 0px;
   display: flex;
   flex-direction: row;
@@ -83,10 +83,10 @@ const author = await get<Author>(work.main_author as number, "author");
 
 .segment-size-label {
   font-size: xx-large;
-
 }
 
 .segment-card-title {
+  font-weight:400;
   font-size: 1.5em;
 }
 

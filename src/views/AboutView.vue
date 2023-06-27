@@ -2,15 +2,15 @@
 <div class="about-container">
   <div class="about">
    <div class="about-title">
-      <h1>Om verktyget</h1>
+      <h1>Om verktygen</h1>
          </div>
          <div class="about-content">
- Verktyget utvecklas av <a href="https://dh.gu.se">Göteborgs Forskningsinfrastruktur i Digital Humaniora (GRIDH)</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a>. 
- Primära utvecklare har varit Victor Wåhlstrand Skärström, Aram Karimi, David Alfter, Kristin Åkerlund, Tristan Bridge, Siska Humlesjö och Jonathan Westin. 
+ Verktygen utvecklas av <a href="https://dh.gu.se">Göteborgs Forskningsinfrastruktur för Digital Humaniora (GRIDH)</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a>. 
+ Primära utvecklare har varit Victor Wåhlstrand Skärström, Aram Karimi, David Alfter, Kristin Åkerlund, Tristan Bridge, Ashely Green, Siska Humlesjö och Jonathan Westin. 
  Första versionen publicerades i augusti 2023. Kodbasen finns att hämta på GitHub: <a href="https://github.com/gu-gridh/">https://github.com/gu-gridh/</a>
 <br>
 <br>
-Välj en författare med hjälp av sökfältet till vänster. Vill du undersöka ett visst verk så välj det från den undra menyn. Klicka sedan på sök.
+Välj ett verktyg såsom <i>Textåterbruk</i> eller <i>Grafiska element</i>, och välj sedan en författare med hjälp av sökfälten till vänster. Vill du undersöka ett visst verk så välj det från den undra menyn. Klicka sedan på sök.
 
          </div>
            </div>
@@ -59,7 +59,7 @@ cursor:pointer !important;
 
     .about-content{
 color:black!important;
-     font-size:18px;
+     font-size:20px;
 padding:30px 30px 10px 30px;
           text-align:justify;
          line-height:1.15;

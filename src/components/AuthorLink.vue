@@ -21,7 +21,7 @@ const auth2 = await get<Author>(store.author2 as number, "author");
 <style scoped>
 .link-container {
     margin: 20px;
-    margin-left:3em;
+    margin-left:3.5em;
     font-size: 14px;
 }
 </style>
