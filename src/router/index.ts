@@ -6,6 +6,7 @@ import EmbeddingView from "@/views/EmbeddingView.vue";
 import PageView from "@/views/PageView.vue";
 import GalleryView from "@/views/GalleryView.vue";
 import ImageViewer from "@/views/ImageViewer.vue";
+import AuthorLink from "@/components/AuthorLink.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,6 +66,15 @@ const router = createRouter({
       component: ImageViewer,
       props: true,
     },
+    {
+      path: "/link/",
+      name: "link",
+      component: AuthorLink,
+      props: (route) => ({
+        author1: route.query.author1 ? Number(route.query.author1): undefined,
+        author2: route.query.author2 ? Number(route.query.author2): undefined,
+      }),
+    }
   ],
 });
 

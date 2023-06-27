@@ -35,8 +35,6 @@ console.log(props.segment);
 if (props.segment) {
   const segment = await get<Segment>(props.segment, "segment");
 
-  console.log(segment.text);
-
   text = text.replace(
     segment.text,
     `<span class="highlight">${segment.text}</span>`

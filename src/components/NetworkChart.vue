@@ -26,9 +26,11 @@ import { get } from "@/services/diana";
 import { useRoute } from "vue-router";
 import { useRouter } from "vue-router";
 import { searchStore } from "@/stores/search";
-import { link } from "d3";
+import { reuseStore } from "@/stores/reuse";
 
 const authorStore = searchStore();
+const linkStore = reuseStore();
+
 const props = defineProps<{
   data: { nodes: Array<Node> | undefined; links: Array<Link> | undefined };
   author?: number;
@@ -220,6 +222,15 @@ data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
     .onLinkClick((link) => {
       //TODO on click go to reuse page
       console.log('go to reuse page',link);
+      linkStore.updateAuthor1(link.source.id);
+      linkStore.updateAuthor2(link.target.id);
+      router.push({
+          name: "link",
+          query: {
+            author1: linkStore.author1,
+            author2: linkStore.author2,
+          },
+        })
 
     })
     .nodeCanvasObjectMode((node) =>

@@ -1,6 +1,5 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import type { Ref } from "vue";
 import type {
   Work,
   Page,
