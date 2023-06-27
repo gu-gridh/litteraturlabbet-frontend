@@ -251,7 +251,7 @@ data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
         setTimeout(() => {
           hoverNode = data.nodes.filter((n: Node) => n.id === author)[0];
           graph.centerAt(hoverNode.x, hoverNode.y, 1000);
-          graph.zoom(3, 2000);
+          graph.zoom(2, 2000);
         }, 3);
       }
     })

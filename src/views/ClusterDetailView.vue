@@ -60,21 +60,6 @@ onBeforeMount(() => {
     height: 80%;
     overflow-y: scroll;
 }
-
-.back-button{
-  padding:5px;
-  font-size:16px;
-  text-align:center;
-  color:white;
-  border-radius:8px;
-  cursor:pointer;
-  height:auto;
-  width:80px;
-  margin:20px;
-  margin-left:3em;
-  background-color:black;
-}
-
 .back-button:hover{
   background-color: rgb(85,85,85);
   color: white;

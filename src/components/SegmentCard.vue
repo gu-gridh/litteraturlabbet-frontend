@@ -12,8 +12,8 @@
   >
     <div class="segment-card">
       <div class="segment-metadata-container">
-        <p class="work-title">{{ work.short_title ? work.short_title : work.title }}</p>
-        <p class="author-name">{{ author.name }}</p>
+        <p class="segment-card-title" style="font-style:italic">{{ work.short_title ? work.short_title : work.title }}</p>
+        <p class="segment-card-title">{{ author.name }}</p>
       </div>
       <div class="segment-text-container">
         {{ segment.text }}
@@ -86,9 +86,8 @@ const author = await get<Author>(work.main_author as number, "author");
 
 }
 
-.work-title {
-  font-style: italic;
-  font-size: large;
+.segment-card-title {
+  font-size: 1.5em;
 }
 
 .author-name {

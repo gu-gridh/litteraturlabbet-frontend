@@ -4,13 +4,13 @@
       <div v-if="authorSelected && !workSelected">
         I verk av
         <span class="author-name">{{ authorSelected?.name }}</span> finner vi
-        {{ clusterCount }} grupper av likartade stycken.
+        <span class="author-name">{{ clusterCount }}</span> grupper av likartade stycken.
       </div>
       <div v-if="workSelected && authorSelected">
         I verket
         <span class="work-title">{{ workTitle }}</span>
         av <span class="author-name">{{ authorSelected?.name }}</span> finner vi
-        {{ clusterCount }} grupper av återbruk.
+        <span class="work-title"> {{ clusterCount }} </span> grupper av återbruk.
       </div>
     </div>
        <div class="pagination">
@@ -194,16 +194,8 @@ watch(
 .reuse-label {
   line-height: 2.5rem;
   max-width: 85%;
-  font-size: 17px;
+  font-size: 19px;
   line-height:1.5 !important;
-}
-
-.author-name,
-.work-title {
-  background-color: #e67e00;
-  color: white;
-  padding: 0.2rem 0.5rem 0.3rem 0.5rem;
-  border-radius: 8px;
 }
 
   @media screen and (max-width: 950px) {

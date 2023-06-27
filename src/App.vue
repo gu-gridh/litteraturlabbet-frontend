@@ -80,6 +80,30 @@ body {
 
 } */
 
+.back-button{
+  padding:5px;
+  font-size:16px;
+  text-align:center;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+  height:auto;
+  width:80px;
+  margin:30px;
+  margin-left:2.6em;
+  background-color:black;
+}
+
+.author-name,
+.work-title {
+  background-color: #e67e00;
+  color: white;
+  padding: 0.2rem 0.5rem 0.3rem 0.5rem;
+  border-radius: 8px;
+  font-weight:500;
+}
+
+
 a:link {
   color: black;
   text-decoration: none;
