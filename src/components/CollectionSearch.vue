@@ -101,20 +101,16 @@ const route = useRoute()
 
 // Search functions
 // Search for authors given an id
-function searchAuthor(query: string): Promise<Array<Author>> {
-  return list<Author>("author", { search: query, limit: 1500 }).then((a) => {
-    return a.results.filter((b) => reuseAuthors["ids"].includes(b.id))
-    .sort((x,y)=>collator.compare(x.formatted_name||"",y.formatted_name||""));
-  });
+async function searchAuthor(query: string): Promise<Array<Author>> {
+  const a = await list<Author>("author", { search: query, limit: 1500 });
+  return a.results.filter((b) => reuseAuthors["ids"].includes(b.id))
+  .sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""));
 }
 
 // Search for works given for example an author id
-function searchWork(query: string, params: object): Promise<Array<Work>> {
-  return list<Work>("work/19th_century", { search: query, limit: 500, ...params }).then(
-    (a) => {
-      return a.results;
-    }
-  );
+async function searchWork(query: string, params: object): Promise<Array<Work>> {
+  const a = await list<Work>("work/19th_century", { search: query, limit: 500, ...params });
+  return a.results;
 }
 
 //sort the results alpahebtically
