@@ -330,7 +330,7 @@ button {
   }
 
   .search-container {
-    height: 480px;
+    height: 560px;
   }
 
   .multiselect {

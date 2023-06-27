@@ -302,8 +302,8 @@ watch(
   position: absolute;
   z-index: 10;
   width: 130px;
-  top: 0px;
-  right: 0px;
+  top: 10px;
+  right: 10px;
   margin-right: 0em;
   float: right;
   height: auto;
