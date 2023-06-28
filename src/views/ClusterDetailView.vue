@@ -35,7 +35,6 @@ const segments = ref<Array<Segment>>();
 
 onBeforeMount(() => {
   get<Cluster>(props.id, "cluster").then((c) => {
-    console.log('in clusterdetailview',props.id)
     console.log(c);
     let seenSegmentIds = new Set();
     for (let i = 0; i < c.segments.length; i++) {

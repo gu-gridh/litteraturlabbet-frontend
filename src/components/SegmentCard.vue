@@ -1,5 +1,12 @@
 <template>
-  <router-link
+  
+    <div class="segment-card">
+      <div class="segment-metadata-container">
+        <p class="segment-card-title">{{ author.formatted_name }}</p>
+        <p class="segment-card-title" style="font-style:italic" :title="work.title">{{ work.short_title ? work.short_title : work.title }}, {{ work.sort_year }}</p>
+        
+      </div>
+      <!-- <router-link
     :to="{
             name: 'page',
             params: {
@@ -9,17 +16,14 @@
               segment: segment.id,
             }
           }"
-  >
-    <div class="segment-card">
-      <div class="segment-metadata-container">
-        <p class="segment-card-title" style="font-style:italic">{{ work.short_title ? work.short_title : work.title }}</p>
-        <p class="segment-card-title">{{ author.name }}</p>
-      </div>
+  > -->
       <div class="segment-text-container">
-        {{ segment.text }}
+        <div class="page-text" v-html="text"></div>
       </div>
+      
+    <!-- </router-link> -->
     </div>
-  </router-link>
+  
 </template>
 
 <script setup lang="ts">
@@ -34,6 +38,18 @@ const props = defineProps<{
 const page = await get<Page>(props.segment.page as number, "page");
 const work = await get<Work>(page.work as number, "work/19th_century");
 const author = await get<Author>(work.main_author as number, "author");
+
+let text = page.text;
+if (props.segment) {
+  const segment = await get<Segment>(props.segment.id, "segment");
+
+  text = text.replace(
+    segment.text,
+    `<span class="highlight">${segment.text}</span>`
+  );
+
+  //console.log(text);
+}
 </script>
 
 <style scoped>
