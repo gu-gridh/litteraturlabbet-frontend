@@ -36,7 +36,7 @@ const topAuthors = ref(topList.authors.slice(0,10))
 </script>
 
 <template>
-   <h1 style="padding-left:35px; padding-bottom:5px;">Ofta förekommande återbruk</h1>
+   <h1 style="">Ofta förekommande återbruk</h1>
     <div class="topLists">
       <div class="list-left">
         <ol>
@@ -61,6 +61,21 @@ const topAuthors = ref(topList.authors.slice(0,10))
 
 <style scoped>
 
+h1{
+  font-family: "Cormorant Garamond", serif;
+  font-weight:600;
+  padding-left:35px; 
+  padding-bottom:5px;
+  padding-top:15px;
+  color:black;
+}
+
+h2{
+  font-family: "Cormorant Garamond", serif;
+  font-weight:600;
+  color:black;
+  padding-bottom:5px;
+}
 .topLists {
   display: flex;
   padding-right:20px;

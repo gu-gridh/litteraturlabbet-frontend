@@ -126,8 +126,7 @@
           },
         }"
         v-slot="{ href }"
-      >
-        <button :href="href" class="search-button">Sök</button>
+        class="search-button">Sök
       </router-link>
     </div>
   </div>
@@ -343,10 +342,10 @@ a:hover {
   height: auto!important;
   background-color: rgb(255, 255, 255, 1);
   border-radius: 12px;
-  /* display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: space-between; */
+  align-items: space-between;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
   z-index: 1;
 }
@@ -358,7 +357,7 @@ a:hover {
 
 .search-button {
   font-family: "Barlow Condensed", sans-serif !important;
-  padding: 0.4rem 1rem 0.4rem 1rem;
+  padding: 0.1rem 1rem 0.1rem 1rem;
   font-size: 25px;
   color: white;
   background-color: black;
@@ -367,7 +366,8 @@ a:hover {
   border: 0px solid transparent !important;
   margin-bottom: 1.5rem;
   position: relative;
-  margin-left: -30px;
+  margin-left: -00px;
+  overflow:hidden!important;
 }
 
 button {
@@ -375,7 +375,14 @@ button {
   overflow: hidden;
 }
 
+button:hover {
+  color: white;
+  overflow: hidden;
+}
+
+
 .search-button:hover {
+  transform:scale(1.05);
   background-color: rgb(80, 80, 80) !important;
  
 }
@@ -425,14 +432,8 @@ button {
 
   .search-button {
     font-size: 35px;
-    color: white;
-    background-color: black;
     border-color: none !important;
-    border-radius: 10px;
     border: 0px solid transparent !important;
-    margin-bottom: 1.5rem;
-    position: absolute;
-    margin-left: -30px;
   }
 }
 </style>

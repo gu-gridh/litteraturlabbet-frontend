@@ -5,12 +5,15 @@
          </div>
          <div class="home-content">
 
-<p>Totalt <p class="work-emph">{{ workCount }}</p> verk i samlingen.</p>
 
-<div style="margin-top:30px;font-size:1.2em;">Analytiska verktyg </div>
+
+<div style="margin-top:00px;font-size:1.2em;">Analytiska verktyg </div>
 <router-link to="/reuse/"  class="tool">Textåterbruk</router-link>
 <router-link to="/gallery"  class="tool">Grafiska Element</router-link>
 
+<div style="margin-top:80px;">
+<p>Totalt <p class="work-emph">{{ workCount }}</p> verk i samlingen.</p>
+</div>
          </div>
     </div>
   </template>
@@ -96,7 +99,7 @@ padding:50px 0px;
     .home-content{
       color:black;
      font-size:18px!important;
-     padding:30px;
+     padding:10px 30px;
           text-align:center;
          line-height:1.15;
     
