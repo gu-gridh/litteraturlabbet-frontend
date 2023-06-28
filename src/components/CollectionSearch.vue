@@ -103,8 +103,14 @@ const route = useRoute()
 // Search for authors given an id
 async function searchAuthor(query: string): Promise<Array<Author>> {
   const a = await list<Author>("author", { search: query, limit: 1500 });
-  return a.results.filter((b) => reuseAuthors["ids"].includes(b.id))
-  .sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""));
+  return a.results//.filter((b) => reuseAuthors["ids"].includes(b.id))
+  .sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""))
+  .map((b) => {
+    return {
+      ...b,
+      disabled: !hasReuse(b)
+    }
+  });
 }
 
 // Search for works given for example an author id
@@ -118,6 +124,12 @@ const sortSearchResults = (res: any) => {
   return Object.keys(res).sort((a, b) => !/[a-z]/i.test(a) ? 1 : (/[a-z]/i.test(b) ? 0 : -1))
 }
 
+function hasReuse(author: Author | undefined) {
+  if (author) {
+    return reuseAuthors["ids"].includes(author.id)
+  }
+  return false
+}
 // Callbacks
 // After selecting
 async function onSelectAuthor(value: Author, select$: any) {
@@ -306,7 +318,7 @@ button {
   --ms-option-color-pointed: Black;
 
   --ms-option-color-selected: #fff;
-  --ms-option-bg-disabled: black;
+  /*--ms-option-bg-disabled: black;*/
   --ms-option-color-disabled: #d1d5db;
   --ms-option-bg-selected-pointed: rgb(182, 82, 139);
   --ms-option-color-selected-pointed: #ffffff;
