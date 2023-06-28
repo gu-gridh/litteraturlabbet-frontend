@@ -1,16 +1,20 @@
 <template>
 <div class="about-container">
   <div class="about">
-   <div class="about-title">
-      <h1>Om verktygen</h1>
+   <div class="module-title">
+      <h1>Om laboratoriet</h1>
          </div>
-         <div class="about-content">
+         <div class="module-content">
+            Här kan du analysera verken från Litteraturbanken med olika verktyg. 
+ I dagsläget erbjuder vi verktyget <i>Textåterbruk</i>, för att hitta liknande textstycken, 
+ samt <i>Grafiska element</i> för att undersöka verkens visuella uttryck. Under projektets gång kommer Litteraturlaboratoriet att utvecklas med fler verktyg, 
+ samt optimeringar av datan från Litteraturbanken.
+ <br> <br>
+ Välj ett verktyg ovan, och välj vad du vill söka efter med hjälp av sökfälten till vänster. Klicka sedan på sök.
+ <br> <br>
  Verktygen utvecklas av <a href="https://dh.gu.se">Göteborgs Forskningsinfrastruktur för Digital Humaniora (GRIDH)</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a>. 
  Primära utvecklare har varit Victor Wåhlstrand Skärström, Aram Karimi, David Alfter, Kristin Åkerlund, Tristan Bridge, Ashely Green, Siska Humlesjö och Jonathan Westin. 
  Första versionen publicerades i augusti 2023. Kodbasen finns att hämta på GitHub: <a href="https://github.com/gu-gridh/">https://github.com/gu-gridh/</a>
-<br>
-<br>
-Välj ett verktyg såsom <i>Textåterbruk</i> eller <i>Grafiska element</i>, och välj sedan en författare med hjälp av sökfälten till vänster. Vill du undersöka ett visst verk så välj det från den undra menyn. Klicka sedan på sök.
 
          </div>
            </div>
@@ -41,9 +45,9 @@ cursor:pointer !important;
   }
 
        .about{
-   
+   padding:50px;
     width:100%;
-         padding:50px;
+        
   }
 
   
@@ -51,16 +55,16 @@ cursor:pointer !important;
        font-family: 'Cormorant Garamond', serif;
        letter-spacing: -3px;
     margin-top:10px;
-    font-size:30px;
+    font-size:25px;
     line-height:0.9;
-       text-align:center;
+       text-align:left;
       width:100%;
   }
 
     .about-content{
 color:black!important;
-     font-size:20px;
-padding:30px 30px 10px 30px;
+     font-size:18px;
+padding:30px 30px 10px 10px;
           text-align:justify;
          line-height:1.15;
                width:100%;

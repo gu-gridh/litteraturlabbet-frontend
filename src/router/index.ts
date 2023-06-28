@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import ReuseView from "@/views/ReuseView.vue";
 import ClusterDetailView from "@/views/ClusterDetailView.vue";
-import HomeView from "@/views/HomeView.vue"
+import AboutView from "@/views/AboutView.vue"
 import EmbeddingView from "@/views/EmbeddingView.vue";
 import PageView from "@/views/PageView.vue";
 import GalleryView from "@/views/GalleryView.vue";
@@ -14,7 +14,7 @@ const router = createRouter({
     {
       path: "/",
       name: "home",
-      component: HomeView
+      component: AboutView
     },
     {
       path: "/reuse/",

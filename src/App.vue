@@ -4,10 +4,8 @@
       <div class="lb-logo-container"></div>
 
       <div class="ll-logo-container">Litteratur<br />Laboratoriet</div>
-
-      <nav class="nav-links">
-        <router-link to="/" class="nav-link">Välkommen</router-link>
-        <router-link to="/about" class="nav-link">Om verktyget</router-link>
+      <nav class="nav-links" style="min-height:20px;">
+        <!-- <router-link to="/" class="nav-link">Välkommen</router-link> -->
       </nav>
 
       <Suspense>
@@ -17,6 +15,7 @@
     <div class="right-column">
       <div class="right-view-container">
         <nav class="nav-links">
+          <router-link to="/about/" class="nav-link">Om laboratoriet</router-link>
           <router-link to="/reuse/" class="nav-link">Textåterbruk</router-link>
           <!--<router-link to="/embedding" class="nav-link"
             >Ordvektorer</router-link
@@ -136,7 +135,7 @@ a:hover {
   letter-spacing: -6px;
   color: black;
   width: 100%;
-  font-size: 100px;
+  font-size: 90px;
   line-height: 0.75;
   margin-top: 20px;
   margin-bottom: 35px;
@@ -228,7 +227,7 @@ a:hover {
 .right-view-container {
   width: 85%;
   margin: auto;
-  margin-top: 330px;
+  margin-top: 310px;
 }
 
 .right-view-container-content {

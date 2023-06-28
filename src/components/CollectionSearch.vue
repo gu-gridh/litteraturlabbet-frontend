@@ -1,14 +1,18 @@
 <template>
   <div class="search-container">
+    <div class="welcome" v-show="showWelcome">
+      <Welcome></Welcome>
+    </div>
+    <div class="search-UI" v-show="showSearch">
     <div class="multiselect-input" id="author-select">
-      <div class="select-label"><p>Välj en författare...</p></div>
+      <div class="select-label"><p>Sök efter författare</p></div>
       <Multiselect
       :type="search"
         v-model="store.author"
         :value="store.author"
         mode="single"
         spellcheck="false"
-        placeholder="Sök författare"
+        placeholder="Författare #1"
         noResultsText="Inga författare matchar sökningen"
         noOptionsText="Inga författare matchar sökningen"
         :resolve-on-load="true"
@@ -24,15 +28,40 @@
         @clear="onClearAuthor"
         ref="authorSelect"
       />
+      <div id="author2-select"  v-show="showReuseSearch">
+      <Multiselect
+      :type="search"
+        v-model="store.author"
+        :value="store.author"
+        mode="single"
+        spellcheck="false"
+        placeholder="Författare #2"
+        noResultsText="Inga författare matchar sökningen"
+        noOptionsText="Inga författare matchar sökningen"
+        :resolve-on-load="true"
+        :delay="1"
+        :searchable="true"
+        :object="true"
+        valueProp="id"
+        label="formatted_name"
+        :options="async (query: string, select$: any) => searchAuthor(query)"
+        :clear-on-select="true"
+        :clear-on-search="true"
+        @select="onSelectAuthor"
+        @clear="onClearAuthor"
+        ref="authorSelect"
+        style="margin-top:10px;"
+      />
     </div>
+  </div>
     <div class="multiselect-input" id="work-select">
-      <div class="select-label"><p>... eller sök på ett verk!</p></div>
+     <div class="select-label"><p>Sök efter verk</p></div>
       <Multiselect
         v-model="store.work"
         :value="store.work"
         mode="single"
         spellcheck="false"
-        placeholder="Sök verk"
+        placeholder="Verk"
         noResultsText="Inga verk matchar sökningen"
         noOptionsText="Inga verk matchar sökningen"
         :resolve-on-load="true"
@@ -47,13 +76,42 @@
         @select="onSelectWork"
         @clear="onClearWork"
         ref="workSelect"
+     
       />
     </div>
-    <div class="slider-container">
-    <div class="slider-input" v-show="showSlider">
+
+    <div class="multiselect-input" id="phrase-select" v-show="showReuseSearch">
+      <div class="select-label"><p>Sök efter en fras</p></div>
+      <Multiselect
+        v-model="store.work"
+        :value="store.work"
+        mode="single"
+        spellcheck="false"
+        placeholder="Fras"
+        noResultsText="Inga verk matchar sökningen"
+        noOptionsText="Inga verk matchar sökningen"
+        :resolve-on-load="true"
+        :delay="1"
+        :searchable="true"
+        :object="true"
+        valueProp="id"
+        label="title"
+        :clear-on-select="true"
+        :clear-on-search="true"
+        :options="async (query: string, select$: any) => searchWork(query, {main_author: store.author?.id})"
+        @select="onSelectWork"
+        @clear="onClearWork"
+        ref="workSelect"
+        style="margin-top:10px;"
+      />
+    </div>
+    <div class="slider-container" v-show="showSlider">
+      <div class="select-label" style="margin-bottom:50px; text-align:center;"><p>Välj ett tidsomfång</p></div>
+    <div class="slider-input">
       <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor"/>
     </div>
   </div>
+
     
     <div class="count-label">
       <p>Totalt {{ workCount }} verk i samlingen.</p>
@@ -73,6 +131,7 @@
       </router-link>
     </div>
   </div>
+</div>
 
 </template>
 
@@ -85,6 +144,7 @@ import type { Author, Work } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
 import reuseAuthors from "@/assets/authors_with_reuse_copy.json";
 import { useRoute } from 'vue-router'
+import Welcome from "@/components/Welcome.vue";
 
 const store = searchStore();
 const authorSelect = ref();
@@ -96,6 +156,9 @@ const collator = new Intl.Collator('sv-u-co-trad');
 const timeRange = [1800, 1900];
 
 const showSlider = ref(false);
+const showReuseSearch = ref(false);
+const showSearch = ref(false);
+const showWelcome = ref(true);
 
 const route = useRoute()
 
@@ -186,9 +249,25 @@ onMounted(() => {
 //watch if route = gallery. if so, show slider
 watch(() => route.path, (path) => {
   if (path === '/gallery') {
+    showSearch.value = true;
+    showReuseSearch.value = false;
     showSlider.value = true;
-  } else {
+    showWelcome.value = false;
+  } 
+  else if (path === '/reuse/') {
+    showSearch.value = true;
+    showReuseSearch.value = true;
     showSlider.value = false;
+    showWelcome.value = false;
+  }
+
+  else if (path === '/about/') {
+    showSearch.value = false;
+    showWelcome.value = true;
+  }
+  else{
+    showSearch.value = false;
+    showWelcome.value = true;
   }
 })
 </script>
@@ -217,13 +296,13 @@ a:hover {
 }
 
 .slider-container {
-  min-height:80px;
+  margin-left: 1rem;
 }
 
 .slider-input {
-  margin-top: 4rem;
-  margin-left: 3rem;
-  margin-right: 3rem;
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+  margin-right: 2.5rem;
   font-size: 2em;
 }
 
@@ -260,23 +339,21 @@ a:hover {
 .search-container {
   margin-left: 0px;
   width: 100%;
-  height: 480px;
+ min-height:480px;
+  height: auto!important;
   background-color: rgb(255, 255, 255, 1);
   border-radius: 12px;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: space-between;
+  align-items: space-between; */
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
   z-index: 1;
 }
 
 .button-container {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  float:left;
 }
 
 .search-button {
@@ -289,7 +366,7 @@ a:hover {
   border-radius: 10px;
   border: 0px solid transparent !important;
   margin-bottom: 1.5rem;
-  position: absolute;
+  position: relative;
   margin-left: -30px;
 }
 
@@ -308,7 +385,7 @@ button {
   --ms-bg: rgb(240, 240, 240);
   --ms-ring-width: 0px;
   --ms-border-width: 0px;
-  --ms-font-size: 1.5rem;
+  --ms-font-size: 1.3rem;
   --ms-radius: 8px;
   --ms-option-color-pointed: black;
   --ms-option-bg-selected: rgb(182, 82, 139);
@@ -338,7 +415,7 @@ button {
   }
 
   .search-container {
-    height: 560px;
+    height: auto;
   }
 
   .multiselect {

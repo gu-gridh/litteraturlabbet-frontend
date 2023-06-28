@@ -1,11 +1,12 @@
 <template>
+  <div style="min-height:580px">
   <div v-if="author" class="reuse-container-w-author">
     <div class="chart-container">
         <network-chart
           :data="data"
           :author="author"
           :width="3000"
-          :height="370"
+          :height="400"
         >
       </network-chart>
   </div>
@@ -51,6 +52,7 @@
     </div>
     <TopLists/>
   </div>
+</div>
 </template>
 
 <script setup lang="ts">
@@ -154,6 +156,7 @@ font-size:16px;
   height: 100%;
   display: flex;
   flex-direction: column;
+  min-height:600px;
 }
 
 .reuse-container-w-author {
@@ -161,7 +164,7 @@ font-size:16px;
   display: flex;
   flex-direction: column;
   padding-bottom:20px;
-
+  min-height:600px!important;
 }
 
 .reuse-list-label {
