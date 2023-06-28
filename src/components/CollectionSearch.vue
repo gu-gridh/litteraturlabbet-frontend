@@ -265,7 +265,7 @@ watch(() => route.path, (path) => {
     showSearch.value = false;
     showWelcome.value = true;
   }
-  else{
+  else if (path === '/') {
     showSearch.value = false;
     showWelcome.value = true;
   }
