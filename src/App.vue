@@ -80,8 +80,8 @@ body {
 } */
 
 .back-button{
-  padding:5px 5px 5px 25px;
-  font-size:20px;
+  padding:3px 5px 3px 25px;
+  font-size:18px;
   font-weight:500;
   text-align:center;
   color:white;
@@ -95,7 +95,7 @@ body {
   background-image: url("@/assets/interface/linkbuttonboldwhite.png") !important;
   background-repeat:no-repeat;
   background-size:30px;
-  background-position:4px 6px;
+  background-position:4px 3px;
 }
 
 .author-name,

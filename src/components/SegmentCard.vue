@@ -3,7 +3,7 @@
     <div class="segment-card">
       <div class="segment-metadata-container">
         <p class="segment-card-title">{{ author.formatted_name }}</p>
-        <p class="segment-card-title" style="font-style:italic" :title="work.title">{{ work.short_title ? work.short_title : work.title }}, {{ work.sort_year }}</p>
+        <p class="segment-card-title" style="font-style:italic;" :title="work.title">{{ work.short_title ? work.short_title : work.title }} <p style="font-style:normal; display:inline; color:rgb(220,30,30); margin-left:10px;">{{ work.sort_year }}</p></p>
         
       </div>
       <!-- <router-link
@@ -55,8 +55,8 @@ if (props.segment) {
 <style scoped>
 .segment-card {
   /* padding: 2rem 1rem 2rem 1rem; */
-  margin: 1rem 3rem 1rem 3rem;
-  background-color: rgb(250, 250, 250);
+  margin: 1rem 2.7rem 1rem 2.7rem;
+  background-color: rgb(255, 255, 255);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -79,7 +79,7 @@ if (props.segment) {
   padding: 2rem 2rem 2rem 2rem;
   font-style: normal;
   line-height: 1.2;
-  font-size: 19px;
+  font-size: 18px;
  
 
  
@@ -87,7 +87,7 @@ if (props.segment) {
 
 .segment-metadata-container {
   width: 100%;
-  background-color: rgb(215,215,215);
+  background-color: rgb(255,255,255);
   color: black;
   padding: 1rem 2rem 1rem 2rem;
   border-radius: 8px 8px 0 0px;
