@@ -33,7 +33,7 @@ padding:50px;
 
     .home-content{
       color:black;
-     font-size:18px;
+     font-size:20px!important;
      padding:30px;
           text-align:justify;
          line-height:1.15;

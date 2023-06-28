@@ -55,19 +55,7 @@ if (props.segment) {
   height: 80%;
 }
 
-.back-button {
-  padding: 5px;
-  font-size: 16px;
-  text-align: center;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  height: auto;
-  width: 80px;
-  margin: 20px;
-  margin-left: 3em;
-  background-color: black;
-}
+
 
 .page-container {
   margin-left: 3rem;

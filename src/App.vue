@@ -80,6 +80,35 @@ body {
 
 } */
 
+.back-button{
+  padding:5px 5px 5px 25px;
+  font-size:20px;
+  font-weight:500;
+  text-align:center;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+  height:auto;
+  width:105px;
+  margin:30px;
+  margin-left:2.4em;
+  background-color:black;
+  background-image: url("@/assets/interface/linkbuttonboldwhite.png") !important;
+  background-repeat:no-repeat;
+  background-size:30px;
+  background-position:4px 6px;
+}
+
+.author-name,
+.work-title {
+  background-color: #e67e00;
+  color: white;
+  padding: 0.2rem 0.5rem 0.3rem 0.5rem;
+  border-radius: 8px;
+  font-weight:500;
+}
+
+
 a:link {
   color: black;
   text-decoration: none;
@@ -156,7 +185,7 @@ a:hover {
 
 .nav-link:hover {
   opacity: 1;
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(220, 220, 220);
   color: black;
 }
 

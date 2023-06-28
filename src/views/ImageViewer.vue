@@ -2,7 +2,7 @@
  
   <div id="viewer">
     <div id="ToolbarVertical">
-      <div class="back-button NavButton" onclick="history.back()">
+      <div class="close-button NavButton" onclick="history.back()">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="-2 -2 28 28" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12" /></svg></div>
       <!-- <a id="full-page" href="#full-page">
         <div id="FullPage" class="NavButton"></div>
@@ -70,7 +70,7 @@ export default {
   width: 100%;
 }
 
-.back-button{
+.close-button{
   font-size:16px;
   text-align:center;
   cursor:pointer;

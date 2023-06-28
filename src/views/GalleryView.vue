@@ -9,7 +9,7 @@ import img6 from '@/assets/gallery/6.jpeg'
 import { useRouter } from "vue-router";
 
 const images = ref([img1, img2, img3, img4, img5, img6])
-const galleryLabels = ref(["Alla", "Figur", "Ornament", "Anfang", "Noter"])
+const galleryLabels = ref(["Alla", "Figurer", "Ornament", "Anfanger", "Musiknoter"])
 
 const router = useRouter() 
 
@@ -23,7 +23,7 @@ const viewImage = (index: number) => {
       <h1>Grafiska element</h1>
     </div>
     <div class="module-content">
-      I litteraturen finner vi grafiska element i form av figurer, ornament, anfanger och musikaliska noter. 
+      I litteraturen finner vi grafiska element i form av figurer, ornament, anfanger och musiknoter. 
       Med detta verktyg kan vi extrahera dessa element antingen från författare och enskilda verk, eller från all litteratur under ett eller flera årtionden.
       Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska elementen är sorterade kronologiskt.
     </div>
@@ -55,7 +55,7 @@ const viewImage = (index: number) => {
 }
 
 .button {
-  padding:5px;
+  padding:5px 10px;
   font-size:14px;
   text-align:center;
   color:black;
@@ -63,7 +63,7 @@ const viewImage = (index: number) => {
   border: none;
   cursor:pointer;
   height:auto;
-  width:80px;
+  width:95px;
   margin:5px;
   background-color:rgb(230,230,230);
 }
