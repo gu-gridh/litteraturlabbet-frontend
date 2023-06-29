@@ -5,7 +5,7 @@
     </div>
     <div class="search-UI" v-show="showSearch">
     <div class="multiselect-input" id="author-select">
-      <div class="select-label"><p>Sök efter författare</p></div>
+      <div class="select-label"><p>Sök efter eller jämför författare</p></div>
       <Multiselect
       :type="search"
         v-model="store.author"
