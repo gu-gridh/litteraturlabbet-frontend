@@ -307,7 +307,7 @@ a:hover {
 
 .sliderColor {
   --slider-connect-bg: rgb(180,100,100);
-  --slider-tooltip-bg: #333333;
+  --slider-tooltip-bg: rgb(180,100,100);
   --slider-tooltip-font-size: 0.65em;
   --slider-tooltip-py: 5px;
   --slider-tooltip-px: 6px;

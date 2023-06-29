@@ -68,10 +68,12 @@ const viewImage = (index: number) => {
   background-color:rgb(230,230,230);
 }
 .button:hover{
-  background-color:darkorange;
+  background-color:rgb(180,100,100);
+  color:white;
 }
 .button:active{
-  background-color:darkorange;
+  background-color:rgb(180,100,100);
+  color:white;
 }
 .grid {
   display: grid;
