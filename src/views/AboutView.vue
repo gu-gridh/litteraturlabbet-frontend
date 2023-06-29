@@ -5,8 +5,8 @@
       <h1>Om laboratoriet</h1>
          </div>
          <div class="module-content">
-            Här kan du analysera verken från Litteraturbanken med olika verktyg. 
- I dagsläget erbjuder vi verktyget <i>Textåterbruk</i>, för att hitta liknande textstycken, 
+            Här kan du analysera verken från Litteraturbankens 1800-talsmaterial med olika verktyg. 
+ I dagsläget erbjuder vi verktygen <i>Textåterbruk</i>, för att hitta liknande textstycken, 
  samt <i>Grafiska element</i> för att undersöka verkens visuella uttryck. Under projektets gång kommer Litteraturlaboratoriet att utvecklas med fler verktyg, 
  samt optimeringar av datan från Litteraturbanken.
  <br> <br>
