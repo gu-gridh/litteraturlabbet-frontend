@@ -11,6 +11,7 @@
       <Suspense>
         <collection-search></collection-search>
       </Suspense>
+    
     </div>
     <div class="right-column">
       <div class="right-view-container">
@@ -135,7 +136,7 @@ a:hover {
   letter-spacing: -6px;
   color: rgb(180,100,100);
   width: 100%;
-  font-size: 90px;
+  font-size: 100px;
   line-height: 0.75;
   margin-top: 20px;
   margin-bottom: 35px;

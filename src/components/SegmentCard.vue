@@ -3,7 +3,7 @@
     <div class="segment-card">
       <div class="segment-metadata-container">
         <p class="segment-card-title">{{ author.formatted_name }}</p>
-        <p class="segment-card-title" style="font-style:italic;" :title="work.title">{{ work.short_title ? work.short_title : work.title }} <p style="font-style:normal; display:inline; color:rgb(220,30,30); margin-left:10px;">{{ work.sort_year }}</p></p>
+        <p class="segment-card-title" style="font-style:italic;" :title="work.title">{{ work.short_title ? work.short_title : work.title }} <p style="font-style:normal; display:inline; color:rgb(200,60,60); margin-left:10px;">{{ work.sort_year }}</p></p>
         
       </div>
       <!-- <router-link
@@ -56,13 +56,16 @@ if (props.segment) {
 .segment-card {
   /* padding: 2rem 1rem 2rem 1rem; */
   margin: 1rem 2.7rem 1rem 2.7rem;
-  background-color: rgb(255, 255, 255);
+  background-color:rgb(250,250,250);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
   margin-bottom: 30px;
   transition: all .2s ease-in-out;
+  border-color:rgb(235,235,235);
+  border-width:0.5px;
+  border-style:solid;
  
 }
 
@@ -87,7 +90,7 @@ if (props.segment) {
 
 .segment-metadata-container {
   width: 100%;
-  background-color: rgb(255,255,255);
+  background-color: rgb(250,250,250);
   color: black;
   padding: 1rem 2rem 1rem 2rem;
   border-radius: 8px 8px 0 0px;
@@ -95,7 +98,7 @@ if (props.segment) {
   flex-direction: row;
   justify-content: space-between;
   border-style:dotted;
-  border-color:rgb(180,100,100);
+  border-color:rgb(220,100,100);
   border-width:0 0 1px 0px;
  
 }

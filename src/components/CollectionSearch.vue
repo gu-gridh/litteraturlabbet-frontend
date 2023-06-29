@@ -1,5 +1,9 @@
 <template>
+   <div style="width:100%; height:0px;">
+    <div class="connection"></div>
+  </div>
   <div class="search-container">
+   
     <div class="welcome" v-show="showWelcome">
       <Welcome></Welcome>
     </div>
@@ -408,6 +412,20 @@ button:hover {
   --ms-option-color-selected-pointed: #ffffff;
   --ms-option-bg-selected-disabled: black;
   --ms-option-color-selected-disabled: #d1fae5;
+}
+
+.connection{
+  border-style: dotted;
+border-color: #b91818;
+border-image-source: url(@/assets/dots.svg);
+border-image-slice: 100% 20%;
+border-image-repeat:round;
+border-width: 0px 0px 20px 0px;
+width:220px; 
+height:0px; 
+float:right;
+left:155px; 
+top:45px; 
 }
 
 @media screen and (max-width: 950px) {

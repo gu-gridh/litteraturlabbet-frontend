@@ -238,7 +238,7 @@ data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
     )
     .nodeColor((node) => {
       if (node === hoverNode) {
-        return "rgb(220,140,140)";
+        return "rgb(220,100,100)";
       } else if (highlightNodes.has(node)) {
         return "#66CCFF";
       } else {

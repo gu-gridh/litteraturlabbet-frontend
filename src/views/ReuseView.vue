@@ -1,5 +1,7 @@
 <template>
+
   <div style="min-height:580px">
+    <h1>Textåterbruk</h1>
   <div v-if="author" class="reuse-container-w-author">
     <div class="chart-container">
         <network-chart
