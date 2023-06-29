@@ -5,7 +5,7 @@
     </div>
     <div class="search-UI" v-show="showSearch">
     <div class="multiselect-input" id="author-select">
-      <div class="select-label"><p>Sök efter eller jämför författare</p></div>
+      <div class="select-label"><p>Sök efter författare</p></div>
       <Multiselect
       :type="search"
         v-model="store.author"
@@ -306,7 +306,7 @@ a:hover {
 }
 
 .sliderColor {
-  --slider-connect-bg: #000000;
+  --slider-connect-bg: rgb(180,100,100);
   --slider-tooltip-bg: #333333;
   --slider-tooltip-font-size: 0.65em;
   --slider-tooltip-py: 5px;
@@ -329,7 +329,7 @@ a:hover {
   text-align: center;
   margin-bottom: 1rem;
   border-style: dotted;
-  border-color: grey;
+  border-color: rgb(180,100,100);
   border-width: 1px 0 0 0;
   margin-top: 2rem;
   padding: 2rem 0 0 0;
@@ -357,10 +357,10 @@ a:hover {
 
 .search-button {
   font-family: "Barlow Condensed", sans-serif !important;
-  padding: 0.1rem 1rem 0.1rem 1rem;
+  padding: 0.05rem 1rem;
   font-size: 25px;
   color: white;
-  background-color: black;
+  background-color: rgb(180,100,100);
   border-color: none !important;
   border-radius: 10px;
   border: 0px solid transparent !important;
@@ -383,7 +383,7 @@ button:hover {
 
 .search-button:hover {
   transform:scale(1.05);
-  background-color: rgb(80, 80, 80) !important;
+  background-color: rgb(140, 80, 80) !important;
  
 }
 

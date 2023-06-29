@@ -63,17 +63,19 @@ const topAuthors = ref(topList.authors.slice(0,10))
 
 h1{
   font-family: "Cormorant Garamond", serif;
-  font-weight:600;
+  font-weight:400;
   padding-left:35px; 
   padding-bottom:5px;
   padding-top:15px;
+  letter-spacing: -2px;
   color:black;
 }
 
 h2{
   font-family: "Cormorant Garamond", serif;
-  font-weight:600;
+  font-weight:300;
   color:black;
+  letter-spacing: -2px;
   padding-bottom:5px;
 }
 .topLists {
