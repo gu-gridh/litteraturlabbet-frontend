@@ -94,6 +94,9 @@ if (props.segment) {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  border-style:dotted;
+  border-color:rgb(180,100,100);
+  border-width:0 0 1px 0px;
  
 }
 

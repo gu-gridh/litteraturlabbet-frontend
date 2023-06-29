@@ -6,7 +6,7 @@
           :data="data"
           :author="author"
           :width="3000"
-          :height="400"
+          :height="370"
         >
       </network-chart>
   </div>
