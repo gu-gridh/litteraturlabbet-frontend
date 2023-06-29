@@ -133,7 +133,7 @@ a:hover {
 .ll-logo-container {
   font-family: "Cormorant Garamond", serif;
   letter-spacing: -6px;
-  color: black;
+  color: rgb(180,100,100);
   width: 100%;
   font-size: 90px;
   line-height: 0.75;
@@ -150,7 +150,7 @@ a:hover {
   margin-left: -10px;
   width: 80px;
   height: 80px;
-  background-image: url("@/assets/lblogoblack.png") !important;
+  background-image: url("@/assets/lblogored.png") !important;
   background-size: 80px;
   z-index: 1;
   transition: all 0.2s ease-in-out;
