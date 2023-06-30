@@ -13,6 +13,8 @@
  Verktygen utvecklas av <a href="https://dh.gu.se">Göteborgs Forskningsinfrastruktur för Digital Humaniora (GRIDH)</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a>. 
  Primära utvecklare har varit Victor Wåhlstrand Skärström, Aram Karimi, David Alfter, Kristin Åkerlund, Tristan Bridge, Ashely Green, Siska Humlesjö och Jonathan Westin. 
  Första versionen publicerades i augusti 2023. Kodbasen finns att hämta på GitHub: <a href="https://github.com/gu-gridh/">https://github.com/gu-gridh/</a>
+ <br> <br>
+ Verktyget <i>Textåterbruk</i> använder sig av <i><a href="https://github.com/dasmiq/passim">Passim</a></i>, utvecklat av David Smith, för att upptäcka liknande fraser.
 
          </div>
            </div>
