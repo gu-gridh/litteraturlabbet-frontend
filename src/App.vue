@@ -200,8 +200,8 @@ a:hover {
   display: flex;
   flex-direction: row;
   float: left;
-  height: calc(100% + 200px);
-  margin-bottom: 20px;
+  height: calc(100%);
+  margin-bottom: 28px;
   width: 100%;
   padding-bottom:100px;
 }
