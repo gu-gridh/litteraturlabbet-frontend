@@ -1,7 +1,10 @@
 <template>
 
   <div style="min-height:580px">
-    <h1>Textåterbruk</h1>
+
+    <div class="module-title">
+  <div style="position:absolute; top:0px; left:28px; font-size:2.0em!important; font-weight:100!important; z-index:1000;">Textåterbruk</div>
+</div>
   <div v-if="author" class="reuse-container-w-author">
     <div class="chart-container">
         <network-chart
@@ -30,10 +33,7 @@
     </div>
     <div class="Fade"></div>
 
-    <div class="module-title">
-      <h1>Textåterbruk</h1>
-    </div>
-    <div class="module-content">
+    <div class="module-content" style="margin-top:40px;">
       Textåterbruk, på engelska <i>textual reuse</i>, är ett fenomen där
       textstycken återkommer i flera olika skrivna verk. Detta kan bero på
       plagiat, citat, utbyten mellan författare, eller mer vardagliga orsaker.
