@@ -30,10 +30,10 @@
   height: 80px;
   width: calc(100% + 2px);
   font-size: 12px;
-  position: absolute;
+  position: fixed;
   z-index: 3000;
   bottom: 0px;
-    font-family: "Barlow Condensed", sans-serif;
+  font-family: "Barlow Condensed", sans-serif;
 }
 
 a {

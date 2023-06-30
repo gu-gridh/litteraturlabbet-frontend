@@ -30,9 +30,9 @@
         </div>
       </div>
     </div>
+    <Footer></Footer>
   </div>
 
-  <Footer></Footer>
 </template>
 
 <script setup lang="ts">
@@ -200,10 +200,10 @@ a:hover {
   display: flex;
   flex-direction: row;
   float: left;
-  height: calc(100%);
-  margin-bottom: 28px;
+  height: calc(100% + 0px);
+  margin-bottom: 0px;
   width: 100%;
-  padding-bottom:100px;
+  padding-bottom:130px;
 }
 
 .left-column {
