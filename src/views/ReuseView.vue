@@ -34,23 +34,16 @@
     <div class="Fade"></div>
 
     <div class="module-content" style="margin-top:40px;">
-      Textåterbruk, på engelska <i>textual reuse</i>, är ett fenomen där
+      Med detta verktyg kan användare undersöka nätverket av textåterbruk i delar
+      av Litteraturbankens material. Textåterbruk, på engelska <i>textual reuse</i>, är ett fenomen där
       textstycken återkommer i flera olika skrivna verk. Detta kan bero på
       plagiat, citat, utbyten mellan författare, eller mer vardagliga orsaker.
       Eventuellt återbruk är inte alltid avsiktligt, utan kan bero på
       parafraser, vanliga talesätt eller helt enkelt redaktörers ingrepp i
-      författares verk. Återbruk är inte nödvändigtivs linjärt, om liknande textstycken förekommer
-      hos flera författare behöver de inte ha lånat materialet från varandra -
+      författares verk. Återbruk är inte nödvändigtivs linjärt;
       det kan exempelvis finnas en odokumenterad tredje part varifrån texten
       ursprungligen kommer. Av denna anledning kan man inte med enkla medel
-      bestämma en källa av återbruket, eller vem som eventuellt plagierat vem.
-      <br />
-      <br />
-      I denna applikation kan användare undersöka nätverket av återbruk i delar
-      av Litteraturbankens material. Interagera med nätverket för att utröna
-      vilka författare i samlingen som delar textstycken med varandra, en
-      tjockare linje mellan två författare visar på fler utbyten. Sök sedan på
-      en specifik författare för att detaljläsa återbruken.
+      bestämma vem som eventuellt plagierat vem.    
     </div>
     <TopLists/>
   </div>
