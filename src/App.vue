@@ -200,9 +200,10 @@ a:hover {
   display: flex;
   flex-direction: row;
   float: left;
-  min-height: calc(100vh - 200px);
+  height: calc(100% + 200px);
   margin-bottom: 20px;
   width: 100%;
+  padding-bottom:100px;
 }
 
 .left-column {
