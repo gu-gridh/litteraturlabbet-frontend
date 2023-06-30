@@ -418,7 +418,7 @@ button:hover {
   border-style: dotted;
 border-color: #b91818;
 border-image-source: url(@/assets/dots.svg);
-border-image-slice: 100% 20%;
+border-image-slice: 100% 25%;
 border-image-repeat:round;
 border-width: 0px 0px 20px 0px;
 width:220px; 
