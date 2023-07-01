@@ -86,28 +86,20 @@
 
     <div class="multiselect-input" id="phrase-select" v-show="showReuseSearch">
       <div class="select-label"><p>Sök efter en fras</p></div>
-      <Multiselect
-        v-model="store.work"
-        :value="store.work"
-        mode="single"
-        spellcheck="false"
-        placeholder="Fras"
-        noResultsText="Inga verk matchar sökningen"
-        noOptionsText="Inga verk matchar sökningen"
-        :resolve-on-load="true"
-        :delay="1"
-        :searchable="true"
-        :object="true"
-        valueProp="id"
-        label="title"
-        :clear-on-select="true"
-        :clear-on-search="true"
-        :options="async (query: string, select$: any) => searchWork(query, {main_author: store.author?.id})"
-        @select="onSelectWork"
-        @clear="onClearWork"
-        ref="workSelect"
-        style="margin-top:10px;"
-      />
+      <input
+            type="search"
+            id="search"
+            class="search-box"
+            name="search"
+            spellcheck="false"
+            placeholder="Fras"
+            :value="searchQuery"
+            @input="updateSearchQuery($event.target.value)"
+            @keydown="handleBackspace($event)"
+            @keydown.enter="triggerSearch"
+
+          />
+
     </div>
     <div class="slider-container" v-show="showSlider">
       <div class="select-label" style="margin-bottom:50px; text-align:center;"><p>Välj ett tidsomfång</p></div>
@@ -296,6 +288,48 @@ a:hover {
   margin-bottom: 0.5rem;
   margin-left: 2rem;
   margin-right: 2rem;
+}
+
+.search-box{
+  width:100%!important;
+
+}
+
+input[type="search"] {
+  font-family: "Barlow Condensed", sans-serif !important;
+  background-color:rgb(240,240,240)!important;
+  font-size:1.4em!important;
+  border: none;
+  color: black;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  flex: 1;
+  border-radius:8px;
+  padding:10px 15px;
+}
+
+input[type="search"]::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+input[type="search"]:focus {
+  outline: none;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 0.75em;
+  width: 0.75em;
+  border-radius: 50em;
+  background: url(../assets/interface/input-cancel-x.svg) no-repeat 50% 50%;
+  background-size: contain;
+  opacity: 1.0;
+  pointer-events: none;
+}
+
+input[type="search"]:focus::-webkit-search-cancel-button {
+  opacity: 1.0;
+  pointer-events: all;
 }
 
 .slider-container {
