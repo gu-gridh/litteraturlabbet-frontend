@@ -1,4 +1,5 @@
 <template>
+  <div class="reuse-container">
   <div class="reuse-list-label">
     <div class="reuse-label">
       <div v-if="authorSelected && !workSelected">
@@ -13,22 +14,25 @@
         <span class="work-title"> {{ clusterCount }} </span> grupper av återbruk.
       </div>
     </div>
-       <div class="pagination">
-    <v-pagination
-      v-model="page"
-      :pages="pages"
-      :range-size="1"
-      active-color="white"
-      @update:modelValue="onPageChange"
-    />
-  </div>
+  
     </div>
+  </div>
   
 
   <div class="card-container">
     <div v-for="cluster in clusters" v-bind:key="cluster.id">
       <cluster-card :cluster="cluster"></cluster-card>
     </div>
+  </div>
+  <div class="pagination">
+    <v-pagination
+      v-model="page"
+      class="pagination-numbers"
+      :pages="pages"
+      :range-size="5"
+      active-color="rgb(200,200,200)"
+      @update:modelValue="onPageChange"
+    />
   </div>
 </template>
 
@@ -173,45 +177,50 @@ watch(
 }
 
 .reuse-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  width:100%!important;
 }
 
-.reuse-list-label {
-  display: flex;
-  margin-left: 0rem;
-  margin-bottom: 2rem;
-  background-color: white;
+.reuse-list-label { 
+  margin-bottom: 1rem;
   color: black;
-  padding: 1rem 1.5rem 1rem 2rem;
+  padding: 1rem;
+  padding-top:2rem;
   border-radius: 0px;
-  flex-direction: row;
-  justify-content: space-between;
-
 }
 
 .reuse-label {
+  position:relative;
   line-height: 2.5rem;
-  max-width: 85%;
   font-size: 19px;
+  text-align:center;
+  width:auto;
   line-height:1.5 !important;
+}
+
+.pagination {
+  margin-top:20px;
+  margin-bottom: 1rem;
+  width:100%;
+}
+
+.pagination-numbers {
+  display:flex;
+  flex-direction:row;
+ justify-content:center;
+  width:100%;
 }
 
   @media screen and (max-width: 950px) {
     .reuse-label {
   line-height: 2.5rem;
   font-size: 21px;  
-  max-width: 100%;
 
 }
 .reuse-list-label {
   height: 100%;
-  display: block;
   margin-bottom:30px;
 }
 .pagination {
-  float:right;
   margin-right:30px;
   margin-top:20px;
 }

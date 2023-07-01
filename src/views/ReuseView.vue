@@ -1,17 +1,17 @@
 <template>
-
-  <div style="min-height:580px">
-
     <div class="module-title">
   <div style="position:absolute; top:0px; left:28px; font-size:2.0em!important; font-weight:100!important; z-index:1000;">Textåterbruk</div>
 </div>
+  <div style="min-height:580px">
+
+
   <div v-if="author" class="reuse-container-w-author">
     <div class="chart-container">
         <network-chart
           :data="data"
           :author="author"
           :width="3000"
-          :height="370"
+          :height="410"
         >
       </network-chart>
   </div>
@@ -159,25 +159,8 @@ font-size:16px;
   display: flex;
   flex-direction: column;
   padding-bottom:20px;
-  min-height:600px!important;
-}
-
-.reuse-list-label {
-  display: flex;
-  margin-left: 0rem;
-  margin-bottom: 2rem;
-  background-color: white;
-  color: black;
-  padding: 1rem 1.5rem 1rem 1.5rem;
-  border-radius: 0px;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.reuse-label {
-  line-height: 2.5rem;
-  max-width: 85%;
-  font-size: 17px;
+  min-height:380px!important;
+  margin-top:-30px;
 }
 
 .author-name,
