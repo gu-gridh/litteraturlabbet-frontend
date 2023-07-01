@@ -181,14 +181,16 @@ watch(
 }
 
 .reuse-list-label { 
+  pointer-events:none;
   margin-bottom: 1rem;
   color: black;
   padding: 1rem;
-  padding-top:2rem;
+  padding-top:1rem;
   border-radius: 0px;
 }
 
 .reuse-label {
+  pointer-events:none;
   position:relative;
   line-height: 2.5rem;
   font-size: 19px;
