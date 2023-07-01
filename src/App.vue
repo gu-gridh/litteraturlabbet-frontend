@@ -27,6 +27,9 @@
           <Suspense>
             <router-view />
           </Suspense>
+          <div class="loader-container"> 
+          <div class="loader"></div>
+        </div>
         </div>
       </div>
     </div>
@@ -79,6 +82,28 @@ body {
        margin-top:calc(105% - 2000px); 
 
 } */
+
+.loader-container{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  width:100%;
+  height:100%;
+  text-align:center;
+  position:absolute;
+}
+
+.loader{
+  text-align:center;
+ height:100px;
+ width:100px;
+ background-image:url("@/assets/interface/Spin-1s-200px.gif");
+ background-size:contain;
+ margin-top:-40px;
+
+  position:absolute;
+}
 
 .back-button{
   padding:3px 5px 3px 25px;
