@@ -349,7 +349,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   --slider-tooltip-font-size: 0.65em;
   --slider-tooltip-py: 5px;
   --slider-tooltip-px: 6px;
-  --slider-handle-ring-color: #423d3d;
+  --slider-handle-ring-color: rgba(0,0,0,0);
 }
 
 .select-label {
@@ -463,6 +463,10 @@ top:45px;
 }
 
 @media screen and (max-width: 950px) {
+  .connection{
+display:none;
+}
+
   .select-label {
     font-size: 25px !important;
     margin-bottom: 0.5rem;

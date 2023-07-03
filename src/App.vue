@@ -33,9 +33,9 @@
         </div>
       </div>
     </div>
-    <Footer></Footer>
+   
   </div>
-
+  <Footer></Footer>
 </template>
 
 <script setup lang="ts">
@@ -327,7 +327,7 @@ button {
   .lb-logo-container {
     width: 120px;
     height: 120px;
-    background-image: url("@/assets/lblogoblack.png") !important;
+    background-image: url("@/assets/lblogored.png") !important;
     background-size: 120px;
   }
 
@@ -371,7 +371,7 @@ button {
 
   .main-container {
     display: block;
-    padding: 0px 60px 20px 60px;
+    padding: 0px 60px 120px 60px;
   }
 
   .left-column {
@@ -394,5 +394,12 @@ button {
     width: 100%;
     margin-top: 50px;
   }
+
+  .back-button{
+  padding:0px 5px 2px 25px!important;
+  font-size:26px!important;
+  width:135px!important;
+  background-position:8px 8px;
+}
 }
 </style>

@@ -2,7 +2,7 @@
   
     <div class="segment-card">
       <div class="segment-metadata-container">
-        <p class="segment-card-title">{{ author.formatted_name }}</p>
+        <p class="segment-card-title author-title">{{ author.formatted_name }}</p>
         <p class="segment-card-title" style="font-style:italic;" :title="work.title">{{ work.short_title ? work.short_title : work.title }} <p style="font-style:normal; display:inline; color:rgb(200,60,60); margin-left:10px;">{{ work.sort_year }}</p></p>
         
       </div>
@@ -90,6 +90,7 @@ if (props.segment) {
 
 .segment-metadata-container {
   width: 100%;
+  min-height:80px;
   background-color: rgb(250,250,250);
   color: black;
   padding: 1rem 2rem 1rem 2rem;
@@ -100,6 +101,7 @@ if (props.segment) {
   border-style:dotted;
   border-color:rgb(220,100,100);
   border-width:0 0 1px 0px;
+  line-height: 1.5em;
  
 }
 
@@ -110,10 +112,14 @@ if (props.segment) {
 .segment-card-title {
   font-weight:400;
   font-size: 1.5em;
+  padding-top:12px;
 }
 
-.author-name {
+.author-title {
   font-weight: 600;
+ 
+  height:auto;
+ 
 }
 
 @media screen and (max-width: 950px) {
