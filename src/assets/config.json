@@ -1,6 +1,6 @@
 {
     "project": {
-        "name": "Reading the Signs",
+        "name": "Litteraturlabbet",
         "urls": {
             "baseURL": "https://diana.dh.gu.se/api/litteraturlabbet",
             "page": "page",
@@ -9,6 +9,6 @@
             "segment": "segment",
             "cluster": "cluster"
         },
-        "about": "How does recent renaming of streets and the use of the exogenous language English in Rwanda affects citizens who move and navigate in the urban space? Naming practices reflect socio-political conditions and can be seen as a manifestation of authority and ideology. This project contributes to a new way of studying political change and power relations in Rwanda. It stresses the role of language in social development, especially in relation to identity and social cohesion."
+        "about": "Litteraturlabbet är ett digitalt verktyg för att analysera litteratur. Det är utvecklat av GRIDH i samarbete med Litteraturbanken."
     }
 }
