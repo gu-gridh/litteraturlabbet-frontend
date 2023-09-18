@@ -54,6 +54,15 @@ const router = createRouter({
       }),
     },
     {
+      path: "/reuse/:id1/:id2",
+      name: "reuse-link",
+      component: AuthorLink,
+      props: (route) => ({
+        author1: route.params.id1 ? Number(route.params.id1): undefined,
+        author2: route.params.id2 ? Number(route.params.id2) : undefined,
+      }),
+    },
+    {
       path: "/gallery",
       name: "gallery",
       component: GalleryView,
@@ -66,15 +75,6 @@ const router = createRouter({
       component: ImageViewer,
       props: true,
     },
-    {
-      path: "/link/",
-      name: "link",
-      component: AuthorLink,
-      props: (route) => ({
-        author1: route.query.author1 ? Number(route.query.author1): undefined,
-        author2: route.query.author2 ? Number(route.query.author2): undefined,
-      }),
-    }
   ],
 });
 
