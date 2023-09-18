@@ -31,10 +31,10 @@ const props = defineProps<{
 }>();
 
 const cluster = ref<Cluster>();
-const segments = ref<Array<Segment>>();
+let segments = ref<Array<Segment>>();
 
 onBeforeMount(() => {
-  get<Cluster>(props.id, "cluster").then((c) => {
+  get<Cluster>(props.id, "cluster", 4).then((c) => {
     console.log(c);
     let seenSegmentIds = new Set();
     for (let i = 0; i < c.segments.length; i++) {
@@ -49,9 +49,21 @@ onBeforeMount(() => {
     }
     c.size = 0;//c.size - seenSegmentIds.size + 1;
     cluster.value = c;
-    segments.value = c.segments;
+    segments.value = c.segments.sort((a, b) => {
+      if (a.series.imprint_year < b.series.imprint_year) {
+        return -1;
+      }
+      if (a.series.imprint_year > b.series.imprint_year) {
+        return 1;
+      }
+      return 0;
+    });
+    console.log(c.segments);
   });
 });
+
+//console.log(segments);
+
 </script>
 
 <style scoped>

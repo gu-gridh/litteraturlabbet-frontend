@@ -94,7 +94,7 @@ async function fetchClusters(
     offset: 10 * (page - 1),
   };
 
-  const clusterResults = await list<Cluster>("cluster", params);
+  const clusterResults = await list<Cluster>("cluster", params, 2);
   console.log(clusterResults);
   clusterResults.results.forEach((cluster) => {
     let seenSegmentIds = new Set();
