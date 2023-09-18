@@ -3,7 +3,7 @@
     <div class="segment-card">
       <div class="segment-metadata-container">
         <p class="segment-card-title author-title">{{ author.formatted_name }}</p>
-        <p class="segment-card-title" style="font-style:italic;" :title="work.title">{{ work.short_title ? work.short_title : work.title }} <p style="font-style:normal; display:inline; color:rgb(200,60,60); margin-left:10px;">{{ work.sort_year }}</p></p>
+        <p class="segment-card-title" style="font-style:italic;" :title="work.title">{{ work.short_title ? work.short_title : work.title }} <p style="font-style:normal; display:inline; color:rgb(200,60,60); margin-left:10px;">{{ work.imprint_year }}</p></p>
         
       </div>
       <!-- <router-link
@@ -18,7 +18,9 @@
           }"
   > -->
       <div class="segment-text-container">
+        <a v-bind:href="lblink" target="_blank">
         <div class="page-text" v-html="text"></div>
+      </a>
       </div>
       
     <!-- </router-link> -->
@@ -33,21 +35,31 @@ import type { Author, Page, Work, Segment } from "@/types/litteraturlabbet";
 
 const props = defineProps<{
   segment: Segment;
+  lblink?: string;
 }>();
 
-const page = await get<Page>(props.segment.page as number, "page");
-const work = await get<Work>(page.work as number, "work/19th_century");
+/*const page = await get<Page>(props.segment.page.number as number, "page");
+const work = await get<Work>(props.segment.page.work as number, "work/19th_century");
 const author = await get<Author>(work.main_author as number, "author");
+const year = work.imprint_year;
 
 let text = page.text;
+*/
+const author = props.segment.series.main_author;
+const work = props.segment.series;
+console.log(work);
+const page = props.segment.page;
+let text = page.text;
+
+let lblink = "";
 if (props.segment) {
-  const segment = await get<Segment>(props.segment.id, "segment");
-
+  //const segment = await get<Segment>(props.segment.id, "segment");
+  
   text = text.replace(
-    segment.text,
-    `<span class="highlight">${segment.text}</span>`
+    props.segment.text,
+    `<span class="highlight">${props.segment.text}</span>`
   );
-
+  lblink = "https://litteraturbanken.se/f%C3%B6rfattare/"+work.main_author.lbauthorid+"/titlar/"+work.modernized_title+"/sida/"+(page.number+1)+"/faksimil";
   //console.log(text);
 }
 </script>
