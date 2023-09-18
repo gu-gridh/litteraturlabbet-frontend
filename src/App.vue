@@ -145,9 +145,6 @@ a:visited {
   text-decoration-style: none;
 }
 
-a:hover {
-}
-
 #app {
   height: inherit;
   width: inherit;
