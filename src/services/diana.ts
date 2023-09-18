@@ -2,9 +2,9 @@ import type { Paginated, Count } from "@/types/litteraturlabbet";
 import axios from "axios";
 import { project } from "@/assets/config.json";
 
-function list<T>(endpoint: string, params: any): Promise<Paginated<T>> {
+function list<T>(endpoint: string, params: any, depth?: number): Promise<Paginated<T>> {
   return axios
-    .get<Paginated<T>>(`${project.urls.baseURL}/${endpoint}`, {
+    .get<Paginated<T>>(`${project.urls.baseURL}/${endpoint}`+(depth?`/?depth=${depth}`:''), {
       params: params,
     })
     .then((d) => {
@@ -12,8 +12,8 @@ function list<T>(endpoint: string, params: any): Promise<Paginated<T>> {
     });
 }
 
-function get<T>(id: number, endpoint: string): Promise<T> {
-  return axios.get<T>(`${project.urls.baseURL}/${endpoint}/${id}`).then((d) => {
+function get<T>(id: number, endpoint: string, depth?: number): Promise<T> {
+  return axios.get<T>(`${project.urls.baseURL}/${endpoint}/${id}`+(depth?`/?depth=${depth}`:'')).then((d) => {
     return d.data;
   });
 }
@@ -25,6 +25,15 @@ function getByLbId<T>(endpoint: string, params: any): Promise<T>{
   .then((d) => {
     return d.data
   })
+}
+
+function getAligned<T>(params: any): Promise<T> {
+  params["depth"] = 4;
+  return axios.get<T>(`${project.urls.baseURL}/author_exchange_info/`, {
+    params: params,
+  }).then((d) => {
+    return d.data;
+  });
 }
 
 function count<Count>(endpoint: string, params: any): Promise<Count> {
@@ -58,4 +67,4 @@ function unpaginated<T>(endpoint: string, params: any): Promise<Array<T>> {
     });
 }
 
-export { list, get, count, search, unpaginated, getByLbId };
+export { list, get, count, search, unpaginated, getByLbId, getAligned };
