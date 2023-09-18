@@ -67,6 +67,18 @@ interface Segment extends AbstractBase {
   page: number | Page;
   text: string;
   series: string;
+  author: Author;
+}
+
+interface AlignedSegment extends AbstractBase {
+  uid: string;
+  gid: string;
+  bw: number;
+  ew: number;
+  begin: number;
+  end: number;
+  page: number | Page;
+  segment: number | Segment;
 }
 
 type Litteraturlabbet = Author | Work | Page | Cluster | Segment;
@@ -82,4 +94,5 @@ export type {
   Litteraturlabbet,
   PaginatedLitteraturlabbet,
   Count,
+  AlignedSegment
 };

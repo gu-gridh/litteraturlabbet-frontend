@@ -11,12 +11,13 @@ import type {
 export const searchStore = defineStore("search", {
   state: () => {
     const author = ref<Author | undefined>(undefined);
+    const author2 = ref<Author | undefined>(undefined);
     const work = ref<Work | undefined>(undefined);
     const page = ref<Page | undefined>(undefined);
     const cluster = ref<Cluster | undefined>(undefined);
     const segment = ref<Segment | undefined>(undefined);
 
-    return { author, work, page, cluster, segment };
+    return { author, author2, work, page, cluster, segment };
   },
   getters: {
     paramsPath(state) {
