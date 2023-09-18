@@ -56,6 +56,12 @@ onBeforeMount(() => {
       if (a.series.imprint_year > b.series.imprint_year) {
         return 1;
       }
+      if (a.series.main_author.formatted_name < b.series.main_author.formatted_name) {
+        return -1;
+      }
+      if (a.series.main_author.formatted_name > b.series.main_author.formatted_name) {
+        return 1;
+      }
       return 0;
     });
     console.log(c.segments);
