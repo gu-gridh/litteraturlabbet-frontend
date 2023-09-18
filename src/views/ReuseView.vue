@@ -70,7 +70,7 @@ const props = defineProps<{
   work?: number;
 }>();
 
-const data = await fetch();
+const data = (props.author||props.work) ? await fetch() : { nodes: [], links: [] };
 // dataStore.data = data;
 
 if (props.author) {
