@@ -35,8 +35,8 @@
       <div id="author2-select"  v-show="showReuseSearch">
       <Multiselect
       :type="search"
-        v-model="store.author"
-        :value="store.author"
+        v-model="store.author2"
+        :value="store.author2"
         mode="single"
         spellcheck="false"
         placeholder="Författare #2"
@@ -53,7 +53,7 @@
         :clear-on-search="true"
         @select="onSelectAuthor"
         @clear="onClearAuthor"
-        ref="authorSelect"
+        ref="authorSelect2"
         style="margin-top:10px;"
       />
     </div>
@@ -161,6 +161,7 @@ const route = useRoute()
 // Search for authors given an id
 async function searchAuthor(query: string): Promise<Array<Author>> {
   const a = await list<Author>("author", { search: query, limit: 1500 });
+  console.log(a);
   return a.results//.filter((b) => reuseAuthors["ids"].includes(b.id))
   .sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""))
   .map((b) => {
@@ -184,9 +185,9 @@ const sortSearchResults = (res: any) => {
 
 function hasReuse(author: Author | undefined) {
   if (author) {
-    return reuseAuthors["ids"].includes(author.id)
+    return reuseAuthors["ids"].includes(author.id);
   }
-  return false
+  return false;
 }
 // Callbacks
 // After selecting

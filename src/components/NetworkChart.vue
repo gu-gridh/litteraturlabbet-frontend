@@ -10,11 +10,18 @@
       </div>
     </div>
   </div>
-  <div class="chart-super-container">
-    <div class="chart-container">
-      <div id="chart" ref="element"></div>
+  <div v-if="graphTooBig">
+    Graph too big!
+  </div>
+  <div v-if="!graphTooBig">
+    <div class="chart-super-container">
+      <div class="chart-container">
+          <div id="chart" ref="element"></div>  
+      </div>
     </div>
   </div>
+  
+  
 </template>
 
 <script setup lang="ts">
@@ -30,6 +37,7 @@ import { reuseStore } from "@/stores/reuse";
 
 const authorStore = searchStore();
 const linkStore = reuseStore();
+let graphTooBig: boolean = false;
 
 const props = defineProps<{
   data: { nodes: Array<Node> | undefined; links: Array<Link> | undefined };
@@ -37,6 +45,7 @@ const props = defineProps<{
   height: number;
   width: number;
 }>();
+
 const element = ref();
 const route = useRoute();
 const router = useRouter();
@@ -101,8 +110,13 @@ let neighborCount = 0;
     const isNeighbor = seenNeighbors.indexOf(sourceNode.id) > -1;
     if (isCurrentAuthor || isNeighbor) {
       if (isNeighbor) {
-        if (neighborCount > 50) {
+        if (neighborCount > 500) {
+          graphTooBig = true;
+          console.log("Graph too big!");
+          console.log(graphTooBig);
           return;
+        } else { // TODO remove else-clause?
+          graphTooBig = false;
         }
         neighborCount++;
       }
@@ -111,7 +125,7 @@ let neighborCount = 0;
       targetNode.neighbors = targetNode.neighbors || [];
       sourceNode.links = sourceNode.links || [];
       targetNode.links = targetNode.links || [];
-
+      console.log(targetNode);
       // Update the connections
       sourceNode.neighbors.push(targetNode);
       targetNode.neighbors.push(sourceNode);
@@ -223,12 +237,14 @@ data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
       //TODO on click go to reuse page
       console.log('go to reuse page',link);
       linkStore.updateAuthor1(link.source.id);
+      authorStore.author = link.source.id;
+      authorStore.author2 = link.target.id;
       linkStore.updateAuthor2(link.target.id);
       router.push({
-          name: "link",
-          query: {
-            author1: linkStore.author1,
-            author2: linkStore.author2,
+          name: "reuse-link",
+          params: {
+            id1: link.source.id,
+            id2: link.target.id,
           },
         })
 
