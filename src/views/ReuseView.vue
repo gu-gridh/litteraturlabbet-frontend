@@ -2,10 +2,15 @@
     <div class="module-title">
   <div style="position:absolute; top:0px; left:28px; font-size:2.0em!important; font-weight:100!important; z-index:1000;">Textåterbruk</div>
 </div>
+<!--
+<button @click="fShowGraph()">Show graph</button>
+<button @click="fShowChronograph()">Show chronograph</button>
+-->
   <div style="min-height:580px">
 
 
   <div v-if="author" class="reuse-container-w-author">
+    <div v-if="showGraph">
     <div class="chart-container">
         <network-chart
           :data="data"
@@ -14,7 +19,16 @@
           :height="410"
         >
       </network-chart>
-  </div>
+    </div>
+    </div>
+      <div v-if="showChronograph">
+      <Chronograph :author="props.author" :work="props.work">
+
+      </Chronograph>
+    </div>
+  
+  
+  
   <div class="Fade"></div>
   
     <suspense>
@@ -42,6 +56,7 @@
 
 <script setup lang="ts">
 import NetworkChart from "@/components/NetworkChart.vue";
+import Chronograph from "@/components/ChronoGraph.vue";
 import ReuseList from "@/components/ReuseList.vue";
 import type { Work, Author } from "@/types/litteraturlabbet";
 import { get } from "@/services/diana";
@@ -54,6 +69,8 @@ import TopLists from "./TopLists.vue";
 
 const store = searchStore();
 const dataStore = networkStore();
+let showGraph: boolean = true;
+let showChronograph: boolean = false;
 
 const props = defineProps<{
   author?: number;
@@ -84,7 +101,19 @@ watch(() => store.author, () => {
 
 // })
 
+
+function fShowGraph() {
+  showGraph = true;
+  showChronograph = false;
+}
+
+function fShowChronograph() {
+  showGraph = false;
+  showChronograph = true;
+}
+
 async function fetch() {
+  
   let links = await unpaginated<Link>("author_exchange", {});
   let ids = links
     .map((l) => l.source)
@@ -106,6 +135,7 @@ async function fetch() {
     });
   });
   return { nodes: nodes, links: links };
+  
 }
 
 </script>
@@ -116,9 +146,9 @@ async function fetch() {
   background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 5%, rgba(255,255,255,0) 100%);
   width:100%;
   height:152px;
-  margin-top:-150px;
   pointer-events: none;
 }
+
 
 .about-reuse {
   /* width: 200px; */
@@ -154,7 +184,6 @@ font-size:16px;
   flex-direction: column;
   padding-bottom:20px;
   min-height:380px!important;
-  margin-top:-30px;
 }
 
 .author-name,
