@@ -1,20 +1,10 @@
 <template>
-  <div class="legend" v-if="props.author">
-        <div>Förklaring</div>
-        <ul>
-          <li class="red-circle">{{ authorStore.author?.name }}</li>
-          <li class="blue-circle">Direkt återbruk</li>
-          <li class="gray-circle">Indirekt återbruk</li>
-        </ul>
+  <div class="legend" v-if="props.author"> 
+    <div class="red-label"><div class="red-circle"></div> {{ authorStore.author?.name }}</div>
+    <div class="blue-label"><div class="blue-circle"></div>Direkt återbruk</div>
+    <div class="grey-label"><div class="grey-circle"></div>Indirekt återbruk</div>
   </div>
-  <div class="controls">
-    <div class="slider-container">
-      <div>Max antal indirekta återbruksnoder (höga värden kan leda till långsam prestanda).</div>
-      
-    <Slider v-model="secondaryNodeNumber" :min="0" :max="1000" :step="50" class="slider-color" tooltipPosition="bottom" @end="recalculateGraph()" lazy="true"></Slider>
-  
-    </div>
-  </div>
+
   <div class="dropdown-super" v-if="props.author">
     <div class="dropdown">
       <button class="dropbtn">Instruktioner</button>
@@ -34,6 +24,13 @@
       <div class="chart-container">
           <div id="chart" ref="element"></div>  
       </div>
+      <div class="controls">
+    <div class="slider-container">
+      
+    <Slider v-model="secondaryNodeNumber" :min="0" :max="1000" :step="50" class="slider-color" tooltipPosition="top" @end="recalculateGraph()" lazy="true"></Slider>
+    <div style="margin-top:8px; color:grey;">Max antal indirekta återbruksnoder</div>
+    </div>
+  </div>
     </div>
 </template>
 
@@ -314,8 +311,13 @@ watch(
 .chart-super-container {
   width: 100%;
   margin-right: 0rem;
+  margin-top:-20px;
+  padding:0px;
+
 }
 .chart-container {
+
+  padding:0px;
   left: 0%;
   width:100%;
   /* padding-bottom: 20px; */
@@ -323,7 +325,7 @@ watch(
   height: inherit;
   display: flex;
   flex-direction: row;
- justify-content: center;
+  justify-content: center;
    /*  margin-left: 2rem;
   right: 100px;
   margin-right: 2rem; */
@@ -340,23 +342,16 @@ watch(
   padding: 10px 10px 10px 0px;
   border-radius: 12px;
 }
-.legend {
-  position: absolute;
-  z-index: 11;
-  width: 135px;
-  top: 135px;
-  left: 50px;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 10px rgb(255, 255, 255);
-}
+
 .controls {
+  display:flex;
+  justify-content:center;
   position: absolute;
   z-index: 9;
-  top: 55px;
-  left: 35px;
-  width: 435px;
-  background-color: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 0 30px rgb(255, 255, 255);
+  width:100% !important;
+  top: 410px;
+  color:black;
+  width: 100%;
   border-radius: 10px;
 }
 
@@ -370,7 +365,7 @@ watch(
   padding: 0.4rem 1rem 0.4rem 1rem;
   font-size: 20px;
   color: white;
-  background-color: black;
+background-color:rgb(100,100,100);
   border-color: none !important;
   border-radius: 10px;
   border: 0px solid transparent !important;
@@ -429,20 +424,77 @@ watch(
   visibility: hidden; /* by default */
 }
 
-.red-circle {
-  color: rgb(220,100,100);
-}
-.blue-circle {
-  color: #66CCFF;
+.red-circle{
+  width:10px;
+height:10px;
+border-radius:50%;
+background-color:rgb(180,100,100);
+margin-right:10px;
+margin-top:9px;
+float:left;
 }
 
-.gray-circle {
 
-  color: rgb(85, 85, 85);
+.blue-circle{
+width:10px;
+height:10px;
+background-color:rgb(50,200,250);
+border-radius:50%;
+margin-right:10px;
+margin-top:9px;
+float:left;
+}
+
+.grey-circle{
+  width:10px;
+height:10px;
+border-radius:50%;
+background-color:rgb(100,100,100);
+margin-right:10px;
+margin-top:9px;
+float:left;
+}
+
+.red-label{
+color:rgb(180,100,100);
+width:auto;
+margin-bottom:0px;
+font-weight:500;
+}
+
+
+.blue-label{
+color:rgb(50,200,250);
+width:auto;
+margin-bottom:0px;
+font-weight:500;
+}
+
+.grey-label{
+color:rgb(100,100,100);
+width:auto;
+font-weight:500;
+}
+
+
+.legend {
+  position: absolute;
+  z-index: 11;
+  width: 400px;
+  top: 90px;
+  left: 35px;
+  font-size:1.1em;
 
 }
-.slider-container {
-  margin-left: 1rem;
+
+.legend::before {
+
+}
+
+.controls .slider-container {
+  margin-left: 0rem;
+  width:450px;
+  text-align:center;
 }
 
 .slider-input {
@@ -452,14 +504,24 @@ watch(
   font-size: 2em;
 }
 
-.sliderColor {
-  --slider-connect-bg: rgb(180,100,100);
-  --slider-tooltip-bg: rgb(180,100,100);
+#app .sliderColor {
+  --slider-connect-bg: rgb(180,100,100) !important;
+  --slider-tooltip-bg: rgb(180,100,100) !important;
   --slider-tooltip-font-size: 0.65em;
   --slider-tooltip-py: 5px;
   --slider-tooltip-px: 6px;
   --slider-handle-ring-color: rgba(0,0,0,0);
 }
+
+.slider-horizontal .slider-tooltip-top {
+background-color: rgb(180,100,100) !important;
+border-color: rgb(180,100,100) !important;
+}
+
+.slider-connect{
+  background-color: rgb(180,100,100) !important;
+}
+
 
 .buttonrow {
   top: 50px;

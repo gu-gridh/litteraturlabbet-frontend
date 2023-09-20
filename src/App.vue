@@ -117,7 +117,7 @@ body {
   width:105px;
   margin:30px;
   margin-left:2.4em;
-  background-color:black;
+  background-color:rgb(100,100,100);
   background-image: url("@/assets/interface/linkbuttonboldwhite.png") !important;
   background-repeat:no-repeat;
   background-size:30px;
@@ -300,7 +300,7 @@ button {
   font-size:1.5em !important;
   letter-spacing: -3px;
   padding-left:35px;
-  margin-top: 30px;
+  margin-top: 0px;
   font-size: 30px;
   line-height: 0.9;
   text-align: left;
@@ -310,7 +310,7 @@ button {
 .module-content {
   color: black;
   font-size: 18px;
-  padding: 20px 40px 20px 35px;
+  padding: 50px 40px 20px 35px;
   text-align: justify;
   line-height: 1.15;
 }

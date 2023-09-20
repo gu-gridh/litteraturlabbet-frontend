@@ -68,7 +68,7 @@ if (props.segment) {
 .segment-card {
   /* padding: 2rem 1rem 2rem 1rem; */
   margin: 1rem 2.7rem 1rem 2.7rem;
-  background-color:rgb(250,250,250);
+  background-color:rgb(245,245,245);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -103,7 +103,7 @@ if (props.segment) {
 .segment-metadata-container {
   width: 100%;
   min-height:80px;
-  background-color: rgb(250,250,250);
+  background-color: rgb(245,245,245);
   color: black;
   padding: 1rem 2rem 1rem 2rem;
   border-radius: 8px 8px 0 0px;

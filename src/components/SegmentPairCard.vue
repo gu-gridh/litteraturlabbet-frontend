@@ -77,7 +77,7 @@ if (props.segment2) {
 .segment-pair-card {
   /* padding: 2rem 1rem 2rem 1rem; */
   margin: 1rem 1.5rem 1rem 0rem;
-  background-color:rgb(250,250,250);
+  background-color:rgb(245,245,245);
   border-radius: 8px;
   display: flex;
   flex-direction: row;
@@ -111,7 +111,7 @@ if (props.segment2) {
 .segment-metadata-container {
   width: 100%;
   min-height:80px;
-  background-color: rgb(250,250,250);
+  background-color: rgb(245,245,245);
   color: black;
   padding: 1rem 2rem 1rem 2rem;
   border-radius: 8px 8px 0 0px;

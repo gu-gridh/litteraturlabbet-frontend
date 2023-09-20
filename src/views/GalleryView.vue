@@ -20,7 +20,7 @@ const viewImage = (index: number) => {
 
 <template>
     <div class="module-title">
-      <h1>Grafiska element</h1>
+      <h1 style="top:30px;  font-size:2.0em!important; font-weight:100!important; z-index:1000;">Grafiska element</h1>
     </div>
     <div class="module-content">
       I litteraturen finner vi grafiska element i form av figurer, ornament, anfanger och musiknoter. 

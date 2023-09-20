@@ -68,7 +68,7 @@ h1{
   padding-bottom:5px;
   padding-top:15px;
   letter-spacing: -2px;
-  color:black;
+  color:black !important;
 }
 
 h2{
@@ -79,6 +79,7 @@ h2{
   padding-bottom:5px;
 }
 .topLists {
+  color:black !important;
   display: flex;
   padding-right:20px;
   padding-bottom:30px;

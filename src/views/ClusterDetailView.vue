@@ -78,7 +78,7 @@ onBeforeMount(() => {
     overflow-y: scroll;
 }
 .back-button:hover{
-  background-color: rgb(85,85,85);
+  background-color: rgb(120,120,120);
   color: white;
 
 }
