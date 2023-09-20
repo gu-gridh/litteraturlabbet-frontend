@@ -1,5 +1,21 @@
 <template>
-  <div class="dropdown-super" v-if="graphVisible">
+  <div class="legend" v-if="props.author">
+        <div>Förklaring</div>
+        <ul>
+          <li class="red-circle">{{ authorStore.author?.name }}</li>
+          <li class="blue-circle">Direkt återbruk</li>
+          <li class="gray-circle">Indirekt återbruk</li>
+        </ul>
+  </div>
+  <div class="controls">
+    <div class="slider-container">
+      <div>Max antal indirekta återbruksnoder (höga värden kan leda till långsam prestanda).</div>
+      
+    <Slider v-model="secondaryNodeNumber" :min="0" :max="1000" :step="50" class="slider-color" tooltipPosition="bottom" @end="recalculateGraph()" lazy="true"></Slider>
+  
+    </div>
+  </div>
+  <div class="dropdown-super" v-if="props.author">
     <div class="dropdown">
       <button class="dropbtn">Instruktioner</button>
       <div class="dropdown-content">
@@ -7,21 +23,18 @@
         <div>Klicka på en punkt eller koppling för att göra en sökning.</div>
         <div>Klicka och dra för att flytta på nätverksvyn.</div>
         <div>Skrolla för att zooma.</div>
+        <div>Grafen visar alltid alla direkta återbruk, det vill säga alla författare som har återbruk med valda författaren.</div>
+      <div>Indirekta återbruk menar författare som inte har återbruk med valda författaren men med författare som har direkta återbruk med valda författaren.</div>
       </div>
     </div>
   </div>
-  <div v-if="graphTooBig">
-    Graph too big!
-  </div>
-  <div v-if="!graphTooBig">
+  
+  
     <div class="chart-super-container">
       <div class="chart-container">
           <div id="chart" ref="element"></div>  
       </div>
     </div>
-  </div>
-  
-  
 </template>
 
 <script setup lang="ts">
@@ -34,10 +47,14 @@ import { useRoute } from "vue-router";
 import { useRouter } from "vue-router";
 import { searchStore } from "@/stores/search";
 import { reuseStore } from "@/stores/reuse";
+import Slider from '@vueform/slider'
 
 const authorStore = searchStore();
 const linkStore = reuseStore();
 let graphTooBig: boolean = false;
+let secondaryNodeNumber = ref(50);
+let showGraph: boolean = false;
+let showChronograph: boolean = true;
 
 const props = defineProps<{
   data: { nodes: Array<Node> | undefined; links: Array<Link> | undefined };
@@ -67,10 +84,13 @@ watch(
   { deep: true }
 );
 
+function recalculateGraph() {
+  graph.value = build(props.data, props.author);
+}
+
 function build(graphData: any, author?: number) {
   graphVisible = ref(false);
-  console.log(graphData);
-  console.log(author);
+
   const graph = ForceGraph();
   const highlightNodes = new Set();
   const highlightLinks = new Set();
@@ -110,15 +130,11 @@ let neighborCount = 0;
     const isNeighbor = seenNeighbors.indexOf(sourceNode.id) > -1;
     if (isCurrentAuthor || isNeighbor) {
       if (isNeighbor) {
-        if (neighborCount > 500) {
-          graphTooBig = true;
-          console.log("Graph too big!");
-          console.log(graphTooBig);
+        if (neighborCount > secondaryNodeNumber.value) {
           return;
-        } else { // TODO remove else-clause?
-          graphTooBig = false;
         }
         neighborCount++;
+        link.dashed = true;
       }
       // Ensure source and target have the neighbors and links properties
       sourceNode.neighbors = sourceNode.neighbors || [];
@@ -129,9 +145,10 @@ let neighborCount = 0;
       // Update the connections
       sourceNode.neighbors.push(targetNode);
       targetNode.neighbors.push(sourceNode);
+      link.name = `Återbruk mellan ${sourceNode.name} och ${targetNode.name}`;
       sourceNode.links.push(link);
       targetNode.links.push(link);
-
+      
       if (sourceNode.id === author) {
       seenNeighbors.push(targetNode.id);
     } else if (targetNode.id === author) {
@@ -215,12 +232,13 @@ data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
     })
     .onLinkHover((link: any) => {
       highlightLinks.clear();
-      highlightLinks.clear();
-
+      //highlightNodes.clear();
         if (link) {
           highlightLinks.add(link);
+          
         }    
     })
+    
     //dotted links
     //.linkDirectionalParticles(4)
     //.linkDirectionalParticleWidth((link) => (highlightLinks.has(link) ? 4 : 0))
@@ -261,7 +279,9 @@ data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
         return "rgb(85, 85, 85)";
       }
     })
-    .cooldownTime(2500)
+    .cooldownTime(1500)
+    //.d3AlphaDecay(0.01)
+    //.d3VelocityDecay(0.08)
     .onEngineStop(() => {
       if (author && hoverNode && !loading.value) {
         setTimeout(() => {
@@ -290,13 +310,7 @@ watch(
 );
 </script>
 <style>
-.legend {
-  width: 20%;
-  /* position: absolute; */
-  top: 0px;
-  right: 100px;
-  z-index: 10;
-}
+
 .chart-super-container {
   width: 100%;
   margin-right: 0rem;
@@ -326,6 +340,26 @@ watch(
   padding: 10px 10px 10px 0px;
   border-radius: 12px;
 }
+.legend {
+  position: absolute;
+  z-index: 11;
+  width: 135px;
+  top: 135px;
+  left: 50px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+.controls {
+  position: absolute;
+  z-index: 9;
+  top: 55px;
+  left: 35px;
+  width: 435px;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 30px rgb(255, 255, 255);
+  border-radius: 10px;
+}
+
 .dropdown-super:hover {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   background-color: rgb(255, 255, 255, 0.85);
@@ -372,9 +406,11 @@ watch(
   line-height: 1;
   z-index: 100;
 }
+
 .dropdown-super:hover .dropdown-content {
   display: block;
 }
+
 .dropdown-super:hover .dropbtn {
   background-color: rgb(80,80,80) !important;
   backdrop-filter: blur(10px);
@@ -393,4 +429,42 @@ watch(
   visibility: hidden; /* by default */
 }
 
+.red-circle {
+  color: rgb(220,100,100);
+}
+.blue-circle {
+  color: #66CCFF;
+}
+
+.gray-circle {
+
+  color: rgb(85, 85, 85);
+
+}
+.slider-container {
+  margin-left: 1rem;
+}
+
+.slider-input {
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+  margin-right: 2.5rem;
+  font-size: 2em;
+}
+
+.sliderColor {
+  --slider-connect-bg: rgb(180,100,100);
+  --slider-tooltip-bg: rgb(180,100,100);
+  --slider-tooltip-font-size: 0.65em;
+  --slider-tooltip-py: 5px;
+  --slider-tooltip-px: 6px;
+  --slider-handle-ring-color: rgba(0,0,0,0);
+}
+
+.buttonrow {
+  top: 50px;
+  left: 50px;
+  z-index: 12;
+  position: absolute;
+}
 </style>
