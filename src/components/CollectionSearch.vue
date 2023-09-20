@@ -207,7 +207,7 @@ async function onSelectAuthor(value: Author, select$: any) {
 async function onSelectWork(value: Work, select$: any) {
   // Fetch the current work and full author
   const work = await get<Work>(value.id, "work/19th_century");
-  const author = await get<Author>(work.main_author as number, "author");
+  const author = await get<Author>(work.main_author.id as number, "author");
 
   workSelect.value.clearSearch();
   workSelect.value.refreshOptions();

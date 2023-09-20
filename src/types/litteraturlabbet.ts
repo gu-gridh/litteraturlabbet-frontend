@@ -17,6 +17,7 @@ interface Count {
 }
 
 interface Author extends AbstractBase {
+  id: number;
   gender: string;
   lbauthorid: string;
   normalized_lbauthorid: string;
