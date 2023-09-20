@@ -23,16 +23,6 @@
   </div>
 
   <div v-else class="reuse-container-wo-author">
-    <div class="chart-container">
-        <network-chart 
-        :data="data" 
-        :width="3000" 
-        :height="500"
-        >
-      </network-chart>
-    </div>
-    <div class="Fade"></div>
-
     <div class="module-content" style="margin-top:40px;">
       Med detta verktyg kan användare undersöka nätverket av textåterbruk i delar
       av Litteraturbankens material. Textåterbruk, på engelska <i>textual reuse</i>, är ett fenomen där
