@@ -76,6 +76,6 @@ segments.sort((a,b) => {
 .link-container {
     margin: 20px;
     margin-left:3.5em;
-    font-size: 14px;
+    font-size: 12px;
 }
 </style>

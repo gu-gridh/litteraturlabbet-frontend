@@ -76,15 +76,14 @@ if (props.segment2) {
 <style scoped>
 .segment-pair-card {
   /* padding: 2rem 1rem 2rem 1rem; */
-  margin: 1rem 2.7rem 1rem 2.7rem;
+  margin: 1rem 1.5rem 1rem 0rem;
   background-color:rgb(250,250,250);
   border-radius: 8px;
   display: flex;
   flex-direction: row;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
   margin-bottom: 30px;
   transition: all .2s ease-in-out;
-  border-color:rgb(235,235,235);
+  border-color:transparent;
   border-width:0.5px;
   border-style:solid;
  
