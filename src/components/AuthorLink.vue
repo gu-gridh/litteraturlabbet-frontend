@@ -78,4 +78,8 @@ segments.sort((a,b) => {
     margin-left:3.5em;
     font-size: 12px;
 }
+
+.link-container h2{
+   color:black;
+}
 </style>

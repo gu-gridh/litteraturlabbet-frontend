@@ -1,20 +1,25 @@
 <template>
+     <div class="controls">
+        <div class="slider-container">
+
+          <Slider v-model="secondaryNodeNumber" :min="0" :max="1000" :step="50" class="slider-color" tooltipPosition="top"
+            @end="recalculateGraph()" lazy="true"></Slider>
+          <div style="margin-top:8px; color:grey;">Max antal indirekta återbruksnoder</div>
+        </div>
+      </div>
+
   <div class="legend" v-if="props.author">
-        <div>Förklaring</div>
-        <ul>
-          <li class="red-circle">{{ authorStore.author?.name }}</li>
-          <li class="blue-circle">Direkt återbruk</li>
-          <li class="gray-circle">Indirekt återbruk</li>
-        </ul>
-  </div>
-  <div class="controls">
-    <div class="slider-container">
-      <div>Max antal indirekta återbruksnoder (höga värden kan leda till långsam prestanda).</div>
-      
-    <Slider v-model="secondaryNodeNumber" :min="0" :max="1000" :step="50" class="slider-color" tooltipPosition="bottom" @end="recalculateGraph()" lazy="true"></Slider>
-  
+    <div class="red-label">
+      <div class="red-circle"></div> {{ authorStore.author?.name }}
+    </div>
+    <div class="blue-label">
+      <div class="blue-circle"></div>Direkt återbruk
+    </div>
+    <div class="grey-label">
+      <div class="grey-circle"></div>Indirekt återbruk
     </div>
   </div>
+
   <div class="dropdown-super" v-if="props.author">
     <div class="dropdown">
       <button class="dropbtn">Instruktioner</button>
@@ -23,18 +28,24 @@
         <div>Klicka på en punkt eller koppling för att göra en sökning.</div>
         <div>Klicka och dra för att flytta på nätverksvyn.</div>
         <div>Skrolla för att zooma.</div>
-        <div>Grafen visar alltid alla direkta återbruk, det vill säga alla författare som har återbruk med valda författaren.</div>
-      <div>Indirekta återbruk menar författare som inte har återbruk med valda författaren men med författare som har direkta återbruk med valda författaren.</div>
+        <div>Grafen visar alltid alla direkta återbruk, det vill säga alla författare som har återbruk med valda
+          författaren.</div>
+        <div>Indirekta återbruk menar författare som inte har återbruk med valda författaren men med författare som har
+          direkta återbruk med valda författaren.</div>
       </div>
     </div>
   </div>
-  
-  
-    <div class="chart-super-container">
-      <div class="chart-container">
-          <div id="chart" ref="element"></div>  
-      </div>
+
+
+  <div class="chart-super-container">
+    <div class="chart-container">
+      <div id="chart" ref="element"></div>
+
+   
+
     </div>
+
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -120,53 +131,53 @@ function build(graphData: any, author?: number) {
   const targetLinks = data.links.filter((l: Link) => l.target === author);
   */
 
-let neighborCount = 0;
+  let neighborCount = 0;
   data.links = data.links.map(function (link: Link) {
-  const sourceNode = data.nodes.find(function (n: Node) { return n.id === link.source; });
-  const targetNode = data.nodes.find(function (n: Node) { return n.id === link.target; });
+    const sourceNode = data.nodes.find(function (n: Node) { return n.id === link.source; });
+    const targetNode = data.nodes.find(function (n: Node) { return n.id === link.target; });
 
-  if (sourceNode && targetNode) {
-    const isCurrentAuthor = sourceNode.id === author || targetNode.id === author;
-    const isNeighbor = seenNeighbors.indexOf(sourceNode.id) > -1;
-    if (isCurrentAuthor || isNeighbor) {
-      if (isNeighbor) {
-        if (neighborCount > secondaryNodeNumber.value) {
-          return;
+    if (sourceNode && targetNode) {
+      const isCurrentAuthor = sourceNode.id === author || targetNode.id === author;
+      const isNeighbor = seenNeighbors.indexOf(sourceNode.id) > -1;
+      if (isCurrentAuthor || isNeighbor) {
+        if (isNeighbor) {
+          if (neighborCount > secondaryNodeNumber.value) {
+            return;
+          }
+          neighborCount++;
+          link.dashed = true;
         }
-        neighborCount++;
-        link.dashed = true;
-      }
-      // Ensure source and target have the neighbors and links properties
-      sourceNode.neighbors = sourceNode.neighbors || [];
-      targetNode.neighbors = targetNode.neighbors || [];
-      sourceNode.links = sourceNode.links || [];
-      targetNode.links = targetNode.links || [];
-      console.log(targetNode);
-      // Update the connections
-      sourceNode.neighbors.push(targetNode);
-      targetNode.neighbors.push(sourceNode);
-      link.name = `Återbruk mellan ${sourceNode.name} och ${targetNode.name}`;
-      sourceNode.links.push(link);
-      targetNode.links.push(link);
-      
-      if (sourceNode.id === author) {
-      seenNeighbors.push(targetNode.id);
-    } else if (targetNode.id === author) {
-      seenNeighbors.push(sourceNode.id);
-    }
-      
-      return {
-        ...link,
-        source: sourceNode,
-        target: targetNode,
-      };
-    }
-    
-  }
+        // Ensure source and target have the neighbors and links properties
+        sourceNode.neighbors = sourceNode.neighbors || [];
+        targetNode.neighbors = targetNode.neighbors || [];
+        sourceNode.links = sourceNode.links || [];
+        targetNode.links = targetNode.links || [];
+        console.log(targetNode);
+        // Update the connections
+        sourceNode.neighbors.push(targetNode);
+        targetNode.neighbors.push(sourceNode);
+        link.name = `Återbruk mellan ${sourceNode.name} och ${targetNode.name}`;
+        sourceNode.links.push(link);
+        targetNode.links.push(link);
 
-  return null;
-}).filter((link: Link) => link); // removes null values
-data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
+        if (sourceNode.id === author) {
+          seenNeighbors.push(targetNode.id);
+        } else if (targetNode.id === author) {
+          seenNeighbors.push(sourceNode.id);
+        }
+
+        return {
+          ...link,
+          source: sourceNode,
+          target: targetNode,
+        };
+      }
+
+    }
+
+    return null;
+  }).filter((link: Link) => link); // removes null values
+  data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
   let hoverNode: Node;
   if (author) {
     hoverNode = data.nodes.filter((n: Node) => n.id === author)[0];
@@ -190,22 +201,22 @@ data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
       // Center/zoom on node
       graph.centerAt(node.x, node.y, 1000);
       graph.zoom(3, 2000);
-        if (authorStore.author?.id !== node.id) {
+      if (authorStore.author?.id !== node.id) {
         authorStore.author = await get<Author>(node.id as number, "author");
-          await router.push({
+        await router.push({
           name: "reuse",
           query: {
             author: node.id,
             work: undefined,
           },
         });
-    
+
       }
     })
     .onNodeRightClick(async (node) => {
       if (authorStore.author?.id !== node.id) {
         authorStore.author = await get<Author>(node.id as number, "author");
-          await router.push({
+        await router.push({
           name: "reuse",
           query: {
             author: node.id,
@@ -233,12 +244,12 @@ data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
     .onLinkHover((link: any) => {
       highlightLinks.clear();
       //highlightNodes.clear();
-        if (link) {
-          highlightLinks.add(link);
-          
-        }    
+      if (link) {
+        highlightLinks.add(link);
+
+      }
     })
-    
+
     //dotted links
     //.linkDirectionalParticles(4)
     //.linkDirectionalParticleWidth((link) => (highlightLinks.has(link) ? 4 : 0))
@@ -253,18 +264,18 @@ data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
     .autoPauseRedraw(false) // keep redrawing after engine has stopped
     .onLinkClick((link) => {
       //TODO on click go to reuse page
-      console.log('go to reuse page',link);
+      console.log('go to reuse page', link);
       linkStore.updateAuthor1(link.source.id);
       authorStore.author = link.source.id;
       authorStore.author2 = link.target.id;
       linkStore.updateAuthor2(link.target.id);
       router.push({
-          name: "reuse-link",
-          params: {
-            id1: link.source.id,
-            id2: link.target.id,
-          },
-        })
+        name: "reuse-link",
+        params: {
+          id1: link.source.id,
+          id2: link.target.id,
+        },
+      })
 
     })
     .nodeCanvasObjectMode((node) =>
@@ -310,24 +321,30 @@ watch(
 );
 </script>
 <style>
-
 .chart-super-container {
   width: 100%;
   margin-right: 0rem;
+  margin-top: -20px;
+  padding: 0px;
+
+
 }
+
 .chart-container {
+  padding: 0px;
   left: 0%;
-  width:100%;
+  width: 100%;
   /* padding-bottom: 20px; */
   width: inherit;
   height: inherit;
   display: flex;
   flex-direction: row;
- justify-content: center;
-   /*  margin-left: 2rem;
+  justify-content: center;
+  /*  margin-left: 2rem;
   right: 100px;
   margin-right: 2rem; */
 }
+
 .dropdown-super {
   position: absolute;
   z-index: 10;
@@ -340,37 +357,31 @@ watch(
   padding: 10px 10px 10px 0px;
   border-radius: 12px;
 }
-.legend {
-  position: absolute;
-  z-index: 11;
-  width: 135px;
-  top: 135px;
-  left: 50px;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 10px rgb(255, 255, 255);
-}
+
 .controls {
+  display: flex;
+  justify-content: center;
   position: absolute;
   z-index: 9;
-  top: 55px;
-  left: 35px;
-  width: 435px;
-  background-color: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 0 30px rgb(255, 255, 255);
-  border-radius: 10px;
+  width: 100% !important;
+  top: 420px;
+  margin-top:0px;
+  color: black;
+  width: 100%;
 }
 
 .dropdown-super:hover {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   background-color: rgb(255, 255, 255, 0.85);
-    width: 340px;
+  width: 340px;
 }
+
 .dropbtn {
   font-family: "Barlow Condensed", sans-serif !important;
   padding: 0.4rem 1rem 0.4rem 1rem;
   font-size: 20px;
   color: white;
-  background-color: black;
+  background-color: rgb(150, 150, 150);
   border-color: none !important;
   border-radius: 10px;
   border: 0px solid transparent !important;
@@ -380,9 +391,10 @@ watch(
   right: 0px;
   margin-bottom: 5px;
 }
+
 /* The container <div> - needed to position the dropdown content */
-.dropdown {
-}
+.dropdown {}
+
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   padding: 5px;
@@ -394,6 +406,7 @@ watch(
   text-align: right;
   z-index: 100;
 }
+
 /* Links inside the dropdown */
 .dropdown-content * {
   font-family: "Barlow Condensed", sans-serif !important;
@@ -412,37 +425,99 @@ watch(
 }
 
 .dropdown-super:hover .dropbtn {
-  background-color: rgb(80,80,80) !important;
+  background-color: rgb(80, 80, 80) !important;
   backdrop-filter: blur(10px);
 }
+
 .force-graph-container .graph-tooltip {
   position: absolute;
- white-space: nowrap;
+  white-space: nowrap;
   top: 0;
   font-family: sans-serif;
   font-size: 16px;
   padding: 2px 8px 0px 8px;
   border-radius: 5px;
   color: black;
-  background: rgba(255,255,255,0.9);
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  visibility: hidden; /* by default */
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  visibility: hidden;
+  /* by default */
+}
+
+.legend {
+  position: absolute;
+  z-index: 11;
+  width: auto;
+  top: 90px;
+  left: 35px;
+  font-size: 1.1em;
+  pointer-events: none;
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0px 0px 16px 16px rgba(255, 255, 255, 0.7);
 }
 
 .red-circle {
-  color: rgb(220,100,100);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(180, 100, 100);
+  margin-right: 10px;
+  margin-top: 9px;
+  float: left;
 }
+
+
 .blue-circle {
-  color: #66CCFF;
+  width: 10px;
+  height: 10px;
+  background-color: rgb(50, 200, 250);
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-top: 9px;
+  float: left;
 }
 
-.gray-circle {
-
-  color: rgb(85, 85, 85);
-
+.grey-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgb(100, 100, 100);
+  margin-right: 10px;
+  margin-top: 9px;
+  float: left;
 }
-.slider-container {
-  margin-left: 1rem;
+
+.red-label {
+  color: rgb(180, 100, 100);
+  float: left;
+  width: auto;
+  margin-bottom: 0px;
+  font-weight: 500;
+  min-width: 200px !important;
+  min-height: 27px;
+}
+
+
+.blue-label {
+  color: rgb(50, 200, 250);
+  width: auto;
+  margin-bottom: 0px;
+  font-weight: 500;
+  min-width: 100px;
+}
+
+.grey-label {
+  color: rgb(100, 100, 100);
+  width: auto;
+  font-weight: 500;
+  min-width: 100px;
+}
+
+.controls .slider-container {
+  margin-left: 0rem;
+  width: 450px;
+  text-align: center;
+
 }
 
 .slider-input {
@@ -452,19 +527,28 @@ watch(
   font-size: 2em;
 }
 
-.sliderColor {
-  --slider-connect-bg: rgb(180,100,100);
-  --slider-tooltip-bg: rgb(180,100,100);
+#app .sliderColor {
+  --slider-connect-bg: rgb(180, 100, 100) !important;
+  --slider-tooltip-bg: rgb(180, 100, 100) !important;
   --slider-tooltip-font-size: 0.65em;
   --slider-tooltip-py: 5px;
   --slider-tooltip-px: 6px;
-  --slider-handle-ring-color: rgba(0,0,0,0);
+  --slider-handle-ring-color: rgba(0, 0, 0, 0);
 }
+
+.slider-horizontal .slider-tooltip-top {
+  background-color: rgb(180, 100, 100) !important;
+  border-color: rgb(180, 100, 100) !important;
+}
+
+.slider-connect {
+  background-color: rgb(180, 100, 100) !important;
+}
+
 
 .buttonrow {
   top: 50px;
   left: 50px;
   z-index: 12;
   position: absolute;
-}
-</style>
+}</style>

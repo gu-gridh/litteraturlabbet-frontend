@@ -1,6 +1,6 @@
 <template>
     <div class="module-title">
-  <div style="position:absolute; top:0px; left:28px; font-size:2.0em!important; font-weight:100!important; z-index:1000;">Textåterbruk</div>
+  <div style="position:absolute; top:30px; left:28px; font-size:2.0em!important; font-weight:100!important; z-index:1000;">Textåterbruk</div>
 </div>
 <!--
 <button @click="fShowGraph()">Show graph</button>
@@ -16,20 +16,18 @@
           :data="data"
           :author="author"
           :width="3000"
-          :height="410"
+          :height="490"
         >
       </network-chart>
     </div>
     </div>
-      <div v-if="showChronograph">
+    <div v-if="showChronograph">
       <Chronograph :author="props.author" :work="props.work">
-
       </Chronograph>
     </div>
   
   
-  
-  <div class="Fade"></div>
+    <div class="Fade"></div>
   
     <suspense>
       <reuse-list v-if="author" :author="author" :work="work"></reuse-list>
@@ -147,6 +145,7 @@ async function fetch() {
   width:100%;
   height:152px;
   pointer-events: none;
+  margin-top:-172px;
 }
 
 
@@ -163,8 +162,8 @@ font-size:16px;
 
 .chart-container {
   width: 100%;
-  height: 100%;
-  margin-top: 20px;
+  height: 470px;
+  margin-top: 0px;
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
