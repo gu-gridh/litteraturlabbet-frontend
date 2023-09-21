@@ -365,7 +365,7 @@ watch(
   padding: 0.4rem 1rem 0.4rem 1rem;
   font-size: 20px;
   color: white;
-background-color:rgb(100,100,100);
+background-color:rgb(150,150,150);
   border-color: none !important;
   border-radius: 10px;
   border: 0px solid transparent !important;
@@ -424,6 +424,18 @@ background-color:rgb(100,100,100);
   visibility: hidden; /* by default */
 }
 
+.legend {
+  position: absolute;
+  z-index: 11;
+  width: auto;
+  top: 90px;
+  left: 35px;
+  font-size:1.1em;
+  pointer-events:none;
+  background-color:rgba(255,255,255,0.7);
+  box-shadow: 0px 0px 16px 16px rgba(255, 255, 255, 0.7);
+}
+
 .red-circle{
   width:10px;
 height:10px;
@@ -474,21 +486,6 @@ font-weight:500;
 color:rgb(100,100,100);
 width:auto;
 font-weight:500;
-}
-
-
-.legend {
-  position: absolute;
-  z-index: 11;
-  width: 400px;
-  top: 90px;
-  left: 35px;
-  font-size:1.1em;
-
-}
-
-.legend::before {
-
 }
 
 .controls .slider-container {
