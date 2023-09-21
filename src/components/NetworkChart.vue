@@ -469,9 +469,12 @@ float:left;
 
 .red-label{
 color:rgb(180,100,100);
+float:left;
 width:auto;
 margin-bottom:0px;
 font-weight:500;
+min-width:200px !important;
+min-height:27px;
 }
 
 
@@ -480,18 +483,21 @@ color:rgb(50,200,250);
 width:auto;
 margin-bottom:0px;
 font-weight:500;
+min-width:100px;
 }
 
 .grey-label{
 color:rgb(100,100,100);
 width:auto;
 font-weight:500;
+min-width:100px;
 }
 
 .controls .slider-container {
   margin-left: 0rem;
   width:450px;
   text-align:center;
+  
 }
 
 .slider-input {
