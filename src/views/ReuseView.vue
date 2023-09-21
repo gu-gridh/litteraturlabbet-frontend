@@ -145,7 +145,7 @@ async function fetch() {
   width:100%;
   height:152px;
   pointer-events: none;
-  margin-top:-192px;
+  margin-top:-172px;
 }
 
 
