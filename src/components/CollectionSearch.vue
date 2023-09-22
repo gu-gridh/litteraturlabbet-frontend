@@ -28,10 +28,11 @@
         :options="async (query: string, select$: any) => searchAuthor(query)"
         :clear-on-select="true"
         :clear-on-search="true"
-        @select="onSelectAuthor"
-        @clear="onClearAuthor"
+        @select="onSelectAuthor1"
+        @clear="onClearAuthor1"
         ref="authorSelect"
       />
+
       <div id="author2-select"  v-show="showReuseSearch">
       <Multiselect
       :type="search"
@@ -51,12 +52,14 @@
         :options="async (query: string, select$: any) => searchAuthor(query)"
         :clear-on-select="true"
         :clear-on-search="true"
-        @select="onSelectAuthor"
-        @clear="onClearAuthor"
+        :disabled="store.work||!store.author"
+        @select="onSelectAuthor2"
+        @clear="onClearAuthor2"
         ref="authorSelect2"
         style="margin-top:10px;"
       />
     </div>
+    
   </div>
     <div class="multiselect-input" id="work-select">
      <div class="select-label"><p>Sök efter verk</p></div>
@@ -76,6 +79,7 @@
         label="title"
         :clear-on-select="true"
         :clear-on-search="true"
+        :disabled="store.author2||!store.author"
         :options="async (query: string, select$: any) => searchWork(query, {main_author: store.author?.id})"
         @select="onSelectWork"
         @clear="onClearWork"
@@ -113,6 +117,20 @@
       <p>Totalt {{ workCount }} verk i samlingen.</p>
     </div>
     <div class="button-container">
+      <div v-if="store.author2">
+        <router-link
+        :to="{
+          name: 'reuse-link',
+          params: {
+            id1: store.author?.id,
+            id2: store.author2?.id,
+          },
+        }"
+        v-slot="{ href }"
+        class="search-button">Sök
+      </router-link>
+      </div>
+      <div v-if="!store.author2">
       <router-link
         :to="{
           name: 'reuse',
@@ -124,6 +142,7 @@
         v-slot="{ href }"
         class="search-button">Sök
       </router-link>
+    </div>
     </div>
   </div>
 </div>
@@ -191,7 +210,7 @@ function hasReuse(author: Author | undefined) {
 }
 // Callbacks
 // After selecting
-async function onSelectAuthor(value: Author, select$: any) {
+async function onSelectAuthor1(value: Author, select$: any) {
   workSelect.value.clearSearch();
   // workSelect.value.refreshOptions();
   store.work = undefined;
@@ -203,7 +222,18 @@ async function onSelectAuthor(value: Author, select$: any) {
   store.author = value;
   workSelect.value.refreshOptions();
 }
+async function onSelectAuthor2(value: Author, select$: any) {
+  workSelect.value.clearSearch();
+  // workSelect.value.refreshOptions();
+  store.work = undefined;
 
+  // Update the work count
+  //countWorks();
+
+  // Set global store value
+  store.author2 = value;
+  //workSelect.value.refreshOptions();
+}
 async function onSelectWork(value: Work, select$: any) {
   // Fetch the current work and full author
   const work = await get<Work>(value.id, "work/19th_century");
@@ -226,8 +256,14 @@ function countWorks() {
 }
 
 // After clearing
-function onClearAuthor(event: undefined) {
+function onClearAuthor1(event: undefined) {
   store.author = undefined;
+  store.work = undefined;
+  workSelect.value.clearSearch();
+  workSelect.value.refreshOptions();
+}
+function onClearAuthor2(event: undefined) {
+  store.author2 = undefined;
   store.work = undefined;
   workSelect.value.clearSearch();
   workSelect.value.refreshOptions();
@@ -392,18 +428,20 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 .button-container {
   width: 100%;
   float:left;
+
+  margin-bottom: 1.5rem;
 }
 
 .search-button {
   font-family: "Barlow Condensed", sans-serif !important;
-  padding: 0.05rem 1rem;
+  padding: 0.25rem 1rem;
   font-size: 25px;
   color: white;
   background-color: rgb(180,100,100);
   border-color: none !important;
   border-radius: 10px;
   border: 0px solid transparent !important;
-  margin-bottom: 1.5rem;
+  
   position: relative;
   margin-left: -00px;
   overflow:hidden!important;
