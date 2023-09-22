@@ -141,7 +141,7 @@ function build(graphData: any, author?: number) {
       const isNeighbor = seenNeighbors.indexOf(sourceNode.id) > -1;
       if (isCurrentAuthor || isNeighbor) {
         if (isNeighbor) {
-          if (neighborCount > secondaryNodeNumber.value) {
+          if (neighborCount >= secondaryNodeNumber.value) {
             return;
           }
           neighborCount++;
