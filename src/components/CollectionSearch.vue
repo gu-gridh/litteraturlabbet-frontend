@@ -79,7 +79,7 @@
         label="title"
         :clear-on-select="true"
         :clear-on-search="true"
-        :disabled="store.author2||!store.author"
+        :disabled="store.author2"
         :options="async (query: string, select$: any) => searchWork(query, {main_author: store.author?.id})"
         @select="onSelectWork"
         @clear="onClearWork"
@@ -236,7 +236,8 @@ async function onSelectAuthor2(value: Author, select$: any) {
 }
 async function onSelectWork(value: Work, select$: any) {
   // Fetch the current work and full author
-  const work = await get<Work>(value.id, "work/19th_century");
+  const work = await get<Work>(value.id, "work/19th_century", 2);
+  console.log(work);
   const author = await get<Author>(work.main_author.id as number, "author");
 
   workSelect.value.clearSearch();
@@ -244,7 +245,11 @@ async function onSelectWork(value: Work, select$: any) {
 
   // Set global store value
   store.work = value;
+  console.log("setting work author");
+  console.log(author);
   store.author = author;
+  authorSelect.value.clearSearch();
+  authorSelect.value = value;
 }
 
 function countWorks() {
