@@ -11,7 +11,7 @@
 
   <div v-if="author" class="reuse-container-w-author">
     <div v-if="showGraph">
-    <div class="chart-container">
+      <div class="chart-container">
         <network-chart
           :data="data"
           :author="author"
@@ -19,7 +19,7 @@
           :height="490"
         >
       </network-chart>
-    </div>
+      </div>
     </div>
     <div v-if="showChronograph">
       <Chronograph :author="props.author" :work="props.work">
@@ -82,7 +82,7 @@ if (props.author) {
   get<Author>(props.author, "author").then((a) => {
     store.author = a;
   });
-}
+} 
 
 if (props.work) {
   get<Work>(props.work, "work/19th_century").then((w) => {
@@ -91,7 +91,7 @@ if (props.work) {
 }
 
 watch(() => store.author, () => {
-  console.log('store changed');
+  
 })
 
 // onMounted(async () => {

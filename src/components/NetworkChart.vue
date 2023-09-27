@@ -10,7 +10,7 @@
 
   <div class="legend" v-if="props.author">
     <div class="red-label">
-      <div class="red-circle"></div> {{ authorStore.author?.name }}
+      <div class="red-circle"></div> {{ authorStore.author?.formatted_name }}
     </div>
     <div class="blue-label">
       <div class="blue-circle"></div>Direkt återbruk
@@ -39,8 +39,9 @@
 
   <div class="chart-super-container">
     <div class="chart-container">
+      
       <div id="chart" ref="element"></div>
-
+    
    
 
     </div>
@@ -59,6 +60,7 @@ import { useRouter } from "vue-router";
 import { searchStore } from "@/stores/search";
 import { reuseStore } from "@/stores/reuse";
 import Slider from '@vueform/slider'
+import { storeToRefs } from "pinia";
 
 const authorStore = searchStore();
 const linkStore = reuseStore();
@@ -66,6 +68,7 @@ let graphTooBig: boolean = false;
 let secondaryNodeNumber = ref(50);
 let showGraph: boolean = false;
 let showChronograph: boolean = true;
+
 
 const props = defineProps<{
   data: { nodes: Array<Node> | undefined; links: Array<Link> | undefined };
@@ -81,6 +84,7 @@ const loading = ref(true);
 // const graph = build(props.data, props.author);
 const graph = ref();
 let graphVisible = ref(false);
+const store = searchStore();
 
 onMounted(() => {
   if (props.data) {
@@ -152,7 +156,6 @@ function build(graphData: any, author?: number) {
         targetNode.neighbors = targetNode.neighbors || [];
         sourceNode.links = sourceNode.links || [];
         targetNode.links = targetNode.links || [];
-        console.log(targetNode);
         // Update the connections
         sourceNode.neighbors.push(targetNode);
         targetNode.neighbors.push(sourceNode);
@@ -266,6 +269,9 @@ function build(graphData: any, author?: number) {
       //TODO on click go to reuse page
       console.log('go to reuse page', link);
       linkStore.updateAuthor1(link.source.id);
+      get<Author>(link.source?.id as number, "author").then((a) => store.author = a);
+      get<Author>(link.target?.id as number, "author").then((a) => store.author2 = a);
+      store.work = undefined;
       authorStore.author = link.source.id;
       authorStore.author2 = link.target.id;
       linkStore.updateAuthor2(link.target.id);

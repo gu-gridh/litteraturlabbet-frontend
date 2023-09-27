@@ -3,6 +3,7 @@
         <!--Chronograph for author {{ props.author }}
         <button @click="debug()">Click to debug</button>-->
         <Suspense>
+          <!--
             <div class="chronoline" id="draggable">
                 <div v-for="y in byYear">
                     <div class="chronoheader">
@@ -14,9 +15,25 @@
                     </div>
                 </div>
             </div>
+          -->
+          <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th v-for="(item, colIndex) in byYear" :key="colIndex">{{ item[0].imprint_year }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(row, rowIndex) in byYear" :key="rowIndex">
+                    <td>{{ row[0].imprint_year }}</td>
+                    <td v-for="(item, colIndex) in byYear" :key="colIndex">{{ item.length }}</td>
+                </tr>
+            </tbody>
+        </table>
             <template #fallback>
                 <div>Loading...</div>
             </template>
+
         </Suspense>
     </div>
     <div>
