@@ -7,6 +7,7 @@ import PageView from "@/views/PageView.vue";
 import GalleryView from "@/views/GalleryView.vue";
 import ImageViewer from "@/views/ImageViewer.vue";
 import AuthorLink from "@/components/AuthorLink.vue";
+import QueryView from "@/views/QueryView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -60,6 +61,16 @@ const router = createRouter({
       props: (route) => ({
         author1: route.params.id1 ? Number(route.params.id1): undefined,
         author2: route.params.id2 ? Number(route.params.id2) : undefined,
+      }),
+    },
+    {
+      path: "/reuse/:phrase",
+      name: "reuse-query",
+      component: QueryView,
+      props: (route) => ({
+        author: route.params.author ? Number(route.params.author): undefined,
+        work: route.params.work ? Number(route.params.work) : undefined,
+        phrase: route.params.phrase ? route.params.phrase : undefined,
       }),
     },
     {

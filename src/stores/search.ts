@@ -16,8 +16,8 @@ export const searchStore = defineStore("search", {
     const page = ref<Page | undefined>(undefined);
     const cluster = ref<Cluster | undefined>(undefined);
     const segment = ref<Segment | undefined>(undefined);
-
-    return { author, author2, work, page, cluster, segment };
+    const phrase = ref<string | undefined>(undefined);
+    return { author, author2, work, page, cluster, segment, phrase };
   },
   getters: {
     paramsPath(state) {
@@ -29,6 +29,10 @@ export const searchStore = defineStore("search", {
 
       if (state.work) {
         path += `&work=${state.work.id}`;
+      }
+
+      if (state.phrase) {
+        path += "&phrase=" + state.phrase;
       }
 
       return path;

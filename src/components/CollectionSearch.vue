@@ -1,152 +1,109 @@
 <template>
-   <div style="width:100%; height:0px;">
+  <div style="width:100%; height:0px;">
     <div class="connection"></div>
   </div>
   <div class="search-container">
-   
+
     <div class="welcome" v-show="showWelcome">
       <Welcome></Welcome>
     </div>
     <div class="search-UI" v-show="showSearch">
-    <div class="multiselect-input" id="author-select">
-      <div class="select-label"><p>Sök efter författare</p></div>
-      <Multiselect
-      :type="search"
-        v-model="store.author"
-        :value="store.author"
-        mode="single"
-        spellcheck="false"
-        placeholder="Författare #1"
-        noResultsText="Inga författare matchar sökningen"
-        noOptionsText="Inga författare matchar sökningen"
-        :resolve-on-load="true"
-        :delay="1"
-        :searchable="true"
-        :object="true"
-        valueProp="id"
-        label="formatted_name"
-        :options="async (query: string, select$: any) => searchAuthor(query)"
-        :clear-on-select="true"
-        :clear-on-search="true"
-        @select="onSelectAuthor1"
-        @clear="onClearAuthor1"
-        ref="authorSelect"
-      />
 
-      <div id="author2-select"  v-show="showReuseSearch">
-      <Multiselect
-      :type="search"
-        v-model="store.author2"
-        :value="store.author2"
-        mode="single"
-        spellcheck="false"
-        placeholder="Författare #2"
-        noResultsText="Inga författare matchar sökningen"
-        noOptionsText="Inga författare matchar sökningen"
-        :resolve-on-load="true"
-        :delay="1"
-        :searchable="true"
-        :object="true"
-        valueProp="id"
-        label="formatted_name"
-        :options="async (query: string, select$: any) => searchAuthor(query)"
-        :clear-on-select="true"
-        :clear-on-search="true"
-        :disabled="store.work||!store.author"
-        @select="onSelectAuthor2"
-        @clear="onClearAuthor2"
-        ref="authorSelect2"
-        style="margin-top:10px;"
-      />
-    </div>
-    
-  </div>
-    <div class="multiselect-input" id="work-select">
-     <div class="select-label"><p>Sök efter verk</p></div>
-      <Multiselect
-        v-model="store.work"
-        :value="store.work"
-        mode="single"
-        spellcheck="false"
-        placeholder="Verk"
-        noResultsText="Inga verk matchar sökningen"
-        noOptionsText="Inga verk matchar sökningen"
-        :resolve-on-load="true"
-        :delay="1"
-        :searchable="true"
-        :object="true"
-        valueProp="id"
-        label="title"
-        :clear-on-select="true"
-        :clear-on-search="true"
-        :disabled="store.author2"
-        :options="async (query: string, select$: any) => searchWork(query, {main_author: store.author?.id})"
-        @select="onSelectWork"
-        @clear="onClearWork"
-        ref="workSelect"
-     
-      />
-    </div>
+      <div class="multiselect-input" id="author-select">
+        <div class="select-label">
+          <p>Sök efter författare</p>
+        </div>
+        <Multiselect v-model="store.author" :value="store.author" mode="single" spellcheck="false"
+          placeholder="Författare #1" noResultsText="Inga författare matchar sökningen"
+          noOptionsText="Inga författare matchar sökningen" :resolve-on-load="true" :delay="1" :searchable="true"
+          :object="true" valueProp="id" label="formatted_name"
+          :options="async (query: string, select$: any) => searchAuthor(query)" :clear-on-select="true"
+          :clear-on-search="true" @select="onSelectAuthor1" @clear="onClearAuthor1" ref="authorSelect" />
 
-    <div class="multiselect-input" id="phrase-select" v-show="showReuseSearch">
-      <div class="select-label"><p>Sök efter en fras</p></div>
-      <input
-            type="search"
-            id="search"
-            class="search-box"
-            name="search"
-            spellcheck="false"
-            placeholder="Fras"
-            :value="searchQuery"
-            @input="updateSearchQuery($event.target.value)"
-            @keydown="handleBackspace($event)"
-            @keydown.enter="triggerSearch"
+        <div id="author2-select" v-show="showReuseSearch">
+          <Multiselect :type="search" v-model="store.author2" :value="store.author2" mode="single" spellcheck="false"
+            placeholder="Författare #2" noResultsText="Inga författare matchar sökningen"
+            noOptionsText="Inga författare matchar sökningen" :resolve-on-load="true" :delay="1" :searchable="true"
+            :object="true" valueProp="id" label="formatted_name"
+            :options="async (query: string, select$: any) => searchAuthor(query)" :clear-on-select="true"
+            :clear-on-search="true" :disabled="store.work || !store.author" @select="onSelectAuthor2"
+            @clear="onClearAuthor2" ref="authorSelect2" style="margin-top:10px;" />
+        </div>
 
-          />
-
-    </div>
-    <div class="slider-container" v-show="showSlider">
-      <div class="select-label" style="margin-bottom:50px; text-align:center;"><p>Välj ett tidsomfång</p></div>
-    <div class="slider-input">
-      <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor"/>
-    </div>
-  </div>
-
-    
-    <div class="count-label">
-      <p>Totalt {{ workCount }} verk i samlingen.</p>
-    </div>
-    <div class="button-container">
-      <div v-if="store.author2">
-        <router-link
-        :to="{
-          name: 'reuse-link',
-          params: {
-            id1: store.author?.id,
-            id2: store.author2?.id,
-          },
-        }"
-        v-slot="{ href }"
-        class="search-button">Sök
-      </router-link>
       </div>
-      <div v-if="!store.author2">
-      <router-link
-        :to="{
-          name: 'reuse',
-          query: {
-            author: store.author?.id,
-            work: store.work?.id,
-          },
-        }"
-        v-slot="{ href }"
-        class="search-button">Sök
-      </router-link>
-    </div>
-    </div>
-  </div>
-</div>
+      <div class="multiselect-input" id="work-select">
+        <div class="select-label">
+          <p>Sök efter verk</p>
+        </div>
+        <Multiselect v-model="store.work" :value="store.work" mode="single" spellcheck="false" placeholder="Verk"
+          noResultsText="Inga verk matchar sökningen" noOptionsText="Inga verk matchar sökningen" :resolve-on-load="true"
+          :delay="1" :searchable="true" :object="true" valueProp="id" label="title" :clear-on-select="true"
+          :clear-on-search="true" :disabled="store.author2"
+          :options="async (query: string, select$: any) => searchWork(query, { main_author: store.author?.id })"
+          @select="onSelectWork" @clear="onClearWork" ref="workSelect" />
+      </div>
 
+      <div class="multiselect-input" id="phrase-select" v-show="showReuseSearch">
+        <div class="select-label">
+          <p>Sök efter en fras</p>
+        </div>
+        <input type="search" id="search" class="search-box" name="search" spellcheck="false" placeholder="Fras"
+          :value="searchQuery" @keydown="handleBackspace" @input="updateSearchQuery($event.target?.value)"
+          @keydown.enter="triggerSearch" @clear="onClearPhrase" />
+        <div v-if="errorMessage">
+          <span class="errormessage">{{ phraseErrorMessage }}</span>
+        </div>
+
+      </div>
+      <div class="slider-container" v-show="showSlider">
+        <div class="select-label" style="margin-bottom:50px; text-align:center;">
+          <p>Välj ett tidsomfång</p>
+        </div>
+        <div class="slider-input">
+          <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor" />
+        </div>
+      </div>
+
+
+
+
+      <div class="count-label">
+        <p>Totalt {{ workCount }} verk i samlingen.</p>
+      </div>
+
+      <div class="button-container">
+        <div v-if="!hasQuery">
+          <div v-if="store.author2">
+            <router-link :to="{
+              name: 'reuse-link',
+              params: {
+                id1: store.author?.id,
+                id2: store.author2?.id,
+              },
+            }" v-slot="{ href }" class="search-button">Sök
+            </router-link>
+          </div>
+          <div v-if="!store.author2">
+            <router-link :to="{
+              name: 'reuse',
+              query: {
+                author: store.author?.id,
+                work: store.work?.id,
+              },
+            }" v-slot="{ href }" class="search-button">Sök
+            </router-link>
+          </div>
+        </div>
+        <div v-if="hasQuery">
+          {{ store.phrase }}
+          <div class="search-button2" @click="triggerSearch">Sök
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -159,8 +116,12 @@ import { searchStore } from "@/stores/search";
 import reuseAuthors from "@/assets/authors_with_reuse_copy.json";
 import { useRoute } from 'vue-router'
 import Welcome from "@/components/Welcome.vue";
+import { works } from "@/assets/works.json";
+import { authors } from "@/assets/authors.json";
+import router from "@/router";
 
 const store = searchStore();
+
 const authorSelect = ref();
 const workSelect = ref();
 const workCount = ref<number>();
@@ -176,89 +137,136 @@ const showWelcome = ref(true);
 
 const route = useRoute()
 
-// Search functions
-// Search for authors given an id
-async function searchAuthor(query: string): Promise<Array<Author>> {
-  const a = await list<Author>("author", { search: query, limit: 1500 });
-  console.log(a);
-  return a.results//.filter((b) => reuseAuthors["ids"].includes(b.id))
-  .sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""))
-  .map((b) => {
-    return {
-      ...b,
-      disabled: !hasReuse(b)
+const searchQuery = ref("");
+const errorMessage = ref(false);
+const hasQuery = ref(false);
+let phraseErrorMessage = ref("");
+
+function handleBackspace(event: KeyboardEvent) {
+  if (event.key === "Backspace") {
+    if (searchQuery.value.length === 0) {
+      store.phrase = undefined;
+      event.preventDefault();
     }
-  });
+  }
+}
+
+function updateSearchQuery(value: string) {
+  searchQuery.value = value;
+  if (value === "") {
+    hasQuery.value = false;
+  } else {
+    hasQuery.value = true;
+  }
+}
+
+// Search functions
+async function triggerSearch() {
+  console.log("Trigger search");
+  const searchQueryWords = searchQuery.value.split(" ");
+  if (searchQueryWords.length < 3) {
+    console.log("Phrase too short");
+    errorMessage.value = true;
+    phraseErrorMessage.value = "Sökfrasen måste innehålla minst tre ord.";
+    return;
+  }
+  errorMessage.value = false;
+  phraseErrorMessage.value = "";
+  //store.phrase = searchQuery;
+  console.log("search", searchQueryWords, store.author, store.work);
+  router.push({ name: 'reuse-query', params: { phrase: searchQuery.value, author: store.author?.id, work: store.work?.id } }).then(() => { router.go(0) });
+}
+
+function onClearPhrase() {
+  errorMessage.value = false;
+  phraseErrorMessage.value = "";
+  searchQuery.value = "";
+  store.phrase = undefined;
+  console.log("Clear phrase");
+}
+
+// Search for authors given an id
+async function searchAuthor(query: string) {
+  return authors.sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""))
+    .map((b) => {
+      return {
+        ...b,
+        disabled: !hasReuse(b)
+      }
+    });
 }
 
 // Search for works given for example an author id
-async function searchWork(query: string, params: object): Promise<Array<Work>> {
-  const a = await list<Work>("work/19th_century", { search: query, limit: 500, ...params });
-  return a.results;
+async function searchWork(query: string, params: any) {
+  if (params.main_author) {
+    const subset = works.filter((w) => w.main_author === params.main_author);
+    workCount.value = subset.length;
+    return subset;
+  }
+  return works;
 }
 
-//sort the results alpahebtically
-const sortSearchResults = (res: any) => {
-  return Object.keys(res).sort((a, b) => !/[a-z]/i.test(a) ? 1 : (/[a-z]/i.test(b) ? 0 : -1))
-}
-
-function hasReuse(author: Author | undefined) {
+function hasReuse(author: any) {
   if (author) {
     return reuseAuthors["ids"].includes(author.id);
   }
   return false;
 }
+
 // Callbacks
 // After selecting
 async function onSelectAuthor1(value: Author, select$: any) {
+  // clear graph
+
+
   workSelect.value.clearSearch();
-  // workSelect.value.refreshOptions();
-  store.work = undefined;
 
   // Update the work count
   countWorks();
 
   // Set global store value
   store.author = value;
+
   workSelect.value.refreshOptions();
 }
+
 async function onSelectAuthor2(value: Author, select$: any) {
   workSelect.value.clearSearch();
-  // workSelect.value.refreshOptions();
   store.work = undefined;
-
-  // Update the work count
-  //countWorks();
 
   // Set global store value
   store.author2 = value;
-  //workSelect.value.refreshOptions();
 }
+
 async function onSelectWork(value: Work, select$: any) {
   // Fetch the current work and full author
-  const work = await get<Work>(value.id, "work/19th_century", 2);
-  const author = await get<Author>(work.main_author.id as number, "author");
 
+  const author = await get<Author>(value.main_author, "author");
   workSelect.value.clearSearch();
   workSelect.value.refreshOptions();
-
+  console.log(author);
   // Set global store value
   store.work = value;
   store.author = author;
 }
 
 function countWorks() {
+  /*
   list<Work>("work/19th_century", {
     main_author: store.author?.id,
+    limit: 50
   }).then((w) => {
     workCount.value = w.count;
   });
+  */
+  workCount.value = works.filter((w) => w.main_author === store.author?.id).length || works.length;
 }
 
 // After clearing
 function onClearAuthor1(event: undefined) {
   store.author = undefined;
   store.work = undefined;
+  countWorks();
   workSelect.value.clearSearch();
   workSelect.value.refreshOptions();
 }
@@ -275,6 +283,7 @@ function onClearWork(event: undefined) {
 }
 
 onMounted(() => {
+  console.log(store.author);
   countWorks();
 });
 
@@ -285,7 +294,7 @@ watch(() => route.path, (path) => {
     showReuseSearch.value = false;
     showSlider.value = true;
     showWelcome.value = false;
-  } 
+  }
   else if (path === '/reuse/') {
     showSearch.value = true;
     showReuseSearch.value = true;
@@ -318,8 +327,7 @@ a:visited {
   text-decoration-style: none;
 }
 
-a:hover {
-}
+a:hover {}
 
 .multiselect-input {
   margin-bottom: 0.5rem;
@@ -327,22 +335,22 @@ a:hover {
   margin-right: 2rem;
 }
 
-.search-box{
-  width:100%!important;
+.search-box {
+  width: 100% !important;
 
 }
 
 input[type="search"] {
   font-family: "Barlow Condensed", sans-serif !important;
-  background-color:rgb(240,240,240)!important;
-  font-size:1.4em!important;
+  background-color: rgb(240, 240, 240) !important;
+  font-size: 1.4em !important;
   border: none;
   color: black;
   margin-top: 0px;
   margin-bottom: 5px;
   flex: 1;
-  border-radius:8px;
-  padding:10px 15px;
+  border-radius: 8px;
+  padding: 10px 15px;
 }
 
 input[type="search"]::placeholder {
@@ -381,12 +389,12 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 }
 
 .sliderColor {
-  --slider-connect-bg: rgb(180,100,100);
-  --slider-tooltip-bg: rgb(180,100,100);
+  --slider-connect-bg: rgb(180, 100, 100);
+  --slider-tooltip-bg: rgb(180, 100, 100);
   --slider-tooltip-font-size: 0.65em;
   --slider-tooltip-py: 5px;
   --slider-tooltip-px: 6px;
-  --slider-handle-ring-color: rgba(0,0,0,0);
+  --slider-handle-ring-color: rgba(0, 0, 0, 0);
 }
 
 .select-label {
@@ -404,7 +412,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   text-align: center;
   margin-bottom: 1rem;
   border-style: dotted;
-  border-color: rgb(180,100,100);
+  border-color: rgb(180, 100, 100);
   border-width: 1px 0 0 0;
   margin-top: 2rem;
   padding: 2rem 0 0 0;
@@ -413,8 +421,8 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 .search-container {
   margin-left: 0px;
   width: 100%;
- min-height:480px;
-  height: auto!important;
+  min-height: 480px;
+  height: auto !important;
   background-color: rgb(255, 255, 255, 1);
   border-radius: 12px;
   display: flex;
@@ -427,7 +435,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 
 .button-container {
   width: 100%;
-  float:left;
+  float: left;
 
   margin-bottom: 1.5rem;
 }
@@ -437,14 +445,30 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   padding: 0.25rem 1rem;
   font-size: 25px;
   color: white;
-  background-color: rgb(180,100,100);
+  background-color: rgb(180, 100, 100);
   border-color: none !important;
   border-radius: 10px;
   border: 0px solid transparent !important;
-  
+
   position: relative;
   margin-left: -00px;
-  overflow:hidden!important;
+  overflow: hidden !important;
+}
+
+.search-button2 {
+  font-family: "Barlow Condensed", sans-serif !important;
+  padding: 0.25rem 1rem;
+  display: inline;
+  font-size: 25px;
+  color: white;
+  background-color: rgb(180, 100, 100);
+  border-color: none !important;
+  border-radius: 10px;
+  border: 0px solid transparent !important;
+  cursor: pointer;
+  position: relative;
+  margin-left: -00px;
+  overflow: hidden !important;
 }
 
 button {
@@ -459,9 +483,9 @@ button:hover {
 
 
 .search-button:hover {
-  transform:scale(1.05);
+  transform: scale(1.05);
   background-color: rgb(140, 80, 80) !important;
- 
+
 }
 
 .multiselect {
@@ -487,24 +511,24 @@ button:hover {
   --ms-option-color-selected-disabled: #d1fae5;
 }
 
-.connection{
+.connection {
   border-style: dotted;
-border-color: #b91818;
-border-image-source: url(@/assets/dots.svg);
-border-image-slice: 100% 25%;
-border-image-repeat:round;
-border-width: 0px 0px 20px 0px;
-width:220px; 
-height:0px; 
-float:right;
-left:155px; 
-top:45px; 
+  border-color: #b91818;
+  border-image-source: url(@/assets/dots.svg);
+  border-image-slice: 100% 25%;
+  border-image-repeat: round;
+  border-width: 0px 0px 20px 0px;
+  width: 220px;
+  height: 0px;
+  float: right;
+  left: 155px;
+  top: 45px;
 }
 
 @media screen and (max-width: 950px) {
-  .connection{
-display:none;
-}
+  .connection {
+    display: none;
+  }
 
   .select-label {
     font-size: 25px !important;

@@ -56,6 +56,15 @@ function search<T>(query: string, endpoint: string): Promise<Paginated<T>> {
     });
 }
 
+function search2<T>(params:any, endpoint: string): Promise<Paginated<T>> {
+  return axios
+    .get<Paginated<T>>(`${project.urls.baseURL}/${endpoint}`, {
+      params: params,
+    })
+    .then((d) => {
+      return d.data;
+    });
+}
 
 function unpaginated<T>(endpoint: string, params: any): Promise<Array<T>> {
   return axios
@@ -67,4 +76,4 @@ function unpaginated<T>(endpoint: string, params: any): Promise<Array<T>> {
     });
 }
 
-export { list, get, count, search, unpaginated, getByLbId, getAligned };
+export { list, get, count, search, search2, unpaginated, getByLbId, getAligned };
