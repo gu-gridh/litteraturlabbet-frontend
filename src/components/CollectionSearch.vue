@@ -161,12 +161,10 @@ function updateSearchQuery(value: string) {
 
 // Search functions
 async function triggerSearch() {
-  console.log("Trigger search");
   const searchQueryWords = searchQuery.value.split(" ");
-  if (searchQueryWords.length < 3) {
-    console.log("Phrase too short");
+  if (searchQueryWords.length < 1) {
     errorMessage.value = true;
-    phraseErrorMessage.value = "Sökfrasen måste innehålla minst tre ord.";
+    phraseErrorMessage.value = "Sökfrasen måste innehålla minst ett ord.";
     return;
   }
   errorMessage.value = false;
