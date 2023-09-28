@@ -58,6 +58,7 @@ for (let i = 0; i < data.results.length; i++) {
             continue;
         }
     }
+    // Throw away invalid pairs where one or two of the segments are null
     if (!y1 || !y2) {
         continue;
     }
@@ -66,7 +67,6 @@ for (let i = 0; i < data.results.length; i++) {
     else
         segments.push([s2, s1]);
 }
-console.log(segments);
 segments.sort((a,b) => {
     if (a[0].series.imprint_year < b[0].series.imprint_year) {
         return -1;
