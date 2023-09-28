@@ -95,7 +95,6 @@
           </div>
         </div>
         <div v-if="hasQuery">
-          {{ store.phrase }}
           <div class="search-button2" @click="triggerSearch">Sök
           </div>
         </div>
@@ -172,9 +171,8 @@ async function triggerSearch() {
   }
   errorMessage.value = false;
   phraseErrorMessage.value = "";
-  //store.phrase = searchQuery;
-  console.log("search", searchQueryWords, store.author, store.work);
-  router.push({ name: 'reuse-query', params: { phrase: searchQuery.value, author: store.author?.id, work: store.work?.id } }).then(() => { router.go(0) });
+  store.phrase = searchQuery.value;
+  router.push({ name: 'reuse-phrase', params: { phrase: searchQuery.value, author: store.author?.id, work: store.work?.id } }).then(() => { router.go(0) });
 }
 
 function onClearPhrase() {
@@ -283,23 +281,25 @@ function onClearWork(event: undefined) {
 }
 
 onMounted(() => {
-  console.log(store.author);
   countWorks();
 });
 
 //watch if route = gallery. if so, show slider
 watch(() => route.path, (path) => {
-  if (path === '/gallery') {
+  if (path.startsWith('/gallery')) {
     showSearch.value = true;
     showReuseSearch.value = false;
     showSlider.value = true;
     showWelcome.value = false;
   }
-  else if (path === '/reuse/') {
+  else if (path.startsWith('/reuse/')) {
     showSearch.value = true;
     showReuseSearch.value = true;
     showSlider.value = false;
     showWelcome.value = false;
+    if (path.startsWith('/reuse/phrase/')) {
+      searchQuery.value = route.params.phrase;
+    }
   }
 
   else if (path === '/about/') {
