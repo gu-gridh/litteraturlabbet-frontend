@@ -71,6 +71,9 @@
     nseg.push(r.item);
   });
   segments = nseg;
+  segments.sort((a, b) => {
+    return a.page.work.imprint_year - b.page.work.imprint_year;
+  });
   </script>
   
   <style>
