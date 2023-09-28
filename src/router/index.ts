@@ -7,7 +7,7 @@ import PageView from "@/views/PageView.vue";
 import GalleryView from "@/views/GalleryView.vue";
 import ImageViewer from "@/views/ImageViewer.vue";
 import AuthorLink from "@/components/AuthorLink.vue";
-import QueryView from "@/views/QueryView.vue";
+import PhraseView from "@/views/PhraseView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -66,7 +66,7 @@ const router = createRouter({
     {
       path: "/reuse/phrase/:phrase",
       name: "reuse-phrase",
-      component: QueryView,
+      component: PhraseView,
       props: (route) => ({
         author: route.params.author ? Number(route.params.author): undefined,
         work: route.params.work ? Number(route.params.work) : undefined,
