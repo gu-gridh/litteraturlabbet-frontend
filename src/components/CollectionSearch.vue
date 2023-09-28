@@ -525,6 +525,11 @@ button:hover {
   top: 45px;
 }
 
+.errormessage {
+  color: darkred;
+  font-weight: bold;
+  margin-left: 5px;
+}
 @media screen and (max-width: 950px) {
   .connection {
     display: none;
