@@ -47,7 +47,6 @@ let text = page.text;
 */
 const author = props.segment.series.main_author;
 const work = props.segment.series;
-console.log(work);
 const page = props.segment.page;
 let text = page.text;
 

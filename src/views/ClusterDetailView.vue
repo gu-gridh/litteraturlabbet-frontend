@@ -35,7 +35,6 @@ let segments = ref<Array<Segment>>();
 
 onBeforeMount(() => {
   get<Cluster>(props.id, "cluster", 4).then((c) => {
-    console.log(c);
     let seenSegmentIds = new Set();
     for (let i = 0; i < c.segments.length; i++) {
       const segment_i = c.segments[i];
@@ -64,12 +63,8 @@ onBeforeMount(() => {
       }
       return 0;
     });
-    console.log(c.segments);
   });
 });
-
-//console.log(segments);
-
 </script>
 
 <style scoped>
