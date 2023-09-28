@@ -32,14 +32,25 @@ for (let i = 0; i < data.results.length; i++) {
         const year = s.series.imprint_year;
         const id = s.series.id;
         if (main_author == a1) {
-            s1 = s;
-            y1 = year;
-            id1 = id;
-        }
-        if (main_author == a2) {
-            s2 = s;
-            y2 = year;
-            id2 = id;
+            if (s1) {
+                s2 = s;
+                y2 = year;
+                id2 = id;
+            } else {
+                s1 = s;
+                y1 = year;
+                id1 = id;
+            }
+        } else if (main_author == a2) {
+            if (s2) {
+                s1 = s;
+                y1 = year;
+                id1 = id;
+            } else {
+                s2 = s;
+                y2 = year;
+                id2 = id;
+            }
         }
     }
     if (a1 === a2) {
@@ -47,11 +58,15 @@ for (let i = 0; i < data.results.length; i++) {
             continue;
         }
     }
+    if (!y1 || !y2) {
+        continue;
+    }
     if (y1 < y2)
         segments.push([s1, s2]);
     else
         segments.push([s2, s1]);
 }
+console.log(segments);
 segments.sort((a,b) => {
     if (a[0].series.imprint_year < b[0].series.imprint_year) {
         return -1;
@@ -78,9 +93,18 @@ function customBack() {
             <segment-pair-card v-for="segmentpair in segments" v-bind:key="segmentpair[0].id" :segment1="segmentpair[0]" :segment2="segmentpair[1]"></segment-pair-card>
         </Suspense>
         <div v-if="segments.length===0">
-            <p>
-            Inga textåterbruk hittades.
-        </p>
+            <br/>
+            <div class="text-container">
+                <h2>Inga textåterbruk hittades.</h2>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
         </div>
     </div>
     
