@@ -30,9 +30,11 @@
   import { search2 } from "@/services/diana";
   import PhraseCard from "@/components/PhraseCard.vue";
   import { ref } from "vue";
+  import Fuse from "fuse.js";
 
   const isEmpty = ref(false);
 
+  
   const props = defineProps<{
     phrase: string;
   }>();
@@ -49,7 +51,26 @@
   } else {
     isEmpty.value = false;
   }
-  const segments = data.results;
+  let segments = data.results;
+
+  const options = {
+    isCaseInsensitive: true,
+    includeMatches: true,
+    findAllMatches: true,
+    threshold: 0.4,
+    ignoreLocation: true,
+    keys: ["text"],
+  };
+  // Perform additional client-side filtering
+  // to exclude potential cluster matches
+  // that are not exact matches
+  const fuse = new Fuse(segments, options);
+  const result = fuse.search(props.phrase);
+  let nseg: any[] = [];
+  result.forEach((r) => {
+    nseg.push(r.item);
+  });
+  segments = nseg;
   </script>
   
   <style>

@@ -25,6 +25,8 @@
 
 import type { Segment } from "@/types/litteraturlabbet";
 import { ref } from "vue";
+import { Fuzzy } from "@nexucis/fuzzy";
+
 const props = defineProps<{
   segment: Segment;
   phrase: string;
@@ -37,17 +39,19 @@ let text = props.segment.text;
 const page = props.segment.page;
 let lblink = "";
 const isEmpty = ref(false);
+const fuz = new Fuzzy({pre: "<span class='highlight'>", post: "</span>"});
 
 if (props.segment) {
-    //const segment = await get<Segment>(props.segment.id, "segment");
-    
     isEmpty.value = false;
+    // Original highlighter
     text = text.replace(
         props.phrase,
         `<span class="highlight">${props.phrase}</span>`
     );
+    // v3 better highlighter
+    const matches = fuz.filter(props.phrase, [props.segment.text]);
+    text = matches[0].rendered;
     lblink = "https://litteraturbanken.se/f%C3%B6rfattare/"+work.main_author.lbauthorid+"/titlar/"+work.modernized_title+"/sida/"+(page.number+1)+"/faksimil";
-    console.log(props.segment);
 } else {
   isEmpty.value = true;
 }
