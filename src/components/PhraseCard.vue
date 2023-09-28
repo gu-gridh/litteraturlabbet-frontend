@@ -1,6 +1,10 @@
 <template>
   
     <div class="segment-card">
+      <div v-if="isEmpty">
+        <p>Inga träffar</p>
+      </div>
+      <div v-else>
       <div class="segment-metadata-container">
         <p class="segment-card-title author-title">{{ author.formatted_name }}</p>
         <p class="segment-card-title" style="font-style:italic; font-size:1.2em;" :title="work.title">{{ work.short_title ? work.short_title : work.title }} <p style="font-style:normal; display:inline; color:rgb(200,60,60); margin-left:10px; font-size:1.5em;top:3px;">{{ work.imprint_year }}</p></p>
@@ -12,7 +16,7 @@
         <div class="page-text" v-html="text"></div>
       </a>
       </div>
-
+    </div>
     </div>
   
 </template>
@@ -20,7 +24,7 @@
 <script setup lang="ts">
 
 import type { Segment } from "@/types/litteraturlabbet";
-
+import { ref } from "vue";
 const props = defineProps<{
   segment: Segment;
   phrase: string;
@@ -32,15 +36,20 @@ const work = props.segment.series;
 let text = props.segment.text;
 const page = props.segment.page;
 let lblink = "";
+const isEmpty = ref(false);
+
 if (props.segment) {
     //const segment = await get<Segment>(props.segment.id, "segment");
     
+    isEmpty.value = false;
     text = text.replace(
         props.phrase,
         `<span class="highlight">${props.phrase}</span>`
     );
     lblink = "https://litteraturbanken.se/f%C3%B6rfattare/"+work.main_author.lbauthorid+"/titlar/"+work.modernized_title+"/sida/"+(page.number+1)+"/faksimil";
     console.log(props.segment);
+} else {
+  isEmpty.value = true;
 }
 </script>
 

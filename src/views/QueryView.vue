@@ -2,13 +2,26 @@
     <div class="card-container">
       <div class="back-button" onclick="history.back()">Tillbaka</div>
   
+      <div v-if="isEmpty" class="page-container">
+          <b>Inga träffar för frasen <i>{{ props.phrase }}</i>.</b>
+          <!-- To hide the loading animation, insert breaks -->
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+        </div>
+        <div v-else>
         <phrase-card 
       v-for="segment in segments"
       :segment="segment"
       :phrase="props.phrase"
     >
     </phrase-card>
-    
+  </div>
     </div>
   </template>
   
@@ -16,6 +29,9 @@
   import { defineProps } from 'vue';
   import { search2 } from "@/services/diana";
   import PhraseCard from "@/components/PhraseCard.vue";
+  import { ref } from "vue";
+
+  const isEmpty = ref(false);
 
   const props = defineProps<{
     phrase: string;
@@ -27,6 +43,12 @@
   }
 
   const data = await search2<any>(params, "phrase_search");
+  if (data.count === 0) {
+    console.log("No results");
+    isEmpty.value = true;
+  } else {
+    isEmpty.value = false;
+  }
   const segments = data.results;
   </script>
   
