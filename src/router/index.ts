@@ -64,8 +64,8 @@ const router = createRouter({
       }),
     },
     {
-      path: "/reuse/:phrase",
-      name: "reuse-query",
+      path: "/reuse/phrase/:phrase",
+      name: "reuse-phrase",
       component: QueryView,
       props: (route) => ({
         author: route.params.author ? Number(route.params.author): undefined,
