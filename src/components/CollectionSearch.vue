@@ -157,6 +157,9 @@ function handleBackspace(event: KeyboardEvent) {
 }
 
 function updateSearchQuery(value: string) {
+  store.author = undefined;
+  store.author2 = undefined;
+  store.work = undefined;
   searchQuery.value = value;
   if (value === "") {
     hasQuery.value = false;
@@ -240,6 +243,8 @@ async function onSelectAuthor1(value: Author, select$: any) {
   store.author = value;
 
   workSelect.value.refreshOptions();
+  searchQuery.value = "";
+  store.phrase = undefined;
 }
 
 async function onSelectAuthor2(value: Author, select$: any) {
@@ -248,6 +253,8 @@ async function onSelectAuthor2(value: Author, select$: any) {
 
   // Set global store value
   store.author2 = value;
+  searchQuery.value = "";
+  store.phrase = undefined;
 }
 
 async function onSelectWork(value: Work, select$: any) {
@@ -260,6 +267,8 @@ async function onSelectWork(value: Work, select$: any) {
   // Set global store value
   store.work = value;
   store.author = author;
+  searchQuery.value = "";
+  store.phrase = undefined;
 }
 
 function countWorks() {
