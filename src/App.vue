@@ -25,7 +25,7 @@
         </nav>
         <div class="right-view-container-content">
           <Suspense>
-            <router-view />
+            <router-view :key="$route.path"></router-view>
           </Suspense>
           <div class="loader-container"> 
           <div class="loader"></div>
