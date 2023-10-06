@@ -21,9 +21,14 @@ const router = createRouter({
       path: "/reuse/",
       name: "reuse",
       component: ReuseView,
+    },
+    {
+      path: "/reuse/:author/:work?",
+      name: "reuse2",
+      component: ReuseView,
       props: (route) => ({
-        author: route.query.author ? Number(route.query.author): undefined,
-        work: route.query.work ? Number(route.query.work) : undefined,
+        author: route.params.author ? Number(route.params.author): undefined,
+        work: route.params.work ? Number(route.params.work) : undefined,
       }),
     },
     {
@@ -55,7 +60,7 @@ const router = createRouter({
       }),
     },
     {
-      path: "/reuse/:id1/:id2",
+      path: "/reuse/link/:id1/:id2",
       name: "reuse-link",
       component: AuthorLink,
       props: (route) => ({

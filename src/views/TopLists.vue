@@ -23,13 +23,13 @@ const topAuthors = ref(topList.authors.slice(0,10))
 
 
     const goToAuthor = (id: number) => {
-        router.push({ name: 'reuse', query: { author: id } }).then(() => { router.go(0) })
+        router.push({ name: 'reuse2', params: { author: id } }).then(() => { router.go(0) })
     }
     const goToWork = (id: number) => {
         get<Work>(id, "work")
             .then((a: any) => {
                 const authorId = a.main_author
-                router.push({ name: 'reuse', query: { work: id, author: authorId } }).then(() => { router.go(0) })
+                router.push({ name: 'reuse2', params: { work: id, author: authorId } }).then(() => { router.go(0) })
             })
     }
 

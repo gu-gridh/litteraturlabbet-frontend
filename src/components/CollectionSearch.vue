@@ -74,6 +74,8 @@
       <div class="button-container">
         <div v-if="!hasQuery">
           <div v-if="store.author2">
+            <div class="search-button2" @click="triggerSearch1">Sök</div>
+            <!--
             <router-link :to="{
               name: 'reuse-link',
               params: {
@@ -82,8 +84,11 @@
               },
             }" v-slot="{ href }" class="search-button">Sök
             </router-link>
+            -->
           </div>
           <div v-if="!store.author2">
+            <div class="search-button2" @click="triggerSearch2">Sök</div>
+            <!--
             <router-link :to="{
               name: 'reuse',
               query: {
@@ -92,6 +97,7 @@
               },
             }" v-slot="{ href }" class="search-button">Sök
             </router-link>
+            -->
           </div>
         </div>
         <div v-if="hasQuery">
@@ -159,7 +165,17 @@ function updateSearchQuery(value: string) {
   }
 }
 
-// Search functions
+// Search functions            
+async function triggerSearch1() {
+  console.log(store.author?.id, store.author2?.id);
+  router.push({ name: 'reuse-link', params: { id1: store.author?.id, id2: store.author2?.id } }).then(() => { router.go(0) });
+}
+
+async function triggerSearch2() {
+  console.log(store.author?.id, store.work?.id);
+  router.push({ name: 'reuse2', params: { author: store.author?.id, work: store.work?.id } }).then(() => { router.go(0) });
+}
+
 async function triggerSearch() {
   const searchQueryWords = searchQuery.value.split(" ");
   if (searchQueryWords.length < 1) {
@@ -170,7 +186,7 @@ async function triggerSearch() {
   errorMessage.value = false;
   phraseErrorMessage.value = "";
   store.phrase = searchQuery.value;
-  router.push({ name: 'reuse-phrase', params: { phrase: searchQuery.value, author: store.author?.id, work: store.work?.id } }).then(() => { router.go(0) });
+  router.push({ name: 'reuse-phrase', params: { phrase: searchQuery.value, author: store.author?.id, work: store.work?.id } });//.then(() => { router.go(0) });
 }
 
 function onClearPhrase() {
