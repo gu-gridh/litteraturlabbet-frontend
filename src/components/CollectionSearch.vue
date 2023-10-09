@@ -151,6 +151,7 @@ function handleBackspace(event: KeyboardEvent) {
   if (event.key === "Backspace") {
     if (searchQuery.value.length === 0) {
       store.phrase = undefined;
+      hasQuery.value = false;
       event.preventDefault();
     }
   }
@@ -196,6 +197,7 @@ function onClearPhrase() {
   errorMessage.value = false;
   phraseErrorMessage.value = "";
   searchQuery.value = "";
+  hasQuery.value = false;
   store.phrase = undefined;
   console.log("Clear phrase");
 }
@@ -244,6 +246,7 @@ async function onSelectAuthor1(value: Author, select$: any) {
 
   workSelect.value.refreshOptions();
   searchQuery.value = "";
+  hasQuery.value = false;
   store.phrase = undefined;
 }
 
@@ -254,6 +257,7 @@ async function onSelectAuthor2(value: Author, select$: any) {
   // Set global store value
   store.author2 = value;
   searchQuery.value = "";
+  hasQuery.value = false;
   store.phrase = undefined;
 }
 
@@ -269,6 +273,7 @@ async function onSelectWork(value: Work, select$: any) {
   store.author = author;
   searchQuery.value = "";
   store.phrase = undefined;
+  hasQuery.value = false;
 }
 
 function countWorks() {
