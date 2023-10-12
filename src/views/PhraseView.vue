@@ -1,6 +1,6 @@
 <template>
     <div class="card-container">
-      <div class="back-button" onclick="history.back()">Tillbaka</div>
+      <div class="back-button" @click="customBack()">Tillbaka</div>
   
       <div v-if="isEmpty" class="page-container">
           <b>Inga träffar för frasen <i>{{ props.phrase }}</i>.</b>
@@ -26,11 +26,12 @@
   </template>
   
   <script setup lang="ts">
-  import { defineProps } from 'vue';
+  import { defineProps, onBeforeUnmount } from 'vue';
   import { search2 } from "@/services/diana";
   import PhraseCard from "@/components/PhraseCard.vue";
   import { ref } from "vue";
   import Fuse from "fuse.js";
+import { setBusy } from '@/components/Waiter.vue';
 
   const isEmpty = ref(false);
 
@@ -73,6 +74,15 @@
   segments = nseg;
   segments.sort((a, b) => {
     return a.page.work.imprint_year - b.page.work.imprint_year;
+  });
+
+  function  customBack() {
+    setBusy();
+    history.back()
+  }
+
+  onBeforeUnmount(() => {
+    setBusy();
   });
   </script>
   

@@ -24,9 +24,9 @@
 <script setup lang="ts">
 
 import type { Segment } from "@/types/litteraturlabbet";
-import { onMounted, ref } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 import { Fuzzy } from "@nexucis/fuzzy";
-import { setNotBusy } from "./Waiter.vue";
+import { setBusy, setNotBusy } from "./Waiter.vue";
 
 const props = defineProps<{
   segment: Segment;
@@ -59,6 +59,10 @@ if (props.segment) {
 
 onMounted(() => {
   setNotBusy();
+});
+
+onBeforeUnmount(() => {
+  setBusy();
 });
 </script>
 

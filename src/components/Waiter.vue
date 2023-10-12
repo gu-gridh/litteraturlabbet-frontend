@@ -25,7 +25,7 @@
             return { isBusy, setBusy, setNotBusy }
         }
     }    
-    const isBusy = ref(false);
+    const isBusy = ref(true);
 
     const setBusy = () => {
         isBusy.value = true;

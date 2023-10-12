@@ -5,8 +5,8 @@ import { useRoute } from "vue-router";
 import type { Author } from "@/types/litteraturlabbet";
 import SegmentPairCard from './SegmentPairCard.vue';
 import { searchStore } from "@/stores/search";
-import { onMounted } from "vue";
-import { setNotBusy } from "./Waiter.vue";
+import { onBeforeUnmount, onMounted } from "vue";
+import { setBusy, setNotBusy } from "./Waiter.vue";
 
 const route = useRoute();
 
@@ -80,6 +80,7 @@ segments.sort((a,b) => {
 });
 
 function customBack() {
+    setBusy();
     store.author = undefined;
     store.author2 = undefined;
     store.work = undefined;
@@ -88,6 +89,10 @@ function customBack() {
 
 onMounted(() => {
     setNotBusy();
+});
+
+onBeforeUnmount(() => {
+    setBusy();
 });
 </script>
 

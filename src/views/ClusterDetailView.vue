@@ -2,7 +2,7 @@
 
     <div class="card-container">
   
-        <div class="back-button" onclick="history.back()">Tillbaka</div>
+        <div class="back-button" @click="customBack()">Tillbaka</div>
 
   <Suspense>
     <segment-card
@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onMounted, ref } from "vue";
+import { onBeforeMount, onBeforeUnmount, onMounted, ref } from "vue";
 import { list, get } from "@/services/diana";
 import SegmentCard from "@/components/SegmentCard.vue";
 import type {
@@ -25,6 +25,7 @@ import type {
   Segment,
   Cluster,
 } from "@/types/litteraturlabbet";
+import { setBusy } from "@/components/Waiter.vue";
 
 const props = defineProps<{
   id: number;
@@ -33,6 +34,7 @@ const props = defineProps<{
 const cluster = ref<Cluster>();
 let segments = ref<Array<Segment>>();
 
+ 
 onBeforeMount(() => {
   get<Cluster>(props.id, "cluster", 4).then((c) => {
     let seenSegmentIds = new Set();
@@ -65,6 +67,14 @@ onBeforeMount(() => {
     });
   });
 });
+function customBack() {
+    setBusy();
+    history.back();
+  }
+
+  onBeforeUnmount(() => {
+    setBusy();
+  });
 </script>
 
 <style scoped>

@@ -62,8 +62,9 @@ import { searchStore } from "@/stores/search";
 import { networkStore } from "@/stores/network";
 import type { Link, Node } from "@/types/network";
 import { unpaginated, list } from "@/services/diana";
-import { watch } from "vue";
+import { onBeforeUnmount, onMounted, watch } from "vue";
 import TopLists from "./TopLists.vue";
+import { setBusy, setNotBusy } from "@/components/Waiter.vue";
 
 const store = searchStore();
 const dataStore = networkStore();
@@ -98,8 +99,13 @@ watch(() => store.author, () => {
 //   data.value = await fetch();
 
 // })
+onMounted(() => {
+  setNotBusy();
+})
 
-
+onBeforeUnmount(() => {
+  setBusy();
+});
 function fShowGraph() {
   showGraph = true;
   showChronograph = false;

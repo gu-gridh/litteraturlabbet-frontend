@@ -20,7 +20,14 @@
            </div>
            </div>
 </template>
+<script setup lang="ts">
+import { setNotBusy } from '@/components/Waiter.vue';
+import { onMounted } from 'vue';
 
+onMounted(() => {
+  setNotBusy();
+});
+</script>
 <style scoped>
 
 a:link{
