@@ -4,6 +4,7 @@ import type { Work, Author } from "@/types/litteraturlabbet";
 import { getByLbId, get } from "@/services/diana";
 import { ref } from 'vue';
 import router from '@/router/index'
+import { setBusy } from "@/components/Waiter.vue";
 
 const topTitles = ref(topList.titles.slice(0,10))
 const topAuthors = ref(topList.authors.slice(0,10))
@@ -23,13 +24,15 @@ const topAuthors = ref(topList.authors.slice(0,10))
 
 
     const goToAuthor = (id: number) => {
-        router.push({ name: 'reuse2', params: { author: id } }).then(() => { router.go(0) })
+      setBusy();
+        router.push({ name: 'reuse2', params: { author: id } }); //.then(() => { router.go(0) })
     }
     const goToWork = (id: number) => {
+      setBusy();
         get<Work>(id, "work")
             .then((a: any) => {
                 const authorId = a.main_author
-                router.push({ name: 'reuse2', params: { work: id, author: authorId } }).then(() => { router.go(0) })
+                router.push({ name: 'reuse2', params: { work: id, author: authorId } }); //.then(() => { router.go(0) })
             })
     }
 

@@ -5,6 +5,8 @@ import { useRoute } from "vue-router";
 import type { Author } from "@/types/litteraturlabbet";
 import SegmentPairCard from './SegmentPairCard.vue';
 import { searchStore } from "@/stores/search";
+import { onMounted } from "vue";
+import { setNotBusy } from "./Waiter.vue";
 
 const route = useRoute();
 
@@ -83,6 +85,10 @@ function customBack() {
     store.work = undefined;
     history.back();
 }
+
+onMounted(() => {
+    setNotBusy();
+});
 </script>
 
 <template>

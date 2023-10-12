@@ -30,9 +30,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { list, get } from "@/services/diana";
 import type { Author, Page, Work, Segment } from "@/types/litteraturlabbet";
+import { setNotBusy } from "./Waiter.vue";
 
 const props = defineProps<{
   segment1: any;
@@ -71,6 +72,10 @@ if (props.segment2) {
   lblink2 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment2.series.main_author.lbauthorid+"/titlar/"+props.segment2.series.modernized_title+"/sida/"+(props.segment2.page.number+1)+"/faksimil";
   //console.log(text);
 }
+
+onMounted(() => {
+  setNotBusy();
+});
 </script>
 
 <style scoped>

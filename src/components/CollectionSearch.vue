@@ -124,6 +124,8 @@ import Welcome from "@/components/Welcome.vue";
 import { works } from "@/assets/works.json";
 import { authors } from "@/assets/authors.json";
 import router from "@/router";
+import {inject} from 'vue';
+import {setBusy, setNotBusy} from "@/components/Waiter.vue";
 
 const store = searchStore();
 
@@ -146,6 +148,8 @@ const searchQuery = ref("");
 const errorMessage = ref(false);
 const hasQuery = ref(false);
 let phraseErrorMessage = ref("");
+
+
 
 function handleBackspace(event: KeyboardEvent) {
   if (event.key === "Backspace") {
@@ -171,16 +175,19 @@ function updateSearchQuery(value: string) {
 
 // Search functions            
 async function triggerSearch1() {
+  setBusy();
   console.log(store.author?.id, store.author2?.id);
-  router.push({ name: 'reuse-link', params: { id1: store.author?.id, id2: store.author2?.id } }).then(() => { router.go(0) });
+  router.push({ name: 'reuse-link', params: { id1: store.author?.id, id2: store.author2?.id } });//.then(() => { router.go(0) });
 }
 
 async function triggerSearch2() {
+  setBusy();
   console.log(store.author?.id, store.work?.id);
-  router.push({ name: 'reuse2', params: { author: store.author?.id, work: store.work?.id } }).then(() => { router.go(0) });
+  router.push({ name: 'reuse2', params: { author: store.author?.id, work: store.work?.id } });//.then(() => { router.go(0) });
 }
 
 async function triggerSearch() {
+  setBusy();
   const searchQueryWords = searchQuery.value.split(" ");
   if (searchQueryWords.length < 1) {
     errorMessage.value = true;
@@ -190,7 +197,7 @@ async function triggerSearch() {
   errorMessage.value = false;
   phraseErrorMessage.value = "";
   store.phrase = searchQuery.value;
-  router.push({ name: 'reuse-phrase', params: { phrase: searchQuery.value, author: store.author?.id, work: store.work?.id } });//.then(() => { router.go(0) });
+  router.push({ name: 'reuse-phrase', params: { phrase: searchQuery.value, author: store.author?.id, work: store.work?.id } });//.then(() => { router.go(0); });
 }
 
 function onClearPhrase() {

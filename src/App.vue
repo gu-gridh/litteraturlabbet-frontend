@@ -1,4 +1,5 @@
 <template>
+  <Waiter></Waiter>
   <div class="main-container">
     <div class="left-column">
       <div class="lb-logo-container"></div>
@@ -27,9 +28,12 @@
           <Suspense>
             <router-view :key="$route.path"></router-view>
           </Suspense>
+          <!--
           <div class="loader-container"> 
           <div class="loader"></div>
+          
         </div>
+        -->
         </div>
       </div>
     </div>
@@ -43,6 +47,8 @@ import { RouterLink, RouterView } from "vue-router";
 import Footer from "@/components/Footer.vue";
 import CollectionSearch from "./components/CollectionSearch.vue";
 import { watch } from "vue";
+import Waiter from "@/components/Waiter.vue";
+
 </script>
 
 <style src="@vueform/multiselect/themes/default.css"></style>

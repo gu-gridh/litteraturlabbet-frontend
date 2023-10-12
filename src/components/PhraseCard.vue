@@ -24,8 +24,9 @@
 <script setup lang="ts">
 
 import type { Segment } from "@/types/litteraturlabbet";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import { Fuzzy } from "@nexucis/fuzzy";
+import { setNotBusy } from "./Waiter.vue";
 
 const props = defineProps<{
   segment: Segment;
@@ -55,6 +56,10 @@ if (props.segment) {
 } else {
   isEmpty.value = true;
 }
+
+onMounted(() => {
+  setNotBusy();
+});
 </script>
 
 <style scoped>

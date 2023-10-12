@@ -36,17 +36,18 @@
     </div>
   </div>
 
-
+  <div v-show="showNetwork">
   <div class="chart-super-container">
     <div class="chart-container">
       
       <div id="chart" ref="element"></div>
     
-   
+    
 
     </div>
 
   </div>
+</div>
 </template>
 
 <script setup lang="ts">
@@ -61,6 +62,7 @@ import { searchStore } from "@/stores/search";
 import { reuseStore } from "@/stores/reuse";
 import Slider from '@vueform/slider'
 import { storeToRefs } from "pinia";
+import { setBusy } from "./Waiter.vue";
 
 const authorStore = searchStore();
 const linkStore = reuseStore();
@@ -68,7 +70,7 @@ let graphTooBig: boolean = false;
 let secondaryNodeNumber = ref(50);
 let showGraph: boolean = false;
 let showChronograph: boolean = true;
-
+const showNetwork = ref(true);
 
 const props = defineProps<{
   data: { nodes: Array<Node> | undefined; links: Array<Link> | undefined };
@@ -202,13 +204,15 @@ function build(graphData: any, author?: number) {
     })
     .onNodeClick(async (node) => {
       // Center/zoom on node
-      graph.centerAt(node.x, node.y, 1000);
-      graph.zoom(3, 2000);
+      //graph.centerAt(node.x, node.y, 1000);
+      //graph.zoom(3, 2000);
       if (authorStore.author?.id !== node.id) {
+        setBusy();
+        showNetwork.value = false;
         authorStore.author = await get<Author>(node.id as number, "author");
         await router.push({
-          name: "reuse",
-          query: {
+          name: "reuse2",
+          params: {
             author: node.id,
             work: undefined,
           },
@@ -219,9 +223,10 @@ function build(graphData: any, author?: number) {
     .onNodeRightClick(async (node) => {
       if (authorStore.author?.id !== node.id) {
         authorStore.author = await get<Author>(node.id as number, "author");
+        setBusy();
         await router.push({
-          name: "reuse",
-          query: {
+          name: "reuse2",
+          params: {
             author: node.id,
             work: undefined,
           },
@@ -275,6 +280,7 @@ function build(graphData: any, author?: number) {
       authorStore.author = link.source.id;
       authorStore.author2 = link.target.id;
       linkStore.updateAuthor2(link.target.id);
+      setBusy();
       router.push({
         name: "reuse-link",
         params: {
