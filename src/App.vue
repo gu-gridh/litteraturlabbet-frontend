@@ -28,12 +28,12 @@
           <Suspense>
             <router-view :key="$route.path"></router-view>
           </Suspense>
-          <!--
-          <div class="loader-container"> 
+          
+          <div class="loader-container" v-show="!isBusy"> 
           <div class="loader"></div>
           
         </div>
-        -->
+        
         </div>
       </div>
     </div>
@@ -48,6 +48,7 @@ import Footer from "@/components/Footer.vue";
 import CollectionSearch from "./components/CollectionSearch.vue";
 import { watch } from "vue";
 import Waiter from "@/components/Waiter.vue";
+import { isBusy } from "@/components/Waiter.vue";
 
 </script>
 
