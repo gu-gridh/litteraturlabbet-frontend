@@ -108,8 +108,7 @@ body {
  background-image:url("@/assets/interface/Spin-1s-200px.gif");
  background-size:contain;
  margin-top:-40px;
-
-  position:absolute;
+position:absolute;
 }
 
 .back-button{
