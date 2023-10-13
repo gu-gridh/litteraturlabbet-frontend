@@ -48,7 +48,7 @@
     width: 100%;
     height: 100%;
     z-index: 999;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.5);
   }
 
   #waiter-text {
@@ -65,7 +65,7 @@
     align-items: center;
     height: 100vh;
     flex-direction: column;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(5px);
   }
   .spinner {
     animation: rotate 2s linear infinite;
