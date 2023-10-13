@@ -44,11 +44,14 @@
   #waiter {
     position: fixed;
     top: 0px;
+    bottom: -1px;
     left: 0px;
     width: 100%;
     height: 100%;
     z-index: 999;
     background: rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
   }
 
   #waiter-text {
@@ -65,7 +68,7 @@
     align-items: center;
     height: 100vh;
     flex-direction: column;
-    backdrop-filter: blur(5px);
+  
   }
   .spinner {
     animation: rotate 2s linear infinite;
