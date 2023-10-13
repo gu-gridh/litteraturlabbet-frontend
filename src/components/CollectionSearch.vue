@@ -149,7 +149,9 @@ const errorMessage = ref(false);
 const hasQuery = ref(false);
 let phraseErrorMessage = ref("");
 
-
+const currentAuthor = ref(-1);
+const currentAuthor2 = ref(-1);
+const currentWork = ref(-1);
 
 function handleBackspace(event: KeyboardEvent) {
   if (event.key === "Backspace") {
@@ -162,6 +164,7 @@ function handleBackspace(event: KeyboardEvent) {
 }
 
 function updateSearchQuery(value: string) {
+  errorMessage.value = false;
   store.author = undefined;
   store.author2 = undefined;
   store.work = undefined;
@@ -176,20 +179,64 @@ function updateSearchQuery(value: string) {
 // Search functions            
 async function triggerSearch1() {
   setBusy();
+  if (store.author?.id === currentAuthor.value && store.author2?.id === currentAuthor2.value) {
+    setNotBusy();
+    errorMessage.value = true;
+    phraseErrorMessage.value = "Du har redan sökt efter denna kombination.";
+    return;
+  }
+  errorMessage.value = false;
   console.log(store.author?.id, store.author2?.id);
   router.push({ name: 'reuse-link', params: { id1: store.author?.id, id2: store.author2?.id } });//.then(() => { router.go(0) });
+  currentAuthor.value = store.author!.id;
+  currentAuthor2.value = store.author2!.id;
 }
 
 async function triggerSearch2() {
   setBusy();
+  if (!store.author) {
+    setNotBusy();
+    errorMessage.value = true;
+    // error message that you need to select an author, two authors, a work, or a phrase
+    phraseErrorMessage.value = "Du måste välja en eller två författare, en författare och en verk eller en fras.";
+    return;
+  }
+  if (store.author?.id === currentAuthor.value) {
+    //console.log(store.work?.id, currentWork.value);
+    if (store.work) {
+      if (store.work?.id == currentWork.value) {
+        setNotBusy();
+        errorMessage.value = true;
+        phraseErrorMessage.value = "Du har redan sökt efter denna kombination.";
+        return;
+      }
+    } else {
+      if (currentWork.value < 0) { 
+        setNotBusy();
+        errorMessage.value = true;
+        phraseErrorMessage.value = "Du har redan sökt efter den här författaren.";
+        return;
+      }
+    }
+  }
+  errorMessage.value = false;
   console.log(store.author?.id, store.work?.id);
   router.push({ name: 'reuse2', params: { author: store.author?.id, work: store.work?.id } });//.then(() => { router.go(0) });
+  currentAuthor.value = store.author!.id;
+  currentWork.value = store.work ? store.work.id : -1;
 }
 
 async function triggerSearch() {
   setBusy();
+  if (searchQuery.value === store.phrase) {
+    setNotBusy();
+    errorMessage.value = true;
+    phraseErrorMessage.value = "Du har redan sökt efter denna fras.";
+    return;
+  }
   const searchQueryWords = searchQuery.value.split(" ");
   if (searchQueryWords.length < 1) {
+    setNotBusy();
     errorMessage.value = true;
     phraseErrorMessage.value = "Sökfrasen måste innehålla minst ett ord.";
     return;
@@ -241,7 +288,7 @@ function hasReuse(author: any) {
 // After selecting
 async function onSelectAuthor1(value: Author, select$: any) {
   // clear graph
-
+  errorMessage.value = false;
 
   workSelect.value.clearSearch();
 
@@ -270,7 +317,7 @@ async function onSelectAuthor2(value: Author, select$: any) {
 
 async function onSelectWork(value: Work, select$: any) {
   // Fetch the current work and full author
-
+  errorMessage.value = false;
   const author = await get<Author>(value.main_author, "author");
   workSelect.value.clearSearch();
   workSelect.value.refreshOptions();
