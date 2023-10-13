@@ -1,9 +1,7 @@
 <template>
    <div id="waiter" v-show="isBusy">
     <div id="waiter-wrapper">
-        <div id="waiter-text">
-            <p>Laddar</p>
-        </div>
+     
         <div id="waiter-spinner">
         
         <svg class="spinner" width="50" height="50" xmlns="http://www.w3.org/2000/svg">
@@ -11,6 +9,10 @@
             <circle cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke="#b46464" stroke-dasharray="20 10" />
             <circle cx="25" cy="25" r="30" fill="none" stroke-width="5" stroke="#b46464" stroke-dasharray="3 2" />
         </svg>
+        </div>
+
+        <div id="waiter-text">
+            <p>Laddar</p>
         </div>
     </div>
    </div>
@@ -40,18 +42,20 @@
   
   <style scoped>
   #waiter {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed;
+    top: 0px;
+    left: 0px;
     width: 100%;
     height: 100%;
     z-index: 999;
-    background: rgba(0, 0, 0, 0.651);
+    background: rgba(255, 255, 255, 0.8);
   }
 
   #waiter-text {
-    font-size: 3rem;
-    color: #e7bfbf;
+    font-family: "Barlow Condensed", sans-serif !important;
+    font-size: 2rem;
+    font-weight:600;
+    color: #b46464;
     user-select: none;
   }
 
@@ -61,6 +65,7 @@
     align-items: center;
     height: 100vh;
     flex-direction: column;
+    backdrop-filter: blur(20px);
   }
   .spinner {
     animation: rotate 2s linear infinite;
