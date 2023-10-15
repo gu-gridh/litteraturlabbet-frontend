@@ -578,7 +578,7 @@ button:hover {
   --ms-font-size: 1.3rem;
   --ms-radius: 8px;
   --ms-option-color-pointed: black;
-  --ms-option-bg-selected: rgb(182, 82, 139);
+  --ms-option-bg-selected: rgb(180, 100, 100);
   --ms-option-font-size: 1.2rem;
   --ms-option-line-height: 1.375;
   --ms-option-bg-pointed: rgb(230, 230, 230);
@@ -587,7 +587,7 @@ button:hover {
   --ms-option-color-selected: #fff;
   /*--ms-option-bg-disabled: black;*/
   --ms-option-color-disabled: #d1d5db;
-  --ms-option-bg-selected-pointed: rgb(182, 82, 139);
+  --ms-option-bg-selected-pointed: rgb(180, 100, 100);
   --ms-option-color-selected-pointed: #ffffff;
   --ms-option-bg-selected-disabled: black;
   --ms-option-color-selected-disabled: #d1fae5;

@@ -3,16 +3,15 @@
     <div id="waiter-wrapper">
      
         <div id="waiter-spinner">
-        
-        <svg class="spinner" width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+       <!--  <svg class="spinner" width="50" height="50" xmlns="http://www.w3.org/2000/svg">
             <circle cx="25" cy="25" r="5" fill="#b46464" stroke-width="5" stroke="#b46464" />
             <circle cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke="#b46464" stroke-dasharray="20 10" />
             <circle cx="25" cy="25" r="30" fill="none" stroke-width="5" stroke="#b46464" stroke-dasharray="3 2" />
-        </svg>
+        </svg> -->
         </div>
 
         <div id="waiter-text">
-            <p>Laddar</p>
+            <!-- <p>Laddar</p> -->
         </div>
     </div>
    </div>
@@ -49,10 +48,18 @@
     width: 100%;
     height: 100%;
     z-index: 999;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.6);
     -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(6px);
   }
+
+#waiter-spinner {
+ width:90px;
+ height:90px;
+ background-image:url("@/assets/1481.png");
+ background-size: contain;
+  }
+
 
   #waiter-text {
     font-family: "Barlow Condensed", sans-serif !important;
