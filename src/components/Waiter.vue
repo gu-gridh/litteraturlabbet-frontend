@@ -50,7 +50,7 @@
     z-index: 999;
     background: rgba(255, 255, 255, 0.6);
     -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(8px);
   }
 
 #waiter-spinner {
@@ -58,6 +58,7 @@
  height:90px;
  background-image:url("@/assets/1481.png");
  background-size: contain;
+ margin-top:-90px;
   }
 
 
