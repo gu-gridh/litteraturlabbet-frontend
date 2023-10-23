@@ -62,7 +62,7 @@ onMounted(() => {
 .tool{
   display:block;
   border-radius:8px;
-  background-color:rgb(240,240,240);
+  background-color:rgb(255,255,255);
   margin:10px!important;
   padding:8px 12px;
   font-size:1.3em;

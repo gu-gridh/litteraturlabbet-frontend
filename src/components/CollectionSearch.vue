@@ -9,6 +9,15 @@
     </div>
     <div class="search-UI" v-show="showSearch">
 
+      <div class="slider-container">
+        <div class="select-label" style="margin-top:60px; text-align:center;">
+          <!-- <p>Välj ett tidsomfång</p> -->
+        </div>
+        <div class="slider-input">
+          <Slider v-model="timeRange" :min="1700" :max="2025" :step="5" class="sliderColor" />
+        </div>
+      </div>
+
       <div class="multiselect-input" id="author-select">
         <div class="select-label">
           <p>Sök efter författare</p>
@@ -55,17 +64,14 @@
         </div>
 
       </div>
-      <div class="slider-container" v-show="showSlider">
+    <!--   <div class="slider-container" v-show="showSlider">
         <div class="select-label" style="margin-bottom:50px; text-align:center;">
           <p>Välj ett tidsomfång</p>
         </div>
         <div class="slider-input">
           <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor" />
         </div>
-      </div>
-
-
-
+      </div> -->
 
       <div class="count-label">
         <p>Totalt {{ workCount }} verk i samlingen.</p>
@@ -135,7 +141,7 @@ const workCount = ref<number>();
 
 const collator = new Intl.Collator('sv-u-co-trad');
 
-const timeRange = [1800, 1900];
+const timeRange = [1700, 2025];
 
 const showSlider = ref(false);
 const showReuseSearch = ref(false);
@@ -424,7 +430,7 @@ a:hover {}
 
 input[type="search"] {
   font-family: "Barlow Condensed", sans-serif !important;
-  background-color: rgb(240, 240, 240) !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
   font-size: 1.4em !important;
   border: none;
   color: black;
@@ -559,7 +565,7 @@ button:hover {
 
 .multiselect {
   color: rgb(60, 40, 40);
-  --ms-bg: rgb(240, 240, 240);
+  --ms-bg: rgba(255, 255, 255, 0.95);
   --ms-ring-width: 0px;
   --ms-border-width: 0px;
   --ms-font-size: 1.3rem;
