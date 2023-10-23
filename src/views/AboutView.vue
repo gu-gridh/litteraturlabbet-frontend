@@ -52,7 +52,7 @@ cursor:pointer !important;
   }
 
        .about{
-   padding:50px;
+   padding:80px 50px;
     width:100%;
         
   }

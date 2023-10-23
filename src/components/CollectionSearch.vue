@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%; height:0px;">
-    <div class="connection"></div>
+    <!-- <div class="connection"></div> -->
   </div>
   <div class="search-container">
 
@@ -500,20 +500,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   padding: 2rem 0 0 0;
 }
 
-.search-container {
-  margin-left: 0px;
-  width: 100%;
-  min-height: 480px;
-  height: auto !important;
-  background-color: rgb(255, 255, 255, 1);
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: space-between;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
-  z-index: 1;
-}
+
 
 .button-container {
   width: 100%;
@@ -627,9 +614,6 @@ button:hover {
     font-size: 25px !important;
   }
 
-  .search-container {
-    height: auto;
-  }
 
   .multiselect {
     --ms-font-size: 2.2rem;

@@ -32,7 +32,7 @@ padding:50px;
   .home-title{
        font-family: 'Cormorant Garamond', serif;
        letter-spacing: -3px;
-    margin-top:30px;
+    margin-top:80px;
     font-size:30px;
     line-height:0.9;
        text-align:center;
