@@ -4,7 +4,7 @@
     <div class="top">
       <div class="lb-logo-container"></div>
       <div class="nav-content">
-        <router-link to="/reuse/" class="nav-link">LITTERATURBANKEN</router-link>
+        <a href="https://litteraturbanken.se" class="nav-link">LITTERATURBANKEN</a>
         <router-link to="/about/" class="nav-link">LITTERATURLABORATORIET</router-link>
         <router-link to="/gallery" class="nav-link">GRAFISKA ELEMENT</router-link>
         <router-link to="/reuse/" class="nav-link">TEXTÅTERBRUK</router-link>
