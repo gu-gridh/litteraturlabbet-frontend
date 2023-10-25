@@ -78,7 +78,7 @@ a:visited {
 
 
 .right-view-container {
-  width: calc(100% - 1px) !important;
+  width: calc(100% - 0px) !important;
   padding-right: 50px !important;
   height: auto !important;
 }
