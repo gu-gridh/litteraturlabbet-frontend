@@ -1,17 +1,11 @@
 <template>
-
-    <div class="card-container">
-  
-        <div class="back-button" @click="customBack()">Tillbaka</div>
-
-  <Suspense>
-    <segment-card
-      v-for="segment in segments"
-      v-bind:key="segment.id"
-      :segment="segment"
-    ></segment-card>
-  </Suspense>
-</div>
+  <div class="card-container">
+      <div class="back-button" @click="customBack()">Tillbaka</div>
+      <div class="littlabbinfo">Klicka på ett stycke för att se hela texten på Litteraturbanken</div>
+    <Suspense>
+      <segment-card v-for="segment in segments" v-bind:key="segment.id" :segment="segment"></segment-card>
+    </Suspense>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -34,7 +28,7 @@ const props = defineProps<{
 const cluster = ref<Cluster>();
 let segments = ref<Array<Segment>>();
 
- 
+
 onBeforeMount(() => {
   get<Cluster>(props.id, "cluster", 4).then((c) => {
     let seenSegmentIds = new Set();
@@ -68,34 +62,33 @@ onBeforeMount(() => {
   });
 });
 function customBack() {
-    setBusy();
-    history.back();
-  }
+  setBusy();
+  history.back();
+}
 
-  onBeforeUnmount(() => {
-    setBusy();
-  });
+onBeforeUnmount(() => {
+  setBusy();
+});
 </script>
 
 <style scoped>
 .card-container {
-    height: 80%;
-    overflow-y: scroll;
+  height: 80%;
+  overflow-y: scroll;
 }
-.back-button:hover{
-  background-color: rgb(120,120,120);
+
+.back-button:hover {
+  background-color: rgb(120, 120, 120);
   color: white;
 
 }
 
-  @media screen and (max-width: 950px) {
-    .back-button{
-  margin-top:40px;
-  margin-left:50px;
-  font-size:28px;
-   width:120px;
-    }
+@media screen and (max-width: 950px) {
+  .back-button {
+    margin-top: 40px;
+    margin-left: 50px;
+    font-size: 28px;
+    width: 120px;
   }
-
-
+}
 </style>

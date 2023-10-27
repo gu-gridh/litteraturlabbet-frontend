@@ -279,6 +279,16 @@ button {
   line-height: 1.15;
 }
 
+.littlabbinfo {
+  min-width: 10px !important;
+  text-align: left;
+ font-size:1.2em;
+ padding-top:10px;
+  padding-left:45px;
+  color: black;
+  margin-top: 0px;
+  pointer-events: none;
+}
 
 /* For mobile screens */
 @media screen and (max-width: 950px) {
