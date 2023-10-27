@@ -2,12 +2,14 @@
   <div class="super-container">
     <Waiter></Waiter>
     <div class="top">
+   <router-link to="/about/" class="nav-link">
       <div class="lb-logo-container"></div>
+    </router-link>
       <div class="nav-content">
-        <a href="https://litteraturbanken.se" class="nav-link">LITTERATURBANKEN</a>
-        <router-link to="/about/" class="nav-link">LITTERATURLABORATORIET</router-link>
-        <router-link to="/gallery" class="nav-link">GRAFISKA ELEMENT</router-link>
-        <router-link to="/reuse/" class="nav-link">TEXTÅTERBRUK</router-link>
+        <div class="nav-item"><a href="https://litteraturbanken.se" class="nav-link">LITTERATURBANKEN </a><div class="nav-ornament"></div></div>
+        <div class="nav-item"><router-link to="/about/" class="nav-link">LITTERATURLABORATORIET</router-link><div class="nav-ornament"></div></div>
+        <div class="nav-item"><router-link to="/gallery" class="nav-link">GRAFISKA ELEMENT</router-link><div class="nav-ornament"></div></div>
+        <div class="nav-item"><router-link to="/reuse/" class="nav-link">TEXTÅTERBRUK</router-link><div class="nav-ornament"></div></div>
       </div>
     </div>
 

@@ -173,18 +173,42 @@ a:visited {
   -webkit-font-smoothing: antialiased;
 }
 
+
+.nav-item {
+  display: block !important;
+  width: auto !important;
+}
+
 .nav-link {
+  float:left;
   font-family: 'Cormorant Garamond', serif !important;
   color: white !important;
   margin-top: 5px;
   margin-bottom: 5px;
-  display: block !important;
   width: auto !important;
+}
+
+.nav-ornament {
+  float:left;
+  margin-left:10px;
+  width:26px;
+  height:26px;
+  background:url("../src/assets/leaf.svg");
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:0px 10px;
+  opacity:0.0;
+  transition: all 0.5s ease-in-out;
 }
 
 .nav-link:hover {
   background-color: transparent;
   opacity: 0.5;
+}
+
+.nav-item:hover .nav-ornament {
+  background-color: transparent;
+  opacity: 1.0;
 }
 
 
