@@ -10,7 +10,7 @@ import { useRouter } from "vue-router";
 import { setNotBusy } from '@/components/Waiter.vue'
 
 const images = ref([img1, img2, img3, img4, img5, img6])
-const galleryLabels = ref(["Alla", "Figurer", "Ornament", "Anfanger", "Musiknoter"])
+const galleryLabels = ref(["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter"])
 
 const router = useRouter() 
 
@@ -68,7 +68,7 @@ onMounted(() => {
   border: none;
   cursor:pointer;
   height:auto;
-  width:95px;
+  width:auto;
   margin:5px;
   background-color:rgb(230,230,230);
 }
