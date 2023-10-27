@@ -10,7 +10,7 @@
     <div class="search-UI" v-show="showSearch">
 
       <div class="slider-container">
-        <div class="select-label" style="margin-top:60px; text-align:center;">
+        <div class="select-label" style="margin-top:65px; text-align:center;">
           <!-- <p>Välj ett tidsomfång</p> -->
         </div>
         <div class="slider-input">
@@ -419,8 +419,8 @@ a:hover {}
 
 .multiselect-input {
   margin-bottom: 0.5rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
 }
 
 .search-box {
