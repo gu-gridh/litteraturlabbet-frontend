@@ -16,7 +16,7 @@
       <div class="green-circle"></div>Direkta återbruk
     </div>
     <div class="grey-label">
-      <div class="grey-circle"></div>Sekundära relationer
+      <div class="grey-circle"></div>Indirekta relationer
     </div>
   </div>
 
