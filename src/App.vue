@@ -2,7 +2,9 @@
   <div class="super-container">
     <Waiter></Waiter>
     <div class="top">
+      <router-link to="/about/" class="nav-link" style="margin-top: 0px;margin-bottom: 0px;">
       <div class="lb-logo-container"></div>
+    </router-link>
       <div class="nav-content">
         <div class="nav-item"><a href="https://litteraturbanken.se" class="nav-link">LITTERATURBANKEN </a>
           <div class="nav-ornament"></div>
