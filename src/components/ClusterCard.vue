@@ -76,7 +76,7 @@ defineProps<{
   width: 95px;
   height:95px;
   line-height:1.1;
-  background-color: rgb(85,85,85);
+  background-color: rgb(112, 148, 98);
   text-align:center;
   color: white;
   padding: 1.4rem 1rem 1rem 1rem;

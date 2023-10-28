@@ -1,7 +1,7 @@
 <template>
   <div class="card-container">
       <div class="back-button" @click="customBack()">Tillbaka</div>
-      <div class="littlabbinfo">Klicka på ett stycke för att se hela texten på Litteraturbanken</div>
+      <div class="littlabbinfo">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
     <Suspense>
       <segment-card v-for="segment in segments" v-bind:key="segment.id" :segment="segment"></segment-card>
     </Suspense>

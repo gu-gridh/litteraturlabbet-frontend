@@ -12,11 +12,11 @@
     <div class="red-label">
       <div class="red-circle"></div> {{ authorStore.author?.formatted_name }}
     </div>
-    <div class="blue-label">
-      <div class="blue-circle"></div>Direkt återbruk
+    <div class="green-label">
+      <div class="green-circle"></div>Direkta återbruk
     </div>
     <div class="grey-label">
-      <div class="grey-circle"></div>Indirekt återbruk
+      <div class="grey-circle"></div>Sekundära relationer
     </div>
   </div>
 
@@ -297,7 +297,7 @@ function build(graphData: any, author?: number) {
       if (node === hoverNode) {
         return "rgb(220,100,100)";
       } else if (highlightNodes.has(node)) {
-        return "#66CCFF";
+        return "rgb(112, 148, 98)";
       } else {
         return "rgb(85, 85, 85)";
       }
@@ -489,6 +489,16 @@ watch(
   float: left;
 }
 
+.green-circle {
+  width: 10px;
+  height: 10px;
+  background-color: rgb(112, 148, 98);
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-top: 9px;
+  float: left;
+}
+
 .grey-circle {
   width: 10px;
   height: 10px;
@@ -512,6 +522,14 @@ watch(
 
 .blue-label {
   color: rgb(50, 200, 250);
+  width: auto;
+  margin-bottom: 0px;
+  font-weight: 500;
+  min-width: 100px;
+}
+
+.green-label {
+  color: rgb(112, 148, 98);
   width: auto;
   margin-bottom: 0px;
   font-weight: 500;
