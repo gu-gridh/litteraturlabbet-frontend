@@ -4,7 +4,7 @@
 
           <Slider v-model="secondaryNodeNumber" :min="0" :max="1000" :step="50" class="slider-color" tooltipPosition="top"
             @end="recalculateGraph()" lazy="true"></Slider>
-          <div style="margin-top:8px; color:grey;">Max antal indirekta återbruksnoder</div>
+          <div style="margin-top:8px; color:grey;">Max antal indirekta relationsnoder</div>
         </div>
       </div>
 
@@ -24,14 +24,13 @@
     <div class="dropdown">
       <button class="dropbtn">Instruktioner</button>
       <div class="dropdown-content">
-        <div>Håll muspekaren över punkterna för att visa författaren.</div>
-        <div>Klicka på en punkt eller koppling för att göra en sökning.</div>
-        <div>Klicka och dra för att flytta på nätverksvyn.</div>
         <div>Skrolla för att zooma.</div>
-        <div>Grafen visar alltid alla direkta återbruk, det vill säga alla författare som har återbruk med valda
-          författaren.</div>
-        <div>Indirekta återbruk menar författare som inte har återbruk med valda författaren men med författare som har
-          direkta återbruk med valda författaren.</div>
+        <div>Klicka på en författare eller kopplingen <br>
+            mellan två författare för att göra en sökning.</div>
+        <div>Klicka och dra vid sidan av nätverket för att justera vyn, och klicka och dra individuella författare <br>för att organisera om nätverket.</div>
+        
+        <div>Nätverket visar alla <span>direkta återbruk</span>, det vill säga alla författare som har återbruk med valda
+          författaren, samt ett valbart antal <span>Indirekta relationer</span>. Dessa  är författare som inte har direkta återbruk med den valda författaren men istället med andra författare i nätveket.</div>
       </div>
     </div>
   </div>
@@ -409,12 +408,12 @@ watch(
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-  padding: 5px;
+  padding: 10px;
   float: right;
   display: none;
   border-radius: 10px;
   font-size: 16px;
-  min-width: 160px;
+  min-width: 180px;
   text-align: right;
   z-index: 100;
 }
@@ -430,6 +429,11 @@ watch(
   display: block;
   line-height: 1;
   z-index: 100;
+}
+
+.dropdown-content span{
+display:inline;
+font-weight:600;
 }
 
 .dropdown-super:hover .dropdown-content {
