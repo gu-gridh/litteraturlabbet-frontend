@@ -547,7 +547,6 @@ background-color: rgba(255, 255, 255, 0.7);
   color: rgb(100, 100, 100);
   font-weight: 600;
   width: auto;
-  font-weight: 500;
   min-height: 17px;
   min-width: 150px;
 }
