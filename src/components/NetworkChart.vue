@@ -516,7 +516,7 @@ background-color: rgba(255, 255, 255, 0.7);
 
 .red-label {
   color: rgb(180, 100, 100);
-  font-weight: 500;
+  font-weight: 600;
   width: auto;
   margin-bottom: 0px;
   min-height: 17px;
@@ -526,6 +526,7 @@ background-color: rgba(255, 255, 255, 0.7);
 
 .blue-label {
   color: rgb(50, 200, 250);
+  font-weight: 600;
   width: auto;
   margin-bottom: 0px;
   min-height: 17px;
@@ -534,7 +535,7 @@ background-color: rgba(255, 255, 255, 0.7);
 
 .green-label {
   color: rgb(112, 148, 98);
-  font-weight: 500;
+  font-weight: 600;
   width: auto;
   margin-bottom: 0px;
   min-height: 17px;
@@ -544,7 +545,7 @@ background-color: rgba(255, 255, 255, 0.7);
 
 .grey-label {
   color: rgb(100, 100, 100);
-  font-weight: 500;
+  font-weight: 600;
   width: auto;
   font-weight: 500;
   min-height: 17px;
