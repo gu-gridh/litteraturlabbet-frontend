@@ -9,13 +9,13 @@
       </div>
 
   <div class="legend" v-if="props.author">
-    <div class="red-label">
+    <div class="red-label text-shadow">
       <div class="red-circle"></div> {{ authorStore.author?.formatted_name }}
     </div>
-    <div class="green-label">
+    <div class="green-label text-shadow">
       <div class="green-circle"></div>Direkta återbruk
     </div>
-    <div class="grey-label">
+    <div class="grey-label text-shadow">
       <div class="grey-circle"></div>Indirekta relationer
     </div>
   </div>
@@ -464,12 +464,13 @@ font-weight:600;
   position: absolute;
   z-index: 11;
   width: auto;
-  top: 90px;
-  left: 35px;
+  top: 85px;
+  left: 33px;
   font-size: 1.1em;
+  font-weight: 500;
   pointer-events: none;
-  background-color: rgba(255, 255, 255, 0.7);
-  box-shadow: 0px 0px 16px 16px rgba(255, 255, 255, 0.7);
+background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0px 0px 20px 30px rgba(255, 255, 255, 0.7); 
 }
 
 .red-circle {
@@ -515,12 +516,10 @@ font-weight:600;
 
 .red-label {
   color: rgb(180, 100, 100);
-  float: left;
+  font-weight: 500;
   width: auto;
   margin-bottom: 0px;
-  font-weight: 500;
-  min-width: 200px !important;
-  min-height: 27px;
+  min-height: 17px;
 }
 
 
@@ -528,23 +527,28 @@ font-weight:600;
   color: rgb(50, 200, 250);
   width: auto;
   margin-bottom: 0px;
-  font-weight: 500;
-  min-width: 100px;
+  min-height: 17px;
 }
 
 .green-label {
   color: rgb(112, 148, 98);
+  font-weight: 500;
   width: auto;
   margin-bottom: 0px;
-  font-weight: 500;
-  min-width: 100px;
+  min-height: 17px;
+
 }
 
 .grey-label {
   color: rgb(100, 100, 100);
+  font-weight: 500;
   width: auto;
   font-weight: 500;
-  min-width: 100px;
+  min-height: 17px;
+}
+
+.text-shadow{
+padding:3px;
 }
 
 .controls .slider-container {
