@@ -89,7 +89,7 @@ defineProps<{
 
 .cluster-metadata-container:hover {
  transform: scale(1.02);
- background-color:rgb(120, 120, 120)
+ background-color:rgb(92, 128, 78);
  
 }
 
