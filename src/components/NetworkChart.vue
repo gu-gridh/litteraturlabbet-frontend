@@ -30,7 +30,7 @@
         <div>Klicka och dra vid sidan av nätverket för att justera vyn, och klicka och dra individuella författare <br>för att organisera om nätverket.</div>
         
         <div>Nätverket visar alla <span>direkta återbruk</span>, det vill säga alla författare som har återbruk med valda
-          författaren, samt ett valbart antal <span>Indirekta relationer</span>. Dessa  är författare som inte har direkta återbruk med den valda författaren men istället med andra författare i nätveket.</div>
+          författaren, samt ett valbart antal <span>Indirekta relationer</span>. Dessa  är författare som inte har direkta återbruk med den valda författaren men istället med andra författare i nätverket.</div>
       </div>
     </div>
   </div>
