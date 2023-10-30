@@ -1,28 +1,22 @@
 <template>
+  <div class="reuse-container">
   <div class="reuse-list-label">
     <div class="reuse-label">
       <div v-if="authorSelected && !workSelected">
         I verk av
         <span class="author-name">{{ authorSelected?.name }}</span> finner vi
-        {{ clusterCount }} grupper av likartade stycken.
+        <span class="author-name">{{ clusterCount }}</span> grupper av likartade stycken.
       </div>
       <div v-if="workSelected && authorSelected">
         I verket
         <span class="work-title">{{ workTitle }}</span>
         av <span class="author-name">{{ authorSelected?.name }}</span> finner vi
-        {{ clusterCount }} grupper av återbruk.
+        <span class="work-title"> {{ clusterCount }} </span> grupper av återbruk.
       </div>
     </div>
-       <div class="pagination">
-    <v-pagination
-      v-model="page"
-      :pages="pages"
-      :range-size="1"
-      active-color="white"
-      @update:modelValue="onPageChange"
-    />
-  </div>
+  
     </div>
+  </div>
   
 
   <div class="card-container">
@@ -30,16 +24,27 @@
       <cluster-card :cluster="cluster"></cluster-card>
     </div>
   </div>
+  <div class="pagination">
+    <v-pagination
+      v-model="page"
+      class="pagination-numbers"
+      :pages="pages"
+      :range-size="5"
+      active-color="rgb(200,200,200)"
+      @update:modelValue="onPageChange"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
 import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
-import { ref, watch, computed } from "vue";
+import { ref, watch, computed, onMounted, onBeforeUnmount } from "vue";
 import { useRoute } from "vue-router";
 import { list, get } from "@/services/diana";
 import ClusterCard from "@/components/ClusterCard.vue";
 import type { Author, Cluster, Work } from "@/types/litteraturlabbet";
+import { setBusy, setNotBusy } from "./Waiter.vue";
 
 const props = defineProps<{
   author: number;
@@ -67,7 +72,7 @@ async function fetchData(author: number, work?: number) {
   }
 
   if (work) {
-    workSelected.value = await get<Work>(work, "work");
+    workSelected.value = await get<Work>(work, "work/19th_century");
     workTitle.value = workSelected.value.short_title
       ? workSelected.value.short_title
       : workSelected.value.title;
@@ -90,7 +95,23 @@ async function fetchClusters(
     offset: 10 * (page - 1),
   };
 
-  const clusterResults = await list<Cluster>("cluster", params);
+  const clusterResults = await list<Cluster>("cluster", params, 2);
+  
+  clusterResults.results.forEach((cluster) => {
+    let seenSegmentIds = new Set();
+    for (let i = 0; i < cluster.segments.length; i++) {
+      const segment_i = cluster.segments[i];
+      const gid = segment_i.gid;
+      if (seenSegmentIds.has(gid)) {
+        cluster.segments.splice(i, 1);
+        i--;
+      } else {
+        seenSegmentIds.add(gid);
+      }
+    }
+    cluster.size = cluster.segments.length;
+  });
+  clusterResults.results.sort((a, b) => b.size - a.size);
   clusters.value = clusterResults.results;
   clusterCount.value = clusterResults.count;
 }
@@ -106,7 +127,6 @@ async function onPageChange() {
 watch(
   () => props.author,
   async (newAuthor, oldAuthor) => {
-    console.log(newAuthor, oldAuthor);
     await fetchData(props.author, props.work);
   },
   {
@@ -150,6 +170,13 @@ watch(
 //     deep: true,
 //   }
 // );
+onMounted(() => {
+  setNotBusy();
+});
+
+onBeforeUnmount(() => {
+  setBusy();
+});
 </script>
 
 <style scoped>
@@ -158,53 +185,52 @@ watch(
 }
 
 .reuse-container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  width:100%!important;
 }
 
-.reuse-list-label {
-  display: flex;
-  margin-left: 0rem;
-  margin-bottom: 2rem;
-  background-color: white;
+.reuse-list-label { 
+  pointer-events:none;
+  margin-bottom: 1rem;
   color: black;
-  padding: 1rem 1.5rem 1rem 2rem;
+  padding: 1rem;
+  padding-top:1rem;
   border-radius: 0px;
-  flex-direction: row;
-  justify-content: space-between;
-
 }
 
 .reuse-label {
+  pointer-events:none;
+  position:relative;
   line-height: 2.5rem;
-  max-width: 85%;
-  font-size: 17px;
+  font-size: 19px;
+  text-align:center;
+  width:auto;
   line-height:1.5 !important;
 }
 
-.author-name,
-.work-title {
-  background-color: rgb(180,100,100);
-  color: white;
-  padding: 0.2rem 0.5rem 0.3rem 0.5rem;
-  border-radius: 8px;
+.pagination {
+  margin-top:20px;
+  margin-bottom: 1rem;
+  width:100%;
+}
+
+.pagination-numbers {
+  display:flex;
+  flex-direction:row;
+ justify-content:center;
+  width:100%;
 }
 
   @media screen and (max-width: 950px) {
     .reuse-label {
   line-height: 2.5rem;
   font-size: 21px;  
-  max-width: 100%;
 
 }
 .reuse-list-label {
   height: 100%;
-  display: block;
   margin-bottom:30px;
 }
 .pagination {
-  float:right;
   margin-right:30px;
   margin-top:20px;
 }

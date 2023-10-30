@@ -12,11 +12,15 @@
   },
   "dependencies": {
     "@hennge/vue3-pagination": "^1.0.17",
+    "@nexucis/fuzzy": "^0.4.1",
     "@vueform/multiselect": "^2.5.7",
+    "@vueform/slider": "^2.1.7",
     "axios": "^1.2.0",
     "d3": "^7.6.1",
     "force-graph": "^1.42.16",
+    "fuse.js": "^6.6.2",
     "lodash": "^4.17.21",
+    "openseadragon": "^4.1.0",
     "pinia": "^2.0.26",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"

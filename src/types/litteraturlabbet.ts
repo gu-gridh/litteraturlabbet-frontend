@@ -17,6 +17,7 @@ interface Count {
 }
 
 interface Author extends AbstractBase {
+  id: number;
   gender: string;
   lbauthorid: string;
   normalized_lbauthorid: string;
@@ -30,7 +31,7 @@ interface Author extends AbstractBase {
 interface Page extends AbstractBase {
   uuid: string;
   text: string;
-  work: number | Work;
+  work: Work;
   number: number;
   excerpts: string;
 }
@@ -41,14 +42,14 @@ interface Work extends AbstractBase {
   modernized_title: string;
   lbworkid: string;
   librisid: string;
-  main_author: number | Author;
+  main_author: Author;
   edition: string;
   language: string;
   imprint_year: number;
   sort_year: number;
   word_count: number;
-  authors: Array<number | Author>;
-  pages: Array<number | Page>;
+  authors: Array<Author>;
+  pages: Array<Page>;
 }
 
 interface Cluster extends AbstractBase {
@@ -63,10 +64,22 @@ interface Segment extends AbstractBase {
   ew: number;
   begin: number;
   end: number;
-  cluster: number | Cluster;
-  page: number | Page;
+  cluster: Cluster;
+  page: Page;
   text: string;
-  series: string;
+  series: Work;
+  author: Author;
+}
+
+interface AlignedSegment extends AbstractBase {
+  uid: string;
+  gid: string;
+  bw: number;
+  ew: number;
+  begin: number;
+  end: number;
+  page: number | Page;
+  segment: number | Segment;
 }
 
 type Litteraturlabbet = Author | Work | Page | Cluster | Segment;
@@ -82,4 +95,5 @@ export type {
   Litteraturlabbet,
   PaginatedLitteraturlabbet,
   Count,
+  AlignedSegment
 };

@@ -1,0 +1,386 @@
+/*CSS here will be used by any file that has added the stylesheet*/
+
+/* CSS - Cascading Style Sheet */
+
+
+
+/* Main */
+html,
+body {
+  height: calc(100% - 0px) !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding:0px !important;
+  background-color:black;
+  font-family: "Barlow Condensed", sans-serif !important;
+
+  /* background: linear-gradient(
+    to right,
+    rgb(80, 57, 108) 0%,
+    rgb(168, 107, 75) 50%,
+    rgb(255, 144, 39) 100%
+  ) !important;  */
+}
+
+.super-container{
+  background-color: rgb(112, 148, 98) !important;
+  box-shadow: inset 0em 0em 10em rgb(0,0,0,0.5);
+}
+
+/* .bgmask {
+  width: 100%;
+  height: 2000px;
+  background: url("@/assets/lbbgmask.png");
+  background-color: rgb(112, 148, 98);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  opacity: 1.0;
+  position: absolute;
+  margin-top: calc(105% - 2000px);
+} */
+
+a:link {
+  color: black;
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+  color: black;
+  text-decoration-style: none;
+}
+
+#app {
+  height: inherit;
+  width: inherit;
+  padding: 0 0 0 0 !important;
+  margin: 0 0 0 0 !important;
+  /* display: flex !important; */
+}
+
+
+/* General structure of the layout */
+.top {
+  float: left;
+  width: 100% !important;
+  padding-bottom: 40px;
+}
+
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  width: 100%;
+  padding-bottom: 130px;
+}
+
+
+.right-view-container {
+  width: calc(100% - 0px) !important;
+  padding-right: 50px !important;
+  height: auto !important;
+}
+
+
+.left-column {
+  float: left;
+  height: calc(100% -0px);
+  width: 30%;
+  min-width: 350px;
+  padding-left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.search-container {
+  margin-left: 0px;
+  width: 100%;
+  height: calc(100% - 0px);
+  background-color: rgb(255, 255, 255, 0.8);
+  border-radius: 12px 0px 0px 12px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: space-between;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+  z-index: 1;
+}
+
+.search-container:hover {
+  background-color: rgb(255, 255, 255, 0.85);
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  min-width: 600px;
+  width: 70%;
+  height: auto;
+}
+
+.right-view-container {
+  width: 85%;
+  margin: auto;
+}
+
+.right-view-container-content {
+  background-color: white;
+  border-radius: 12px;
+  background-color: white;
+  border-radius: 0px 12px 12px 0px;
+  min-height: 610px;
+  overflow: hidden;
+  padding-bottom: 0px;
+  z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+}
+
+
+/* The stuff in the top (logos ans links) */
+
+.lb-logo-container {
+  float: left;
+  pointer-events: none;
+  margin-top: 50px;
+  margin-left: 50px;
+  width: 250px;
+  height: 250px;
+  background-size: contain !important;
+  background-repeat: no-repeat;
+  z-index: 1;
+  transition: all 0.2s ease-in-out;
+  background-image: url("../src/assets/lblogowhite.png");
+}
+
+.nav-content {
+  float: left;
+  border-style: solid;
+  border-width: 0px 0px 0px 1px;
+  border-color: white;
+  height: auto;
+  margin-left: -20px;
+  color: black;
+  top: 140px;
+  font-size: 18px !important;
+  padding: 0px 0px 0px 20px !important;
+  text-align: left;
+  font-size: 30px !important;
+  line-height: 0.8 !important;
+  font-family: 'Cormorant Garamond', serif !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+.nav-item {
+  display: block !important;
+  width: auto !important;
+}
+
+.nav-link {
+  float:left;
+  font-family: 'Cormorant Garamond', serif !important;
+  color: white !important;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: auto !important;
+}
+
+.nav-ornament {
+  float:left;
+  margin-left:10px;
+  width:26px;
+  height:26px;
+  background:url("../src/assets/leaf.svg");
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:0px 10px;
+  opacity:0.0;
+  transition: all 0.5s ease-in-out;
+}
+
+.nav-link:hover {
+  background-color: transparent;
+  opacity: 0.5;
+}
+
+.nav-item:hover .nav-ornament {
+  background-color: transparent;
+  opacity: 1.0;
+}
+
+.back-button {
+  padding: 3px 5px 3px 25px;
+  font-size: 18px;
+  font-weight: 500;
+  text-align: center;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  height: auto;
+  width: 105px;
+  margin: 30px;
+  margin-left: 2.4em;
+  background-color: rgb(150, 150, 150);
+  background-image: url("../src/assets/interface/linkbuttonboldwhite.png") !important;
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: 4px 3px;
+}
+
+.back-button:hover {
+  background-color: rgb(120, 120, 120);
+}
+
+.author-name,
+.work-title {
+  background-color: rgb(180, 100, 100);
+  color: white;
+  padding: 0.2rem 0.5rem 0.3rem 0.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+button {
+  color: black;
+  overflow: hidden;
+}
+
+
+.module-title {
+  font-family: "Cormorant Garamond", serif;
+  pointer-events: none;
+  font-size: 1.5em !important;
+  letter-spacing: -3px;
+  padding-left: 35px;
+  margin-top: 0px;
+  font-size: 30px;
+  line-height: 0.9;
+  text-align: left;
+  color: black;
+}
+
+.module-content {
+  color: black;
+  font-size: 18px;
+  padding: 50px 40px 20px 35px;
+  text-align: justify;
+  line-height: 1.15;
+}
+
+.littlabbinfo {
+  min-width: 10px !important;
+  text-align: left;
+ font-size:1.2em;
+ padding-top:10px;
+  padding-left:45px;
+  color: black;
+  margin-top: 0px;
+  pointer-events: none;
+}
+
+/* For mobile screens */
+@media screen and (max-width: 950px) {
+  .lb-logo-container {
+    width: 180px;
+    height: 180px;
+  }
+
+  .search-container {
+    border-radius: 12px 12px 0px 0px !important;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+  }
+  .nav-content {
+   top:100px;
+   margin-left: 10px;
+   z-index:100;
+  }
+
+  .nav-link {
+    font-size: 30px !important;
+    padding: 0rem 0.5rem 0rem 0.5rem;
+    margin-right: 0.25rem;
+    border-radius: 10px;
+  }
+
+  .select-label {
+    font-size: 25px !important;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .count-label {
+    font-size: 25px !important;
+  }
+
+  .multiselect {
+    --ms-font-size: 2.2rem;
+    --ms-option-font-size: 1.8rem;
+  }
+
+  .search-button {
+    font-size: 35px;
+    color: white;
+    background-color: rgb(180, 80, 80);
+    border-color: none !important;
+    border-radius: 10px;
+    border: 0px solid transparent !important;
+    margin-bottom: 1.5rem;
+    position: absolute;
+    margin-left: -30px;
+  }
+
+  .main-container {
+    display: block;
+    padding: 0px 60px 120px 60px;
+  }
+
+  .left-column {
+    padding-left: 0px;
+    height: auto;
+    width: 100%;
+    display: block;
+    min-width: 600px;
+  }
+
+  .right-column {
+    width: 100% !important;
+    height: auto;
+    display: block;
+  }
+
+  .right-view-container {
+    width: calc(100%) !important;
+    padding-right: 0px !important;
+    padding-bottom: 130px !important;
+    margin-top: 0px !important;
+    height: auto !important;
+  }
+
+  .right-view-container-content {
+    border-radius: 0px 0px 12px 12px;
+    width: 100% !important;
+    overflow: hidden;
+    padding-bottom: 0px;
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+  }
+
+  .back-button {
+    padding: 0px 5px 2px 25px !important;
+    font-size: 26px !important;
+    width: 135px !important;
+    background-position: 8px 8px;
+  }
+}

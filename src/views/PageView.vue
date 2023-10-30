@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <div class="back-button" onclick="history.back()">Tillbaka</div>
+    <div class="back-button" @click="customBack()">Tillbaka</div>
     <div class="page-container">
       <div class="title-container">
         <div class="title">
@@ -14,6 +14,7 @@
 </template>
 
 <script setup lang="ts">
+import { setBusy } from "@/components/Waiter.vue";
 import { get } from "@/services/diana";
 import type {
   Author,
@@ -21,6 +22,7 @@ import type {
   Work,
   Segment,
 } from "@/types/litteraturlabbet";
+import { onBeforeUnmount } from "vue";
 
 const props = defineProps<{
   id: number;
@@ -35,8 +37,6 @@ console.log(props.segment);
 if (props.segment) {
   const segment = await get<Segment>(props.segment, "segment");
 
-  console.log(segment.text);
-
   text = text.replace(
     segment.text,
     `<span class="highlight">${segment.text}</span>`
@@ -44,6 +44,15 @@ if (props.segment) {
 
   console.log(text);
 }
+
+function customBack() {
+    setBusy();
+    history.back()
+  }
+
+  onBeforeUnmount(() => {
+    setBusy();
+  });
 </script>
 
 <style>
@@ -57,19 +66,7 @@ if (props.segment) {
   height: 80%;
 }
 
-.back-button {
-  padding: 5px;
-  font-size: 16px;
-  text-align: center;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  height: auto;
-  width: 80px;
-  margin: 20px;
-  margin-left: 3em;
-  background-color: black;
-}
+
 
 .page-container {
   margin-left: 3rem;

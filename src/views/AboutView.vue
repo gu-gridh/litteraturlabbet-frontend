@@ -1,22 +1,33 @@
 <template>
 <div class="about-container">
   <div class="about">
-   <div class="about-title">
-      <h1>Om verktyget</h1>
+   <div class="module-title">
+      <h1>Om laboratoriet</h1>
          </div>
-         <div class="about-content">
- Verktyget utvecklas av <a href="https://dh.gu.se">Centrum för Digital Humaniora</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a>. 
- Primära utvecklare har varit Victor Wåhlstrand Skärström (textåterbruk), Aram Karimi (ordvektorer) och Jonathan Westin (användargränssnitt). 
- Första versionen publicerades i december 2022. Kodbasen finns att hämta på GitHub: <a href="https://github.com/CDH-DevTeam">https://github.com/CDH-DevTeam</a>
-<br>
-<br>
-Välj en författare med hjälp av sökfältet till vänster. Vill du undersöka ett visst verk så välj det från den undra menyn. Klicka sedan på sök. Du kan också göra en sökning på samtliga verk i databasen genom att lämna sökfälten fria när du klickar på sök.
+         <div class="module-content">
+            Här kan du analysera verken från Litteraturbankens 1800-talsmaterial med olika verktyg. 
+ I dagsläget erbjuder vi verktygen <i>Textåterbruk</i>, för att hitta liknande textstycken, 
+ samt <i>Grafiska element</i> för att undersöka verkens visuella uttryck. Under projektets gång kommer Litteraturlaboratoriet att utvecklas med fler verktyg, 
+ samt optimeringar av datan från Litteraturbanken.
+ <br> <br>
+ Verktygen utvecklas av <a href="https://dh.gu.se">Göteborgs Forskningsinfrastruktur för Digital Humaniora (GRIDH)</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a>. 
+ Primära utvecklare har varit Victor Wåhlstrand Skärström, Aram Karimi, David Alfter, Kristin Åkerlund, Tristan Bridge, Ashely Green, Siska Humlesjö och Jonathan Westin. 
+ Första versionen publicerades i augusti 2023. Kodbasen finns att hämta på GitHub: <a href="https://github.com/gu-gridh/">https://github.com/gu-gridh/</a>
+ <br> <br>
+ Verktyget <i>Textåterbruk</i> använder sig av <i><a href="https://github.com/dasmiq/passim">Passim</a></i>, utvecklat av David Smith, för att upptäcka liknande fraser.
 
          </div>
            </div>
            </div>
 </template>
+<script setup lang="ts">
+import { setNotBusy } from '@/components/Waiter.vue';
+import { onMounted } from 'vue';
 
+onMounted(() => {
+  setNotBusy();
+});
+</script>
 <style scoped>
 
 a:link{
@@ -41,9 +52,9 @@ cursor:pointer !important;
   }
 
        .about{
-   
+   padding:80px 50px;
     width:100%;
-         padding:50px;
+        
   }
 
   
@@ -51,16 +62,16 @@ cursor:pointer !important;
        font-family: 'Cormorant Garamond', serif;
        letter-spacing: -3px;
     margin-top:10px;
-    font-size:30px;
+    font-size:25px;
     line-height:0.9;
-       text-align:center;
+       text-align:left;
       width:100%;
   }
 
     .about-content{
 color:black!important;
      font-size:18px;
-padding:30px 30px 10px 30px;
+padding:30px 30px 10px 10px;
           text-align:justify;
          line-height:1.15;
                width:100%;

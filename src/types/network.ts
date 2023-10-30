@@ -3,6 +3,8 @@ interface Link {
   target: number;
   weight?: number;
   color?: string;
+  name?: string;
+  dashed?: boolean;
 }
 
 type NodeType<T> = {

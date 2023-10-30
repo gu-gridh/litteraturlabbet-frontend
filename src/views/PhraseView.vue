@@ -1,6 +1,6 @@
 <template>
     <div class="card-container">
-      <div class="back-button" @click="customBack()">Tillbaka</div>
+      <div class="back-button" @click="customBack()">Tillbaka</div> Klicka på ett stycke för att se hela texten hos Litteraturbanken.se
   
       <div v-if="isEmpty" class="page-container">
           <b>Inga träffar för frasen <i>{{ props.phrase }}</i>.</b>

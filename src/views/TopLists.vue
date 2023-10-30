@@ -4,6 +4,7 @@ import type { Work, Author } from "@/types/litteraturlabbet";
 import { getByLbId, get } from "@/services/diana";
 import { ref } from 'vue';
 import router from '@/router/index'
+import { setBusy } from "@/components/Waiter.vue";
 
 const topTitles = ref(topList.titles.slice(0,10))
 const topAuthors = ref(topList.authors.slice(0,10))
@@ -23,21 +24,22 @@ const topAuthors = ref(topList.authors.slice(0,10))
 
 
     const goToAuthor = (id: number) => {
-        router.push({ name: 'reuse', query: { author: id } }).then(() => { router.go(0) })
+      setBusy();
+        router.push({ name: 'reuse2', params: { author: id } }); //.then(() => { router.go(0) })
     }
     const goToWork = (id: number) => {
+      setBusy();
         get<Work>(id, "work")
             .then((a: any) => {
-                console.log(a)
-                const authorId = a.authors[0]
-                router.push({ name: 'reuse', query: { work: id, author: authorId } }).then(() => { router.go(0) })
+                const authorId = a.main_author
+                router.push({ name: 'reuse2', params: { work: id, author: authorId } }); //.then(() => { router.go(0) })
             })
     }
 
 </script>
 
 <template>
-   <h1 style="padding-left:40px; padding-bottom:10px;">Ofta förekommande återbruk</h1>
+   <h1 style="">Ofta förekommande återbruk</h1>
     <div class="topLists">
       <div class="list-left">
         <ol>
@@ -62,7 +64,25 @@ const topAuthors = ref(topList.authors.slice(0,10))
 
 <style scoped>
 
+h1{
+  font-family: "Cormorant Garamond", serif;
+  font-weight:400;
+  padding-left:35px; 
+  padding-bottom:5px;
+  padding-top:15px;
+  letter-spacing: -2px;
+  color:black !important;
+}
+
+h2{
+  font-family: "Cormorant Garamond", serif;
+  font-weight:300;
+  color:black;
+  letter-spacing: -2px;
+  padding-bottom:5px;
+}
 .topLists {
+  color:black !important;
   display: flex;
   padding-right:20px;
   padding-bottom:30px;

@@ -1,103 +1,112 @@
 <template>
   <footer id="footer">
-    <div id="CDHLogo" style="margin-left:40px;margin-top:0px; width:210px;padding: 20px 0px 30px 0px; border-style:solid; border-width:0px 0px 0px 0px; border-color:white;">Centre<br><span class="logo-for">for</span>Digital <br>Humanities</div>
-    
-    <div id="SuperContainer">
-      
-      <div class="container" style="width: 250px; height: 100%">
-        
-      </div>
+    <a href="http://www.litteraturbanken.se/">
+      <div id="PartnerLogo">LB</div>
+    </a>
+    <a href="https://dh.gu.se/">
+      <div id="CDHLogo">#GRIDH +</div> 
+    </a> 
+   
+    <!-- <div id="citation"> 
+      Citera portalen: Humlesjö, Siska, Åhlfeldt, Johan, Strinnholm, Anders <i>et al.</i> (2023).<br>
+      <i>Göteborgs jubileum 1923</i>, v.1.0 GRIDH. https://jubileet1923.dh.gu.se/. Accessed [datum]<br>
+      </div> -->
 
-      <div class="CitateContainer">
-        <div>
-         
-        </div>
-
-        <div style="padding-top: 0.8rem">
-          <div></div>
-          <div>
-           
-          </div>
-        </div>
-      </div>
-    </div>
+      <div id="legal"> 
+      Bilder: <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv">CC0 1.0</a><br>
+      Texter: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+</div>
   </footer>
 </template>
 
-<script>
-export default {};
+<script setup lang="ts">
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 #footer {
-  float: left;
-  background-color: rgb(0,0,0,0.0);
+  background-color: #222;
   color: white;
-  line-height: 1.3;
+  line-height: 1;
+  height: 80px;
+  width: calc(100% + 2px);
+  font-size: 12px;
+  position: fixed;
+  z-index: 3000;
+  bottom: 0px;
+  font-family: "Barlow Condensed", sans-serif;
+}
+
+a {
+  font-weight: normal;
+  color:white!important;
+}
+
+a:visited{
+  color:white!important;
+}
+
+#CDHLogo {
+  color:white;
+  float: right;
+  margin-top: 0px;
+  margin-right:10px;
+  width: auto;
   height: auto;
-  width: 100%;
-  font-size: 18px;
-overflow:hidden;
-}
-#SuperContainer {
-  float: left;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  text-align: left;
+  font-weight: 100;
+  font-style: normal;
+  font-size: 57px;
+  line-height: 0.4;
+  padding: 25px 0px 10px 0px;
+  vertical-align: middle;
 }
 
-.container {
+#PartnerLogo {
+  color:white;
+  float: right;
+  margin-top: 0px;
+  margin-right: 50px;
+  width: auto;
+  height: auto;
+  text-align: left;
+  font-weight: 100;
+  font-style: normal;
+  font-size: 57px;
+  line-height: 0.4;
+  padding: 25px 0px 10px 0px;
+  vertical-align: middle;
+}
+
+#citation {
+  float: right;
+  margin-right: 20px;
+  width: 500px;
+  height: auto;
+  text-align: right;
+  font-weight: 200;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1.3;
+  padding-right:20px;
+  margin-top:23px;;
+  vertical-align: middle;
+  border-style:solid;
+  border-width:0 0.5px 0 0px;
+  border-color:white;
+}
+
+#legal{
+  color:white;
   float: left;
   margin-left: 50px;
+  width: 200px;
+  height: auto;
+  text-align: left;
+  font-weight: 200;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1.3;
+  margin-top:23px;;
+  vertical-align: middle;
 }
-
- #CDHLogo {
-   float:right;
-
-      	margin-right:0px;
-            width: auto;
-            height: auto;
-            text-align: left;
-            font-weight: 100;
-            font-style: normal;
-            font-size: 45px;
-            line-height: 0.8;
-            padding: 30px 0px 30px 0px;
-            vertical-align: middle;
-            font-family: 'Barlow Condensed', sans-serif;
-
-        }
-
-        .logo-for{
-         font-family: 'Clicker Script', cursive; 
-         font-size:25px;  
-         vertical-align:50%;
-        }
-
-.CitateContainer {
-  float: left;
-  max-width: 320px;
-  margin-left: 50px;
-  border-style: solid;
-  border-width: 0 0px 0 0px;
-  border-color: white;
-  padding: 0.3rem 0px 0px 50px;
-}
-
-
-
-@media screen and (max-width: 950px) {
-
-  #CDHLogo {
-    float:left;
-left:calc(30px);
-            font-size: 65px;
-        }
-
-          .logo-for{
-         font-size:35px;  
-         vertical-align:50%;
-        }
-}
-
-
 </style>

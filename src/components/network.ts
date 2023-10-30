@@ -4,7 +4,6 @@ import * as d3 from "d3";
 
 export function forceGraph(ref: Ref, items: Items, options: Options) {
   // Compute values.
-  console.log('ref:', ref)
   const nodes = items.nodes;
   const links = items.links;
   console.log(items)
@@ -134,6 +133,7 @@ export function forceGraph(ref: Ref, items: Items, options: Options) {
 
     return `${title}`;
   });
+
 
   link.append("title").text((d: any) => {
     const title = d.weight;

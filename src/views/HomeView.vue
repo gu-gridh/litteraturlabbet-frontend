@@ -4,11 +4,21 @@
       <h1>Välkommen till<br>Litteraturlaboratoriet</h1>
          </div>
          <div class="home-content">
- Här kan du analysera verken från Litteraturbanken med olika verktyg. I dagsläget erbjuder vi verktygen <b>Textåterbruk</b>, för att hitta liknande textstycken, samt <b>Ordvektorer</b> som visar på relationer mellan ord. Under projektets gång kommer Litteraturlaboratoriet att utvecklas med fler verktyg, samt optimeringar av datan från Litteraturbanken.
+ Här kan du analysera verken från Litteraturbanken med olika verktyg. 
+ I dagsläget erbjuder vi verktyget <b>Textåterbruk</b>, för att hitta liknande textstycken. 
+ Under projektets gång kommer Litteraturlaboratoriet att utvecklas med fler verktyg, 
+ samt optimeringar av datan från Litteraturbanken.
          </div>
     </div>
   </template>
-  
+  <script setup lang="ts">
+import { setNotBusy } from '@/components/Waiter.vue';
+import { onMounted } from 'vue';
+
+  onMounted(() => {
+    setNotBusy();
+  });
+</script>
   <style>
 
   .home {
@@ -22,7 +32,7 @@ padding:50px;
   .home-title{
        font-family: 'Cormorant Garamond', serif;
        letter-spacing: -3px;
-    margin-top:30px;
+    margin-top:80px;
     font-size:30px;
     line-height:0.9;
        text-align:center;
@@ -33,7 +43,7 @@ padding:50px;
 
     .home-content{
       color:black;
-     font-size:18px;
+     font-size:20px!important;
      padding:30px;
           text-align:justify;
          line-height:1.15;

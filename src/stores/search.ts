@@ -1,6 +1,5 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import type { Ref } from "vue";
 import type {
   Work,
   Page,
@@ -12,12 +11,13 @@ import type {
 export const searchStore = defineStore("search", {
   state: () => {
     const author = ref<Author | undefined>(undefined);
+    const author2 = ref<Author | undefined>(undefined);
     const work = ref<Work | undefined>(undefined);
     const page = ref<Page | undefined>(undefined);
     const cluster = ref<Cluster | undefined>(undefined);
     const segment = ref<Segment | undefined>(undefined);
-
-    return { author, work, page, cluster, segment };
+    const phrase = ref<string | undefined>(undefined);
+    return { author, author2, work, page, cluster, segment, phrase };
   },
   getters: {
     paramsPath(state) {
@@ -29,6 +29,10 @@ export const searchStore = defineStore("search", {
 
       if (state.work) {
         path += `&work=${state.work.id}`;
+      }
+
+      if (state.phrase) {
+        path += "&phrase=" + state.phrase;
       }
 
       return path;
