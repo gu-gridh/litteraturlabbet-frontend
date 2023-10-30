@@ -362,7 +362,9 @@ function onClearAuthor1(event: undefined) {
   countWorks();
   workSelect.value.clearSearch();
   workSelect.value.refreshOptions();
+  onClearAuthor2(event);
 }
+
 function onClearAuthor2(event: undefined) {
   store.author2 = undefined;
   store.work = undefined;
