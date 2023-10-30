@@ -245,10 +245,10 @@ async function triggerSearch() {
     return;
   }
   const searchQueryWords = searchQuery.value.split(" ");
-  if (searchQueryWords.length < 1) {
+  if (searchQueryWords.length < 2) {
     setNotBusy();
     errorMessage.value = true;
-    phraseErrorMessage.value = "Sökfrasen måste innehålla minst ett ord.";
+    phraseErrorMessage.value = "Sökfrasen måste innehålla minst två ord.";
     return;
   }
   errorMessage.value = false;
