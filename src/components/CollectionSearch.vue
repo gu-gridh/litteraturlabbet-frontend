@@ -159,6 +159,8 @@ const currentAuthor = ref(-1);
 const currentAuthor2 = ref(-1);
 const currentWork = ref(-1);
 
+let author2changed = false;
+
 function handleBackspace(event: KeyboardEvent) {
   if (event.key === "Backspace") {
     if (searchQuery.value.length === 0) {
@@ -218,10 +220,12 @@ async function triggerSearch2() {
       }
     } else {
       if (currentWork.value < 0) { 
+        if (!author2changed) {
         setNotBusy();
         errorMessage.value = true;
         phraseErrorMessage.value = "Du har redan sökt efter den här författaren.";
         return;
+      }
       }
     }
   }
@@ -319,6 +323,9 @@ async function onSelectAuthor2(value: Author, select$: any) {
   searchQuery.value = "";
   hasQuery.value = false;
   store.phrase = undefined;
+  if (store.author2 !== value) {
+    author2changed = true;
+  }
 }
 
 async function onSelectWork(value: Work, select$: any) {
@@ -361,6 +368,7 @@ function onClearAuthor2(event: undefined) {
   store.work = undefined;
   workSelect.value.clearSearch();
   workSelect.value.refreshOptions();
+  author2changed = true;
 }
 
 function onClearWork(event: undefined) {
