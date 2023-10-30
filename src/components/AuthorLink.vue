@@ -100,7 +100,7 @@ onBeforeUnmount(() => {
          <div style="width:100%; "> <div class="back-button" @click="customBack()">Tillbaka</div> </div>
 
         <h2>Textåterbruk mellan <span class="author-name">{{ author1.name }}</span> och <span class="author-name">{{ author2.name }}</span></h2>
-        <div class="littlabbinfo">Klicka på ett stycke för att se hela texten på Litteraturbanken.se</div>
+        <div class="littlabbinfo">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
         <div class="link-container">
         <Suspense>
             <segment-pair-card v-for="segmentpair in segments" v-bind:key="segmentpair[0].id" :segment1="segmentpair[0]" :segment2="segmentpair[1]"></segment-pair-card>
