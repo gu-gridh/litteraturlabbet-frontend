@@ -3,7 +3,7 @@
         <!--Chronograph for author {{ props.author }}
         <button @click="debug()">Click to debug</button>-->
         <Suspense>
-          <!--
+          
             <div class="chronoline" id="draggable">
                 <div v-for="y in byYear">
                     <div class="chronoheader">
@@ -15,7 +15,8 @@
                     </div>
                 </div>
             </div>
-          -->
+          
+          <!--
           <table>
             <thead>
                 <tr>
@@ -30,6 +31,7 @@
                 </tr>
             </tbody>
         </table>
+        -->
             <template #fallback>
                 <div>Loading...</div>
             </template>
