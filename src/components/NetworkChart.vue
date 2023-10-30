@@ -519,8 +519,9 @@ background-color: rgba(255, 255, 255, 0.7);
   font-weight: 600;
   width: auto;
   margin-bottom: 0px;
-  min-height: 17px;
+  min-height: 33px;
   min-width: 150px;
+  float:left;
 }
 
 
