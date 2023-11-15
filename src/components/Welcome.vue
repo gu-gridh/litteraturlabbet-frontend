@@ -9,7 +9,7 @@
 
 <div style="margin-top:00px;font-size:1.2em;">Analytiska verktyg </div>
 <router-link to="/reuse/"  class="tool">Textåterbruk</router-link>
-<router-link to="/gallery"  class="tool">Grafiska Element</router-link>
+<router-link to="/gallery/"  class="tool">Grafiska Element</router-link>
 
 <div style="margin-top:80px;">
 <p>Totalt <p class="work-emph">{{ workCount }}</p> verk i samlingen.</p>
