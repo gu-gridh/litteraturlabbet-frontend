@@ -4,8 +4,7 @@
       <div class="back-button" @click="customBack()">Tillbaka</div>
       <div class="change-order">
         <label for="order">Sortera efter:</label>
-        <br/>
-        <select v-model="order" @change="update()">
+        <select class="dropdown" v-model="order" @change="update()">
           <option value="year">År</option>
           <option value="author">Författare</option>
         </select>
@@ -123,6 +122,8 @@ function update() {
 </script>
 
 <style scoped>
+
+
 .top-row {
   display: flex;
   flex-direction: row;
@@ -133,6 +134,25 @@ function update() {
 .change-order {
   margin-left: 20px;
   float: right;
+  color:black;
+  padding-right:40px;
+}
+
+.dropdown {
+    color: white;
+    border-radius: 5px;
+    padding: 4px 10px;
+    padding-right: 30px;
+    margin-left:10px;
+    width: auto;
+    height: auto;
+    background-image: url("@/assets/dropdown-arrow.png");
+    background-size: 10px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) 55%;
+    background-color:rgb(180,100,100);
+    -webkit-appearance: none;
+    /* text-transform: capitalize; */
 }
 .card-container {
   height: 80%;
