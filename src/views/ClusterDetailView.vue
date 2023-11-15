@@ -136,14 +136,16 @@ function update() {
   float: right;
   color:black;
   padding-right:40px;
+
 }
 
 .dropdown {
+  font-size:1em;
     color: white;
     border-radius: 5px;
     padding: 4px 10px;
     padding-right: 30px;
-    margin-left:10px;
+    margin-left:5px;
     width: auto;
     height: auto;
     background-image: url("@/assets/dropdown-arrow.png");
