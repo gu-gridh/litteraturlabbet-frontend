@@ -4,9 +4,9 @@
 
 /* Color palette */
 :root{
-  --theme-main-background: 		     rgb(112, 148, 98); /* This is the bakground color */
-  --theme-main-background-dark:    rgb(92, 128, 78); /* This is the bakground color but darker */
+  --theme-main-background: 		     rgb(112, 148, 98); /* This is the background color */
+  --theme-main-background-dark:    rgb(92, 128, 78); /* This is the background color but darker */
   --theme-accent-color: 			    rgb(180, 100, 100); /* This is the main accent color */
-  --theme-accent-color-dark: 			rgb(160, 80, 80); /* This the main accent colour but darker */
-  --theme-accent-color-light: 			rgb(200, 120, 120); /* This is for accent hover but lighter */
+  --theme-accent-color-dark: 			rgb(160, 80, 80); /* This is the main accent color but darker */
+  --theme-accent-color-light: 			rgb(200, 120, 120); /* This is the main accent color but lighter */
 }
