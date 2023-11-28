@@ -152,7 +152,7 @@ function update() {
     background-size: 10px;
     background-repeat: no-repeat;
     background-position: calc(100% - 10px) 55%;
-    background-color:rgb(180,100,100);
+    background-color:var(--theme-accent-color);
     -webkit-appearance: none;
     /* text-transform: capitalize; */
 }

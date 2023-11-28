@@ -487,8 +487,8 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 }
 
 .sliderColor {
-  --slider-connect-bg: rgb(180, 100, 100);
-  --slider-tooltip-bg: rgb(180, 100, 100);
+  --slider-connect-bg: var(--theme-accent-color);
+  --slider-tooltip-bg: var(--theme-accent-color);
   --slider-tooltip-font-size: 0.65em;
   --slider-tooltip-py: 5px;
   --slider-tooltip-px: 6px;
@@ -510,7 +510,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   text-align: center;
   margin-bottom: 1rem;
   border-style: dotted;
-  border-color: rgb(180, 100, 100);
+  border-color: var(--theme-accent-color);
   border-width: 1px 0 0 0;
   margin-top: 2rem;
   padding: 2rem 0 0 0;
@@ -530,7 +530,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   padding: 0.25rem 1rem;
   font-size: 25px;
   color: white;
-  background-color: rgb(180, 100, 100);
+  background-color: var(--theme-accent-color);
   border-color: none !important;
   border-radius: 10px;
   border: 0px solid transparent !important;
@@ -546,7 +546,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   display: inline;
   font-size: 25px;
   color: white;
-  background-color: rgb(180, 100, 100);
+  background-color: var(--theme-accent-color);
   border-color: none !important;
   border-radius: 10px;
   border: 0px solid transparent !important;
@@ -569,7 +569,7 @@ button:hover {
 
 .search-button:hover {
   transform: scale(1.05);
-  background-color: rgb(140, 80, 80) !important;
+  background-color: var(--theme-accent-color-dark) !important;
 
 }
 
@@ -581,7 +581,7 @@ button:hover {
   --ms-font-size: 1.3rem;
   --ms-radius: 8px;
   --ms-option-color-pointed: black;
-  --ms-option-bg-selected: rgb(180, 100, 100);
+  --ms-option-bg-selected: var(--theme-accent-color);
   --ms-option-font-size: 1.2rem;
   --ms-option-line-height: 1.375;
   --ms-option-bg-pointed: rgb(230, 230, 230);
@@ -590,7 +590,7 @@ button:hover {
   --ms-option-color-selected: #fff;
   /*--ms-option-bg-disabled: black;*/
   --ms-option-color-disabled: #d1d5db;
-  --ms-option-bg-selected-pointed: rgb(180, 100, 100);
+  --ms-option-bg-selected-pointed: var(--theme-accent-color);
   --ms-option-color-selected-pointed: #ffffff;
   --ms-option-bg-selected-disabled: black;
   --ms-option-color-selected-disabled: #d1fae5;
@@ -598,7 +598,7 @@ button:hover {
 
 .connection {
   border-style: dotted;
-  border-color: #b91818;
+  border-color: var(--theme-accent-color-dark);
   border-image-source: url(@/assets/dots.svg);
   border-image-slice: 100% 25%;
   border-image-repeat: round;
@@ -611,7 +611,7 @@ button:hover {
 }
 
 .errormessage {
-  color: darkred;
+  color: var(--theme-accent-color-dark);
   font-weight: bold;
   margin-left: 5px;
 }

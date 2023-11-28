@@ -185,7 +185,7 @@ type ChronoData = {
 
  .chronoitem-current {
     font-weight: bold;
-    color: red;
+    color: var(--theme-accent-color);
  }
 
  /* width */
@@ -201,7 +201,7 @@ type ChronoData = {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: red;
+  background: var(--theme-accent-color);
   border-radius: 1px;
 }
  </style>

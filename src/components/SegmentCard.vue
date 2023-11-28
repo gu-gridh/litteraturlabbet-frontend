@@ -3,7 +3,7 @@
     <div class="segment-card">
       <div class="segment-metadata-container">
         <p class="segment-card-title author-title">{{ author.formatted_name }}</p>
-        <p class="segment-card-title" style="font-style:italic; font-size:1.2em;" :title="work.title">{{ work.short_title ? work.short_title : work.title }} <p style="font-style:normal; display:inline; color:rgb(200,60,60); margin-left:10px; font-size:1.5em;top:3px;">{{ work.imprint_year }}</p></p>
+        <p class="segment-card-title" style="font-style:italic; font-size:1.2em;" :title="work.title">{{ work.short_title ? work.short_title : work.title }} <p style="font-style:normal; display:inline; color:var(--theme-accent-color); margin-left:10px; font-size:1.5em;top:3px;">{{ work.imprint_year }}</p></p>
         
       </div>
       <!-- <router-link
@@ -115,7 +115,7 @@ onMounted(() => {
   flex-direction: row;
   justify-content: space-between;
   border-style:dotted;
-  border-color:rgb(220,100,100);
+  border-color:var(--theme-accent-color-light);
   border-width:0 0 1px 0px;
   line-height: 1.5em;
  

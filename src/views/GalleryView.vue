@@ -73,11 +73,11 @@ onMounted(() => {
   background-color:rgb(230,230,230);
 }
 .button:hover{
-  background-color:rgb(180,100,100);
+  background-color:var(--theme-accent-color);
   color:white;
 }
 .button:active{
-  background-color:rgb(180,100,100);
+  background-color:var(--theme-accent-color);
   color:white;
 }
 .grid {

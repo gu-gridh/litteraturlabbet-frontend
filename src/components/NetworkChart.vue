@@ -477,7 +477,7 @@ background-color: rgba(255, 255, 255, 0.7);
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: rgb(180, 100, 100);
+  background-color: var(--theme-accent-color);
   margin-right: 10px;
   margin-top: 9px;
   float: left;
@@ -497,7 +497,7 @@ background-color: rgba(255, 255, 255, 0.7);
 .green-circle {
   width: 10px;
   height: 10px;
-  background-color: rgb(112, 148, 98);
+  background-color: var(--theme-main-background);
   border-radius: 50%;
   margin-right: 10px;
   margin-top: 9px;
@@ -515,7 +515,7 @@ background-color: rgba(255, 255, 255, 0.7);
 }
 
 .red-label {
-  color: rgb(180, 100, 100);
+  color: var(--theme-accent-color);
   font-weight: 600;
   width: auto;
   margin-bottom: 0px;
@@ -535,7 +535,7 @@ background-color: rgba(255, 255, 255, 0.7);
 }
 
 .green-label {
-  color: rgb(112, 148, 98);
+  color: var(--theme-main-background);
   font-weight: 600;
   width: auto;
   margin-bottom: 0px;
@@ -571,8 +571,8 @@ padding:3px;
 }
 
 #app .sliderColor {
-  --slider-connect-bg: rgb(180, 100, 100) !important;
-  --slider-tooltip-bg: rgb(180, 100, 100) !important;
+  --slider-connect-bg: var(--theme-accent-color) !important;
+  --slider-tooltip-bg: var(--theme-accent-color) !important;
   --slider-tooltip-font-size: 0.65em;
   --slider-tooltip-py: 5px;
   --slider-tooltip-px: 6px;
@@ -580,14 +580,13 @@ padding:3px;
 }
 
 .slider-horizontal .slider-tooltip-top {
-  background-color: rgb(180, 100, 100) !important;
-  border-color: rgb(180, 100, 100) !important;
+  background-color: var(--theme-accent-color) !important;
+  border-color: var(--theme-accent-color) !important;
 }
 
 .slider-connect {
-  background-color: rgb(180, 100, 100) !important;
+  background-color: var(--theme-accent-color) !important;
 }
-
 
 .buttonrow {
   top: 50px;

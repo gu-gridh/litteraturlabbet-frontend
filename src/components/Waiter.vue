@@ -66,7 +66,7 @@
     font-family: "Barlow Condensed", sans-serif !important;
     font-size: 2rem;
     font-weight:600;
-    color: #b46464;
+    color: var(--theme-accent-color);
     user-select: none;
   }
 

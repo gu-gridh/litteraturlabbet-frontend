@@ -23,7 +23,7 @@ body {
 }
 
 .super-container{
-  background-color: rgb(112, 148, 98) !important;
+  background-color: var(--theme-main-background) !important;
   box-shadow: inset 0em 0em 10em rgb(0,0,0,0.5);
 }
 
@@ -236,7 +236,7 @@ a:visited {
 
 .author-name,
 .work-title {
-  background-color: rgb(180, 100, 100);
+  background-color: var(--theme-accent-color);
   color: white;
   padding: 0.2rem 0.5rem 0.3rem 0.5rem;
   border-radius: 8px;
@@ -332,7 +332,7 @@ button {
   .search-button {
     font-size: 35px;
     color: white;
-    background-color: rgb(180, 80, 80);
+    background-color: var(--theme-accent-color);
     border-color: none !important;
     border-radius: 10px;
     border: 0px solid transparent !important;

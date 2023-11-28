@@ -124,7 +124,7 @@ onMounted(() => {
   flex-direction: column;
   justify-content: space-between;
   border-style:dotted;
-  border-color:rgb(220,100,100);
+  border-color:var(--theme-accent-color-light);
   border-width:0 0 1px 0px;
   line-height: 1.5em;
  

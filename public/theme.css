@@ -1,0 +1,12 @@
+/*CSS here will be used by any file that has added the stylesheet*/
+
+/* CSS - Cascading Style Sheet */
+
+/* Color palette */
+:root{
+  --theme-main-background: 		     rgb(112, 148, 98); /* This is the bakground color */
+  --theme-main-background-dark:    rgb(92, 128, 78);
+  --theme-accent-color: 			    rgb(180, 100, 100); /* This is for lighter text on dark bakgrounds */
+  --theme-accent-color-dark: 			rgb(160, 80, 80); /* This the main accent colour */
+  --theme-accent-color-light: 			rgb(200, 120, 120); /* This is for accent hover */
+}
