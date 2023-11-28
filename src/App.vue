@@ -2,20 +2,21 @@
   <div class="super-container">
     <Waiter></Waiter>
     <div class="top">
-      <router-link to="/about/" class="nav-link" style="margin-top: 0px;margin-bottom: 0px;">
+      <a href="https://litteraturbanken.se">
       <div class="lb-logo-container"></div>
-    </router-link>
+    </a>
+
       <div class="nav-content">
         <div class="nav-item"><a href="https://litteraturbanken.se" class="nav-link">LITTERATURBANKEN </a>
           <div class="nav-ornament" v-bind:class="{active: isActive('/home/')}"></div>
         </div>
-        <div class="nav-item"><router-link to="/about/" class="nav-link">LITTERATURLABORATORIET</router-link>
+        <div class="nav-item"><router-link to="/about/" class="nav-link title">LITTERATURLABORATORIET</router-link>
           <div class="nav-ornament" v-bind:class="{active: isActive('/about/')}"></div>
         </div>
-        <div class="nav-item sub-title"><router-link to="/gallery/" class="nav-link">GRAFISKA ELEMENT</router-link>
+        <div class="nav-item sub-title"><router-link to="/gallery/" class="nav-link">• GRAFISKA ELEMENT</router-link>
           <div class="nav-ornament" v-bind:class="{active: isActive('/gallery/')}"></div>
         </div>
-        <div class="nav-item sub-title"><router-link to="/reuse/" class="nav-link">TEXTÅTERBRUK</router-link>
+        <div class="nav-item sub-title"><router-link to="/reuse/" class="nav-link">• TEXTÅTERBRUK</router-link>
           <div class="nav-ornament" v-bind:class="{active: isActive('/reuse/')}"></div>
         </div>
       </div>
@@ -68,7 +69,11 @@ const isActive = (routeName: string) => {
   opacity: 1;
 }
 
-.sub-title{
+.nav-content .title{
+  padding-top:0px;
+}
+
+.nav-content .sub-title{
   padding-left:0px;
 }
 </style>

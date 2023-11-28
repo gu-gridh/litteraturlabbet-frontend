@@ -8,8 +8,7 @@
         Här kan du analysera verken från Litteraturbankens 1800-talsmaterial med olika verktyg.
         I dagsläget erbjuder vi verktygen <i>Textåterbruk</i>, för att hitta liknande textstycken,
         samt <i>Grafiska element</i> för att undersöka verkens visuella uttryck. Under projektets gång kommer
-        Litteraturlaboratoriet att utvecklas med fler verktyg,
-        samt optimeringar av datan från Litteraturbanken.
+        Litteraturlaboratoriet att utvecklas med fler verktyg.
         <br> <br>
         Verktygen utvecklas av <a href="https://dh.gu.se">Göteborgs Forskningsinfrastruktur för Digital Humaniora
           (GRIDH)</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a>.

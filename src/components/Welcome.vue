@@ -87,24 +87,25 @@ padding:50px 0px;
   }
 
   .pre-title h1{
-       font-family: 'Cormorant Garamond', serif;
-       letter-spacing: -2px;
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: -2px;
     margin-top:30px;
     margin-bottom:0px;
     font-size:35px !important;
     line-height:0.9;
-       text-align:center;
-      color:black;
+    text-align:center;
+    color:black;
   }
   .home-title h1{
-       font-family: 'Cormorant Garamond', serif;
-       letter-spacing: -3px;
-    margin-top:-25px;
+    font-family: 'Cormorant Garamond', serif;
+    letter-spacing: -3px;
+    margin-top:-28px;
     margin-bottom:30px;
     font-size:70px !important;
-    line-height:0.9;
-       text-align:center;
-      color:black;
+    font-weight:100px !important;
+    line-height:0.85;
+    text-align:center;
+    color:black;
   }
 
   @media screen and (max-width: 1350px) {

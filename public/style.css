@@ -109,6 +109,7 @@ a:visited {
   align-items: space-between;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
   z-index: 1;
+  transition: all 0.5s ease-in-out;
 }
 
 .search-container:hover {
@@ -145,7 +146,7 @@ a:visited {
 
 .lb-logo-container {
   float: left;
-  pointer-events: none;
+  cursor:pointer;
   margin-top: 50px;
   margin-left: 50px;
   width: 250px;
@@ -153,8 +154,12 @@ a:visited {
   background-size: contain !important;
   background-repeat: no-repeat;
   z-index: 1;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.5s ease-in-out;
   background-image: url("../src/assets/lblogowhite.png");
+}
+
+.lb-logo-container:hover {
+ opacity:0.8;
 }
 
 .nav-content {
@@ -167,10 +172,10 @@ a:visited {
   color: black;
   top: 140px;
   font-size: 18px !important;
-  padding: 0px 0px 0px 20px !important;
+  padding: 3px 0px 0px 20px !important;
   text-align: left;
   font-size: 30px !important;
-  line-height: 0.8 !important;
+  line-height: 0.9 !important;
   font-family: 'Cormorant Garamond', serif !important;
   -webkit-font-smoothing: antialiased;
 }
@@ -304,7 +309,7 @@ button {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
   }
   .nav-content {
-   top:100px;
+   top:80px;
    margin-left: 10px;
    z-index:100;
   }
