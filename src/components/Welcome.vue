@@ -1,7 +1,10 @@
 <template>
     <div class="home">
+      <div class="pre-title">
+      <h1>Välkommen till</h1>
+         </div>
        <div class="home-title">
-      <h1>Välkommen till <br> Litteraturlaboratoriet</h1>
+      <h1>Litteratur<br>laboratoriet</h1>
          </div>
          <div class="home-content">
 
@@ -83,20 +86,30 @@ padding:50px 0px;
      
   }
 
+  .pre-title h1{
+       font-family: 'Cormorant Garamond', serif;
+       letter-spacing: -2px;
+    margin-top:30px;
+    margin-bottom:0px;
+    font-size:35px !important;
+    line-height:0.9;
+       text-align:center;
+      color:black;
+  }
   .home-title h1{
        font-family: 'Cormorant Garamond', serif;
        letter-spacing: -3px;
-    margin-top:30px;
+    margin-top:-25px;
     margin-bottom:30px;
-    font-size:50px !important;
+    font-size:70px !important;
     line-height:0.9;
        text-align:center;
       color:black;
   }
 
-  @media screen and (max-width: 1450px) {
+  @media screen and (max-width: 1350px) {
   .home-title h1{
-    font-size:40px !important;
+    font-size:55px !important;
    
   }
 }
@@ -112,10 +125,13 @@ padding:50px 0px;
 
 
  @media screen and (max-width: 950px) {
+  .pre-title h1{
+
+    font-size:45px !important;
+   }
    .home-title h1{
    font-weight:300 !important;
-    margin-top:30px;
-    font-size:60px !important;
+    font-size:90px !important;
    }
 
     .home-content{
