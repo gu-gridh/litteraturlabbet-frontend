@@ -36,6 +36,12 @@
   font-family: "Barlow Condensed", sans-serif;
 }
 
+@media screen and (max-width: 950px) {
+#footer {
+ display:none;
+}
+}
+
 a {
   font-weight: normal;
   color:white!important;

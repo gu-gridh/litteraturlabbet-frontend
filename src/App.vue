@@ -9,13 +9,13 @@
         <div class="nav-item"><a href="https://litteraturbanken.se" class="nav-link">LITTERATURBANKEN </a>
           <div class="nav-ornament" v-bind:class="{active: isActive('/home/')}"></div>
         </div>
-        <div class="nav-item"><router-link to="/about/" class="nav-link">OM LITTERATURLABORATORIET</router-link>
+        <div class="nav-item"><router-link to="/about/" class="nav-link">LITTERATURLABORATORIET</router-link>
           <div class="nav-ornament" v-bind:class="{active: isActive('/about/')}"></div>
         </div>
-        <div class="nav-item"><router-link to="/gallery/" class="nav-link">GRAFISKA ELEMENT</router-link>
+        <div class="nav-item sub-title"><router-link to="/gallery/" class="nav-link">GRAFISKA ELEMENT</router-link>
           <div class="nav-ornament" v-bind:class="{active: isActive('/gallery/')}"></div>
         </div>
-        <div class="nav-item"><router-link to="/reuse/" class="nav-link">TEXTÅTERBRUK</router-link>
+        <div class="nav-item sub-title"><router-link to="/reuse/" class="nav-link">TEXTÅTERBRUK</router-link>
           <div class="nav-ornament" v-bind:class="{active: isActive('/reuse/')}"></div>
         </div>
       </div>
@@ -66,5 +66,9 @@ const isActive = (routeName: string) => {
 <style>
 .active {
   opacity: 1;
+}
+
+.sub-title{
+  padding-left:0px;
 }
 </style>

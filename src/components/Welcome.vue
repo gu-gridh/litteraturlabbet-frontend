@@ -1,7 +1,7 @@
 <template>
     <div class="home">
        <div class="home-title">
-      <h1>Välkommen</h1>
+      <h1>Välkommen till <br> Litteraturlaboratoriet</h1>
          </div>
          <div class="home-content">
 
@@ -92,9 +92,14 @@ padding:50px 0px;
     line-height:0.9;
        text-align:center;
       color:black;
-   
-
   }
+
+  @media screen and (max-width: 1450px) {
+  .home-title h1{
+    font-size:40px !important;
+   
+  }
+}
 
     .home-content{
       color:black;
@@ -108,9 +113,9 @@ padding:50px 0px;
 
  @media screen and (max-width: 950px) {
    .home-title h1{
-   font-weight:600 !important;
+   font-weight:300 !important;
     margin-top:30px;
-    font-size:50px !important;
+    font-size:60px !important;
    }
 
     .home-content{

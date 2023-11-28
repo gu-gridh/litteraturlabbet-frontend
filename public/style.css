@@ -77,6 +77,8 @@ a:visited {
 }
 
 
+
+
 .right-view-container {
   width: calc(100% - 0px) !important;
   padding-right: 50px !important;
@@ -293,7 +295,7 @@ button {
 /* For mobile screens */
 @media screen and (max-width: 950px) {
   .lb-logo-container {
-    width: 180px;
+    width: 160px;
     height: 180px;
   }
 
@@ -343,7 +345,7 @@ button {
 
   .main-container {
     display: block;
-    padding: 0px 60px 120px 60px;
+    padding: 0px 60px 20px 60px;
   }
 
   .left-column {
