@@ -294,11 +294,11 @@ function build(graphData: any, author?: number) {
     )
     .nodeColor((node) => {
       const mainAccentColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-accent-color');
-      const mainBackgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-main-background');
+      const mainColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-main-color');
       if (node === hoverNode) {
         return mainAccentColor;
       } else if (highlightNodes.has(node)) {
-        return mainBackgroundColor;
+        return mainColor;
       } else {
         return "rgb(85, 85, 85)";
       }
@@ -499,7 +499,7 @@ background-color: rgba(255, 255, 255, 0.7);
 .green-circle {
   width: 10px;
   height: 10px;
-  background-color: var(--theme-main-background);
+  background-color: var(--theme-main-color);
   border-radius: 50%;
   margin-right: 10px;
   margin-top: 9px;
@@ -537,7 +537,7 @@ background-color: rgba(255, 255, 255, 0.7);
 }
 
 .green-label {
-  color: var(--theme-main-background);
+  color: var(--theme-main-color);
   font-weight: 600;
   width: auto;
   margin-bottom: 0px;

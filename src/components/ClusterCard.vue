@@ -76,7 +76,7 @@ defineProps<{
   width: 95px;
   height:95px;
   line-height:1.1;
-  background-color: var(--theme-main-background);
+  background-color: var(--theme-main-color);
   text-align:center;
   color: white;
   padding: 1.4rem 1rem 1rem 1rem;
@@ -89,7 +89,7 @@ defineProps<{
 
 .cluster-metadata-container:hover {
  transform: scale(1.02);
- background-color:var(--theme-main-background-dark);
+ background-color:var(--theme-main-color-dark);
  
 }
 
