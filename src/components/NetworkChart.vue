@@ -293,10 +293,12 @@ function build(graphData: any, author?: number) {
       highlightNodes.has(node) ? "before" : undefined
     )
     .nodeColor((node) => {
+      const mainAccentColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-accent-color');
+      const mainBackgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-main-background');
       if (node === hoverNode) {
-        return "rgb(220,100,100)";
+        return mainAccentColor;
       } else if (highlightNodes.has(node)) {
-        return "rgb(112, 148, 98)";
+        return mainBackgroundColor;
       } else {
         return "rgb(85, 85, 85)";
       }
