@@ -54,8 +54,8 @@ import { isBusy } from "@/components/Waiter.vue";
 
 const route = useRoute();
 const isActive = (routeName: string) => {
-  if (routeName === "/home/") {
-    return route.path === "/";
+  if (route.path === "/") {
+    return routeName === "/about/";
   }
   return (<string>route.path).indexOf(routeName) > -1;
 };
