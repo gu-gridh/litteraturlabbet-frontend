@@ -7,7 +7,7 @@
       <div v-else>
       <div class="segment-metadata-container">
         <p class="segment-card-title author-title">{{ author.formatted_name }}</p>
-        <p class="segment-card-title" style="font-style:italic; font-size:1.2em;" :title="work.title">{{ work.short_title ? work.short_title : work.title }} <p style="font-style:normal; display:inline; color:rgb(200,60,60); margin-left:10px; font-size:1.5em;top:3px;">{{ work.imprint_year }}</p></p>
+        <p class="segment-card-title" style="font-style:italic; font-size:1.2em;" :title="work.title">{{ work.short_title ? work.short_title : work.title }} <p style="font-style:normal; display:inline; color:var(--theme-accent-color-light);; margin-left:10px; font-size:1.5em;top:3px;">{{ work.imprint_year }}</p></p>
         
       </div>
 
@@ -76,13 +76,11 @@ onBeforeUnmount(() => {
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  box-shadow: rgba(0, 0, 0, 0.0) 0px 8px 24px;
   margin-bottom: 30px;
   transition: all .2s ease-in-out;
   border-color:rgb(235,235,235);
   border-width:0.5px;
   border-style:solid;
- 
 }
 
 .segment-card:hover {
@@ -99,9 +97,6 @@ onBeforeUnmount(() => {
   font-style: normal;
   line-height: 1.2;
   font-size: 18px;
- 
-
- 
 }
 
 .segment-metadata-container {
@@ -134,7 +129,7 @@ onBeforeUnmount(() => {
 .author-title {
   font-weight: 600;
   height:auto;
- 
+  color:var(--theme-accent-color) !important;
 }
 
 @media screen and (max-width: 950px) {

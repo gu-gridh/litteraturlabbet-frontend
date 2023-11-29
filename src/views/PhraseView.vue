@@ -1,6 +1,7 @@
 <template>
     <div class="card-container">
-      <div class="back-button" @click="customBack()">Tillbaka</div> Klicka på ett stycke för att se hela texten hos Litteraturbanken.se
+      <div class="back-button" @click="customBack()">Tillbaka</div> 
+      <div style="margin-left:2.6em; font-size:1.2em;">Klicka på ett stycke för att se hela texten hos Litteraturbanken.se</div>
   
       <div v-if="isEmpty" class="page-container">
           <b>Inga träffar för frasen <i>{{ props.phrase }}</i>.</b>
@@ -100,9 +101,6 @@ import { setBusy, setNotBusy } from '@/components/Waiter.vue';
   .card-container {
     height: 80%;
   }
-  
-  
-  
   .page-container {
     margin-left: 3rem;
     margin-right: 3rem;
@@ -113,7 +111,6 @@ import { setBusy, setNotBusy } from '@/components/Waiter.vue';
   .page-text {
     font-size: 20px;
     line-height: 1.2;
-  
   }
   
   .title-container {

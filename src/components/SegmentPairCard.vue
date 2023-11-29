@@ -5,7 +5,7 @@
         <div class="column column-left">
           <div class="segment-metadata-container">
             <p class="segment-card-title author-title">{{ props.segment1.series.main_author.formatted_name }}</p>
-            <p class="segment-card-title" style="font-style:italic;" :title="props.segment1.series.title">{{ props.segment1.series.short_title ? props.segment1.series.short_title : props.segment1.series.title }} <p style="font-style:normal; display:inline; color:rgb(200,60,60); margin-left:10px;">{{ props.segment1.series.imprint_year }}</p></p>
+            <p class="segment-card-title" style="font-style:italic;" :title="props.segment1.series.title">{{ props.segment1.series.short_title ? props.segment1.series.short_title : props.segment1.series.title }} <p style="font-style:normal; display:inline; color:var(--theme-accent-color);; margin-left:10px;">{{ props.segment1.series.imprint_year }}</p></p>
           </div>
           <div class="segment-text-container">
             <a v-bind:href="lblink1" target="_blank">
@@ -17,7 +17,7 @@
       <div class="column column-right">
         <div class="segment-metadata-container">
           <p class="segment-card-title author-title">{{ props.segment2.series.main_author.formatted_name }}</p>
-          <p class="segment-card-title" style="font-style:italic;" :title="props.segment2.series.title">{{ props.segment2.series.short_title ? props.segment2.series.short_title : props.segment2.series.title }} <p style="font-style:normal; display:inline; color:rgb(200,60,60); margin-left:10px;">{{ props.segment2.series.imprint_year }}</p></p>
+          <p class="segment-card-title" style="font-style:italic;" :title="props.segment2.series.title">{{ props.segment2.series.short_title ? props.segment2.series.short_title : props.segment2.series.title }} <p style="font-style:normal; display:inline; color:var(--theme-accent-color); margin-left:10px;">{{ props.segment2.series.imprint_year }}</p></p>
         </div>
         <div class="segment-text-container">
           <a v-bind:href="lblink2" target="_blank">
@@ -160,7 +160,7 @@ onMounted(() => {
 
 .author-title {
   font-weight: 600;
- 
+  color:var(--theme-accent-color);
   height:auto;
  
 }
