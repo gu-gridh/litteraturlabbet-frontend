@@ -9,14 +9,14 @@
       </div>
 
   <div class="legend" v-if="props.author">
-    <div class="red-label text-shadow">
-      <div class="red-circle"></div> {{ authorStore.author?.formatted_name }}
+    <div class="author-label text-shadow">
+      <div class="author-circle"></div> {{ authorStore.author?.formatted_name }}
     </div>
-    <div class="green-label text-shadow">
-      <div class="green-circle"></div>Direkta återbruk
+    <div class="reuse-label text-shadow">
+      <div class="reuse-circle"></div>Direkta återbruk
     </div>
-    <div class="grey-label text-shadow">
-      <div class="grey-circle"></div>Indirekta relationer
+    <div class="secondary-label text-shadow">
+      <div class="secondary-circle"></div>Indirekta relationer
     </div>
   </div>
 
@@ -293,8 +293,8 @@ function build(graphData: any, author?: number) {
       highlightNodes.has(node) ? "before" : undefined
     )
     .nodeColor((node) => {
-      const mainAccentColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-accent-color');
-      const mainColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-main-color');
+      const mainAccentColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-accent-color-light');
+      const mainColor = getComputedStyle(document.documentElement).getPropertyValue('--theme-main-color-light');
       if (node === hoverNode) {
         return mainAccentColor;
       } else if (highlightNodes.has(node)) {
@@ -475,49 +475,38 @@ background-color: rgba(255, 255, 255, 0.7);
   box-shadow: 0px 0px 30px 30px rgba(255, 255, 255, 0.7); 
 }
 
-.red-circle {
+.author-circle {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: var(--theme-accent-color);
+  background-color: var(--theme-accent-color-light);
   margin-right: 10px;
   margin-top: 9px;
   float: left;
 }
 
-
-.blue-circle {
+.reuse-circle {
   width: 10px;
   height: 10px;
-  background-color: rgb(50, 200, 250);
-  border-radius: 50%;
-  margin-right: 10px;
-  margin-top: 9px;
-  float: left;
-}
-
-.green-circle {
-  width: 10px;
-  height: 10px;
-  background-color: var(--theme-main-color);
+  background-color: var(--theme-main-color-light);
   border-radius: 50%;
   margin-right: 10px;
   margin-top: 9px;
   float: left;
 }
 
-.grey-circle {
+.secondary-circle {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: rgb(100, 100, 100);
+  background-color: rgb(60, 60, 60);
   margin-right: 10px;
   margin-top: 9px;
   float: left;
 }
 
-.red-label {
-  color: var(--theme-accent-color);
+.author-label {
+  color: var(--theme-accent-color-light);
   font-weight: 600;
   width: auto;
   margin-bottom: 0px;
@@ -526,18 +515,8 @@ background-color: rgba(255, 255, 255, 0.7);
   float:left;
 }
 
-
-.blue-label {
-  color: rgb(50, 200, 250);
-  font-weight: 600;
-  width: auto;
-  margin-bottom: 0px;
-  min-height: 17px;
-  min-width: 150px;
-}
-
-.green-label {
-  color: var(--theme-main-color);
+.reuse-label {
+  color: var(--theme-main-color-light);
   font-weight: 600;
   width: auto;
   margin-bottom: 0px;
@@ -546,8 +525,8 @@ background-color: rgba(255, 255, 255, 0.7);
 
 }
 
-.grey-label {
-  color: rgb(100, 100, 100);
+.secondary-label {
+  color: rgb(60, 60, 60);
   font-weight: 600;
   width: auto;
   min-height: 17px;
