@@ -10,7 +10,7 @@
 
 
 
-<div style="margin-top:00px;font-size:1.2em;">Analytiska verktyg </div>
+<div class="tool" style="font-size:1.5em; margin-top:0px; margin-bottom:10px;">Analytiska verktyg: </div>
 <router-link to="/reuse/"  class="tool">Textåterbruk</router-link>
 <router-link to="/gallery/"  class="tool">Grafiska Element</router-link>
 
@@ -63,12 +63,12 @@ onMounted(() => {
 }
 
 .tool{
+  font-family: 'Cormorant Garamond', serif;
   display:block;
-  border-radius:8px;
-  background-color:rgb(255,255,255);
-  margin:10px!important;
-  padding:8px 12px;
-  font-size:1.3em;
+  margin:0px;
+  padding:5px 12px;
+  font-size:2.0em;
+  line-height:1.0;
   transition: all 0.2s ease-in-out;
   cursor:pointer;
 
