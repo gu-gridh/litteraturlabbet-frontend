@@ -9,12 +9,20 @@
         I dagsläget erbjuder vi verktygen <i>Textåterbruk</i>, för att hitta liknande textstycken,
         samt <i>Grafiska element</i> för att undersöka verkens visuella uttryck. Under projektets gång kommer
         Litteraturlaboratoriet att utvecklas med fler verktyg.
+        <br><br>
+        Med verktyget <i>Textåterbruk</i> kan du undersöka nätverket av textåterbruk i delar
+      av Litteraturbankens material. Textåterbruk, på engelska <i>textual reuse</i>, är ett fenomen där
+      textstycken återkommer i flera olika skrivna verk. 
+      <br><br>
+      Med verktyget <i>Grafiska element</i> kan du extrahera bildelement antingen från författare och enskilda verk, eller från all litteratur under ett eller flera årtionden.
+      Detta ger dig en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. 
+      
         <br> <br>
         Verktygen utvecklas av <a href="https://dh.gu.se">Göteborgs Forskningsinfrastruktur för Digital Humaniora
           (GRIDH)</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a>.
         Primära utvecklare har varit Victor Wåhlstrand Skärström, Aram Karimi, David Alfter, Kristin Åkerlund, Tristan
         Bridge, Ashely Green, Siska Humlesjö och Jonathan Westin.
-        Första versionen publicerades i augusti 2023. Kodbasen finns att hämta på GitHub: <a
+        Första versionen publicerades i oktober 2023. Kodbasen finns att hämta på GitHub: <a
           href="https://github.com/gu-gridh/">https://github.com/gu-gridh/</a>
         <br> <br>
         Verktyget <i>Textåterbruk</i> använder sig av <i><a href="https://github.com/dasmiq/passim">Passim</a></i>,
@@ -47,18 +55,15 @@ a:hover {
 
 .about-container {
   display: flex;
-  align-items: center;
+  align-items:center;
   flex-direction: row;
-  padding: 0px;
-
+  padding: 50px;
+  min-height:610px;
 }
 
 .about {
-  padding: 130px 50px;
   width: 100%;
-
 }
-
 
 .module-title {
  
@@ -68,7 +73,6 @@ a:hover {
   padding-top: 30px;
   columns: 2;
   column-gap: 30px;
-
 }
 
 @media screen and (max-width: 1350px) {
@@ -86,7 +90,7 @@ a:hover {
     text-align: left !important;
     font-size: 22px !important;
   }
-  .about {
+  .about-container {
   padding: 40px 20px;
 }
 }
