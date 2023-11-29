@@ -51,7 +51,9 @@ if (props.segment) {
     );
     // v3 better highlighter
     const matches = fuz.filter(props.phrase, [props.segment.text]);
-    text = matches[0].rendered;
+    if (matches.length > 0) {
+      text = matches[0].rendered;
+    }
     lblink = "https://litteraturbanken.se/f%C3%B6rfattare/"+work.main_author.lbauthorid+"/titlar/"+work.modernized_title+"/sida/"+(page.number+1)+"/faksimil";
 } else {
   isEmpty.value = true;
