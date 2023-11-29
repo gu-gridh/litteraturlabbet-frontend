@@ -10,7 +10,7 @@
 
 
 
-<div class="tool" style="font-size:1.5em; margin-top:0px; margin-bottom:10px;">Analytiska verktyg: </div>
+<div class="" style="font-family: 'Cormorant Garamond', serif; font-size:1.5em; margin-top:0px; margin-bottom:10px;">Analytiska verktyg: </div>
 <router-link to="/reuse/"  class="tool">Textåterbruk</router-link>
 <router-link to="/gallery/"  class="tool">Grafiska Element</router-link>
 
@@ -71,7 +71,6 @@ onMounted(() => {
   line-height:1.0;
   transition: all 0.2s ease-in-out;
   cursor:pointer;
-
 }
 
 .tool:hover{
