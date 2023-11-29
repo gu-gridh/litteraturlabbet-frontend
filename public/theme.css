@@ -1,11 +1,13 @@
-/*CSS here will be used by any file that has added the stylesheet*/
-
-/* CSS - Cascading Style Sheet */
+/* To change the background color, adjust the rgb values of ---theme-main-color, 
+and then add a darker version that is 20 points lower on all values. */
 
 /* Color palette */
 :root{
-  --theme-main-color: 		    rgb(112, 148, 98); /* This is the main color */
-  --theme-main-color-dark:    rgb(92, 128, 78); /* This is the main color but darker */
+/* Green --theme-main-color: rgb(112, 148, 98);  --theme-main-color-dark:rgb(92, 128, 78); */
+
+  --theme-main-color: 		    rgb(112, 133, 143); /* This is the main color */
+  --theme-main-color-dark:    rgb(92, 113, 123); /* This is the main color but darker */
+
   --theme-accent-color: 			    rgb(162, 60, 0); /* This is the accent color */
   --theme-accent-color-dark: 			rgb(142, 40, 0); /* This is the accent color but darker */
   --theme-accent-color-light: 		rgb(182, 80, 0); /* This is the accent color but lighter */
