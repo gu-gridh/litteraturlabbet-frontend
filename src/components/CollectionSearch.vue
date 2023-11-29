@@ -268,13 +268,23 @@ function onClearPhrase() {
 
 // Search for authors given an id
 async function searchAuthor(query: string) {
-  return authors.sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""))
+  // sort authors so that authors that are disabled are at the bottom
+  // if in text reuse
+  if (route.path.startsWith('/reuse/')) {
+    
+  let allAuthors = authors.sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""))
     .map((b) => {
       return {
         ...b,
         disabled: !hasReuse(b)
       }
     });
+    let authors_without_reuse = allAuthors.filter((a) => !hasReuse(a));
+    let authors_with_reuse = allAuthors.filter((a) => hasReuse(a));
+    return authors_with_reuse.concat(authors_without_reuse);
+  } else {
+    return authors.sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""));
+  }
 }
 
 // Search for works given for example an author id
@@ -389,6 +399,7 @@ watch(() => route.path, (path) => {
     showReuseSearch.value = false;
     showSlider.value = true;
     showWelcome.value = false;
+    authorSelect.value.refreshOptions();
   }
   else if (path.startsWith('/reuse/')) {
     showSearch.value = true;
@@ -398,6 +409,7 @@ watch(() => route.path, (path) => {
     if (path.startsWith('/reuse/phrase/')) {
       searchQuery.value = route.params.phrase;
     }
+    authorSelect.value.refreshOptions();
   }
 
   else if (path === '/about/') {
