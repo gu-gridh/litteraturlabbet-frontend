@@ -1,7 +1,6 @@
 <template>
     <div class="card-container">
-      <div class="back-button" @click="customBack()">Tillbaka</div> 
-      <div style="margin-left:2.6em; font-size:1.2em;">Klicka på ett stycke för att se hela texten hos Litteraturbanken.se</div>
+      <div style="margin-left:2.6em; font-size:1.2em; margin-top:50px;">Klicka på ett stycke för att se hela texten hos Litteraturbanken.se</div>
   
       <div v-if="isEmpty" class="page-container">
           <b>Inga träffar för frasen <i>{{ props.phrase }}</i>.</b>
