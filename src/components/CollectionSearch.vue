@@ -528,12 +528,9 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   padding: 2rem 0 0 0;
 }
 
-
-
 .button-container {
   width: 100%;
   float: left;
-
   margin-bottom: 1.5rem;
 }
 
@@ -544,7 +541,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   color: white;
   background-color: var(--theme-accent-color);
   border-color: none !important;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 0px solid transparent !important;
 
   position: relative;
@@ -560,7 +557,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   color: white;
   background-color: var(--theme-accent-color);
   border-color: none !important;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 0px solid transparent !important;
   cursor: pointer;
   position: relative;
@@ -576,13 +573,17 @@ button {
 button:hover {
   color: white;
   overflow: hidden;
+  background-color: var(--theme-accent-color-dark);
 }
-
 
 .search-button:hover {
   transform: scale(1.05);
   background-color: var(--theme-accent-color-dark) !important;
+}
 
+.search-button2:hover {
+  transform: scale(1.05);
+  background-color: var(--theme-accent-color-dark) !important;
 }
 
 .multiselect {
@@ -606,20 +607,6 @@ button:hover {
   --ms-option-color-selected-pointed: #ffffff;
   --ms-option-bg-selected-disabled: black;
   --ms-option-color-selected-disabled: #d1fae5;
-}
-
-.connection {
-  border-style: dotted;
-  border-color: var(--theme-accent-color-dark);
-  border-image-source: url(@/assets/dots.svg);
-  border-image-slice: 100% 25%;
-  border-image-repeat: round;
-  border-width: 0px 0px 20px 0px;
-  width: 220px;
-  height: 0px;
-  float: right;
-  left: 155px;
-  top: 45px;
 }
 
 .errormessage {

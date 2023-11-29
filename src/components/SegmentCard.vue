@@ -134,6 +134,7 @@ onMounted(() => {
 .author-title {
   font-weight: 600;
   height:auto;
+  color:var(--theme-accent-color);
  
 }
 

@@ -336,17 +336,6 @@ button {
     --ms-option-font-size: 1.8rem;
   }
 
-  .search-button {
-    font-size: 35px;
-    color: white;
-    background-color: var(--theme-accent-color);
-    border-color: none !important;
-    border-radius: 10px;
-    border: 0px solid transparent !important;
-    margin-bottom: 1.5rem;
-    position: absolute;
-    margin-left: -30px;
-  }
 
   .main-container {
     display: block;
