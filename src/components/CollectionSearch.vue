@@ -206,7 +206,7 @@ async function triggerSearch2() {
     setNotBusy();
     errorMessage.value = true;
     // error message that you need to select an author, two authors, a work, or a phrase
-    phraseErrorMessage.value = "Du måste välja en eller två författare, en författare och en verk eller en fras.";
+    phraseErrorMessage.value = "Du måste välja en eller två författare, en författare och ett verk eller en fras.";
     return;
   }
   if (store.author?.id === currentAuthor.value) {
