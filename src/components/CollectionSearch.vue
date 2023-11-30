@@ -59,12 +59,10 @@
         <input type="search" id="search" class="search-box" name="search" spellcheck="false" placeholder="Fras"
           :value="searchQuery" @keydown="handleBackspace" @input="updateSearchQuery($event.target?.value)"
           @keydown.enter="triggerSearch" @clear="onClearPhrase" />
-        <div v-if="errorMessage">
-          <span class="errormessage">{{ phraseErrorMessage }}</span>
-        </div>
+      
 
       </div>
-    <!--   <div class="slider-container" v-show="showSlider">
+      <!--   <div class="slider-container" v-show="showSlider">
         <div class="select-label" style="margin-bottom:50px; text-align:center;">
           <p>Välj ett tidsomfång</p>
         </div>
@@ -110,6 +108,11 @@
           <div class="search-button2" @click="triggerSearch">Sök
           </div>
         </div>
+        <div class="errormessage-container">
+          <div v-if="errorMessage">
+            <span class="errormessage">{{ phraseErrorMessage }}</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -130,8 +133,8 @@ import Welcome from "@/components/Welcome.vue";
 import { works } from "@/assets/works.json";
 import { authors } from "@/assets/authors.json";
 import router from "@/router";
-import {inject} from 'vue';
-import {setBusy, setNotBusy} from "@/components/Waiter.vue";
+import { inject } from 'vue';
+import { setBusy, setNotBusy } from "@/components/Waiter.vue";
 
 const store = searchStore();
 
@@ -219,13 +222,13 @@ async function triggerSearch2() {
         return;
       }
     } else {
-      if (currentWork.value < 0) { 
+      if (currentWork.value < 0) {
         if (!author2changed) {
-        setNotBusy();
-        errorMessage.value = true;
-        phraseErrorMessage.value = "Du har redan sökt efter den här författaren.";
-        return;
-      }
+          setNotBusy();
+          errorMessage.value = true;
+          phraseErrorMessage.value = "Du har redan sökt efter den här författaren.";
+          return;
+        }
       }
     }
   }
@@ -271,14 +274,14 @@ async function searchAuthor(query: string) {
   // sort authors so that authors that are disabled are at the bottom
   // if in text reuse
   if (route.path.startsWith('/reuse/')) {
-    
-  let allAuthors = authors.sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""))
-    .map((b) => {
-      return {
-        ...b,
-        disabled: !hasReuse(b)
-      }
-    });
+
+    let allAuthors = authors.sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""))
+      .map((b) => {
+        return {
+          ...b,
+          disabled: !hasReuse(b)
+        }
+      });
     let authors_without_reuse = allAuthors.filter((a) => !hasReuse(a));
     let authors_with_reuse = allAuthors.filter((a) => hasReuse(a));
     return authors_with_reuse.concat(authors_without_reuse);
@@ -531,7 +534,7 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 .button-container {
   width: 100%;
   float: left;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .search-button {
@@ -543,7 +546,6 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   border-color: none !important;
   border-radius: 8px;
   border: 0px solid transparent !important;
-
   position: relative;
   margin-left: -00px;
   overflow: hidden !important;
@@ -609,11 +611,19 @@ button:hover {
   --ms-option-color-selected-disabled: #d1fae5;
 }
 
-.errormessage {
+.errormessage-container {
   color: var(--theme-accent-color-dark);
-  font-weight: bold;
-  margin-left: 5px;
+  text-align: center;
+  width: 80%;
+  font-size: 1.1em;
+  line-height: 1.1 !important;
 }
+
+.errormessage {
+  font-weight: bold !important;
+  top: 10px;
+}
+
 @media screen and (max-width: 950px) {
   .connection {
     display: none;
