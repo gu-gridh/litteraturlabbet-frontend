@@ -11,14 +11,23 @@
       </div>
     </div>
       <div class="littlabbinfo">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
-    <Suspense>
-      <segment-card v-for="segment in segments" v-bind:key="segment.id" :segment="segment"></segment-card>
-    </Suspense>
+    
+      <div v-if="segments?.length === 0">
+        <div class="text-container">
+          <p>
+            Det finns inga textstycken som matchar dina sökkriterier.
+          </p>
+        </div>
+      </div>
+      <div v-else>
+          <segment-card v-for="segment in segments" v-bind:key="segment.id" :segment="segment"></segment-card>
+      </div>
+    
   </div>
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onBeforeUnmount, onMounted, ref } from "vue";
+import { onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { list, get } from "@/services/diana";
 import SegmentCard from "@/components/SegmentCard.vue";
 import type {
@@ -28,18 +37,20 @@ import type {
   Segment,
   Cluster,
 } from "@/types/litteraturlabbet";
-import { setBusy } from "@/components/Waiter.vue";
+import { setBusy, setNotBusy } from "@/components/Waiter.vue";
+import { searchStore } from "@/stores/search";
 
 const props = defineProps<{
-  id: number;
+  id: string;
 }>();
-
+const store = searchStore();
 const cluster = ref<Cluster>();
 let segments = ref<Array<Segment>>();
 let order = ref<string>("year");
 
 onBeforeMount(() => {
-  get<Cluster>(props.id, "cluster", 4).then((c) => {
+  const numId = parseInt(props.id);
+  get<Cluster>(numId, "cluster", 4).then((c) => {
     let seenSegmentIds = new Set();
     for (let i = 0; i < c.segments.length; i++) {
       const segment_i = c.segments[i];
@@ -53,6 +64,17 @@ onBeforeMount(() => {
     }
     c.size = 0;//c.size - seenSegmentIds.size + 1;
     cluster.value = c;
+    if (store.yearStart) {
+      c.segments = c.segments.filter((s) => s.series.imprint_year >= store.yearStart);
+    }
+    if (store.yearEnd) {
+      c.segments = c.segments.filter((s) => s.series.imprint_year <= store.yearEnd);
+    }
+    if (c.segments.length === 0) {
+      segments.value = [];
+      setNotBusy();
+      return;
+    }
     segments.value = c.segments.sort((a, b) => {
       if (a.series.imprint_year < b.series.imprint_year) {
         return -1;
@@ -119,6 +141,62 @@ function update() {
     console.log("Error. Unknown order value: " + order.value);
   }
 }
+
+function updateTime() {
+  const numId = parseInt(props.id);
+  get<Cluster>(numId, "cluster", 4).then((c) => {
+    let seenSegmentIds = new Set();
+    for (let i = 0; i < c.segments.length; i++) {
+      const segment_i = c.segments[i];
+      const gid = segment_i.gid;
+      if (seenSegmentIds.has(gid)) {
+        c.segments.splice(i, 1);
+        i--;
+      } else {
+        seenSegmentIds.add(gid);
+      }
+    }
+    c.size = 0;//c.size - seenSegmentIds.size + 1;
+    cluster.value = c;
+    if (store.yearStart) {
+      c.segments = c.segments.filter((s) => s.series.imprint_year >= store.yearStart);
+    }
+    if (store.yearEnd) {
+      c.segments = c.segments.filter((s) => s.series.imprint_year <= store.yearEnd);
+    }
+    if (c.segments.length === 0) {
+      segments.value = [];
+      setNotBusy();
+      return;
+    }
+    segments.value = c.segments.sort((a, b) => {
+      if (a.series.imprint_year < b.series.imprint_year) {
+        return -1;
+      }
+      if (a.series.imprint_year > b.series.imprint_year) {
+        return 1;
+      }
+      if (a.series.main_author.formatted_name < b.series.main_author.formatted_name) {
+        return -1;
+      }
+      if (a.series.main_author.formatted_name > b.series.main_author.formatted_name) {
+        return 1;
+      }
+      return 0;
+    });
+    update();
+  });
+}
+
+watch(
+  // watch for changes in store.yearStart and End, and update the segments accordingly
+  () => [store.yearStart, store.yearEnd],
+  () => updateTime(),
+  {
+    immediate: true,
+    deep: true,
+  }
+);
 </script>
 
 <style scoped>

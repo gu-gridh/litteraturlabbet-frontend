@@ -14,7 +14,7 @@
           <!-- <p>Välj ett tidsomfång</p> -->
         </div>
         <div class="slider-input">
-          <Slider v-model="timeRange" :min="1700" :max="2025" :step="5" class="sliderColor" />
+          <Slider v-model="timeRange" :min="1800" :max="1899" :step="5" class="sliderColor" @end="setTimespan()" lazy=true />
         </div>
       </div>
 
@@ -144,7 +144,7 @@ const workCount = ref<number>();
 
 const collator = new Intl.Collator('sv-u-co-trad');
 
-const timeRange = [1700, 2025];
+const timeRange = ref([1700, 2025]);
 
 const showSlider = ref(false);
 const showReuseSearch = ref(false);
@@ -163,6 +163,14 @@ const currentAuthor2 = ref(-1);
 const currentWork = ref(-1);
 
 let author2changed = false;
+
+function setTimespan() {
+  store.yearStart = timeRange.value[0];
+  store.yearEnd = timeRange.value[1];
+  console.log("Setting timespan to", timeRange.value[0], timeRange.value[1]);
+  // rebuild graph
+  
+}
 
 function handleBackspace(event: KeyboardEvent) {
   if (event.key === "Backspace") {
@@ -395,7 +403,7 @@ onMounted(() => {
   countWorks();
 });
 
-//watch if route = gallery. if so, show slider
+
 watch(() => route.path, (path) => {
   if (path.startsWith('/gallery')) {
     showSearch.value = true;

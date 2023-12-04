@@ -45,13 +45,14 @@ import { list, get } from "@/services/diana";
 import ClusterCard from "@/components/ClusterCard.vue";
 import type { Author, Cluster, Work } from "@/types/litteraturlabbet";
 import { setBusy, setNotBusy } from "./Waiter.vue";
+import { searchStore } from "@/stores/search";
 
 const props = defineProps<{
   author: number;
   work?: number;
 }>();
 
-// const store = searchStore();
+const store = searchStore();
 const route = useRoute();
 const authorSelected = ref<Author>();
 const workSelected = ref<Work>();
@@ -98,9 +99,24 @@ async function fetchClusters(
   const clusterResults = await list<Cluster>("cluster", params, 2);
   
   clusterResults.results.forEach((cluster) => {
+    
     let seenSegmentIds = new Set();
     for (let i = 0; i < cluster.segments.length; i++) {
       const segment_i = cluster.segments[i];
+      // exclude segments that are below the yearStart and above yearEnd threshold
+      if (store.yearStart) {
+        if (segment_i.series.imprint_year < store.yearStart) {
+          // splice out the value
+          cluster.segments.splice(i, 1);
+          continue;
+        }
+      }
+      if (store.yearEnd) {
+        if (segment_i.series.imprint_year > store.yearEnd) {
+          cluster.segments.splice(i, 1);
+          continue;
+        }
+      }
       const gid = segment_i.gid;
       if (seenSegmentIds.has(gid)) {
         cluster.segments.splice(i, 1);
@@ -109,10 +125,17 @@ async function fetchClusters(
         seenSegmentIds.add(gid);
       }
     }
+    cluster.segments = cluster.segments.filter((s) => s.series.imprint_year >= store.yearStart && s.series.imprint_year <= store.yearEnd);
     cluster.size = cluster.segments.length;
+    if (cluster.segments.length === 0) {
+      clusterResults.results.splice(clusterResults.results.indexOf(cluster), 1);
+    }
   });
   clusterResults.results.sort((a, b) => b.size - a.size);
+  console.log(clusterResults);
   clusters.value = clusterResults.results;
+
+  //clusterCount.value = clusterResults.results.map((c) => c.segments.length).length;
   clusterCount.value = clusterResults.count;
 }
 
@@ -146,6 +169,27 @@ watch(
   }
 );
 
+watch(
+  () => store.yearStart,
+  async (newYearStart, oldYearStart) => {
+    await fetchData(props.author, props.work);
+  },
+  {
+    immediate: true,
+    deep: true,
+  }
+);
+
+watch(
+  () => store.yearEnd,
+  async (newYearEnd, oldYearEnd) => {
+    await fetchData(props.author, props.work);
+  },
+  {
+    immediate: true,
+    deep: true,
+  }
+);
 
 // watch(
 //   [props.author, props.work],

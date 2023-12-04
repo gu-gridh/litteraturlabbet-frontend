@@ -1,4 +1,8 @@
 <template>
+  <div class="text-container" v-if="cluster.size===0">
+    
+  </div>
+  <div v-else>
    <router-link
           :to="{
             name: 'cluster',
@@ -31,6 +35,7 @@
   </div>
   </router-link
         >
+      </div>
 </template>
 
 <script setup lang="ts">

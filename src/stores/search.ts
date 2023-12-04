@@ -17,7 +17,9 @@ export const searchStore = defineStore("search", {
     const cluster = ref<Cluster | undefined>(undefined);
     const segment = ref<Segment | undefined>(undefined);
     const phrase = ref<string | undefined>(undefined);
-    return { author, author2, work, page, cluster, segment, phrase };
+    const yearStart = ref<number | undefined>(undefined);
+    const yearEnd = ref<number | undefined>(undefined);
+    return { author, author2, work, page, cluster, segment, phrase, yearStart, yearEnd };
   },
   getters: {
     paramsPath(state) {

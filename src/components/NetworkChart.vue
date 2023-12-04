@@ -100,6 +100,18 @@ watch(
   { deep: true }
 );
 
+watch(
+  () => store.yearStart,
+  () => build(props.data, props.author),
+  { deep: true }
+)
+
+watch(
+  () => store.yearEnd,
+  () => build(props.data, props.author),
+  { deep: true }
+)
+
 function recalculateGraph() {
   graph.value = build(props.data, props.author);
 }
@@ -140,7 +152,6 @@ function build(graphData: any, author?: number) {
   data.links = data.links.map(function (link: Link) {
     const sourceNode = data.nodes.find(function (n: Node) { return n.id === link.source; });
     const targetNode = data.nodes.find(function (n: Node) { return n.id === link.target; });
-
     if (sourceNode && targetNode) {
       const isCurrentAuthor = sourceNode.id === author || targetNode.id === author;
       const isNeighbor = seenNeighbors.indexOf(sourceNode.id) > -1;
