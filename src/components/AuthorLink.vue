@@ -110,14 +110,6 @@ onBeforeUnmount(() => {
             <div class="text-container">
                 <h3>Inga textåterbruk funna</h3>
             </div>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
         </div>
     </div>
     
