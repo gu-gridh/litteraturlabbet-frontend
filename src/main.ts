@@ -8,8 +8,20 @@ import "./assets/main.css";
 
 import { setBusy, setNotBusy } from "./components/Waiter.vue";
 
+import matomo from 'vue-matomo';
+
 const app = createApp(App);
 
+if (import.meta.env.VITE_MATOMO_URL && import.meta.env.VITE_MATOMO_ID) {
+    app.use(matomo, {
+        host: import.meta.env.VITE_MATOMO_URL,
+        siteId: import.meta.env.VITE_MATOMO_ID,
+        router: router,
+        enableLinkTracking: true,
+        trackInitialView: true,
+        debug: false
+    });
+}
 app.use(createPinia());
 app.use(router);
 app.provide("waiter", {
