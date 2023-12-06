@@ -130,8 +130,8 @@ import { searchStore } from "@/stores/search";
 import reuseAuthors from "@/assets/authors_with_reuse_copy.json";
 import { useRoute } from 'vue-router'
 import Welcome from "@/components/Welcome.vue";
-import { works } from "@/assets/works.json";
-import { authors } from "@/assets/authors.json";
+import { works } from "@/assets/works_years.json";
+import { authors } from "@/assets/authors_years.json";
 import router from "@/router";
 import { inject } from 'vue';
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
@@ -169,7 +169,10 @@ function setTimespan() {
   store.yearEnd = timeRange.value[1];
   console.log("Setting timespan to", timeRange.value[0], timeRange.value[1]);
   // rebuild graph
-  
+  // filter authors
+  authorSelect.value.refreshOptions();
+  // filter works
+  workSelect.value.refreshOptions();
 }
 
 function handleBackspace(event: KeyboardEvent) {
@@ -292,6 +295,14 @@ async function searchAuthor(query: string) {
       });
     let authors_without_reuse = allAuthors.filter((a) => !hasReuse(a));
     let authors_with_reuse = allAuthors.filter((a) => hasReuse(a));
+    if (store.yearStart) {
+      authors_without_reuse = authors_without_reuse.filter((a) => parseInt(a.min_year) >= store.yearStart!);
+      authors_with_reuse = authors_with_reuse.filter((a) => parseInt(a.min_year) >= store.yearStart!);
+    }
+    if (store.yearEnd) {
+      authors_without_reuse = authors_without_reuse.filter((a) =>  parseInt(a.max_year) <= store.yearEnd!);
+      authors_with_reuse = authors_with_reuse.filter((a) =>  parseInt(a.max_year) <= store.yearEnd!);
+    }
     return authors_with_reuse.concat(authors_without_reuse);
   } else {
     return authors.sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""));
@@ -301,16 +312,31 @@ async function searchAuthor(query: string) {
 // Search for works given for example an author id
 async function searchWork(query: string, params: any) {
   if (params.main_author) {
-    const subset = works.filter((w) => w.main_author === params.main_author);
+    let subset = works.filter((w) => w.main_author === params.main_author);
+    if (store.yearStart) {
+      subset = subset.filter((w) => parseInt(w.imprint_year) >= store.yearStart!);
+    }
+    if (store.yearEnd) {
+      subset = subset.filter((w) => parseInt(w.imprint_year) <= store.yearEnd!);
+    }
     workCount.value = subset.length;
     return subset;
   }
-  return works;
+  let subset = works;
+  if (store.yearStart) {
+      subset = subset.filter((w) => parseInt(w.imprint_year) >= store.yearStart!);
+    }
+    if (store.yearEnd) {
+      subset = subset.filter((w) => parseInt(w.imprint_year) <= store.yearEnd!);
+    }
+    workCount.value = subset.length;
+  return subset;
 }
 
 function hasReuse(author: any) {
   if (author) {
-    return reuseAuthors["ids"].includes(author.id);
+    const numid = parseInt(author.id);
+    return reuseAuthors["ids"].includes(numid);
   }
   return false;
 }
