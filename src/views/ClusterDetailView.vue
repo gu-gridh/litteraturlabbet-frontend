@@ -206,6 +206,7 @@ watch(
   width:100%;
   text-align:center;
   font-size:1.8em;
+  color:black;
 }
 
 .top-row {
