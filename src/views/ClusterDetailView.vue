@@ -10,7 +10,7 @@
         </select>
       </div>
     </div>
-      <div class="littlabbinfo" v-if="segments?.length > 1">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
+      <div class="littlabbinfo" v-if="segments?.length > 0">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
     
       <div v-if="segments?.length === 0">
         <div class="text-container">
