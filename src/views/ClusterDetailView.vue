@@ -10,7 +10,7 @@
         </select>
       </div>
     </div>
-      <div class="littlabbinfo">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
+      <div class="littlabbinfo" v-if="segments?.length > 1">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
     
       <div v-if="segments?.length === 0">
         <div class="text-container">
@@ -201,6 +201,12 @@ watch(
 
 <style scoped>
 
+.text-container{
+  margin-top:15%;
+  width:100%;
+  text-align:center;
+  font-size:1.8em;
+}
 
 .top-row {
   display: flex;
