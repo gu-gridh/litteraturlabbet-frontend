@@ -64,7 +64,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  setBusy();
+  //setBusy();
 });
 </script>
 

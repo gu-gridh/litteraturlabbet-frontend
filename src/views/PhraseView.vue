@@ -101,8 +101,6 @@ import { searchStore } from '@/stores/search';
   
 
   function filterData() {
-    // This code constantly produces loading animations
-    /*
     const s = originalSegments;
     segments.value = s.filter((segment) => {
       if (store.yearStart) {
@@ -132,7 +130,6 @@ import { searchStore } from '@/stores/search';
     }).sort((a, b) => {
       return a.series.imprint_year - b.series.imprint_year;
     }); 
-    */
   }
   
   function  customBack() {
@@ -142,7 +139,7 @@ import { searchStore } from '@/stores/search';
 
   onBeforeUnmount(() => {
     console.log("OBU");
-    setBusy();
+    //setBusy();
   });
 
   onMounted(() => {
