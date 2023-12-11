@@ -4,21 +4,13 @@
   
       <div v-if="isEmpty" class="page-container">
           <b>Inga träffar för frasen <i>{{ props.phrase }}</i>.</b>
-          <!-- To hide the loading animation, insert breaks -->
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
         </div>
         <div v-else>
         <phrase-card 
       v-for="segment in segments"
       :segment="segment"
       :phrase="props.phrase"
+      :key="segment.id"
     >
     </phrase-card>
   </div>
@@ -26,15 +18,17 @@
   </template>
   
   <script setup lang="ts">
-  import { defineProps, onBeforeUnmount, onMounted } from 'vue';
+  import { defineProps, onBeforeUnmount, onMounted, watch } from 'vue';
   import { search2 } from "@/services/diana";
   import PhraseCard from "@/components/PhraseCard.vue";
   import { ref } from "vue";
   import Fuse from "fuse.js";
 import { setBusy, setNotBusy } from '@/components/Waiter.vue';
+import { searchStore } from '@/stores/search';
+
 
   const isEmpty = ref(false);
-
+  const store = searchStore();
   
   const props = defineProps<{
     phrase: string;
@@ -44,6 +38,7 @@ import { setBusy, setNotBusy } from '@/components/Waiter.vue';
     phrase: props.phrase,
     depth: 4
   }
+  let segments = ref<any[]>([]);
 
   const data = await search2<any>(params, "phrase_search");
   if (data.count === 0) {
@@ -52,7 +47,8 @@ import { setBusy, setNotBusy } from '@/components/Waiter.vue';
   } else {
     isEmpty.value = false;
   }
-  let segments = data.results;
+  
+  let originalSegments = data.results;
 
   const options = {
     isCaseInsensitive: true,
@@ -62,32 +58,118 @@ import { setBusy, setNotBusy } from '@/components/Waiter.vue';
     ignoreLocation: true,
     keys: ["text"],
   };
+
   // Perform additional client-side filtering
   // to exclude potential cluster matches
   // that are not exact matches
-  const fuse = new Fuse(segments, options);
+  const fuse = new Fuse(originalSegments, options);
   const result = fuse.search(props.phrase);
   let nseg: any[] = [];
   result.forEach((r) => {
     nseg.push(r.item);
   });
-  segments = nseg;
-  segments.sort((a, b) => {
-    return a.page.work.imprint_year - b.page.work.imprint_year;
+  
+  originalSegments = nseg;
+  segments.value = nseg.filter((s) => {
+    if (store.yearStart) {
+      if (store.yearEnd) {
+        if (s.series.imprint_year >= store.yearStart && s.series.imprint_year <= store.yearEnd) {
+          return true;
+        } else {
+          return false;
+        }
+      } else
+        if (s.series.imprint_year >= store.yearStart) {
+          return true;
+        } else {
+          return false;
+        }
+    } else {
+      if (store.yearEnd) {
+        if (s.series.imprint_year <= store.yearEnd) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return true;
+      }
+    }
+  }).sort((a, b) => {
+    return a.series.imprint_year - b.series.imprint_year;
   });
+  
 
+  function filterData() {
+    // This code constantly produces loading animations
+    /*
+    const s = originalSegments;
+    segments.value = s.filter((segment) => {
+      if (store.yearStart) {
+        if (store.yearEnd) {
+          if (segment.series.imprint_year >= store.yearStart && segment.series.imprint_year <= store.yearEnd) {
+            return true;
+          } else {
+            return false;
+          }
+        } else
+          if (segment.series.imprint_year >= store.yearStart) {
+            return true;
+          } else {
+            return false;
+          }
+      } else {
+        if (store.yearEnd) {
+          if (segment.series.imprint_year <= store.yearEnd) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          return true;
+        }
+      }
+    }).sort((a, b) => {
+      return a.series.imprint_year - b.series.imprint_year;
+    }); 
+    */
+  }
+  
   function  customBack() {
     setBusy();
     history.back()
   }
 
   onBeforeUnmount(() => {
+    console.log("OBU");
     setBusy();
   });
 
   onMounted(() => {
     setNotBusy();
   });
+
+  watch(
+    () => store.yearStart, 
+    () => {
+      filterData();
+    }, 
+    {
+      immediate: true,
+      deep: true
+    });
+
+  watch(
+    () => store.yearEnd,
+    () => {
+      filterData();
+    },
+    {
+      immediate: true,
+      deep: true
+    }
+  );
+  
   </script>
   
   <style>
