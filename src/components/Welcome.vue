@@ -10,11 +10,11 @@
 
 
 
-<div class="" style="font-family: 'Cormorant Garamond', serif; font-size:1.5em; margin-top:0px; margin-bottom:10px;">Analytiska verktyg: </div>
+<div class="" style="font-family: 'Cormorant Garamond', serif; font-size:1.5em; margin-top:0px; margin-bottom:10px; pointer-events:none;">Analytiska verktyg: </div>
 <router-link to="/reuse/"  class="tool">Textåterbruk</router-link>
 <router-link to="/gallery/"  class="tool">Grafiska Element</router-link>
 
-<div style="margin-top:80px;">
+<div style="margin-top:80px; pointer-events:none;">
 <p>Totalt <p class="work-emph">{{ workCount }}</p> verk i samlingen.</p>
 </div>
          </div>
@@ -60,6 +60,7 @@ onMounted(() => {
   border-radius: 8px;
   font-weight:500;
   display:inline;
+  pointer-events:none;
 }
 
 .tool{
@@ -94,6 +95,7 @@ padding:50px 0px;
     line-height:0.9;
     text-align:center;
     color:black;
+    pointer-events:none;
   }
   .home-title h1{
     font-family: 'Cormorant Garamond', serif;
@@ -105,6 +107,7 @@ padding:50px 0px;
     line-height:0.85;
     text-align:center;
     color:black;
+    pointer-events:none;
   }
 
   @media screen and (max-width: 1350px) {
