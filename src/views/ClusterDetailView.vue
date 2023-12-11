@@ -13,11 +13,11 @@
     <!-- Exclusion container -->
    
       <!-- End exclusion container -->
-      <div class="littlabbinfo label-color">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
+      <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0;">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
       
       <div v-if="numExcluded > 0">
         <div class="exclude-label label-color">
-          <span class="author-name">{{ numExcluded }}</span>  stycken  
+          <span class="author-name">{{ numExcluded }}</span> stycken  
           exkluderade på grund av att de faller utanför vald tidsperiod.
         </div>
       </div>
@@ -201,17 +201,6 @@ watch(
 </script>
 
 <style scoped>
-
-.exclude-label {
-  pointer-events:none;
-  position:relative;
-  line-height: 2.5rem;
-  font-size: 19px;
-  text-align:left;
-  padding-left:40px;
-  width:auto;
-  line-height:1.5 !important;
-}
 .text-container{
   margin-top:15%;
   width:100%;

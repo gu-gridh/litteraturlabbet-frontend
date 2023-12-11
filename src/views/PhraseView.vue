@@ -9,7 +9,7 @@
       </div>
 
     <div class="card-container">
-      <div class="label-text label-color" style="margin-left:2.6em; font-size:1.2em; margin-top:50px;">Klicka på ett stycke för att se hela texten hos Litteraturbanken.se</div>
+      <div class="label-text label-color" style="margin-left:2.6em; font-size:1.2em; margin-top:4px; line-height:1.0;">Klicka på ett stycke för att se hela texten hos Litteraturbanken.se</div>
       <div v-if="numExcluded > 0">
         <div class="exclude-label label-color">
           <span class="author-name">{{ numExcluded }}</span>  stycken  

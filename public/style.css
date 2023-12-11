@@ -304,6 +304,18 @@ button {
   color:black;
 }
 
+.exclude-label {
+  pointer-events:none;
+  position:relative;
+  line-height: 2.5rem;
+  font-size: 19px;
+  text-align:left;
+  padding-left:45px;
+  padding-top:10px;
+  width:auto;
+  line-height:1.5 !important;
+}
+
 /* For mobile screens */
 @media screen and (max-width: 950px) {
   .lb-logo-container {
