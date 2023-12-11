@@ -14,7 +14,7 @@
           <!-- <p>Välj ett tidsomfång</p> -->
         </div>
         <div class="slider-input">
-          <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor" @end="setTimespan()" lazy=true />
+          <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor" @end="setTimespan()" lazy />
         </div>
       </div>
 
@@ -170,7 +170,7 @@ onBeforeMount(() => {
   // TODO initialize store
   // - The work menu is incorrectly initalized if directly accessing using URL params
   // - Setting store.author and store.work should solve the problem
-  
+
   // open the correct collection search based on route
   if (route.path.startsWith('/reuse/')) {
     showSearch.value = true;
