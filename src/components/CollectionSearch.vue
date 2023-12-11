@@ -121,13 +121,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, onBeforeMount } from "vue";
 import Multiselect from "@vueform/multiselect";
 import Slider from '@vueform/slider'
 import { list, get } from "@/services/diana";
 import type { Author, Work } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
 import reuseAuthors from "@/assets/authors_with_reuse_copy.json";
+import reuseWorks from "@/assets/works_with_reuse.json";
 import { useRoute } from 'vue-router'
 import Welcome from "@/components/Welcome.vue";
 import { works } from "@/assets/works_years.json";
@@ -163,6 +164,41 @@ const currentAuthor2 = ref(-1);
 const currentWork = ref(-1);
 
 let author2changed = false;
+
+onBeforeMount(() => {
+  console.log("Before mount");
+  // TODO initialize store
+  // - The work menu is incorrectly initalized if directly accessing using URL params
+  // - Setting store.author and store.work should solve the problem
+  
+  // open the correct collection search based on route
+  if (route.path.startsWith('/reuse/')) {
+    showSearch.value = true;
+    showReuseSearch.value = true;
+    showSlider.value = false;
+    showWelcome.value = false;
+    if (route.path.startsWith('/reuse/phrase/')) {
+      searchQuery.value = <string>route.params.phrase;
+    }
+    authorSelect.value.refreshOptions();
+    workSelect.value.refreshOptions();
+  }
+  else if (route.path.startsWith('/gallery')) {
+    showSearch.value = true;
+    showReuseSearch.value = false;
+    showSlider.value = true;
+    showWelcome.value = false;
+    authorSelect.value.refreshOptions();
+  }
+  else if (route.path === '/about/') {
+    showSearch.value = false;
+    showWelcome.value = true;
+  }
+  else if (route.path === '/') {
+    showSearch.value = false;
+    showWelcome.value = true;
+  }
+});
 
 function setTimespan() {
   store.yearStart = timeRange.value[0];
@@ -320,7 +356,15 @@ async function searchWork(query: string, params: any) {
       subset = subset.filter((w) => parseInt(w.imprint_year) <= store.yearEnd!);
     }
     workCount.value = subset.length;
-    return subset;
+    subset = subset.map((w) => {
+      return {
+        ...w,
+        disabled: !workHasReuse(w)
+      }
+    });
+    const subset_without_reuse = subset.filter((w) => !workHasReuse(w));
+    const subset_with_reuse = subset.filter((w) => workHasReuse(w));
+    return subset_with_reuse.concat(subset_without_reuse);
   }
   let subset = works;
   if (store.yearStart) {
@@ -337,6 +381,14 @@ function hasReuse(author: any) {
   if (author) {
     const numid = parseInt(author.id);
     return reuseAuthors["ids"].includes(numid);
+  }
+  return false;
+}
+
+function workHasReuse(work: any) {
+  if (work) {
+    const numid = parseInt(work.id);
+    return reuseWorks["wids"].includes(numid);
   }
   return false;
 }
@@ -399,7 +451,7 @@ function countWorks() {
     workCount.value = w.count;
   });
   */
-  workCount.value = works.filter((w) => w.main_author === store.author?.id).length || works.length;
+  workCount.value = works.filter((w) => parseInt(w.main_author) === store.author?.id).length || works.length;
 }
 
 // After clearing
