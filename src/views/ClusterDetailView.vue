@@ -17,7 +17,7 @@
       
       <div v-if="numExcluded > 0">
         <div class="exclude-label label-color">
-          <span class="author-name">{{ numExcluded }}</span> stycken  
+          <span class="author-name">{{ numExcluded }}</span>  stycken  
           exkluderade på grund av att de faller utanför vald tidsperiod.
         </div>
       </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="reuse-container">
   <div class="reuse-list-label">
-    <div class="reuse-label">
+    <div class="">
       <div v-if="authorSelected && !workSelected">
         I verk av
         <span class="author-name">{{ authorSelected?.name }}</span> finner vi
@@ -189,8 +189,7 @@ async function fetchClusters(page: number, authorID: number | undefined, workID:
 
   //clusterCount.value = clusterResults.results.map((c) => c.segments.length).length;
   clusterCount.value = clusterResults.count;
-  setNotBusy();
-}
+  setNotBusy();}
 
 async function onPageChange() {
   await fetchClusters(
@@ -292,17 +291,16 @@ onBeforeUnmount(() => {
   padding: 1rem;
   padding-top:1rem;
   border-radius: 0px;
-}
-
-.reuse-label {
-  pointer-events:none;
-  position:relative;
-  line-height: 2.5rem;
   font-size: 19px;
   text-align:center;
-  width:auto;
-  line-height:1.5 !important;
+  line-height: 2.5rem;
+  pointer-events:none;
+  position:relative;
+width:auto;
+line-height:1.5 !important;
 }
+
+
 
 .exclude-label {
   pointer-events:none;
