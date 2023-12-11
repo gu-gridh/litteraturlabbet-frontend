@@ -80,25 +80,30 @@ const numExcluded = ref<number>(0);
 await fetchData(props.author, props.work);
 
 async function fetchData(author: number, work?: number) {
-  if (author) {
-    authorSelected.value = await get<Author>(author, "author");
-    workSelected.value = undefined;
-  }
+  if (route.path.match(/\/reuse\/\d+$/)) {
+    if (author) {
+      authorSelected.value = await get<Author>(author, "author");
+      workSelected.value = undefined;
+    }
 
-  if (work) {
-    workSelected.value = await get<Work>(work, "work/19th_century");
-    workTitle.value = workSelected.value.short_title
-      ? workSelected.value.short_title
-      : workSelected.value.title;
-  }
+    if (work) {
+      workSelected.value = await get<Work>(work, "work/19th_century");
+      workTitle.value = workSelected.value.short_title
+        ? workSelected.value.short_title
+        : workSelected.value.title;
+    }
 
-  if (author) {
-    await fetchClusters(page.value, author, work);
+    if (author) {
+      await fetchClusters(page.value, author, work);
+    }
   }
 }
 
 async function fetchClusters(page: number, authorID: number | undefined, workID: number | undefined) {
-  setBusy();
+  if (!route.path.match(/\/reuse\/\d+$/)) {
+    return;
+  }
+  //setBusy();
   const params = {
     has_author: authorID,
     work: workID,
@@ -189,7 +194,8 @@ async function fetchClusters(page: number, authorID: number | undefined, workID:
 
   //clusterCount.value = clusterResults.results.map((c) => c.segments.length).length;
   clusterCount.value = clusterResults.count;
-  setNotBusy();}
+  //setNotBusy();
+}
 
 async function onPageChange() {
   await fetchClusters(
@@ -228,7 +234,7 @@ watch(
   },
   {
     immediate: true,
-    deep: true,
+    
   }
 );
 
@@ -239,7 +245,7 @@ watch(
   },
   {
     immediate: true,
-    deep: true,
+    
   }
 );
 
