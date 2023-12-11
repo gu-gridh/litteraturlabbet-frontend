@@ -1,6 +1,6 @@
 <template>
     <div class="card-container">
-      <div style="margin-left:2.6em; font-size:1.2em; margin-top:50px; color:black;">Klicka på ett stycke för att se hela texten hos Litteraturbanken.se</div>
+      <div class="label-text" style="margin-left:2.6em; font-size:1.2em; margin-top:50px;">Klicka på ett stycke för att se hela texten hos Litteraturbanken.se</div>
   
       <div v-if="isEmpty" class="page-container">
           <b>Inga träffar för frasen <i>{{ props.phrase }}</i>.</b>
