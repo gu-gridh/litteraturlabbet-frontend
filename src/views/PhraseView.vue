@@ -1,7 +1,21 @@
 <template>
+  <br/>
+        <div class="change-order">
+        <label for="order">Sortera efter:</label>
+        <select class="dropdown" v-model="order" @change="update()">
+          <option value="year">År</option>
+          <option value="author">Författare</option>
+        </select>
+      </div>
+
     <div class="card-container">
       <div class="label-text label-color" style="margin-left:2.6em; font-size:1.2em; margin-top:50px;">Klicka på ett stycke för att se hela texten hos Litteraturbanken.se</div>
-  
+      <div v-if="numExcluded > 0">
+        <div class="exclude-label label-color">
+          <span class="author-name">{{ numExcluded }}</span>  stycken  
+          exkluderade på grund av att de faller utanför vald tidsperiod.
+        </div>
+      </div>
       <div v-if="isEmpty" class="page-container">
           <b>Inga träffar för frasen <i>{{ props.phrase }}</i>.</b>
         </div>
@@ -29,10 +43,12 @@ import { searchStore } from '@/stores/search';
 
   const isEmpty = ref(false);
   const store = searchStore();
-  
+  const numExcluded = ref<number>(0);
   const props = defineProps<{
     phrase: string;
   }>();
+
+  const order = ref<string>("year");
 
   const params = {
     phrase: props.phrase,
@@ -70,6 +86,7 @@ import { searchStore } from '@/stores/search';
   });
   
   originalSegments = nseg;
+  
   segments.value = nseg.filter((s) => {
     if (store.yearStart) {
       if (store.yearEnd) {
@@ -102,6 +119,42 @@ import { searchStore } from '@/stores/search';
 
   function filterData() {
     const s = originalSegments;
+    let includedSegments = [];
+    let excludedSegments = [];
+    for (let i = 0; i < originalSegments.length; i++) {
+      const segment_i = originalSegments[i];
+      if (store.yearStart) {
+        if (store.yearEnd) {
+          if (segment_i.series.imprint_year >= store.yearStart && segment_i.series.imprint_year <= store.yearEnd) {
+            includedSegments.push(segment_i);
+          } else {
+            excludedSegments.push(segment_i);
+          }
+        } else {
+          if (segment_i.series.imprint_year >= store.yearStart) {
+            includedSegments.push(segment_i);
+          } else {
+            excludedSegments.push(segment_i);
+          }
+        }
+      } else {
+        if (store.yearEnd) {
+          if (segment_i.series.imprint_year <= store.yearEnd) {
+            includedSegments.push(segment_i);
+          } else {
+            excludedSegments.push(segment_i);
+          }
+        } else {
+          includedSegments.push(segment_i);
+        }
+      }
+    }
+    if (excludedSegments.length > 0) {
+      console.log("Excluded segments: ", excludedSegments.length);
+      numExcluded.value = excludedSegments.length;
+    } else {
+      numExcluded.value = 0;
+    }
     segments.value = s.filter((segment) => {
       if (store.yearStart) {
         if (store.yearEnd) {
@@ -130,11 +183,51 @@ import { searchStore } from '@/stores/search';
     }).sort((a, b) => {
       return a.series.imprint_year - b.series.imprint_year;
     }); 
+    update();
   }
   
   function  customBack() {
     setBusy();
     history.back()
+  }
+
+  function update() {
+    console.log("Update" + order.value);
+    if (order.value === "year") {
+      segments.value?.sort((a, b) => {
+        if (a.series.imprint_year < b.series.imprint_year) {
+          return -1;
+        }
+        if (a.series.imprint_year > b.series.imprint_year) {
+          return 1;
+        }
+        if (a.series.main_author.formatted_name < b.series.main_author.formatted_name) {
+          return -1;
+        }
+        if (a.series.main_author.formatted_name > b.series.main_author.formatted_name) {
+          return 1;
+        }
+        return 0;
+      });
+    } else if (order.value === "author") {
+      segments.value?.sort((a, b) => {
+        if (a.series.main_author.formatted_name < b.series.main_author.formatted_name) {
+          return -1;
+        }
+        if (a.series.main_author.formatted_name > b.series.main_author.formatted_name) {
+          return 1;
+        }
+        if (a.series.imprint_year < b.series.imprint_year) {
+          return -1;
+        }
+        if (a.series.imprint_year > b.series.imprint_year) {
+          return 1;
+        }
+        return 0;
+      });
+    } else {
+      console.log("Error. Unknown order value: " + order.value);
+    }
   }
 
   onBeforeUnmount(() => {
@@ -215,6 +308,32 @@ import { searchStore } from '@/stores/search';
     color: white;
   }
   
+  .change-order {
+  margin-left: 20px;
+  float: right;
+  color:black;
+  padding-right:40px;
+
+}
+
+.dropdown {
+  font-size:1em;
+    color: white;
+    border-radius: 5px;
+    padding: 4px 10px;
+    padding-right: 30px;
+    margin-left:5px;
+    width: auto;
+    height: auto;
+    background-image: url("@/assets/dropdown-arrow.png");
+    background-size: 10px;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 10px) 55%;
+    background-color:var(--theme-accent-color);
+    -webkit-appearance: none;
+    /* text-transform: capitalize; */
+}
+
   @media screen and (max-width: 950px) {
     .back-button {
       margin-top: 40px;
