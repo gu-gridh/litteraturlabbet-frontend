@@ -253,6 +253,14 @@ a:visited {
   font-weight: 500;
 }
 
+.exclusion-number {
+  background-color: var(--theme-accent-color);
+  color: white;
+  padding: 0.2rem 0.8rem 0.3rem 0.8rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
 .button-container {
   width: 100%;
   display: flex;
@@ -298,6 +306,8 @@ button {
   color: black;
   margin-top: 0px;
   pointer-events: none;
+  padding-bottom:10px; 
+  line-height:1.0;
 }
 
 .label-color{
@@ -311,7 +321,7 @@ button {
   font-size: 19px;
   text-align:left;
   padding-left:45px;
-  padding-top:10px;
+  padding-top:0px;
   width:auto;
   line-height:1.5 !important;
 }

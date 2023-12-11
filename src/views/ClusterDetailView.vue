@@ -13,11 +13,11 @@
     <!-- Exclusion container -->
    
       <!-- End exclusion container -->
-      <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0;">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
+      <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-bottom:10px;">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
       
       <div v-if="numExcluded > 0">
         <div class="exclude-label label-color">
-          <span class="author-name">{{ numExcluded }}</span> stycken  
+          <span class="exclusion-number">{{ numExcluded }} stycken</span> 
           exkluderade på grund av att de faller utanför vald tidsperiod.
         </div>
       </div>
