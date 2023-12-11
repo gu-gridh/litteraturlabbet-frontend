@@ -300,6 +300,10 @@ button {
   pointer-events: none;
 }
 
+.label-color{
+  color:black;
+}
+
 /* For mobile screens */
 @media screen and (max-width: 950px) {
   .lb-logo-container {
