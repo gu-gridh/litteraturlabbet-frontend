@@ -11,15 +11,16 @@
       </div>
     </div>
     <!-- Exclusion container -->
-    <div v-if="numExcluded > 0">
-        <div class="exclude-label">
-          <span class="author-name">{{ numExcluded }}</span> segment  
-          exkluderade på grund av att de inte uppfyller
-          återbrukets tidsperiod.
-        </div>
-      </div>
+   
       <!-- End exclusion container -->
       <div class="littlabbinfo">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
+      
+      <div v-if="numExcluded > 0">
+        <div class="exclude-label">
+          <span class="author-name">{{ numExcluded }}</span> segment  
+          exkluderade på grund av att de faller utanför vald tidsperiod.
+        </div>
+      </div>
       
       <div v-if="segments?.length === 0">
         <div class="text-container">
@@ -206,7 +207,8 @@ watch(
   position:relative;
   line-height: 2.5rem;
   font-size: 19px;
-  text-align:center;
+  text-align:left;
+  padding-left:40px;
   width:auto;
   line-height:1.5 !important;
 }
