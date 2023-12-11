@@ -20,6 +20,16 @@
   
 
   <div class="card-container">
+    <!-- Exclusion container if there are elements that do not fall within the selected time period -->
+    <div v-if="numExcluded > 0">
+      
+      <div class="exclude-label">
+        <span class="author-name">{{ numExcluded }}</span> segment  
+         exkluderade på grund av att de inte uppfyller
+        återbrukets tidsperiod.
+      </div>
+    </div>
+    <!-- End exclusion container -->
     <div v-for="cluster in clusters" v-bind:key="cluster.id">
       <cluster-card :cluster="cluster"></cluster-card>
     </div>
@@ -41,7 +51,7 @@ import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 import { ref, watch, computed, onMounted, onBeforeUnmount } from "vue";
 import { useRoute } from "vue-router";
-import { list, get } from "@/services/diana";
+import { list, get, unpaginated } from "@/services/diana";
 import ClusterCard from "@/components/ClusterCard.vue";
 import type { Author, Cluster, Work } from "@/types/litteraturlabbet";
 import { setBusy, setNotBusy } from "./Waiter.vue";
@@ -61,8 +71,9 @@ const clusters = ref<Array<Cluster>>([]);
 const clusterCount = ref<number>(0);
 const page = ref(1);
 const pages = computed(() => {
-  return Math.floor(clusterCount.value / 25) + 1;
+  return Math.floor(clusterCount.value / 10) + 1;
 });
+const numExcluded = ref<number>(0);
 
 await fetchData(props.author, props.work);
 
@@ -94,13 +105,17 @@ async function fetchClusters(
     work: workID,
     limit: 10,
     offset: 10 * (page - 1),
+    depth: 2,
+    year_start: store.yearStart,
+    year_end: store.yearEnd,
   };
 
-  const clusterResults = await list<Cluster>("cluster", params, 2);
+  const clusterResults = await list<Cluster>("cluster", params);
   
   clusterResults.results.forEach((cluster) => {
     
     let seenSegmentIds = new Set();
+    
     for (let i = 0; i < cluster.segments.length; i++) {
       const segment_i = cluster.segments[i];
       // exclude segments that are below the yearStart and above yearEnd threshold
@@ -125,7 +140,39 @@ async function fetchClusters(
         seenSegmentIds.add(gid);
       }
     }
-    cluster.segments = cluster.segments.filter((s) => s.series.imprint_year >= store.yearStart && s.series.imprint_year <= store.yearEnd);
+    
+    //cluster.segments = cluster.segments.filter((s) => s.series.imprint_year >= store.yearStart && s.series.imprint_year <= store.yearEnd);
+    let excludedSegments = [];
+    let includedSegments = [];
+    for (const el of cluster.segments) {
+      if (store.yearStart) {
+        if (el.series.imprint_year >= store.yearStart) {
+          includedSegments.push(el);
+        } else {
+          //console.log("Excluding segment: ", el);
+          excludedSegments.push(el);
+        }
+      } else {
+        includedSegments.push(el);
+      }
+      if (store.yearEnd) {
+        if (el.series.imprint_year <= store.yearEnd) {
+          includedSegments.push(el);
+        } else {
+          //console.log("Excluding segment: ", el);
+          excludedSegments.push(el);
+        }
+      } else {
+        includedSegments.push(el);
+      }
+    }
+    cluster.segments = includedSegments;
+    if (excludedSegments.length > 0) {
+      numExcluded.value = excludedSegments.length;
+      console.log("Excluded segments: ", excludedSegments.length);
+    } else {
+      numExcluded.value = 0;
+    }
     cluster.size = cluster.segments.length;
     if (cluster.segments.length === 0) {
       clusterResults.results.splice(clusterResults.results.indexOf(cluster), 1);
@@ -242,6 +289,16 @@ onBeforeUnmount(() => {
 }
 
 .reuse-label {
+  pointer-events:none;
+  position:relative;
+  line-height: 2.5rem;
+  font-size: 19px;
+  text-align:center;
+  width:auto;
+  line-height:1.5 !important;
+}
+
+.exclude-label {
   pointer-events:none;
   position:relative;
   line-height: 2.5rem;
