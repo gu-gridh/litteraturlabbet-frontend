@@ -17,11 +17,11 @@
       
       <div v-if="numExcluded > 0">
         <div class="exclude-label">
-          <span class="author-name">{{ numExcluded }}</span> segment  
+          <span class="author-name">{{ numExcluded }}</span> stycken  
           exkluderade på grund av att de faller utanför vald tidsperiod.
         </div>
       </div>
-      
+
       <div v-if="segments?.length === 0">
         <div class="text-container">
           <p>
