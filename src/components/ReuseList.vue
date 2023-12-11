@@ -21,6 +21,7 @@
 
   <div class="card-container">
     <!-- Exclusion container if there are elements that do not fall within the selected time period -->
+    <!--
     <div v-if="numExcluded > 0">
       
       <div class="exclude-label">
@@ -29,6 +30,7 @@
         återbrukets tidsperiod.
       </div>
     </div>
+    -->
     <!-- End exclusion container -->
     <div v-for="cluster in clusters" v-bind:key="cluster.id">
       <cluster-card :cluster="cluster"></cluster-card>
@@ -96,6 +98,7 @@ async function fetchData(author: number, work?: number) {
 }
 
 async function fetchClusters(page: number, authorID: number | undefined, workID: number | undefined) {
+  setBusy();
   const params = {
     has_author: authorID,
     work: workID,
@@ -186,6 +189,7 @@ async function fetchClusters(page: number, authorID: number | undefined, workID:
 
   //clusterCount.value = clusterResults.results.map((c) => c.segments.length).length;
   clusterCount.value = clusterResults.count;
+  setNotBusy();
 }
 
 async function onPageChange() {
