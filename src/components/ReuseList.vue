@@ -95,11 +95,7 @@ async function fetchData(author: number, work?: number) {
   }
 }
 
-async function fetchClusters(
-  page: number,
-  authorID: number | undefined,
-  workID: number | undefined
-) {
+async function fetchClusters(page: number, authorID: number | undefined, workID: number | undefined) {
   const params = {
     has_author: authorID,
     work: workID,
@@ -146,25 +142,31 @@ async function fetchClusters(
     let includedSegments = [];
     for (const el of cluster.segments) {
       if (store.yearStart) {
-        if (el.series.imprint_year >= store.yearStart) {
-          includedSegments.push(el);
+        if (store.yearEnd) {
+          if (el.series.imprint_year >= store.yearStart && el.series.imprint_year <= store.yearEnd) {
+            includedSegments.push(el);
+          } else {
+            excludedSegments.push(el);
+          }
         } else {
-          //console.log("Excluding segment: ", el);
-          excludedSegments.push(el);
+          if (el.series.imprint_year >= store.yearStart) {
+            includedSegments.push(el);
+          } else {
+            excludedSegments.push(el);
+          }
         }
       } else {
-        includedSegments.push(el);
-      }
-      if (store.yearEnd) {
-        if (el.series.imprint_year <= store.yearEnd) {
-          includedSegments.push(el);
+        if (store.yearEnd) {
+          if (el.series.imprint_year <= store.yearEnd) {
+            includedSegments.push(el);
+          } else {
+            excludedSegments.push(el);
+          }
         } else {
-          //console.log("Excluding segment: ", el);
-          excludedSegments.push(el);
+          includedSegments.push(el);
         }
-      } else {
-        includedSegments.push(el);
       }
+      
     }
     cluster.segments = includedSegments;
     if (excludedSegments.length > 0) {
@@ -178,9 +180,9 @@ async function fetchClusters(
       clusterResults.results.splice(clusterResults.results.indexOf(cluster), 1);
     }
   });
-  clusterResults.results.sort((a, b) => b.size - a.size);
-  console.log(clusterResults);
-  clusters.value = clusterResults.results;
+  
+  
+  clusters.value = clusterResults.results.sort((a, b) => b.size - a.size);
 
   //clusterCount.value = clusterResults.results.map((c) => c.segments.length).length;
   clusterCount.value = clusterResults.count;
