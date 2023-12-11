@@ -210,6 +210,14 @@ watch(
   width:auto;
   line-height:1.5 !important;
 }
+.text-container{
+  margin-top:15%;
+  width:100%;
+  text-align:center;
+  font-size:1.8em;
+  color:black;
+}
+
 .top-row {
   display: flex;
   flex-direction: row;
