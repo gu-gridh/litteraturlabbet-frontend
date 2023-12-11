@@ -3,7 +3,7 @@
         <div class="slider-container">
 
           <Slider v-model="secondaryNodeNumber" :min="0" :max="1000" :step="50" class="slider-color" tooltipPosition="top"
-            @end="recalculateGraph()" lazy="true"></Slider>
+            @end="recalculateGraph()" lazy=true></Slider>
           <div style="margin-top:8px; color:grey;">Max antal indirekta relationsnoder</div>
         </div>
       </div>
