@@ -30,9 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { list, get } from "@/services/diana";
-import type { Author, Page, Work, Segment } from "@/types/litteraturlabbet";
+import { onMounted } from "vue";
 import { setNotBusy } from "./Waiter.vue";
 
 const props = defineProps<{
@@ -40,37 +38,25 @@ const props = defineProps<{
   segment2: any;
   lblink?: string;
 }>();
-/*
-const page1 = await get<Page>(props.segment1.page.number as number, "page");
-const work1 = await get<Work>(page1.work as number, "work/19th_century");
-const author1 = await get<Author>(work1.main_author as number, "author");
-const page2 = await get<Page>(props.segment2.page.number as number, "page");
-  const work2 = await get<Work>(page2.work as number, "work/19th_century");
-const author2 = await get<Author>(work2.main_author as number, "author");
-*/
+
 let text1 = props.segment1.page.text;
 let text2 = props.segment2.page.text;
 let lblink1 = "";
 let lblink2 = "";
 if (props.segment1) {
-  //const segment = await get<Segment>(props.segment1.id, "segment");
-  
-  text1 = text1.replace(
+   text1 = text1.replace(
     props.segment1.text,
     `<span class="highlight">${props.segment1.text}</span>`
   );
   lblink1 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment1.series.main_author.lbauthorid+"/titlar/"+props.segment1.series.modernized_title+"/sida/"+(props.segment1.page.number+1)+"/faksimil";
-  //console.log(text);
+ 
 }
 if (props.segment2) {
-  
-  
   text2 = text2.replace(
     props.segment2.text,
     `<span class="highlight">${props.segment2.text}</span>`
   );
   lblink2 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment2.series.main_author.lbauthorid+"/titlar/"+props.segment2.series.modernized_title+"/sida/"+(props.segment2.page.number+1)+"/faksimil";
-  //console.log(text);
 }
 
 onMounted(() => {
