@@ -3,7 +3,7 @@
         <div class="slider-container">
 
           <Slider v-model="secondaryNodeNumber" :min="0" :max="1000" :step="50" class="slider-color" tooltipPosition="top"
-            @end="recalculateGraph()" lazy=true></Slider>
+            @update="recalculateGraph" lazy=true></Slider>
           <div style="margin-top:8px; color:grey;">Max antal indirekta relationsnoder</div>
         </div>
       </div>
@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import ForceGraph, { type GraphData } from "force-graph";
+import ForceGraph, { type GraphData, type NodeObject } from "force-graph";
 import type { Author } from "@/types/litteraturlabbet";
 import { ref, watch, onMounted, nextTick } from "vue";
 import type { Link, Node } from "@/types/network";
@@ -249,10 +249,10 @@ function build(graphData: any, author?: number) {
         highlightLinks.clear();
         if (node) {
           highlightNodes.add(node);
-          node.neighbors.forEach((neighbor) =>
+          (<Node>node).neighbors.forEach((neighbor) =>
             highlightNodes.add(neighbor)
           );
-          node.links.forEach((link) => highlightLinks.add(link));
+          (<Node>node).links.forEach((link) => highlightLinks.add(link));
         }
         hoverNode = author
           ? data.nodes.filter((n: Node) => n.id === author)[0]
@@ -283,22 +283,27 @@ function build(graphData: any, author?: number) {
     .onLinkClick((link) => {
       //TODO on click go to reuse page
       console.log('go to reuse page', link);
-      linkStore.updateAuthor1(link.source.id);
-      get<Author>(link.source?.id as number, "author").then((a) => store.author = a);
-      get<Author>(link.target?.id as number, "author").then((a) => store.author2 = a);
-      store.work = undefined;
-      authorStore.author = link.source.id;
-      authorStore.author2 = link.target.id;
-      linkStore.updateAuthor2(link.target.id);
-      setBusy();
-      router.push({
-        name: "reuse-link",
-        params: {
-          id1: link.source.id,
-          id2: link.target.id,
-        },
-      })
-
+      if (link) {
+        if (link.source && link.target) {
+          const linkSource = <NodeObject>link.source;
+          const linkTarget = <NodeObject>link.target;
+            const linkSourceId = linkSource.id as number;
+            const linkTargetId = linkTarget.id as number;
+          linkStore.updateAuthor1(linkSourceId);
+          get<Author>(linkSourceId, "author").then((a) => { store.author = a; authorStore.author = a; });
+          get<Author>(linkTargetId, "author").then((a) => { store.author2 = a; authorStore.author2 = a; });
+          store.work = undefined;
+          linkStore.updateAuthor2(linkSourceId);
+          setBusy();
+          router.push({
+            name: "reuse-link",
+            params: {
+              id1: linkSourceId,
+              id2: linkTargetId,
+            },
+          });
+        }
+      }
     })
     .nodeCanvasObjectMode((node) =>
       highlightNodes.has(node) ? "before" : undefined
@@ -320,7 +325,7 @@ function build(graphData: any, author?: number) {
     .onEngineStop(() => {
       if (author && hoverNode && !loading.value) {
         setTimeout(() => {
-          hoverNode = data.nodes.filter((n: Node) => n.id === author)[0];
+          hoverNode = data.nodes.filter((n: NodeObject) => n.id === author)[0];
           graph.centerAt(hoverNode.x, hoverNode.y, 1000);
           graph.zoom(2, 2000);
         }, 3);
@@ -417,7 +422,6 @@ watch(
 }
 
 /* The container <div> - needed to position the dropdown content */
-.dropdown {}
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {

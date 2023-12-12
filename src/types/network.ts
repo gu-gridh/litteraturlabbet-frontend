@@ -13,6 +13,8 @@ type NodeType<T> = {
   color: string;
   neighbors: Array<T>;
   links: Array<Link>;
+  x: number;
+  y: number;
 };
 interface Node extends NodeType<Node> {}
 
