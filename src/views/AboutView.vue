@@ -44,7 +44,7 @@ a:link {
   font-weight: 500;
 }
 
-a:visited {}
+
 
 a:hover {
   color: rgb(100, 100, 100) !important;
@@ -64,9 +64,7 @@ a:hover {
   width: 100%;
 }
 
-.module-title {
- 
-}
+
 
 .about-content {
   padding-top: 30px;

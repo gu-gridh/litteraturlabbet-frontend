@@ -25,8 +25,7 @@
 import { ref, onMounted, watch } from "vue";
 import { list, get } from "@/services/diana";
 import { searchStore } from "@/stores/search";
-import { useRoute } from 'vue-router'
-
+import type { Work } from "@/types/litteraturlabbet";
 
 const store = searchStore();
 const workCount = ref<number>();

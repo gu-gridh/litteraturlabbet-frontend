@@ -30,8 +30,8 @@ const props = defineProps<{
 }>();
 
 const page = await get<Page>(props.id, "page");
-const work = await get<Work>(page.work as number, "work");
-const author = await get<Author>(work.main_author as number, "author");
+const work = await get<Work>(page.work.id as number, "work");
+const author = await get<Author>(work.main_author.id as number, "author");
 let text = page.text;
 console.log(props.segment);
 if (props.segment) {

@@ -26,7 +26,7 @@ import OpenSeadragon from 'openseadragon'
 export default {
   props: ['id'],
   setup(props) {
-    const viewer = ref(null)
+    const viewer = ref()
 
     onMounted(async () => {
       const module = await import(`@/assets/gallery/${props.id}.jpeg`)
