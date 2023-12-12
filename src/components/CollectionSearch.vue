@@ -30,7 +30,7 @@
           :clear-on-search="true" @select="onSelectAuthor1" @clear="onClearAuthor1" ref="authorSelect" />
 
         <div id="author2-select" v-show="showReuseSearch">
-          <Multiselect :type="search" v-model="store.author2" :value="store.author2" mode="single" spellcheck="false"
+          <Multiselect v-model="store.author2" :value="store.author2" mode="single" spellcheck="false"
             placeholder="Författare #2" noResultsText="Inga författare matchar sökningen"
             noOptionsText="Inga författare matchar sökningen" :resolve-on-load="true" :delay="1" :searchable="true"
             :object="true" valueProp="id" label="formatted_name"
@@ -57,7 +57,7 @@
           <p>Sök efter en fras</p>
         </div>
         <input type="search" id="search" class="search-box" name="search" spellcheck="false" placeholder="Fras"
-          :value="searchQuery" @keydown="handleBackspace" @input="updateSearchQuery($event.target?.value)"
+          :value="searchQuery" @keydown="handleBackspace" @input="updateSearchQuery"
           @keydown.enter="triggerSearch" @clear="onClearPhrase" />
       
 
@@ -221,7 +221,8 @@ function handleBackspace(event: KeyboardEvent) {
   }
 }
 
-function updateSearchQuery(value: string) {
+function updateSearchQuery(e: any) {
+  const value = e["target"]["value"];
   errorMessage.value = false;
   store.author = undefined;
   store.author2 = undefined;
@@ -395,7 +396,9 @@ function workHasReuse(work: any) {
 
 // Callbacks
 // After selecting
-async function onSelectAuthor1(value: Author, select$: any) {
+async function onSelectAuthor1(e: any) {
+  // previous params value: Author, select$: any
+  const value = {...e};
   // clear graph
   errorMessage.value = false;
 
@@ -413,7 +416,8 @@ async function onSelectAuthor1(value: Author, select$: any) {
   store.phrase = undefined;
 }
 
-async function onSelectAuthor2(value: Author, select$: any) {
+async function onSelectAuthor2(e: any) {
+  const value = {...e};
   workSelect.value.clearSearch();
   store.work = undefined;
 
@@ -427,7 +431,8 @@ async function onSelectAuthor2(value: Author, select$: any) {
   }
 }
 
-async function onSelectWork(value: Work, select$: any) {
+async function onSelectWork(e: any) {
+  const value = {...e};
   // Fetch the current work and full author
   errorMessage.value = false;
   const author = await get<Author>(value.main_author, "author");
@@ -443,14 +448,6 @@ async function onSelectWork(value: Work, select$: any) {
 }
 
 function countWorks() {
-  /*
-  list<Work>("work/19th_century", {
-    main_author: store.author?.id,
-    limit: 50
-  }).then((w) => {
-    workCount.value = w.count;
-  });
-  */
   workCount.value = works.filter((w) => parseInt(w.main_author) === store.author?.id).length || works.length;
 }
 
@@ -496,7 +493,7 @@ watch(() => route.path, (path) => {
     showSlider.value = false;
     showWelcome.value = false;
     if (path.startsWith('/reuse/phrase/')) {
-      searchQuery.value = route.params.phrase;
+      searchQuery.value = <string>route.params.phrase;
     }
     authorSelect.value.refreshOptions();
   }
@@ -525,8 +522,6 @@ a:visited {
   color: white;
   text-decoration-style: none;
 }
-
-a:hover {}
 
 .multiselect-input {
   margin-bottom: 0.5rem;

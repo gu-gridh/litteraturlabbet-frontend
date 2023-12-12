@@ -239,6 +239,7 @@ watch(
     background-position: calc(100% - 10px) 55%;
     background-color:var(--theme-accent-color);
     -webkit-appearance: none;
+    appearance: none;
     /* text-transform: capitalize; */
 }
 .card-container {
