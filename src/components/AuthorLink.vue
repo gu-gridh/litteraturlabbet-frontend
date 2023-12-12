@@ -2,10 +2,10 @@
 
 import { get, getAligned } from "@/services/diana";
 import { useRoute } from "vue-router";
-import type { Author } from "@/types/litteraturlabbet";
+import type { Author, Segment } from "@/types/litteraturlabbet";
 import SegmentPairCard from './SegmentPairCard.vue';
 import { searchStore } from "@/stores/search";
-import { onBeforeMount, onBeforeUnmount, onMounted, watch } from "vue";
+import { onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { setBusy, setNotBusy } from "./Waiter.vue";
 
 const route = useRoute();
@@ -20,7 +20,9 @@ const author2 = await get<Author>(<unknown>a2 as number, "author");
 
 const store = searchStore();
 
-let segments2: any[] = [];
+const segments2 = ref<Array<any>>([]);
+
+const numExcluded = ref<number>(0);
 
 onBeforeMount(() => filterData());
 
@@ -83,8 +85,14 @@ function filterData() {
         }
         return 0;
     });
-    segments = segments.filter((s) => s[0].series.imprint_year >= store.yearStart && s[0].series.imprint_year <= store.yearEnd && s[1].series.imprint_year >= store.yearStart && s[1].series.imprint_year <= store.yearEnd);
-    segments2 = segments;
+    if (store.yearStart) {
+        segments = segments.filter((s) => s[0].series.imprint_year >= store.yearStart! && s[1].series.imprint_year >= store.yearStart!);
+    }
+    if (store.yearEnd) {
+        segments = segments.filter((s) => s[0].series.imprint_year <= store.yearEnd! && s[1].series.imprint_year <= store.yearEnd!);
+    }
+    numExcluded.value = data.results.length - segments.length;
+    segments2.value = segments;
 }
 
 function customBack() {
@@ -128,15 +136,21 @@ watch(
 
         <h2>Textåterbruk mellan <span class="author-name">{{ author1.name }}</span> och <span class="author-name">{{ author2.name }}</span></h2>
         <div class="littlabbinfo">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
+        <div v-if="numExcluded > 0">
+        <div class="exclude-label label-color">
+          <span class="exclusion-number">{{ numExcluded }} stycken</span> 
+          exkluderade på grund av att de<span v-if="numExcluded === 1">t</span> faller utanför vald tidsperiod.
+        </div>
+      </div>
         <div class="link-container">
-        <Suspense>
-            <segment-pair-card v-for="segmentpair in segments2" v-bind:key="segmentpair[0].id" :segment1="segmentpair[0]" :segment2="segmentpair[1]"></segment-pair-card>
-        </Suspense>
         <div v-if="segments2.length===0">
             <br/>
             <div class="text-container">
                 <h3>Inga textåterbruk funna</h3>
             </div>
+        </div>
+        <div v-else>
+            <segment-pair-card v-for="segmentpair in segments2" v-bind:key="segmentpair[0].id" :segment1="segmentpair[0]" :segment2="segmentpair[1]"></segment-pair-card>
         </div>
     </div>
     
