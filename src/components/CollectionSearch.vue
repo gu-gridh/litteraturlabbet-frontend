@@ -401,7 +401,7 @@ async function onSelectAuthor1(e: any) {
   const value = {...e};
   // clear graph
   errorMessage.value = false;
-
+  store.work = undefined;
   workSelect.value.clearSearch();
 
   // Update the work count
