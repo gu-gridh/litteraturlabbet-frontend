@@ -179,7 +179,6 @@ async function fetchClusters(page: number, authorID: number | undefined, workID:
     cluster.segments = includedSegments;
     if (excludedSegments.length > 0) {
       numExcluded.value = excludedSegments.length;
-      console.log("Excluded segments: ", excludedSegments.length);
     } else {
       numExcluded.value = 0;
     }
@@ -249,29 +248,6 @@ watch(
   }
 );
 
-// watch(
-//   [props.author, props.work],
-//   async ([newAuthor, oldAuthor], [newWork, oldWork]) => {
-//     console.log(newAuthor, oldAuthor, newWork, oldWork);
-//     await fetchData(props.author, props.work);
-//   },
-//   {
-//     immediate: true,
-//     deep: true,
-//   }
-// );
-
-// watch(
-//   [props.author, props.work],
-//   async ([newAuthor, oldAuthor], [newWork, oldWork]) => {
-//     console.log(newAuthor, oldAuthor, newWork, oldWork);
-//     await fetchData(props.author, props.work);
-//   },
-//   {
-//     immediate: true,
-//     deep: true,
-//   }
-// );
 onMounted(() => {
   setNotBusy();
 });
