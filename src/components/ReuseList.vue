@@ -80,7 +80,7 @@ const numExcluded = ref<number>(0);
 await fetchData(props.author, props.work);
 
 async function fetchData(author: number, work?: number) {
-  if (route.path.match(/\/reuse\/\d+$/)) {
+  if (route.path.match(/\/reuse\/\d+(\/\d+)?$/)) {
     if (author) {
       authorSelected.value = await get<Author>(author, "author");
       workSelected.value = undefined;
@@ -100,7 +100,7 @@ async function fetchData(author: number, work?: number) {
 }
 
 async function fetchClusters(page: number, authorID: number | undefined, workID: number | undefined) {
-  if (!route.path.match(/\/reuse\/\d+$/)) {
+  if (!route.path.match(/\/reuse\/\d+(\/\d+)?$/)) {
     return;
   }
   //setBusy();

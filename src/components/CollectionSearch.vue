@@ -263,7 +263,7 @@ async function triggerSearch2() {
   if (store.author?.id === currentAuthor.value) {
     //console.log(store.work?.id, currentWork.value);
     if (store.work) {
-      if (store.work?.id == currentWork.value) {
+      if (store.work?.id === currentWork.value) {
         setNotBusy();
         errorMessage.value = true;
         phraseErrorMessage.value = "Du har redan sökt efter denna kombination.";
