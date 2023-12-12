@@ -18,7 +18,7 @@
       <div v-if="numExcluded > 0">
         <div class="exclude-label label-color">
           <span class="exclusion-number">{{ numExcluded }} stycken</span> 
-          exkluderade på grund av att de faller utanför vald tidsperiod.
+          exkluderade på grund av att de<span v-if="numExcluded === 1">t</span> faller utanför vald tidsperiod.
         </div>
       </div>
 
