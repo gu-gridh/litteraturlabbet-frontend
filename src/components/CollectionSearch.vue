@@ -14,7 +14,7 @@
           <!-- <p>Välj ett tidsomfång</p> -->
         </div>
         <div class="slider-input">
-          <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor" @end="setTimespan()" lazy />
+          <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor" @update="setTimespan" lazy />
         </div>
       </div>
 
