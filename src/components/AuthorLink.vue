@@ -137,9 +137,9 @@ watch(
         <h2>Textåterbruk mellan <span class="author-name">{{ author1.name }}</span> och <span class="author-name">{{ author2.name }}</span></h2>
         <div class="littlabbinfo">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
         <div v-if="numExcluded > 0">
-        <div class="exclude-label label-color">
-          <span class="exclusion-number">{{ numExcluded }} stycken</span> 
-          exkluderade på grund av att de<span v-if="numExcluded === 1">t</span> faller utanför vald tidsperiod.
+            <div class="exclude-label label-color">
+          <span class="exclusion-number">{{ numExcluded }} stycke<span v-if="numExcluded > 1">n</span></span> 
+          exkludera<span v-if="numExcluded === 1">t</span><span v-if="numExcluded > 1">de</span> på grund av att de<span v-if="numExcluded === 1">t</span> faller utanför vald tidsperiod.
         </div>
       </div>
         <div class="link-container">
