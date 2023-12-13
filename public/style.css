@@ -261,6 +261,11 @@ a:visited {
   font-weight: 500;
 }
 
+
+.exclusion-number span {
+  font-weight:500;
+}
+
 .button-container {
   width: 100%;
   display: flex;
