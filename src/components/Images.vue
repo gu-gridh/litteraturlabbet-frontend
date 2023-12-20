@@ -56,7 +56,8 @@ export default {
     <!-- <MasonryWall>
     <template> -->
   <div class="grid">
-          <div class="metadata-container" v-for="result in data.preds.slice(0,200)">
+          <div class="metadata-container" v-for="result in data.preds">
+          <!-- <div class="metadata-container" v-for="result in data.preds.slice(0,200)"> -->
           <img 
               :src="`predictions_test/${result.extraction_image}`"
             />
