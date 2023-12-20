@@ -10,6 +10,8 @@ import { setBusy, setNotBusy } from "./components/Waiter.vue";
 
 import matomo from 'vue-matomo';
 
+import MasonryWall from "@yeger/vue-masonry-wall";
+
 const app = createApp(App);
 
 if (import.meta.env.VITE_MATOMO_URL && import.meta.env.VITE_MATOMO_ID) {
@@ -24,6 +26,7 @@ if (import.meta.env.VITE_MATOMO_URL && import.meta.env.VITE_MATOMO_ID) {
 }
 app.use(createPinia());
 app.use(router);
+app.use(MasonryWall)
 app.provide("waiter", {
     setBusy, setNotBusy
 });

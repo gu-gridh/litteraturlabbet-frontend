@@ -1,26 +1,21 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import img1 from '@/assets/gallery/1.jpeg'
-import img2 from '@/assets/gallery/2.jpeg'
-import img3 from '@/assets/gallery/3.jpeg'
-import img4 from '@/assets/gallery/4.jpeg'
-import img5 from '@/assets/gallery/5.jpeg'
-import img6 from '@/assets/gallery/6.jpeg'
+import { watch, defineComponent, onMounted, ref } from 'vue'
 import { useRouter } from "vue-router";
 import { setNotBusy } from '@/components/Waiter.vue'
+import ImageDisplays from '@/components/Images.vue'
 
-const images = ref([img1, img2, img3, img4, img5, img6])
-const galleryLabels = ref(["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter"])
-
-const router = useRouter() 
-
-const viewImage = (index: number) => {
-  router.push({ name: "image-viewer", params: { id: index + 1 } }) // index + 1 to match the image filename
-}
+var showGallery = true;
+// const viewImage = (index: number) => {
+//   router.push({ name: "image-viewer", params: { id: index + 1 } }) // index + 1 to match the image filename
+// }
+function toggleGallery() {
+      showGallery = !showGallery;}
 
 onMounted(() => {
   setNotBusy();
 })
+
+
 </script>
 
 <template>
@@ -32,24 +27,12 @@ onMounted(() => {
       Med detta verktyg kan vi extrahera dessa element antingen från författare och enskilda verk, eller från all litteratur under ett eller flera årtionden.
       Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska elementen är sorterade kronologiskt.
     </div>
-  <div class="galleryLabel">
-    <div class="galleryLabelButtons">
-      <button class="button"
-        v-for="(label, index) in galleryLabels"
-        :key="index"
-      >
-        {{ label }}
-      </button>
-    </div>
-  </div>
-  <div class="grid">
-    <img
-      v-for="(image, index) in images"
-      :key="index"
-      :src="image"
-      @click="viewImage(index)"
-    />
-  </div>
+
+
+  <ImageDisplays
+  ref="imageComponent"
+        @toggle-gallery="toggleGallery">
+</ImageDisplays>
 </template>
 
 <style scoped>
