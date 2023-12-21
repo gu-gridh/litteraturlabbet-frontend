@@ -32,7 +32,7 @@
   </template>
   
   <script setup lang="ts">
-  import { defineProps, onBeforeUnmount, onMounted, watch } from 'vue';
+  import { onBeforeUnmount, onMounted, watch } from 'vue';
   import { search2 } from "@/services/diana";
   import PhraseCard from "@/components/PhraseCard.vue";
   import { ref } from "vue";
