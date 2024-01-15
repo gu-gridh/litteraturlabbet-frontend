@@ -136,6 +136,7 @@ import { authors } from "@/assets/authors_years.json";
 import router from "@/router";
 import { inject } from 'vue';
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
+import ChronoGraph from "./ChronoGraph.vue";
 
 const store = searchStore();
 
@@ -204,7 +205,7 @@ function setTimespan() {
   store.yearStart = timeRange.value[0];
   store.yearEnd = timeRange.value[1];
   console.log("Setting timespan to", timeRange.value[0], timeRange.value[1]);
-  // rebuild graph
+  // rebuild graph -- NOT DONE
   // filter authors
   authorSelect.value.refreshOptions();
   // filter works
