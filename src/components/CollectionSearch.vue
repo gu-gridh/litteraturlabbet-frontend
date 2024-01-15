@@ -136,7 +136,6 @@ import { authors } from "@/assets/authors_years.json";
 import router from "@/router";
 import { inject } from 'vue';
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
-import ChronoGraph from "./ChronoGraph.vue";
 
 const store = searchStore();
 

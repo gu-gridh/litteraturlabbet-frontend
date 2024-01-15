@@ -21,10 +21,6 @@
       </network-chart>
       </div>
     </div>
-    <div v-if="showChronograph">
-      <Chronograph :author="props.author" :work="props.work">
-      </Chronograph>
-    </div>
   
   
     <div class="Fade"></div>
@@ -62,14 +58,13 @@ import { searchStore } from "@/stores/search";
 import { networkStore } from "@/stores/network";
 import type { Link, Node } from "@/types/network";
 import { unpaginated, list } from "@/services/diana";
-import { onBeforeUnmount, onMounted, watch } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import TopLists from "./TopLists.vue";
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
 
 const store = searchStore();
 const dataStore = networkStore();
 let showGraph: boolean = true;
-let showChronograph: boolean = false;
 
 const props = defineProps<{
   author?: number;
@@ -108,12 +103,10 @@ onBeforeUnmount(() => {
 });
 function fShowGraph() {
   showGraph = true;
-  showChronograph = false;
 }
 
 function fShowChronograph() {
   showGraph = false;
-  showChronograph = true;
 }
 
 async function fetch() {
