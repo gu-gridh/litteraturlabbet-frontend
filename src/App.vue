@@ -48,9 +48,7 @@
 import { RouterLink, RouterView, useRoute } from "vue-router";
 import Footer from "@/components/Footer.vue";
 import CollectionSearch from "./components/CollectionSearch.vue";
-import { watch } from "vue";
 import Waiter from "@/components/Waiter.vue";
-import { isBusy } from "@/components/Waiter.vue";
 
 const route = useRoute();
 const isActive = (routeName: string) => {

@@ -3,15 +3,9 @@
     <div id="waiter-wrapper">
      
         <div id="waiter-spinner">
-       <!--  <svg class="spinner" width="50" height="50" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="25" cy="25" r="5" fill="#b46464" stroke-width="5" stroke="#b46464" />
-            <circle cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke="#b46464" stroke-dasharray="20 10" />
-            <circle cx="25" cy="25" r="30" fill="none" stroke-width="5" stroke="#b46464" stroke-dasharray="3 2" />
-        </svg> -->
         </div>
 
         <div id="waiter-text">
-            <!-- <p>Laddar</p> -->
         </div>
     </div>
    </div>

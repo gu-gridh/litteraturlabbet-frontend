@@ -59,17 +59,7 @@
         <input type="search" id="search" class="search-box" name="search" spellcheck="false" placeholder="Fras"
           :value="searchQuery" @keydown="handleBackspace" @input="updateSearchQuery"
           @keydown.enter="triggerSearch" @clear="onClearPhrase" />
-      
-
       </div>
-      <!--   <div class="slider-container" v-show="showSlider">
-        <div class="select-label" style="margin-bottom:50px; text-align:center;">
-          <p>Välj ett tidsomfång</p>
-        </div>
-        <div class="slider-input">
-          <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor" />
-        </div>
-      </div> -->
 
       <div class="count-label">
         <p>Totalt {{ workCount }} verk i samlingen.</p>
@@ -79,29 +69,9 @@
         <div v-if="!hasQuery">
           <div v-if="store.author2">
             <div class="search-button2" @click="triggerSearch1">Sök</div>
-            <!--
-            <router-link :to="{
-              name: 'reuse-link',
-              params: {
-                id1: store.author?.id,
-                id2: store.author2?.id,
-              },
-            }" v-slot="{ href }" class="search-button">Sök
-            </router-link>
-            -->
           </div>
           <div v-if="!store.author2">
             <div class="search-button2" @click="triggerSearch2">Sök</div>
-            <!--
-            <router-link :to="{
-              name: 'reuse',
-              query: {
-                author: store.author?.id,
-                work: store.work?.id,
-              },
-            }" v-slot="{ href }" class="search-button">Sök
-            </router-link>
-            -->
           </div>
         </div>
         <div v-if="hasQuery">
@@ -115,8 +85,6 @@
         </div>
       </div>
     </div>
-
-
   </div>
 </template>
 
@@ -124,8 +92,8 @@
 import { ref, onMounted, watch, onBeforeMount } from "vue";
 import Multiselect from "@vueform/multiselect";
 import Slider from '@vueform/slider'
-import { list, get } from "@/services/diana";
-import type { Author, Work } from "@/types/litteraturlabbet";
+import { get } from "@/services/diana";
+import type { Author } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
 import reuseAuthors from "@/assets/authors_with_reuse_copy.json";
 import reuseWorks from "@/assets/works_with_reuse.json";
@@ -134,7 +102,6 @@ import Welcome from "@/components/Welcome.vue";
 import { works } from "@/assets/works_years.json";
 import { authors } from "@/assets/authors_years.json";
 import router from "@/router";
-import { inject } from 'vue';
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
 
 const store = searchStore();

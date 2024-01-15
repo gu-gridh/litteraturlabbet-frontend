@@ -37,19 +37,15 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import { list, get } from "@/services/diana";
+import { onBeforeMount, onBeforeUnmount, ref, watch } from "vue";
+import { get } from "@/services/diana";
 import SegmentCard from "@/components/SegmentCard.vue";
 import type {
-  Author,
-  Page,
-  Work,
   Segment,
   Cluster,
 } from "@/types/litteraturlabbet";
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
 import { searchStore } from "@/stores/search";
-import { filter } from "lodash";
 
 const props = defineProps<{
   id: string;

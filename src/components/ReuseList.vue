@@ -31,18 +31,6 @@
     </div>
   </div>
   <div class="card-container">
-    <!-- Exclusion container if there are elements that do not fall within the selected time period -->
-    <!--
-    <div v-if="numExcluded > 0">
-      
-      <div class="exclude-label">
-        <span class="author-name">{{ numExcluded }}</span> segment  
-         exkluderade på grund av att de inte uppfyller
-        återbrukets tidsperiod.
-      </div>
-    </div>
-    -->
-    <!-- End exclusion container -->
     <div v-for="cluster in clusters" v-bind:key="cluster.id">
       <cluster-card :cluster="cluster"></cluster-card>
     </div>
@@ -64,7 +52,7 @@ import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 import { ref, watch, computed, onMounted, onBeforeUnmount } from "vue";
 import { useRoute } from "vue-router";
-import { list, get, unpaginated } from "@/services/diana";
+import { list, get } from "@/services/diana";
 import ClusterCard from "@/components/ClusterCard.vue";
 import type { Author, Cluster, Work } from "@/types/litteraturlabbet";
 import { setBusy, setNotBusy } from "./Waiter.vue";

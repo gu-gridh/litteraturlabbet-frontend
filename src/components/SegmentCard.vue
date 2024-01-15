@@ -3,35 +3,19 @@
     <div class="segment-card">
       <div class="segment-metadata-container">
         <p class="segment-card-title author-title">{{ author.formatted_name }}</p>
-        <p class="segment-card-title" style="font-style:italic; font-size:1.2em;" :title="work.title">{{ work.short_title ? work.short_title : work.title }} <p style="font-style:normal; display:inline; color:var(--theme-accent-color); margin-left:10px; font-size:1.5em;top:3px;">{{ work.imprint_year }}</p></p>
-        
+        <p class="segment-card-title" style="font-style:italic; font-size:1.2em;" :title="work.title">{{ work.short_title ? work.short_title : work.title }} <p style="font-style:normal; display:inline; color:var(--theme-accent-color); margin-left:10px; font-size:1.5em;top:3px;">{{ work.imprint_year }}</p></p>    
       </div>
-      <!-- <router-link
-    :to="{
-            name: 'page',
-            params: {
-              id: segment.page as number,
-            },
-            query: {
-              segment: segment.id,
-            }
-          }"
-  > -->
       <div class="segment-text-container">
         <a v-bind:href="lblink" target="_blank">
         <div class="page-text" v-html="text"></div>
       </a>
       </div>
-      
-    <!-- </router-link> -->
     </div>
-  
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { list, get } from "@/services/diana";
-import type { Author, Page, Work, Segment } from "@/types/litteraturlabbet";
+import { onMounted } from "vue";
+import type { Segment } from "@/types/litteraturlabbet";
 import { setNotBusy } from "./Waiter.vue";
 
 const props = defineProps<{

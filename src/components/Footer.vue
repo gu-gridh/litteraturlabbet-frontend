@@ -12,10 +12,10 @@
       <i>Göteborgs jubileum 1923</i>, v.1.0 GRIDH. https://jubileet1923.dh.gu.se/. Accessed [datum]<br>
       </div> -->
 
-      <div id="legal"> 
+    <div id="legal"> 
       Bilder: <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv">CC0 1.0</a><br>
       Texter: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
-</div>
+    </div>
   </footer>
 </template>
 

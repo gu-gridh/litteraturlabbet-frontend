@@ -26,7 +26,7 @@
 import type { Segment } from "@/types/litteraturlabbet";
 import { onBeforeUnmount, onMounted, ref } from "vue";
 import { Fuzzy } from "@nexucis/fuzzy";
-import { setBusy, setNotBusy } from "./Waiter.vue";
+import { setNotBusy } from "./Waiter.vue";
 
 const props = defineProps<{
   segment: Segment;

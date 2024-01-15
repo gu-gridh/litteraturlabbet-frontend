@@ -37,22 +37,17 @@
 
   <div v-show="showNetwork">
   <div class="chart-super-container">
-    <div class="chart-container">
-      
+    <div class="chart-container">  
       <div id="chart" ref="element"></div>
-    
-    
-
     </div>
-
   </div>
 </div>
 </template>
 
 <script setup lang="ts">
-import ForceGraph, { type GraphData, type NodeObject } from "force-graph";
+import ForceGraph, { type NodeObject } from "force-graph";
 import type { Author } from "@/types/litteraturlabbet";
-import { ref, watch, onMounted, nextTick } from "vue";
+import { ref, watch, onMounted } from "vue";
 import type { Link, Node } from "@/types/network";
 import { get } from "@/services/diana";
 import { useRoute } from "vue-router";
@@ -60,15 +55,11 @@ import { useRouter } from "vue-router";
 import { searchStore } from "@/stores/search";
 import { reuseStore } from "@/stores/reuse";
 import Slider from '@vueform/slider'
-import { storeToRefs } from "pinia";
 import { setBusy } from "./Waiter.vue";
 
 const authorStore = searchStore();
 const linkStore = reuseStore();
-let graphTooBig: boolean = false;
 let secondaryNodeNumber = ref(50);
-let showGraph: boolean = false;
-let showChronograph: boolean = true;
 const showNetwork = ref(true);
 
 const props = defineProps<{

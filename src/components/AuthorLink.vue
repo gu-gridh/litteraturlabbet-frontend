@@ -2,7 +2,7 @@
 
 import { get, getAligned } from "@/services/diana";
 import { useRoute } from "vue-router";
-import type { Author, Segment } from "@/types/litteraturlabbet";
+import type { Author } from "@/types/litteraturlabbet";
 import SegmentPairCard from './SegmentPairCard.vue';
 import { searchStore } from "@/stores/search";
 import { onBeforeMount, onBeforeUnmount, onMounted, ref, watch } from "vue";

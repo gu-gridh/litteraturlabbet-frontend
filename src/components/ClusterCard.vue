@@ -1,6 +1,5 @@
 <template>
   <div class="text-container" v-if="cluster.size===0">
-    
   </div>
   <div v-else>
    <router-link
@@ -15,7 +14,6 @@
     <div class="cluster-metadata-container">
       <div>
         <p class="cluster-size-label">{{ cluster.size }} </p> återbruk
-       
       </div>
       <div>
         <!-- <router-link

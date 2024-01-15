@@ -2,12 +2,8 @@
     <div class="module-title">
   <div style="position:absolute; top:30px; left:28px; font-size:2.0em!important; font-weight:100!important; z-index:1000;">Textåterbruk</div>
 </div>
-<!--
-<button @click="fShowGraph()">Show graph</button>
-<button @click="fShowChronograph()">Show chronograph</button>
--->
-  <div style="min-height:580px">
 
+  <div style="min-height:580px">
 
   <div v-if="author" class="reuse-container-w-author">
     <div v-if="showGraph">
@@ -21,7 +17,6 @@
       </network-chart>
       </div>
     </div>
-  
   
     <div class="Fade"></div>
   
@@ -50,7 +45,6 @@
 
 <script setup lang="ts">
 import NetworkChart from "@/components/NetworkChart.vue";
-import Chronograph from "@/components/ChronoGraph.vue";
 import ReuseList from "@/components/ReuseList.vue";
 import type { Work, Author } from "@/types/litteraturlabbet";
 import { get } from "@/services/diana";
@@ -58,7 +52,7 @@ import { searchStore } from "@/stores/search";
 import { networkStore } from "@/stores/network";
 import type { Link, Node } from "@/types/network";
 import { unpaginated, list } from "@/services/diana";
-import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { onBeforeUnmount, onMounted, watch } from "vue";
 import TopLists from "./TopLists.vue";
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
 

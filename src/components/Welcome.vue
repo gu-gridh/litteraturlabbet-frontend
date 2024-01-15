@@ -22,8 +22,8 @@
   </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
-import { list, get } from "@/services/diana";
+import { ref, onMounted } from "vue";
+import { list } from "@/services/diana";
 import { searchStore } from "@/stores/search";
 import type { Work } from "@/types/litteraturlabbet";
 
