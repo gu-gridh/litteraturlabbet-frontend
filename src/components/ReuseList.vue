@@ -6,6 +6,8 @@
         I verk av
         <span class="author-name">{{ authorSelected?.name }}</span> finner vi
         <span class="author-name">{{ clusterCount }}</span> grupper av likartade stycken.
+        <br/>
+
       </div>
       <div v-if="workSelected && authorSelected">
         I verket
@@ -16,9 +18,18 @@
     </div>
   
     </div>
-  </div>
-  
 
+  </div>
+  <div class="reuse-works">
+    <!-- Show works included in search on request -->
+    <div class="show-works">
+      <div v-show="showWorks">
+        <span class="mouse-pointer" @click="toggleShowWork()">Dölj verk</span>
+        <ChronoGraph :author="authorSelected?.id" :work="workSelected?.id"></ChronoGraph>
+      </div>
+      <span v-show="!showWorks" class="mouse-pointer" @click="toggleShowWork()">Visa alla verk som ingår i sökningen</span>
+    </div>
+  </div>
   <div class="card-container">
     <!-- Exclusion container if there are elements that do not fall within the selected time period -->
     <!--
@@ -58,6 +69,7 @@ import ClusterCard from "@/components/ClusterCard.vue";
 import type { Author, Cluster, Work } from "@/types/litteraturlabbet";
 import { setBusy, setNotBusy } from "./Waiter.vue";
 import { searchStore } from "@/stores/search";
+import ChronoGraph from "./ChronoGraph.vue";
 
 const props = defineProps<{
   author: number;
@@ -76,8 +88,13 @@ const pages = computed(() => {
   return Math.floor(clusterCount.value / 10) + 1;
 });
 const numExcluded = ref<number>(0);
+const showWorks = ref(false);
 
 await fetchData(props.author, props.work);
+
+function toggleShowWork() {
+  showWorks.value = !showWorks.value;
+}
 
 async function fetchData(author: number, work?: number) {
   if (route.path.match(/\/reuse\/\d+(\/\d+)?$/)) {
@@ -258,6 +275,10 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+.mouse-pointer 
+{
+  cursor: pointer;
+}
 .card-container {
   height: 100%;
 }
@@ -282,7 +303,15 @@ width:auto;
 line-height:1.5 !important;
 }
 
-
+.reuse-works {
+  color: black;
+  border-radius: 0px;
+  font-size: 16px;
+  text-align:center;
+  position:relative;
+  width:auto;
+  line-height:1.5 !important;
+}
 
 .exclude-label {
   pointer-events:none;
