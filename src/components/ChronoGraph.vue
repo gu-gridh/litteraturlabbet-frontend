@@ -17,7 +17,7 @@
               <h3>{{ y[0].imprint_year }}</h3>
             </div>
             <div class="chronoitems">
-              <div v-for="d in y" class="chronoitem" :class="{ 'chronoitem-current': d.isCurrentAuthor }">
+              <div v-for="d in y" class="chronoitem" :class="{ 'chronoitem-current': d.isCurrentAuthor, 'chronoitem-excluded': isOutsideTimespan(d.imprint_year) }">
                 <!--@click="navigate(d)">-->
                 <!-- Tooltip and navigation to item excluded for now -->
                 <!--  because one title might have multiple reuse clusters -->
@@ -27,9 +27,11 @@
                   <div class="chronoitem-author">
                     {{ d.main_author }}
                   </div>
-                  <br />
                   <div class="chronoitem-title">
                     {{ d.title }}
+                  </div>
+                  <div class="chronoitem-year">
+                    {{ d.imprint_year }}
                   </div>
                 </div>
               </div>
@@ -43,7 +45,7 @@
               <h3>{{ a[0].mafl }}</h3>
             </div>
             <div class="chronoitems">
-              <div v-for="d in a" class="chronoitem" :class="{ 'chronoitem-current': d.isCurrentAuthor }">
+              <div v-for="d in a" class="chronoitem" :class="{ 'chronoitem-current': d.isCurrentAuthor, 'chronoitem-excluded': isOutsideTimespan(d.imprint_year) }">
                 <!--@click="navigate(d)">-->
                 <!-- Tooltip and navigation to item excluded for now -->
                 <!--  because one title might have multiple reuse clusters -->
@@ -53,39 +55,17 @@
                   <div class="chronoitem-author">
                     {{ d.main_author }}
                   </div>
-                  <br />
                   <div class="chronoitem-title">
                     {{ d.title }}
+                  </div>
+                  <div class="chronoitem-year">
+                    {{ d.imprint_year }}
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!--
-        <div v-show="sortOrder == 'title'">
-          <div v-for="t in byTitle">
-            <div class="chronoheader">
-              <h3>{{ t[0].tfl }}</h3>
-            </div>
-            <div class="chronoitems">
-              <div v-for="d in t" class="chronoitem" :class="{ 'chronoitem-current': d.isCurrentAuthor }">
-                
-                <span class="tooltiptext">Gå till återbruk som inkluderar {{ d.title }} av {{ d.main_author }}</span>
-                <div class="chronoitem-inner">
-                  <div class="chronoitem-author">
-                    {{ d.main_author }}
-                  </div>
-                  <br />
-                  <div class="chronoitem-title">
-                    {{ d.title }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        -->
       </div>
     </Suspense>
   </div>
@@ -99,14 +79,19 @@
 import type { Cluster } from '@/types/litteraturlabbet';
 import { list } from "@/services/diana";
 import { useRouter } from 'vue-router';
-import { ref } from 'vue';
-import { sort } from 'd3';
+import { ref, watch } from 'vue';
+import { searchStore } from '@/stores/search';
 
 const router = useRouter();
 
 const chronographReady = ref(false);
 
 const sortOrder = ref("year");
+
+const store = searchStore();
+
+const startYear = ref<number>();
+const endYear = ref<number>();
 
 const props = defineProps<{
   author?: number;
@@ -256,6 +241,55 @@ function navigate(d: ChronoData) {
 function sortBy(key: string) {
   sortOrder.value = key;
 }
+
+function filterData() {
+  startYear.value = store.yearStart;
+  endYear.value = store.yearEnd;
+}
+
+function isOutsideTimespan(year: number) {
+  if (startYear.value) {
+    if (endYear.value) {
+      if (year >= startYear.value && year <= endYear.value) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      if (year >= startYear.value) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  } else {
+    if (endYear.value) {
+      if (year <= endYear.value) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+}
+
+watch(
+  () => store.yearStart,
+    () => filterData(),
+    {
+        immediate: true,
+    }
+);
+
+watch(
+  () => store.yearEnd,
+  () => filterData(),
+  {
+    immediate: true,
+  }
+)
 </script>
  
 <style scoped>
@@ -343,10 +377,15 @@ function sortBy(key: string) {
   background-color: #eee;
 }
 
+.chronoitem-excluded {
+  opacity: 0.5;
+}
+
 .chronoitem-inner {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
+  flex-direction: column;
 }
 
 .chronoitem-author {
@@ -355,6 +394,10 @@ function sortBy(key: string) {
 }
 
 .chronoitem-title {
+  font-size: 1rem;
+}
+
+.chronoitem-year {
   font-size: 1rem;
 }
 .chronosorting-current {
