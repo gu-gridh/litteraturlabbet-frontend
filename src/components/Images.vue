@@ -15,8 +15,8 @@ export default {
     data(){
         return{
         activeViewer: 'Gallery',
-        galleryLabels: ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter"],
-        data: predsData,
+        galleryLabels: ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder"],
+        results: predsData,
         filteredData: [],
     }},
     methods:{
@@ -53,24 +53,22 @@ export default {
         {{ label }}
       </button>
     </div></div>
-    <!-- <MasonryWall>
-    <template> -->
-  <div class="grid">
-          <div class="metadata-container" v-for="result in data.preds">
-          <!-- <div class="metadata-container" v-for="result in data.preds.slice(0,200)"> -->
-          <img 
-              :src="`predictions_test/${result.extraction_image}`"
+
+    <div class="grid">
+      <div class="metadata-container" v-for="item in results.preds">
+            <img
+              :src="item.img_url"
+              :alt="`Image ${item.extraction_image}`"
+              :width="`${item.display_width}`"
+              :height="`${item.display_height}`"
             />
-          <div class="hover-overlay">
-            <h5>{{ result.lb_id }}</h5>
-            <h6>{{ result.label_sv }}</h6>
+            <div class="hover-overlay">
+                <h5>{{ item.lb_id }}</h5>
+                <h6>{{ item.label_sv }}</h6>
+              </div>
+            </div>
           </div>
-          </div>
-        <!-- </template>  
-    </MasonryWall> -->
   </div>
-  </div>
-  <!-- </div> -->
 </template>
 
 <style>
@@ -176,4 +174,7 @@ opacity:0.4}
   justify-content: center;
   display: flex;
 }
+
+
+
 </style>
