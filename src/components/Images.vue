@@ -4,7 +4,11 @@ import { watch, onMounted, ref } from 'vue'
 import { useRouter } from "vue-router";
 import { setNotBusy } from '@/components/Waiter.vue';
 import  predsData from "@/assets/preds_clean.json";
+import  neighbours from "@/assets/nearest_neighbours.json";
+import  duplicates from "@/assets/similar_extractions.json";
 import { max } from "lodash";
+import Plotly, { Root } from 'plotly.js-dist'
+
 
 export default {
   components: {
@@ -16,7 +20,7 @@ export default {
         return{
         activeViewer: 'Gallery',
         galleryLabels: ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder"],
-        results: predsData,
+        results: predsData.preds,
         filteredData: [],
     }},
     methods:{
@@ -26,8 +30,10 @@ export default {
             this.$emit('toggle-gallery');
         }
     },
-  }
+  },
 }
+
+
 </script>
 
 <template>
@@ -41,7 +47,9 @@ export default {
         </button></div>
         
 
-  <div class="image-cloud" v-show="activeViewer === 'Image Cloud'">WORK IN PROGRESS!</div>
+  <div class="image-cloud" v-show="activeViewer === 'Image Cloud'">
+    <div id="umap-plot"></div>
+  </div>
   <div class="gallery" v-show="activeViewer === 'Gallery'">
     <div class="filter-container">
     <button class="dropdown-filter">Filter</button>
@@ -55,7 +63,7 @@ export default {
     </div></div>
 
     <div class="grid">
-      <div class="metadata-container" v-for="item in results.preds">
+      <div class="metadata-container" v-for="item in results">
             <img
               :src="item.img_url"
               :alt="`Image ${item.extraction_image}`"

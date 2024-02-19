@@ -12,5 +12,8 @@
     {
       "path": "./tsconfig.config.json"
     }
-  ]
+  ],
+  "plotly.js-dist": [
+    "node_modules/@types/plotly.js"
+    ]
 }
