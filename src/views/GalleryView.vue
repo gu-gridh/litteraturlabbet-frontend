@@ -63,7 +63,7 @@ onMounted(() => {
   background-color:var(--theme-accent-color);
   color:white;
 }
-.grid {
+/* .grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 1rem;
@@ -79,5 +79,5 @@ onMounted(() => {
 
 .grid img:hover{
   transform:scale(1.03);
-}
+} */
 </style>

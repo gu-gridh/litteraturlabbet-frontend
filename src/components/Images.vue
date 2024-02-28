@@ -53,29 +53,29 @@ export default {
   <div class="gallery" v-show="activeViewer === 'Gallery'">
     <div class="filter-container">
     <button class="dropdown-filter">Filter</button>
-    <div class="dropdown-buttons">
-      <button class="button"
-        v-for="(label, index) in galleryLabels"
-        :key="index"
-      >
-        {{ label }}
-      </button>
-    </div></div>
+      <div class="dropdown-buttons">
+        <button class="button"
+          v-for="(label, index) in galleryLabels"
+          :key="index"
+        >
+          {{ label }}
+        </button>
+      </div>
+    </div>
 
-    <div class="grid">
-      <div class="metadata-container" v-for="item in results">
-            <img
-              :src="item.img_url"
-              :alt="`Image ${item.extraction_image}`"
-              :width="`${item.display_width}`"
-              :height="`${item.display_height}`"
-            />
+  <div class="gallery" v-show="activeViewer === 'Gallery'">
+      <MasonryWall :key="componentKey" :items="results" class="masonry" :columnWidth="150" :gap="5">
+        <template v-slot:default="{ item }">
+          <div class="metadata-container">
+            <img :src="item.img_url" :alt="`Image ${item.extraction_image}`" />
             <div class="hover-overlay">
-                <h5>{{ item.lb_id }}</h5>
-                <h6>{{ item.label_sv }}</h6>
-              </div>
+              <h5>{{ item.lb_id }}</h5>
+              <h6>{{ item.label_sv }}</h6>
             </div>
           </div>
+        </template>
+      </MasonryWall>
+    </div>
   </div>
 </template>
 
@@ -131,23 +131,15 @@ export default {
   justify-content: center;
   margin: 10px 30px 10px 30px;
 }
-.grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1rem;
-  margin: 30px 30px 30px 35px;
+
+.gallery {
+  margin: 5px;
 }
 
-.grid img {
+.metadata-container img {
   width: 100%;
   height: auto;
-  object-fit: cover;
-  transition: all 0.2s ease-in-out;
 }
-
-.grid img:hover{
-  transform:scale(1.03);
-opacity:0.4}
 
 
 .h5{color: black}
@@ -182,7 +174,4 @@ opacity:0.4}
   justify-content: center;
   display: flex;
 }
-
-
-
 </style>
