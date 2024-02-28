@@ -16,6 +16,23 @@ export default {
   },
     name:'images',
     emits:['toggle-gallery'],
+    setup() {
+      const umapData = ref([{
+        x: [/*x coordinates*/],
+        y: [/*y coordinates*/],
+        type: 'scatter',
+        mode: 'markers'
+      }]);
+
+      onMounted(() => {
+        const layout = {
+          title: 'UMAP Plot',
+          xaxis: { title: 'Dimension 1' },
+          yaxis: { title: 'Dimension 2' }
+        };
+        Plotly.newPlot('umap-plot', umapData.value, layout);
+      });
+    },
     data(){
         return{
         activeViewer: 'Gallery',
@@ -32,8 +49,6 @@ export default {
     },
   },
 }
-
-
 </script>
 
 <template>
