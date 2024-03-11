@@ -54,11 +54,11 @@ export default {
 <template>
 
 <div class="galleryLabel">
-        <button class="button" :class="{ 'active': activeViewer === 'Galllery' }" @click="toggleViewer('Gallery')">
-          Gallery
+        <button class="left-button button" :class="{ 'active': activeViewer === 'Gallery' }" @click="toggleViewer('Gallery')">
+          Galleri
         </button>
-      <button class="button" :class="{ 'active': activeViewer === 'Image Cloud' }" @click="toggleViewer('Image Cloud')">
-          Image Cloud
+      <button class="right-button button" :class="{ 'active': activeViewer === 'Image Cloud' }" @click="toggleViewer('Image Cloud')">
+          Bildmoln
         </button></div>
         
 
@@ -97,10 +97,12 @@ export default {
 <style>
 .filter-container{
   display:flex;
-  justify-content: right;}
+  justify-content: center;
+  margin-bottom:20px;
+}
 
 .dropdown-filter{
-  display: flex;
+  display: none;
   justify-content: right;
   font-size: 14px;
   padding:5px 10px;
@@ -111,13 +113,13 @@ export default {
   cursor:pointer;
   height:auto;
   width:auto;
-  margin-right: 25px;
+  margin-right: 0px;
   background-color:rgb(230,230,230);
 }
 .dropdown-container{position:relative}
 .dropdown-buttons{
-  display: none;
-  padding:5px 10px;
+  display: auto;
+  padding:0px 0px;
   font-size:14px;
   text-align:center;
   color:black;
@@ -126,12 +128,14 @@ export default {
   cursor:pointer;
   height:min-content;
   width:auto;
-  margin-right:25px;
-  background-color:rgb(230,230,230);}
+  margin-right:0px;
+
+}
 
 
 .filter-container:hover .dropdown-buttons{display:flex; height:auto;}
-.hover-overlay {  height: 100%;
+.hover-overlay {  
+  height: 100%;
   width: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
   color: white;
@@ -139,13 +143,17 @@ export default {
   opacity: 0;
   transition: all 0.5s ease-in-out;
   cursor: pointer;
-  padding: 0px;}
+  padding: 0px;
+
+}
 
 .galleryLabel {
   display: flex;
   justify-content: center;
   margin: 10px 30px 10px 30px;
 }
+
+
 
 .gallery {
   margin: 5px;
@@ -162,7 +170,7 @@ export default {
 .h6{color: darkgray}
 
 .button {
-  padding:5px 10px;
+  padding:5px 12px;
   font-size:14px;
   text-align:center;
   color:black;
@@ -184,9 +192,33 @@ export default {
   color:white;
 }
 
+.galleryLabel .left-button {
+  display: flex;
+  justify-content: center;
+  font-size:1.1em;
+  padding:5px 20px;
+  margin: 10px 0px 10px 0px;
+  border-radius:6px 0px 0px 6px;
+}
+
+.galleryLabel .right-button {
+  display: flex;
+  justify-content: center;
+  font-size:1.1em;
+  padding:5px 20px;
+  margin: 10px 0px 10px 0px;
+  border-radius:0px 6px 6px 0px;
+}
+
 .image-cloud{
   color:black;
   justify-content: center;
   display: flex;
 }
+
+.galleryLabel .active{
+  background-color:var(--theme-accent-color);
+  color:white;
+}
+
 </style>
