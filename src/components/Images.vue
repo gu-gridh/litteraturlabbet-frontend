@@ -83,10 +83,21 @@ export default {
       for (let image of data.results) {
           let type = image.type;
           let item = {
-            id: image.id,
-            file: image.file,
-            type: image.label_sv,
-            iiif_file: image.iiif_file,
+            id: image.id ?? null,
+            page_id: image?.page?.id ?? null,
+            page_num: image?.page?.number ?? null,
+            work_id: image?.page?.work?.id ?? null,
+            lb_id: image?.page?.work?.lbworkid ?? null,
+            lb_title: image?.page?.work?.modernized_title ?? null,
+            title: image?.page?.work?.title ?? null,
+            year: image?.page?.work?.sort_year?? null,
+            author: image?.page?.work?.main_author?.name ?? null,
+            author_id: image?.page?.work?.main_author?.lbauthorid ?? null,
+            type: image?.label_sv ?? null,
+            label: image?.label_sv ?? null,
+            iiif_file: image.iiif_file ?? null,
+            img_file: image.file ?? null,
+            lb_link: 'https://litteraturbanken.se/f%C3%B6rfattare/'+image.page.work.main_author.lbauthorid+'/titlar/'+image.page.work.modernized_title+'/sida/'+image.page.number+'/faksimil'
           };
 
           let typeIndex = typeMap.findIndex((x) => x.label_sv === type);
@@ -154,7 +165,7 @@ export default {
       <MasonryWall :key="componentKey" :items="group.items" class="masonry" :columnWidth="150" :gap="5">
         <template v-slot:default="{ item, index }">
           <div class="metadata-container">
-            <img :src="item.file" :alt="`Image ${item.file}`" />
+            <img :src="item.file" :alt="`Image ${item.label}, ${item.author}, ${item.lb_id}:${item.page_num}`" />
             <div class="hover-overlay">
               <h5>{{ item.lb_id }}</h5>
               <h6>{{ item.label_sv }}</h6>
