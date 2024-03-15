@@ -82,6 +82,9 @@ export default {
         }));
       for (let image of data.results) {
           let type = image.type;
+          let img_file=image.file
+          let extract_id=img_file.split('/')[12]
+          console.log(extract_id)
           let item = {
             id: image.id ?? null,
             page_id: image?.page?.id ?? null,
@@ -97,6 +100,7 @@ export default {
             label: image?.label_sv ?? null,
             iiif_file: image.iiif_file ?? null,
             img_file: image.file ?? null,
+            correct_file: 'https://data.dh.gu.se/diana/static/litteraturlabbet/original/'+extract_id,
             lb_link: 'https://litteraturbanken.se/f%C3%B6rfattare/'+image.page.work.main_author.lbauthorid+'/titlar/'+image.page.work.modernized_title+'/sida/'+image.page.number+'/faksimil'
           };
 
@@ -165,7 +169,7 @@ export default {
       <MasonryWall :key="componentKey" :items="group.items" class="masonry" :columnWidth="150" :gap="5">
         <template v-slot:default="{ item, index }">
           <div class="metadata-container">
-            <img :src="item.file" :alt="`Image ${item.label}, ${item.author}, ${item.lb_id}:${item.page_num}`" />
+            <img :src="item.correct_file" :alt="`Image ${item.label}, ${item.author}, ${item.lb_id}:${item.page_num}`" />
             <div class="hover-overlay">
               <h5>{{ item.lb_id }}</h5>
               <h6>{{ item.label_sv }}</h6>
