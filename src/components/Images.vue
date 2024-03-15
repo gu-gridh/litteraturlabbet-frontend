@@ -3,9 +3,6 @@ import MasonryWall from "@yeger/vue-masonry-wall";
 import { watch, onMounted, ref } from 'vue'
 import { useRouter } from "vue-router";
 import { setNotBusy } from '@/components/Waiter.vue';
-import predsData from "@/assets/preds_clean.json";
-import neighbours from "@/assets/nearest_neighbours.json";
-import duplicates from "@/assets/similar_extractions.json";
 import { max } from "lodash";
 import Plotly, { Root } from 'plotly.js-dist'
 
@@ -32,11 +29,11 @@ export default {
           zeroline: false,
           visible: false
         },
-        yaxis: { 
+        yaxis: {
           showgrid: false,
           zeroline: false,
           visible: false
-        }
+        },
       };
       Plotly.newPlot('umap-plot', umapData.value, layout);
     }
@@ -46,18 +43,17 @@ export default {
     return {
       activeViewer: 'Gallery',
       galleryLabels: ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder"],
-      results: predsData.preds,
       filteredData: [],
       data: {},
       query: '',
       imageGroups: [],
       specificOrder: [
-        { type:"Anfanger", order: 1 },
-        { type:"Illustrationer", order: 2 },
-        { type:"Omslagsbilder", order: 3 },
-        { type:"Ornament", order: 4 },
-        { type:"Musiknoter", order: 5 },
-    ]
+        { type: "Anfanger", order: 1 },
+        { type: "Illustrationer", order: 2 },
+        { type: "Omslagsbilder", order: 3 },
+        { type: "Ornament", order: 4 },
+        { type: "Musiknoter", order: 5 },
+      ]
     }
   },
   methods: {
@@ -69,48 +65,48 @@ export default {
     },
     async fetchData(query) {
       let fixQuery = ''
-      if (query === 'Alla'){fixQuery = ''}
+      if (query === 'Alla') { fixQuery = '' }
       else (fixQuery = query)
       console.log(query)
-      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=&uuid=&label_en=&label_sv=${fixQuery}&score=&depth=3`);
+      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=&uuid=&label_en=&label_sv=${fixQuery}&score=&depth=3&limit=50`);
       const data = await response.json()
       console.log(data)
-      
+
       let typeMap = this.specificOrder.map((order) => ({
-          ...order,
-          items: [],
-        }));
+        ...order,
+        items: [],
+      }));
       for (let image of data.results) {
-          let type = image.type;
-          let img_file=image.file
-          let extract_id=img_file.split('/')[12]
-          console.log(extract_id)
-          let item = {
-            id: image.id ?? null,
-            page_id: image?.page?.id ?? null,
-            page_num: image?.page?.number ?? null,
-            work_id: image?.page?.work?.id ?? null,
-            lb_id: image?.page?.work?.lbworkid ?? null,
-            lb_title: image?.page?.work?.modernized_title ?? null,
-            title: image?.page?.work?.title ?? null,
-            year: image?.page?.work?.sort_year?? null,
-            author: image?.page?.work?.main_author?.name ?? null,
-            author_id: image?.page?.work?.main_author?.lbauthorid ?? null,
-            type: image?.label_sv ?? null,
-            label: image?.label_sv ?? null,
-            iiif_file: image.iiif_file ?? null,
-            img_file: image.file ?? null,
-            correct_file: 'https://data.dh.gu.se/diana/static/litteraturlabbet/original/'+extract_id,
-            lb_link: 'https://litteraturbanken.se/f%C3%B6rfattare/'+image.page.work.main_author.lbauthorid+'/titlar/'+image.page.work.modernized_title+'/sida/'+image.page.number+'/faksimil'
-          };
+        let type = image.type;
+        let img_file = image.file
+        let extract_id = img_file.split('/')[12]
+        console.log(extract_id)
+        let item = {
+          id: image.id ?? null,
+          page_id: image?.page?.id ?? null,
+          page_num: image?.page?.number ?? null,
+          work_id: image?.page?.work?.id ?? null,
+          lb_id: image?.page?.work?.lbworkid ?? null,
+          lb_title: image?.page?.work?.modernized_title ?? null,
+          title: image?.page?.work?.title ?? null,
+          year: image?.page?.work?.sort_year ?? null,
+          author: image?.page?.work?.main_author?.name ?? null,
+          author_id: image?.page?.work?.main_author?.lbauthorid ?? null,
+          type: image?.label_sv ?? null,
+          label: image?.label_sv ?? null,
+          iiif_file: image.iiif_file ?? null,
+          img_file: image.file ?? null,
+          correct_file: 'https://data.dh.gu.se/diana/static/litteraturlabbet/original/' + extract_id,
+          lb_link: 'https://litteraturbanken.se/f%C3%B6rfattare/' + image.page.work.main_author.lbauthorid + '/titlar/' + image.page.work.modernized_title + '/sida/' + image.page.number + '/faksimil'
+        };
 
-          let typeIndex = typeMap.findIndex((x) => x.label_sv === type);
-          if (typeIndex !== -1) {
-            typeMap[typeIndex].items.push(item);
-          }
-
-          this.imageGroups = typeMap.filter((group) => group.items.length > 0);
+        let typeIndex = typeMap.findIndex((x) => x.label_sv === type);
+        if (typeIndex !== -1) {
+          typeMap[typeIndex].items.push(item);
         }
+
+        this.imageGroups = typeMap.filter((group) => group.items.length > 0);
+      }
       this.imageGroups = Array.from(typeMap.values());
     },
     imageLoadLog(imageIndex, groupIndex, image) {
@@ -131,9 +127,23 @@ export default {
         });
       }
     },
-
   },
+  onImageClicked(iiifFile, id) {
+      this.selectedIiifFile = id;
+      this.idForMetaData = id;
+
+      this.showImageViewer = true;
+      if (this.IiifFileforImageViewer) {
+        this.$router.replace({
+          name: "IiifFile",
+          params: {
+            iiifFile: this.IiifFileforImageViewer,
+          },
+        });
+      }
+    },
 }
+
 </script>
 
 <template>
@@ -166,22 +176,26 @@ export default {
     <div class="gallery" v-show="activeViewer === 'Gallery'">
       <div v-for="(group, groupIndex) in imageGroups" :key="group.type">
         <h3 v-if="group.items.length > 0">{{ group.text }}</h3>
-      <MasonryWall :key="componentKey" :items="group.items" class="masonry" :columnWidth="150" :gap="5">
-        <template v-slot:default="{ item, index }">
-          <div class="metadata-container">
-            <img :src="item.correct_file" :alt="`Image ${item.label}, ${item.author}, ${item.lb_id}:${item.page_num}`" />
-            <div class="hover-overlay">
-              <h5>{{ item.lb_id }}</h5>
-              <h6>{{ item.label_sv }}</h6>
+        <MasonryWall :items="group.items" class="masonry" :columnWidth="150" :gap="5">
+          <template v-slot:default="{ item, index }">
+            <div class="metadata-container card"
+              @click="(item.iiif_file, item.id)">
+              <img :src="item.correct_file"
+                :alt="`Image ${item.label}, ${item.author}, ${item.lb_id}:${item.page_num}`" />
+              <div class="grid-item-info" id="gallery">
+                <div class="grid-item-info-meta">
+                  <h5>{{ item.lb_id }}</h5>
+                  <h6>{{ item.title }}, {{ item.author }}</h6>
+                </div>
+              </div>
             </div>
-          </div>
-        
-        </template>
-      
-      </MasonryWall>
-    </div></div>
+          </template>
+
+        </MasonryWall>
+      </div>
+    </div>
   </div>
-  
+
 </template>
 
 <style>
@@ -250,7 +264,6 @@ export default {
   justify-content: center;
   margin: 10px 30px 10px 30px;
 }
-
 
 
 .gallery {
@@ -322,5 +335,62 @@ export default {
 .galleryLabel .active {
   background-color: var(--theme-accent-color);
   color: white;
+}
+
+.gallery-container {
+  padding-top: 0px;
+  margin-top: -5px;
+  padding-bottom: 35px;
+  /* padding-left:150px; */
+}
+
+@media (max-width: 1024px) {
+  .gallery-container {
+    padding-top: 0px;
+    padding-bottom: 35px;
+  }
+}
+.card {
+  background-color: transparent;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.2) !important;
+}
+
+.card img {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.02);
+}
+
+.card:hover img {
+  filter: brightness(90%);
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.grid-image {
+}
+
+.grid-item-info {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
+  color: white;
+  position: absolute;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+  padding: 0px;
+}
+
+.grid-item-info:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.grid-item-info-meta {
+  bottom: 0px;
+  position: absolute;
+  padding: 10px 10px;
 }
 </style>
