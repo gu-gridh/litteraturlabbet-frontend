@@ -39,7 +39,8 @@ export default {
         }
       };
       Plotly.newPlot('umap-plot', umapData.value, layout);
-    });
+    }
+    );
   },
   data() {
     return {
@@ -47,6 +48,16 @@ export default {
       galleryLabels: ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder"],
       results: predsData.preds,
       filteredData: [],
+      data: {},
+      query: '',
+      imageGroups: [],
+      specificOrder: [
+        { type:"Anfanger", order: 1 },
+        { type:"Illustrationer", order: 2 },
+        { type:"Omslagsbilder", order: 3 },
+        { type:"Ornament", order: 4 },
+        { type:"Musiknoter", order: 5 },
+    ]
     }
   },
   methods: {
@@ -56,6 +67,56 @@ export default {
         this.$emit('toggle-gallery');
       }
     },
+    async fetchData(query) {
+      let fixQuery = ''
+      if (query === 'Alla'){fixQuery = ''}
+      else (fixQuery = query)
+      console.log(query)
+      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=&uuid=&label_en=&label_sv=${fixQuery}&score=&depth=3`);
+      const data = await response.json()
+      console.log(data)
+      
+      let typeMap = this.specificOrder.map((order) => ({
+          ...order,
+          items: [],
+        }));
+      for (let image of data.results) {
+          let type = image.type;
+          let item = {
+            id: image.id,
+            file: image.file,
+            type: image.label_sv,
+            iiif_file: image.iiif_file,
+          };
+
+          let typeIndex = typeMap.findIndex((x) => x.label_sv === type);
+          if (typeIndex !== -1) {
+            typeMap[typeIndex].items.push(item);
+          }
+
+          this.imageGroups = typeMap.filter((group) => group.items.length > 0);
+        }
+      this.imageGroups = Array.from(typeMap.values());
+    },
+    imageLoadLog(imageIndex, groupIndex, image) {
+      if (!image.loaded) {
+        this.imageLoaded(image);
+      }
+    },
+    imageLoaded(event) {
+      // used for refreshing the gallery when the images are loaded
+      this.loadedImagesCount += 1;
+      // Check if all images are loaded
+      if (
+        this.loadedImagesCount ===
+        this.imageGroups.reduce((count, group) => count + group.items.length, 0)
+      ) {
+        this.$nextTick(() => {
+          this.layoutKey += 1;
+        });
+      }
+    },
+
   },
 }
 </script>
@@ -81,26 +142,31 @@ export default {
     <div class="filter-container">
       <button class="dropdown-filter">Filter</button>
       <div class="dropdown-buttons">
-        <button class="button" v-for="(label, index) in galleryLabels" :key="index">
+        <button class="button" v-for="(label, index) in galleryLabels" :key="index" @click="fetchData(label)">
           {{ label }}
         </button>
       </div>
     </div>
 
     <div class="gallery" v-show="activeViewer === 'Gallery'">
-      <MasonryWall :key="componentKey" :items="results" class="masonry" :columnWidth="150" :gap="5">
-        <template v-slot:default="{ item }">
+      <div v-for="(group, groupIndex) in imageGroups" :key="group.type">
+        <h3 v-if="group.items.length > 0">{{ group.text }}</h3>
+      <MasonryWall :key="componentKey" :items="group.items" class="masonry" :columnWidth="150" :gap="5">
+        <template v-slot:default="{ item, index }">
           <div class="metadata-container">
-            <img :src="item.img_url" :alt="`Image ${item.extraction_image}`" />
+            <img :src="item.file" :alt="`Image ${item.file}`" />
             <div class="hover-overlay">
               <h5>{{ item.lb_id }}</h5>
               <h6>{{ item.label_sv }}</h6>
             </div>
           </div>
+        
         </template>
+      
       </MasonryWall>
-    </div>
+    </div></div>
   </div>
+  
 </template>
 
 <style>
