@@ -198,8 +198,27 @@ export default {
         </MasonryWall>
       </div>
     </div>
-  </div>
 
+  <div class="button-container">
+      <!-- Previous buttons -->
+      <div class="button-group">
+        <button
+          class="loadMore left"
+          @click="fetchPreviousData"
+        >
+        </button>
+      </div>
+
+      <!-- Next buttons -->
+      <div class="button-group">
+        <button
+          class="loadMore right"
+          @click="fetchNextData"
+        >
+        </button>
+    </div>
+  </div>
+  </div>
 </template>
 
 <style>
@@ -397,4 +416,5 @@ export default {
   position: absolute;
   padding: 10px 10px;
 }
+
 </style>
