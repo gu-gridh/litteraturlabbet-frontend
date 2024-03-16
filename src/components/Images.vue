@@ -17,7 +17,7 @@ export default {
     const umapData = ref([{
       x: [/*x coordinates*/],
       y: [/*y coordinates*/],
-      type: 'scatter',
+      type: 'scattergl',
       mode: 'markers'
     }]);
 
@@ -34,6 +34,7 @@ export default {
           zeroline: false,
           visible: false
         },
+        images:{}
       };
       Plotly.newPlot('umap-plot', umapData.value, layout);
     }
