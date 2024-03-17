@@ -360,8 +360,6 @@ export default {
   width:100%;
   transition: all 0.2s ease-in-out;
   transform: scale(1.0);
-  object-fit:fill;
-  background-color:green;
 }
 
 .card:hover img {
