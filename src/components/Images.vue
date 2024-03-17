@@ -346,7 +346,7 @@ export default {
   overflow: hidden;
   padding:0px;
   background-color:transparent;
-  font-size:0px;
+  font-size:0.1em;
   //box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.2) !important;
   }
 
@@ -369,7 +369,7 @@ export default {
   width: 100%;
   color: white;
   position: absolute;
-  bottom:2px;
+  bottom:0px;
   opacity: 0;
   transition: all 0.5s ease-in-out;
   cursor: pointer;
@@ -387,7 +387,7 @@ export default {
   position: absolute;
   padding: 10px 10px;
   line-height:1.0;
-  font-size:1.3em;
+  font-size:15em;
 }
 
 </style>
