@@ -182,11 +182,11 @@ export default {
         <h3 v-if="group.items.length > 0">{{ group.text }}</h3>
         <MasonryWall :items="group.items" class="masonry" :columnWidth="150" :gap="5">
           <template v-slot:default="{ item, index }">
-            <div class="metadata-container card"
+            <div class="card"
               @click="(item.iiif_file, item.id)">
               <img :src="item.correct_file" :alt="`Image ${item.label}, ${item.author}, ${item.lb_id}:${item.page_num}`" />
-              <div class="grid-item-info" id="gallery">
-                <div class="grid-item-info-meta">
+              <div class="card-item-info" id="gallery">
+                <div class="card-item-info-meta">
                  <!--   <h5>{{ item.lb_id }}</h5> -->
                   <h6>{{ item.title }}, {{ item.author }}</h6>
                 </div>
@@ -340,25 +340,14 @@ export default {
   color: white;
 }
 
-.gallery-container {
-  padding-top: 0px;
-  margin-top: -5px;
-  padding-bottom: 35px;
-  /* padding-left:150px; */
-}
-
-@media (max-width: 1024px) {
-  .gallery-container {
-    padding-top: 0px;
-    padding-bottom: 35px;
-  }
-}
 .card {
+  margin-top:-5px;
   background-color: transparent;
   border-radius: 2px;
   overflow: hidden;
+  padding:0px;
+  background-color:white;
   //box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.2) !important;
-  height:calc(50% - 20px);
   }
 
 .card img {
@@ -370,37 +359,34 @@ export default {
 }
 
 .card:hover img {
-  filter: brightness(90%);
   cursor: pointer;
   transform: scale(1.05);
 }
 
-.grid-image {
-}
-
-.grid-item-info {
-  height: 300px;
+.card-item-info {
+  height: 100%;
   width: 100%;
   color: white;
   position: absolute;
-  bottom:0px;
+  bottom:2px;
   opacity: 0;
   transition: all 0.5s ease-in-out;
   cursor: pointer;
   padding: 0px;
-  background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
+  background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.5) 100%);
 }
 
-.grid-item-info:hover {
+.card-item-info:hover {
   opacity: 1.0;
   cursor: pointer;
 }
 
-.grid-item-info-meta {
+.card-item-info-meta {
   bottom: 0px;
   position: absolute;
   padding: 10px 10px;
   line-height:1.0;
+  font-size:1.3em;
 }
 
 </style>
