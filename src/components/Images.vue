@@ -187,7 +187,7 @@ export default {
               <div class="card-item-info" id="gallery">
                 <div class="card-item-info-meta">
                  <!--   <h5>{{ item.lb_id }}</h5> -->
-                  <h6>{{ item.title }}, {{ item.author }}</h6>
+                  <h6>{{ item.title }} – {{ item.author }}</h6>
                 </div>
               </div>
             </div>
@@ -303,7 +303,7 @@ export default {
 }
 
 .button:hover {
-  background-color: var(--theme-accent-color);
+  background-color: var(--theme-accent-color-dark);
   color: white;
 }
 
@@ -365,6 +365,7 @@ export default {
 .card:hover img {
   cursor: pointer;
   transform: scale(1.05);
+  filter: brightness(80%);
 }
 
 .card-item-info {
@@ -391,6 +392,7 @@ export default {
   padding: 10px 10px;
   line-height:1.0;
   font-size:15em;
+  font-weight: 700;
 }
 
 </style>
