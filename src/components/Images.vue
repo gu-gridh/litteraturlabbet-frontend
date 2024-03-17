@@ -182,9 +182,8 @@ export default {
         <h3 v-if="group.items.length > 0">{{ group.text }}</h3>
         <MasonryWall :items="group.items" class="masonry" :columnWidth="150" :gap="5">
           <template v-slot:default="{ item, index }">
-            <div class="card"
-              @click="(item.iiif_file, item.id)">
-              <img :src="item.correct_file" :alt="`Image ${item.label}, ${item.author}, ${item.lb_id}:${item.page_num}`" />
+            <div class="card" @click="(item.iiif_file, item.id)">
+              <img :src="item.correct_file" :alt="`Image ${item.label}, ${item.author}, ${item.lb_id}:${item.page_num}`">
               <div class="card-item-info" id="gallery">
                 <div class="card-item-info-meta">
                  <!--   <h5>{{ item.lb_id }}</h5> -->
@@ -341,12 +340,13 @@ export default {
 }
 
 .card {
-  margin-top:-5px;
+  margin-top:0px;
   background-color: transparent;
   border-radius: 2px;
   overflow: hidden;
   padding:0px;
-  background-color:white;
+  background-color:transparent;
+  font-size:0px;
   //box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.2) !important;
   }
 
@@ -355,7 +355,8 @@ export default {
   width:100%;
   transition: all 0.2s ease-in-out;
   transform: scale(1.0);
-  object-fit:cover;
+  object-fit:fill;
+  background-color:green;
 }
 
 .card:hover img {
