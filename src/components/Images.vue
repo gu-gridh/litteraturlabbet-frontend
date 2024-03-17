@@ -4,7 +4,8 @@ import { watch, onMounted, ref } from 'vue'
 import { useRouter } from "vue-router";
 import { setNotBusy } from '@/components/Waiter.vue';
 import { max } from "lodash";
-import Plotly, { Root } from 'plotly.js-dist'
+import Plotly, { Root } from 'plotly.js-dist';
+import umapCoords from '@/assets/combined_cluster_meta_min.json'
 
 
 export default {
@@ -14,11 +15,39 @@ export default {
   name: 'images',
   emits: ['toggle-gallery'],
   setup() {
+    var X = []
+    var Y = []
+    var thumbnails = []
+    var extractions = []
+    var imgLayout = []
+
+    for (let image of umapCoords) {
+      X.push(image.uX)
+      Y.push(image.uY)
+      thumbnails.push(image.img_url)
+      extractions.push(image.extraction_image)
+      imgLayout.push({
+        "source": image.img_url,
+          "xref": "x",
+          "yref": "y",
+          "x": image.uX,
+          "y": image.uY,
+          "sizex": 1,
+          "sizey": 1,
+          "xanchor": "center",
+          "yanchor": "center"
+      })
+    };
+
+
     const umapData = ref([{
-      x: [/*x coordinates*/],
-      y: [/*y coordinates*/],
+      x: X,
+      y: Y,
       type: 'scattergl',
-      mode: 'markers'
+      mode: 'markers',
+      marker: { color: 'rgba(0, 0, 0, 0)' },
+      hovertemplate: '%{text}<extra></extra>',
+      text: extractions
     }]);
 
     onMounted(() => {
@@ -34,7 +63,7 @@ export default {
           zeroline: false,
           visible: false
         },
-        images:{}
+        images: imgLayout
       };
       Plotly.newPlot('umap-plot', umapData.value, layout);
     }
@@ -130,22 +159,22 @@ export default {
     },
   },
   onImageClicked(iiifFile, id) {
-      this.selectedIiifFile = id;
-      this.idForMetaData = id;
+    this.selectedIiifFile = id;
+    this.idForMetaData = id;
 
-      this.showImageViewer = true;
-      if (this.IiifFileforImageViewer) {
-        this.$router.replace({
-          name: "IiifFile",
-          params: {
-            iiifFile: this.IiifFileforImageViewer,
-          },
-        });
-      }
-    },
-    mounted:function(){
-      this.fetchData('')
-    },
+    this.showImageViewer = true;
+    if (this.IiifFileforImageViewer) {
+      this.$router.replace({
+        name: "IiifFile",
+        params: {
+          iiifFile: this.IiifFileforImageViewer,
+        },
+      });
+    }
+  },
+  mounted: function () {
+    this.fetchData('')
+  },
 }
 
 </script>
@@ -183,10 +212,11 @@ export default {
         <MasonryWall :items="group.items" class="masonry" :columnWidth="150" :gap="5">
           <template v-slot:default="{ item, index }">
             <div class="card" @click="(item.iiif_file, item.id)">
-              <img :src="item.correct_file" :alt="`Image ${item.label}, ${item.author}, ${item.lb_id}:${item.page_num}`">
+              <img :src="item.correct_file"
+                :alt="`Image ${item.label}, ${item.author}, ${item.lb_id}:${item.page_num}`">
               <div class="card-item-info" id="gallery">
                 <div class="card-item-info-meta">
-                 <!--   <h5>{{ item.lb_id }}</h5> -->
+                  <!--   <h5>{{ item.lb_id }}</h5> -->
                   <h6>{{ item.title }} – {{ item.author }}</h6>
                 </div>
               </div>
@@ -197,25 +227,19 @@ export default {
       </div>
     </div>
 
-  <div class="button-container">
+    <div class="button-container">
       <!-- Previous buttons -->
       <div class="button-group">
-        <button
-          class="loadMore left"
-          @click="fetchPreviousData"
-        >
+        <button class="loadMore left" @click="fetchPreviousData">
         </button>
       </div>
 
       <!-- Next buttons -->
       <div class="button-group">
-        <button
-          class="loadMore right"
-          @click="fetchNextData"
-        >
+        <button class="loadMore right" @click="fetchNextData">
         </button>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -287,8 +311,8 @@ export default {
 }
 
 .button {
-  font-family:'Barlow Condensed', sans-serif!important;
-  color:black;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  color: black;
   padding: 5px 12px;
   font-size: 16px;
   font-weight: 400;
@@ -316,18 +340,18 @@ export default {
   display: flex;
   justify-content: center;
   font-size: 1.4em;
-  font-weight:300;
+  font-weight: 300;
   padding: 5px 20px;
   margin: 10px 0px 10px 0px;
   border-radius: 6px 0px 0px 6px;
-  text-align:left;
+  text-align: left;
 }
 
 .galleryLabel .right-button {
   display: flex;
   justify-content: center;
   font-size: 1.4em;
-  font-weight:400;
+  font-weight: 400;
   padding: 5px 20px;
   margin: 10px 0px 10px 0px;
   border-radius: 0px 6px 6px 0px;
@@ -345,19 +369,19 @@ export default {
 }
 
 .card {
-  margin-top:0px;
+  margin-top: 0px;
   background-color: transparent;
   border-radius: 2px;
   overflow: hidden;
-  padding:0px;
-  background-color:transparent;
-  font-size:0.1em;
+  padding: 0px;
+  background-color: transparent;
+  font-size: 0.1em;
   //box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.2) !important;
-  }
+}
 
 .card img {
-  height:100%;
-  width:100%;
+  height: 100%;
+  width: 100%;
   transition: all 0.2s ease-in-out;
   transform: scale(1.0);
 }
@@ -373,7 +397,7 @@ export default {
   width: 100%;
   color: white;
   position: absolute;
-  bottom:0px;
+  bottom: 0px;
   opacity: 0;
   transition: all 0.5s ease-in-out;
   cursor: pointer;
@@ -390,9 +414,8 @@ export default {
   bottom: 0px;
   position: absolute;
   padding: 10px 10px;
-  line-height:1.0;
-  font-size:15em;
+  line-height: 1.0;
+  font-size: 15em;
   font-weight: 700;
 }
-
 </style>
