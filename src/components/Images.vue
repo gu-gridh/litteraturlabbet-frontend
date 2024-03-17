@@ -184,11 +184,10 @@ export default {
           <template v-slot:default="{ item, index }">
             <div class="metadata-container card"
               @click="(item.iiif_file, item.id)">
-              <img :src="item.correct_file"
-                :alt="`Image ${item.label}, ${item.author}, ${item.lb_id}:${item.page_num}`" />
+              <img :src="item.correct_file" :alt="`Image ${item.label}, ${item.author}, ${item.lb_id}:${item.page_num}`" />
               <div class="grid-item-info" id="gallery">
                 <div class="grid-item-info-meta">
-                  <h5>{{ item.lb_id }}</h5>
+                 <!--   <h5>{{ item.lb_id }}</h5> -->
                   <h6>{{ item.title }}, {{ item.author }}</h6>
                 </div>
               </div>
@@ -269,18 +268,6 @@ export default {
   height: auto;
 }
 
-.hover-overlay {
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
-  color: white;
-  position: absolute;
-  opacity: 0;
-  transition: all 0.5s ease-in-out;
-  cursor: pointer;
-  padding: 0px;
-
-}
 
 .galleryLabel {
   display: flex;
@@ -288,16 +275,9 @@ export default {
   margin: 10px 30px 10px 30px;
 }
 
-
 .gallery {
   margin: 5px;
 }
-
-.metadata-container img {
-  width: 100%;
-  height: auto;
-}
-
 
 .h5 {
   color: black
@@ -377,12 +357,16 @@ export default {
   background-color: transparent;
   border-radius: 2px;
   overflow: hidden;
-  box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.2) !important;
-}
+  //box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.2) !important;
+  height:calc(50% - 20px);
+  }
 
 .card img {
+  height:100%;
+  width:100%;
   transition: all 0.2s ease-in-out;
-  transform: scale(1.02);
+  transform: scale(1.0);
+  object-fit:cover;
 }
 
 .card:hover img {
@@ -395,19 +379,20 @@ export default {
 }
 
 .grid-item-info {
-  height: 100%;
+  height: 300px;
   width: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
   color: white;
   position: absolute;
+  bottom:0px;
   opacity: 0;
   transition: all 0.5s ease-in-out;
   cursor: pointer;
   padding: 0px;
+  background: linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.7) 100%);
 }
 
 .grid-item-info:hover {
-  opacity: 0.9;
+  opacity: 1.0;
   cursor: pointer;
 }
 
@@ -415,6 +400,7 @@ export default {
   bottom: 0px;
   position: absolute;
   padding: 10px 10px;
+  line-height:1.0;
 }
 
 </style>
