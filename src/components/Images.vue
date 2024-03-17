@@ -287,10 +287,12 @@ export default {
 }
 
 .button {
+  font-family:'Barlow Condensed', sans-serif!important;
+  color:black;
   padding: 5px 12px;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 400;
   text-align: center;
-  color: black;
   border-radius: 6px;
   border: none;
   cursor: pointer;
@@ -313,16 +315,19 @@ export default {
 .galleryLabel .left-button {
   display: flex;
   justify-content: center;
-  font-size: 1.1em;
+  font-size: 1.4em;
+  font-weight:300;
   padding: 5px 20px;
   margin: 10px 0px 10px 0px;
   border-radius: 6px 0px 0px 6px;
+  text-align:left;
 }
 
 .galleryLabel .right-button {
   display: flex;
   justify-content: center;
-  font-size: 1.1em;
+  font-size: 1.4em;
+  font-weight:400;
   padding: 5px 20px;
   margin: 10px 0px 10px 0px;
   border-radius: 0px 6px 6px 0px;
