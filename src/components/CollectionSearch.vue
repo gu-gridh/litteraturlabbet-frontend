@@ -95,7 +95,7 @@ import Slider from '@vueform/slider'
 import { get } from "@/services/diana";
 import type { Author } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
-import reuseAuthors from "@/assets/authors_with_reuse_copy.json";
+import reuseAuthors from "@/assets/authors_with_reuse.json";
 import reuseWorks from "@/assets/works_with_reuse.json";
 import { useRoute } from 'vue-router'
 import Welcome from "@/components/Welcome.vue";
