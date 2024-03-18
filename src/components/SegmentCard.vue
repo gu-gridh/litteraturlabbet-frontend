@@ -33,17 +33,20 @@ let text = page.text;
 const author = props.segment.series.main_author;
 const work = props.segment.series;
 const page = props.segment.page;
-let text = page.text;
+let text = props.segment.text;
+
 
 let lblink = "";
 if (props.segment) {
   //const segment = await get<Segment>(props.segment.id, "segment");
-  
+  //const target = text.slice(props.segment.begin, props.segment.end);
+  const target = props.segment.page.text;
   text = text.replace(
-    props.segment.text,
-    `<span class="highlight">${props.segment.text}</span>`
+    target,
+    `<span class="highlight">${target}</span>`
   );
-  lblink = "https://litteraturbanken.se/f%C3%B6rfattare/"+work.main_author.lbauthorid+"/titlar/"+work.modernized_title+"/sida/"+(page.number+1)+"/faksimil";
+  const isEtext = false;
+  lblink = "https://litteraturbanken.se/f%C3%B6rfattare/"+work.main_author.lbauthorid+"/titlar/"+work.modernized_title+"/sida/"+(page.number+1)+(isEtext?"/etext":"/faksimil");
   //console.log(text);
 }
 
