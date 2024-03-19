@@ -27,7 +27,7 @@ onMounted(() => {
       Med detta verktyg kan vi extrahera dessa element antingen från författare och enskilda verk, eller från all litteratur under ett eller flera årtionden.
       Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska elementen är sorterade kronologiskt.
     </div>
-
+    
 
   <ImageDisplays
   ref="imageComponent"

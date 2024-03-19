@@ -1,5 +1,7 @@
 <template>
+
   <div id="gallery-container">
+   
      <div class="gallery-labels">
       <button
         v-for="label in galleryLabels"
@@ -9,7 +11,9 @@
       >
         {{ label }}
       </button>
+  
     </div>
+   
     <div class="gallery">
       <div class="gallery__col-sizer"></div>
       <div class="gallery__gutter-sizer"></div>
@@ -21,7 +25,7 @@
             </div>
         </div>
         <img 
-          :src="`${item.iiif_file}/full/450,/0/default.jpg`" 
+          :src="`${item.iiif_file}/full/250,/0/default.jpg`" 
           loading="lazy" 
         />
         </div>
@@ -192,12 +196,27 @@ watch(selectedLabel, async () => {
 
 <style>
 #gallery-container{
-  position:absolute;
+  position:relative;
   width:100%;
-  height:calc(100% - 80px);
+  padding-left:10px;
+  padding-right:8px;
+  padding-bottom:50px;
+  height:calc(100vh - 200px);
+  min-height:calc(100vh - 75px);
+  overflow:hidden;
   z-index:100!important;
-  background-color: rgba(232, 228, 217, 0.9) !important;
-  backdrop-filter:blur(5px);
+  background-color: white;
+}
+
+.fog{
+    background:linear-gradient(00deg, transparent 20%, white);
+    width:calc(100%);
+    height:50px;
+    position:absolute;
+    float:left;
+    pointer-events:none;
+    margin-top:50px;
+    z-index:3000;
 }
 /* 
 @media screen and (min-width: 1900px) {
@@ -219,6 +238,7 @@ watch(selectedLabel, async () => {
   } */
 
 .gallery {
+  padding-top:10px;
   max-height: 100%;
   overflow-y: auto;
   max-width: 100%; 
@@ -242,26 +262,32 @@ watch(selectedLabel, async () => {
 
 @media screen and (max-width: 2000px) {
   .gallery__item, .gallery__col-sizer {
-    width: calc(20% - 8px);
+    width: calc(16.6% - 8px);
   }
 }
 
 
 @media screen and (max-width: 1800px) {
   .gallery__item, .gallery__col-sizer {
-    width: calc(25% - 8px);
+    width: calc(16.6% - 8px);
   }
 }
 
 @media screen and (max-width: 1500px) {
   .gallery__item, .gallery__col-sizer {
-    width: calc(33% - 8px);
+    width: calc(20% - 8px);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .gallery__item, .gallery__col-sizer {
+    width: calc(25% - 8px);
   }
 }
 
 @media screen and (max-width: 900px) {
   .gallery__item, .gallery__col-sizer {
-    width: calc(50% - 8px);
+    width: calc(33% - 8px);
 }
   }
 
@@ -299,6 +325,11 @@ watch(selectedLabel, async () => {
   bottom:0px;
   padding:10px 15px;
   display:none;
+  line-height:1.1;
+}
+
+.item-info-meta h5{
+margin-top:10px;
 }
 
 .gallery__item img {
@@ -329,20 +360,17 @@ watch(selectedLabel, async () => {
   color: #777;
 }
 
-.galleryLabel {
-  display: flex;
-  justify-content: center;
-  margin: 10px 30px 10px 30px;
-}
-
 .gallery-labels {
   display: flex;
+  justify-content: center;
   align-items: center; 
+  width:100%;
 }
 
 .gallery-labels button {
-  margin: 10px;
-  padding: 10px;
+  margin: 5px;
+  margin-bottom:20px;
+  padding: 4px 10px;
   border-radius: 4px;
   font-family: "Barlow Condensed", sans-serif !important;
   font-size: 15px;
