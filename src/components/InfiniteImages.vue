@@ -137,6 +137,20 @@ const fetchData = async () => {
         const newImages = data.results.map(item => ({
           id: item.id ?? null,
           iiif_file: item.iiif_file ?? null,
+          page_id: item?.page?.id ?? null,
+          page_num: item?.page?.number ?? null,
+          work_id: item?.page?.work?.id ?? null,
+          lb_id: item?.page?.work?.lbworkid ?? null,
+          lb_title: item?.page?.work?.modernized_title ?? null,
+          title: item?.page?.work?.title ?? null,
+          year: item?.page?.work?.sort_year ?? null,
+          author: item?.page?.work?.main_author?.name ?? null,
+          author_id: item?.page?.work?.main_author?.lbauthorid ?? null,
+          type: item?.label_sv ?? null,
+          label: item?.label_sv ?? null,
+          img_file: item.file ?? null,
+          correct_file: 'https://data.dh.gu.se/diana/static/litteraturlabbet/original/' + item.extract_id,
+          lb_link: 'https://litteraturbanken.se/f%C3%B6rfattare/' + item.page.work.main_author.lbauthorid + '/titlar/' + item.page.work.modernized_title + '/sida/' + item.page.number + '/faksimil'
         }));
 
         images.value = [...images.value, ...newImages];
