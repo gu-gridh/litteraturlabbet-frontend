@@ -32,8 +32,8 @@ export default {
           "yref": "y",
           "x": image.uX,
           "y": image.uY,
-          "sizex": 1,
-          "sizey": 1,
+          "sizex": 0.5,
+          "sizey": 0.5,
           "xanchor": "center",
           "yanchor": "center"
       })
@@ -226,21 +226,7 @@ export default {
         </MasonryWall>
       </div>
     </div>
-
-    <div class="button-container">
-      <!-- Previous buttons -->
-      <div class="button-group">
-        <button class="loadMore left" @click="fetchPreviousData">
-        </button>
-      </div>
-
-      <!-- Next buttons -->
-      <div class="button-group">
-        <button class="loadMore right" @click="fetchNextData">
-        </button>
-      </div>
     </div>
-  </div>
 </template>
 
 <style>
@@ -334,27 +320,6 @@ export default {
 .button:focus {
   background-color: var(--theme-accent-color);
   color: white;
-}
-
-.galleryLabel .left-button {
-  display: flex;
-  justify-content: center;
-  font-size: 1.4em;
-  font-weight: 300;
-  padding: 5px 20px;
-  margin: 10px 0px 10px 0px;
-  border-radius: 6px 0px 0px 6px;
-  text-align: left;
-}
-
-.galleryLabel .right-button {
-  display: flex;
-  justify-content: center;
-  font-size: 1.4em;
-  font-weight: 400;
-  padding: 5px 20px;
-  margin: 10px 0px 10px 0px;
-  border-radius: 0px 6px 6px 0px;
 }
 
 .image-cloud {

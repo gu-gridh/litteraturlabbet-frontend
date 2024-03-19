@@ -15,7 +15,8 @@
     <div v-for="item in images" :key="item.id" class="gallery__item">
         <div class="item-info">
             <div class="item-info-meta">
-              <h1>{{ item.title }}</h1>
+              <h4>{{ item.title }}</h4>
+              <h5>{{ item.author }}</h5>
             </div>
         </div>
         <img 
@@ -48,12 +49,29 @@ const diana = inject("diana") as DianaClient;
 
 const fetchData = async () => {
     try {
-      const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?label_sv=${encodeURIComponent(selectedLabel.value)}&limit=25&depth=3`;
+      let searchQuery = ''
+      if (selectedLabel.value == 'Alla') {searchQuery = ''}
+      else {searchQuery = selectedLabel.value}
+      const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?label_sv=${encodeURIComponent(searchQuery)}&limit=25&depth=3`;
       const res = await fetch(urlToFetch);
       const data = await res.json(); 
       const newImages = data.results.map(item => ({
           id: item.id ?? null,
           iiif_file: item.iiif_file ?? null,
+          page_id: item?.page?.id ?? null,
+          page_num: item?.page?.number ?? null,
+          work_id: item?.page?.work?.id ?? null,
+          lb_id: item?.page?.work?.lbworkid ?? null,
+          lb_title: item?.page?.work?.modernized_title ?? null,
+          title: item?.page?.work?.title ?? null,
+          year: item?.page?.work?.sort_year ?? null,
+          author: item?.page?.work?.main_author?.name ?? null,
+          author_id: item?.page?.work?.main_author?.lbauthorid ?? null,
+          type: item?.label_sv ?? null,
+          label: item?.label_sv ?? null,
+          img_file: item.file ?? null,
+          correct_file: 'https://data.dh.gu.se/diana/static/litteraturlabbet/original/' + item.extract_id,
+          lb_link: 'https://litteraturbanken.se/f%C3%B6rfattare/' + item.page.work.main_author.lbauthorid + '/titlar/' + item.page.work.modernized_title + '/sida/' + item.page.number + '/faksimil'
       }))
       
       images.value = [...images.value, ...newImages];
@@ -83,8 +101,11 @@ const fetchData = async () => {
             pageIndex.value++;
           }
           canIncrement.value = false;
+          let searchQuery = ''
+      if (selectedLabel.value == 'Alla') {searchQuery = ''}
+      else {searchQuery = selectedLabel.value};
           const offset = (pageIndex.value - 1) * 25;
-          const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&id=&uuid=&label_en=&label_sv=${encodeURIComponent(selectedLabel.value)}&score=&limit=25&offset=${offset}`;
+          const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&id=&uuid=&label_en=&label_sv=${encodeURIComponent(searchQuery)}&score=&limit=25&offset=${offset}`;
           return url; 
         },
         outlayer: msnry,
