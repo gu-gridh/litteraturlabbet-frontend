@@ -316,6 +316,11 @@ watch(selectedLabel, async () => {
   bottom:0px;
   padding:10px 15px;
   display:none;
+  line-height:1.1;
+}
+
+.item-info-meta h5{
+margin-top:10px;
 }
 
 .gallery__item img {
