@@ -4,6 +4,7 @@
       <button
         v-for="label in galleryLabels"
         :key="label"
+        :id="label"
         @click="selectedLabel = label"
       >
         {{ label }}
@@ -49,9 +50,17 @@ const diana = inject("diana") as DianaClient;
 
 const fetchData = async () => {
     try {
+      // replace Alla label with empty string for search query so all results are returned
       let searchQuery = ''
       if (selectedLabel.value == 'Alla') {searchQuery = ''}
       else {searchQuery = selectedLabel.value}
+
+      // change style of selected button to same as on hover style
+      const deselectedStyle = window.getComputedStyle(document.querySelector("button"))
+      document.getElementById(selectedLabel.value).style = 'background: rgb(162, 60, 0); color: white'
+
+      // filter the selected label from labels list and reset the style on all buttons other buttons
+      for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) {document.getElementById(lbl).style = deselectedStyle}
       const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?label_sv=${encodeURIComponent(searchQuery)}&limit=25&depth=3`;
       const res = await fetch(urlToFetch);
       const data = await res.json(); 
