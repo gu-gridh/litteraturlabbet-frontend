@@ -331,10 +331,11 @@ margin-top:10px;
 .gallery__item img:hover {
   display: block;
   transform:scale(1.05);
+  filter:brightness(0.8);
 }
 
 .gallery__item:hover .item-info{
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0px, rgba(0, 0, 0, 0)50%) !important;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0px, rgba(0, 0, 0, 0)100%) !important;
 }
 
 .gallery__item:hover .item-info-meta{
