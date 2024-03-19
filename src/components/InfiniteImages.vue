@@ -45,7 +45,7 @@ let pageIndex = ref(1);
 let canIncrement = ref(true);
 let infScroll;
 const images = ref([]);
-const selectedLabel = ref("");
+const selectedLabel = ref("Alla");
 const galleryLabels = ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder"];
 const diana = inject("diana") as DianaClient;
 
