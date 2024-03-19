@@ -1,0 +1,327 @@
+<template>
+  <div id="gallery-container">
+     <div class="gallery-labels">
+      <button
+        v-for="label in galleryLabels"
+        :key="label"
+        @click="selectedLabel = label"
+      >
+        {{ label }}
+      </button>
+    </div>
+    <div class="gallery">
+      <div class="gallery__col-sizer"></div>
+      <div class="gallery__gutter-sizer"></div>
+    <div v-for="item in images" :key="item.id" class="gallery__item">
+        <div class="item-info">
+            <div class="item-info-meta">
+              <h1>{{ item.title }}</h1>
+            </div>
+        </div>
+        <img 
+          :src="`${item.iiif_file}/full/450,/0/default.jpg`" 
+          loading="lazy" 
+        />
+        </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, inject, onMounted, defineComponent, watch } from "vue";
+import Masonry from 'masonry-layout';
+import InfiniteScroll from 'infinite-scroll';
+import imagesLoaded from 'imagesloaded';
+import { storeToRefs } from "pinia";
+
+let msnry;
+let pageIndex = ref(1);
+let canIncrement = ref(true);
+let infScroll;
+const images = ref([]);
+const selectedLabel = ref("Illustrationer");
+const galleryLabels = ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder"];
+const diana = inject("diana") as DianaClient;
+
+// let layoutKey = ref(0);
+// let loadedImagesCount = ref(0);
+
+const fetchData = async () => {
+    try {
+      const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?label_sv=${encodeURIComponent(selectedLabel.value)}&limit=25&depth=3`;
+      const res = await fetch(urlToFetch);
+      const data = await res.json(); 
+      const newImages = data.results.map(item => ({
+          id: item.id ?? null,
+          iiif_file: item.iiif_file ?? null,
+      }))
+      
+      images.value = [...images.value, ...newImages];
+      
+    } catch (error) {
+      console.error("Error fetching additional images:", error);
+    }
+};
+
+  const initMasonry = () => {
+      const gallery = document.querySelector('.gallery');
+      if (!gallery) {
+        console.error('gallery element not found.');
+        return;
+      }
+
+      msnry = new Masonry(gallery, {
+        itemSelector: '.gallery__item',
+        columnWidth: '.gallery__col-sizer',
+        gutter: '.gallery__gutter-sizer',
+        percentPosition: true,
+      });
+
+      infScroll = new InfiniteScroll(gallery, {
+        path: () => {
+          if (canIncrement) {
+            pageIndex.value++;
+          }
+          canIncrement.value = false;
+          const offset = (pageIndex.value - 1) * 25;
+          const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&id=&uuid=&label_en=&label_sv=${encodeURIComponent(selectedLabel.value)}&score=&limit=25&offset=${offset}`;
+          return url; 
+        },
+        outlayer: msnry,
+        status: '.page-load-status',
+        history: false,
+        scrollThreshold: 1200,
+        elementScroll: true,
+      });
+
+    infScroll.on('load', async function(response) {
+      try {
+        let bodyContent = response.querySelector("body").textContent;
+
+        const data = JSON.parse(bodyContent);
+
+        const newImages = data.results.map(item => ({
+          id: item.id ?? null,
+          iiif_file: item.iiif_file ?? null,
+        }));
+
+        images.value = [...images.value, ...newImages];
+
+        imagesLoaded(document.querySelector('.gallery'), () => {
+          msnry.reloadItems();
+          msnry.layout();
+        });
+      } catch (e) {
+        console.error("JSON Parsing failed or other error: ", e);
+      }
+
+      canIncrement.value = true;
+    });
+
+  };
+
+// const imageLoaded = () => {
+//   loadedImagesCount.value++;
+//   if (loadedImagesCount.value === images.value?.length) {
+//     // refreshMasonry();
+//   }
+// };
+
+// const refreshMasonry = () => {
+//   layoutKey.value++;
+// };
+
+  onMounted(() => {
+  fetchData().then(() => {
+    imagesLoaded(document.querySelector('.gallery'), () => {
+      initMasonry();
+      // msnry.reloadItems();
+      // msnry.layout();
+    });
+  });
+  });
+
+watch(selectedLabel, async () => {
+  images.value = [];
+  pageIndex.value = 1;
+  canIncrement.value = true;
+
+  if (infScroll) {
+    infScroll.destroy();
+  }
+
+  await fetchData();
+
+  imagesLoaded(document.querySelector('.gallery'), () => {
+    initMasonry();
+  });
+});
+
+
+</script>
+
+<style>
+#gallery-container{
+  position:absolute;
+  width:100%;
+  height:calc(100% - 80px);
+  z-index:100!important;
+  background-color: rgba(232, 228, 217, 0.9) !important;
+  backdrop-filter:blur(5px);
+}
+/* 
+@media screen and (min-width: 1900px) {
+  #gallery-container{ 
+    padding-left:600px;
+}
+  }
+
+@media screen and (max-width: 1500px) {
+  #gallery-container{ 
+    padding-left:500px;
+}
+  }
+
+  @media screen and (max-width: 900px) {
+  #gallery-container{ 
+    padding-left:5px;
+}
+  } */
+
+.gallery {
+  max-height: 100%;
+  overflow-y: auto;
+  max-width: 100%; 
+  margin: 0 auto; 
+}
+
+.gallery::-webkit-scrollbar {
+  display: none;
+}
+
+/* reveal gallery after images loaded */
+.gallery.are-images-unloaded {
+  opacity: 0;
+}
+
+.gallery__item,
+.gallery__col-sizer {
+  width: calc(16.6% - 10px);
+}
+.gallery__gutter-sizer { width: 10px;}
+
+@media screen and (max-width: 2000px) {
+  .gallery__item, .gallery__col-sizer {
+    width: calc(20% - 8px);
+  }
+}
+
+
+@media screen and (max-width: 1800px) {
+  .gallery__item, .gallery__col-sizer {
+    width: calc(25% - 8px);
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .gallery__item, .gallery__col-sizer {
+    width: calc(33% - 8px);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .gallery__item, .gallery__col-sizer {
+    width: calc(50% - 8px);
+}
+  }
+
+/* hide by default */
+.gallery.are-images-unloaded .image-gallery__item {
+  opacity: 0;
+}
+
+.gallery__item {
+  margin-bottom: 10px;
+  float: left;
+  overflow:hidden !important;
+}
+
+.gallery__item--height1 { height: 140px; background: #EA0; }
+.gallery__item--height2 { height: 220px; background: #C25; }
+.gallery__item--height3 { height: 300px; background: #19F; }
+
+.gallery__item--width2 { width: 66%; }
+
+.item-info{
+  pointer-events:none;
+  position:absolute!important;
+  height:100%!important;
+  width:100%!important;
+  z-index:1000!important;
+  bottom:0px;
+  transition: all 0.5s ease-in-out;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.0) 0px, rgba(0, 0, 0, 0)50%) !important;
+}
+
+.item-info-meta{
+  position:absolute;
+  color:white;
+  bottom:0px;
+  padding:10px 15px;
+  display:none;
+}
+
+.gallery__item img {
+  display: block;
+  max-width: 100%;
+  transition: all 0.2s ease-in-out;
+}
+
+
+.gallery__item img:hover {
+  display: block;
+  transform:scale(1.05);
+}
+
+.gallery__item:hover .item-info{
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0px, rgba(0, 0, 0, 0)50%) !important;
+}
+
+.gallery__item:hover .item-info-meta{
+ display:block;
+}
+
+.page-load-status {
+  display: none;
+  padding-top: 20px;
+  border-top: 1px solid #DDD;
+  text-align: center;
+  color: #777;
+}
+
+.galleryLabel {
+  display: flex;
+  justify-content: center;
+  margin: 10px 30px 10px 30px;
+}
+
+.gallery-labels {
+  display: flex;
+  align-items: center; 
+}
+
+.gallery-labels button {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  font-family: "Barlow Condensed", sans-serif !important;
+  font-size: 15px;
+  border: none;
+}
+
+.gallery-labels button:hover {
+  background-color: var(--theme-accent-color);
+  color: white;
+}
+
+</style>

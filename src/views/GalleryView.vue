@@ -2,7 +2,7 @@
 import { watch, defineComponent, onMounted, ref } from 'vue'
 import { useRouter } from "vue-router";
 import { setNotBusy } from '@/components/Waiter.vue'
-import ImageDisplays from '@/components/Images.vue'
+import ImageDisplays from '@/components/InfiniteImages.vue'
 
 var showGallery = true;
 // const viewImage = (index: number) => {
