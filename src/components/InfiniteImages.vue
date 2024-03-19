@@ -193,21 +193,10 @@ watch(selectedLabel, async () => {
   padding-right:8px;
   padding-bottom:50px;
   height:calc(100vh - 200px);
-  min-height:calc(100vh - 75px);
+  min-height:calc(100vh - 140px);
   overflow:hidden;
   z-index:100!important;
   background-color: white;
-}
-
-.fog{
-    background:linear-gradient(00deg, transparent 20%, white);
-    width:calc(100%);
-    height:50px;
-    position:absolute;
-    float:left;
-    pointer-events:none;
-    margin-top:50px;
-    z-index:3000;
 }
 /* 
 @media screen and (min-width: 1900px) {
