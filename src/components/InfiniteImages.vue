@@ -216,21 +216,10 @@ watch(selectedLabel, async () => {
   padding-right:8px;
   padding-bottom:50px;
   height:calc(100vh - 200px);
-  min-height:calc(100vh - 75px);
+  min-height:calc(100vh - 140px);
   overflow:hidden;
   z-index:100!important;
   background-color: white;
-}
-
-.fog{
-    background:linear-gradient(00deg, transparent 20%, white);
-    width:calc(100%);
-    height:50px;
-    position:absolute;
-    float:left;
-    pointer-events:none;
-    margin-top:50px;
-    z-index:3000;
 }
 /* 
 @media screen and (min-width: 1900px) {
@@ -356,10 +345,11 @@ margin-top:10px;
 .gallery__item img:hover {
   display: block;
   transform:scale(1.05);
+  filter:brightness(0.8);
 }
 
 .gallery__item:hover .item-info{
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0px, rgba(0, 0, 0, 0)50%) !important;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0px, rgba(0, 0, 0, 0)100%) !important;
 }
 
 .gallery__item:hover .item-info-meta{
