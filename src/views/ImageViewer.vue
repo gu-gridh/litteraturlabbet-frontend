@@ -27,8 +27,8 @@
       <div v-if="pageData" class="metadata">
         <h3>{{ pageData.work?.title }}</h3>
         <p>Författare: {{ pageData.work?.main_author?.name }}</p>
-        <p>År: {{ pageData.work?.sort_year }}</p>
-        <p>Språk: {{ pageData.work?.language }}</p>
+        <p>Utgiven: {{ pageData.work?.sort_year }}</p>
+        <!-- <p>Språk: {{ pageData.work?.language }}</p> -->
       </div>
   </div>
 
@@ -120,8 +120,8 @@ export default {
 
 .metadata {
   padding: 10px;
-  background-color: #f9f9f9;
-  border-top: 1px solid #ccc;
+  background-color: #f7f7f7;
+  border-top: 0px solid #ccc;
   border-radius: 4px;
 }
 
