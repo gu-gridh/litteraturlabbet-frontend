@@ -112,7 +112,7 @@ const fetchData = async () => {
 
       infScroll = new InfiniteScroll(gallery, {
         path: () => {
-          if (canIncrement) {
+          if (canIncrement.value) {
             pageIndex.value++;
           }
           canIncrement.value = false;
