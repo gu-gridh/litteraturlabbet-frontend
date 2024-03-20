@@ -55,6 +55,7 @@ import { unpaginated, list } from "@/services/diana";
 import { onBeforeUnmount, onMounted, watch } from "vue";
 import TopLists from "./TopLists.vue";
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
+import { authors } from "@/assets/authors_years.json";
 
 const store = searchStore();
 const dataStore = networkStore();
@@ -112,8 +113,8 @@ async function fetch() {
     .filter((value, index, self) => {
       return self.indexOf(value) === index;
     });
-
-  let nodes = await list<Author>("author", { limit: 1500 }).then((a) => {
+/*
+  let nodes = await list<Author>("author", { limit: 3500 }).then((a) => {
     const authors = a.results.filter((a) => ids.includes(a.id));
 
     return authors.map((a) => {
@@ -128,7 +129,18 @@ async function fetch() {
   return { nodes: nodes, links: links };
   
 }
-
+*/
+// Rewrite the nodes to use a local copy of the data instead of loading it from the backend
+let nodes = authors.map((a) => { 
+  return {
+    id: parseInt(a.id),
+    name: a.formatted_name,
+    neighbors: new Array<Node>(),
+    links: new Array<Link>(),
+  } as Node;
+});
+return { nodes: nodes, links: links };
+}
 </script>
 
 <style scoped>
