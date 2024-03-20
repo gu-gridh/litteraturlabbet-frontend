@@ -213,7 +213,7 @@ watch(selectedLabel, async () => {
   position:absolute;
   width:100%;
   padding-left:10px;
-  padding-right:8px;
+  padding-right:5px;
   padding-bottom:50px;
  /* height:calc(100vh - 200px); */
 /*   min-height:calc(100vh - 140px); */
