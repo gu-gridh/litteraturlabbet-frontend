@@ -1,45 +1,55 @@
 <template>
- 
-  <div id="viewer">
-    <div id="ToolbarVertical">
-      <div class="close-button NavButton" onclick="history.back()">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="-2 -2 28 28" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12" /></svg>
+  <div class="container">
+    <div id="viewer">
+      <div id="ToolbarVertical">
+        <div class="close-button NavButton" onclick="history.back()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="-2 -2 28 28" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12" /></svg>     
+        </div>
+        <!-- <a id="full-page" href="#full-page">
+              <div id="FullPage" class="NavButton"></div>
+            </a> -->
+          <a id="zoom-in" href="#zoom-in">
+            <div id="ZoomIn" class="NavButton"></div>
+          </a>
+          <a id="zoom-out" href="#zoom-out">
+            <div id="ZoomOut" class="NavButton"></div>
+          </a>    
       </div>
-      <!-- <a id="full-page" href="#full-page">
-        <div id="FullPage" class="NavButton"></div>
-      </a> -->
-      <a id="zoom-in" href="#zoom-in">
-        <div id="ZoomIn" class="NavButton"></div>
-      </a>
-      <a id="zoom-out" href="#zoom-out">
-        <div id="ZoomOut" class="NavButton"></div>
-      </a>
-    </div> 
-
+    </div>
+    
+      <!--Metadata display-->
+      <div v-if="pageData" class="metadata">
+        <h3>{{ pageData.work?.title }}</h3>
+        <p>Författare: {{ pageData.work?.main_author?.name }}</p>
+        <p>År: {{ pageData.work?.sort_year }}</p>
+        <p>Språk: {{ pageData.work?.language }}</p>
+      </div>
   </div>
+
 </template>
 
 <script lang="ts">
 import { onMounted, ref } from 'vue';
+import OpenSeadragon from 'openseadragon';
 import { setBusy, setNotBusy } from "../components/Waiter.vue"; 
 
-import OpenSeadragon from 'openseadragon';
-
 export default {
-  props: ['id'], 
+  props: ['id'],
   setup(props) {
     const viewer = ref();
+    const pageData = ref(null);
 
     onMounted(async () => {
-      setNotBusy();
+            setNotBusy();
 
       try {
         const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${props.id}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const data = await response.json();
-        const iiifFile = data.results[0]?.iiif_file;
+        const graphicData = await response.json();
+        const iiifFile = graphicData.results[0]?.iiif_file;
+        const pageId = graphicData.results[0]?.page;
 
         if (iiifFile) {
           viewer.value = OpenSeadragon({
@@ -64,23 +74,46 @@ export default {
         } else {
           console.error("IIIF file URL not found in the API response.");
         }
+
+        //fetch metadata
+        if (pageId) {
+          const pageResponse = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/page/?id=${pageId}&depth=4`);
+          if (!pageResponse.ok) {
+            throw new Error(`HTTP error! Status: ${pageResponse.status}`);
+          }
+          const pageDataResponse = await pageResponse.json();
+          pageData.value = pageDataResponse.results[0];
+        }
       } catch (error) {
-        console.error("Error fetching IIIF image data:", error);
+        console.error("Error fetching data:", error);
       }
     });
 
     return {
       viewer,
+      pageData,
     };
   },
 };
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 #viewer {
-  position:absolute;
-  height:100%;
   width: 100%;
+  height: 50vh;
+  margin-bottom: 20px;
+}
+
+.metadata {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .close-button{
