@@ -65,7 +65,7 @@ const fetchData = async () => {
 
       // filter the selected label from labels list and reset the style on all buttons other buttons
       for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) {document.getElementById(lbl).style = deselectedStyle}
-      const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?label_sv=${encodeURIComponent(searchQuery)}&limit=25&depth=3`;
+      const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?label_sv=${encodeURIComponent(searchQuery)}&limit=50&depth=3`;
       const res = await fetch(urlToFetch);
       const data = await res.json(); 
       const newImages = data.results.map(item => ({
