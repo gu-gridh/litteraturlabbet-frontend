@@ -27,6 +27,7 @@ import type { Segment } from "@/types/litteraturlabbet";
 import { onBeforeUnmount, onMounted, ref } from "vue";
 import { Fuzzy } from "@nexucis/fuzzy";
 import { setNotBusy } from "./Waiter.vue";
+import { etext_ids } from "@/assets/etext_ids.json";
 
 const props = defineProps<{
   segment: Segment;
@@ -41,7 +42,7 @@ const page = props.segment.page;
 let lblink = "";
 const isEmpty = ref(false);
 const fuz = new Fuzzy({pre: "<span class='highlight'>", post: "</span>"});
-
+const isEtext = etext_ids.indexOf(work.id) > -1;
 if (props.segment) {
     isEmpty.value = false;
     // Original highlighter
@@ -54,7 +55,7 @@ if (props.segment) {
     if (matches.length > 0) {
       text = matches[0].rendered;
     }
-    lblink = "https://litteraturbanken.se/f%C3%B6rfattare/"+work.main_author.lbauthorid+"/titlar/"+work.modernized_title+"/sida/"+(page.number+1)+"/faksimil";
+    lblink = "https://litteraturbanken.se/f%C3%B6rfattare/"+work.main_author.lbauthorid+"/titlar/"+work.modernized_title+"/sida/"+(page.number+(isEtext?0:1))+(isEtext?"/etext":"/faksimil");
 } else {
   isEmpty.value = true;
 }

@@ -17,37 +17,26 @@
 import { onMounted } from "vue";
 import type { Segment } from "@/types/litteraturlabbet";
 import { setNotBusy } from "./Waiter.vue";
+import { etext_ids } from "@/assets/etext_ids.json";
 
 const props = defineProps<{
   segment: Segment;
   lblink?: string;
 }>();
 
-/*const page = await get<Page>(props.segment.page.number as number, "page");
-const work = await get<Work>(props.segment.page.work as number, "work/19th_century");
-const author = await get<Author>(work.main_author as number, "author");
-const year = work.imprint_year;
-
-let text = page.text;
-*/
 const author = props.segment.series.main_author;
 const work = props.segment.series;
 const page = props.segment.page;
-let text = props.segment.text;
-
-
+let text = props.segment.page.text;
 let lblink = "";
 if (props.segment) {
-  //const segment = await get<Segment>(props.segment.id, "segment");
-  //const target = text.slice(props.segment.begin, props.segment.end);
-  const target = props.segment.page.text;
+  const target = props.segment.text;
   text = text.replace(
     target,
     `<span class="highlight">${target}</span>`
   );
-  const isEtext = false;
-  lblink = "https://litteraturbanken.se/f%C3%B6rfattare/"+work.main_author.lbauthorid+"/titlar/"+work.modernized_title+"/sida/"+(page.number+1)+(isEtext?"/etext":"/faksimil");
-  //console.log(text);
+  const isEtext = etext_ids.indexOf(work.id) > -1;
+  lblink = "https://litteraturbanken.se/f%C3%B6rfattare/"+work.main_author.lbauthorid+"/titlar/"+work.modernized_title+"/sida/"+(page.number+(isEtext?0:1))+(isEtext?"/etext":"/faksimil");
 }
 
 onMounted(() => {

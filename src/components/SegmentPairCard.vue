@@ -32,6 +32,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { setNotBusy } from "./Waiter.vue";
+import { etext_ids } from "@/assets/etext_ids.json";
 
 const props = defineProps<{
   segment1: any;
@@ -43,12 +44,14 @@ let text1 = props.segment1.page.text;
 let text2 = props.segment2.page.text;
 let lblink1 = "";
 let lblink2 = "";
+const isEtext1 = etext_ids.indexOf(props.segment1.series.id) > -1;
+const isEtext2 = etext_ids.indexOf(props.segment2.series.id) > -1;
 if (props.segment1) {
    text1 = text1.replace(
     props.segment1.text,
     `<span class="highlight">${props.segment1.text}</span>`
   );
-  lblink1 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment1.series.main_author.lbauthorid+"/titlar/"+props.segment1.series.modernized_title+"/sida/"+(props.segment1.page.number+1)+"/faksimil";
+  lblink1 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment1.series.main_author.lbauthorid+"/titlar/"+props.segment1.series.modernized_title+"/sida/"+(props.segment1.page.number+(isEtext1?0:1))+(isEtext1?"/etext":"/faksimil");
  
 }
 if (props.segment2) {
@@ -56,7 +59,7 @@ if (props.segment2) {
     props.segment2.text,
     `<span class="highlight">${props.segment2.text}</span>`
   );
-  lblink2 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment2.series.main_author.lbauthorid+"/titlar/"+props.segment2.series.modernized_title+"/sida/"+(props.segment2.page.number+1)+"/faksimil";
+  lblink2 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment2.series.main_author.lbauthorid+"/titlar/"+props.segment2.series.modernized_title+"/sida/"+(props.segment2.page.number+(isEtext2?0:1))+(isEtext2?"/etext":"/faksimil");
 }
 
 onMounted(() => {
