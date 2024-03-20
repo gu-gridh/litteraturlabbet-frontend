@@ -20,49 +20,60 @@
 </template>
 
 <script lang="ts">
-import { onMounted, ref } from 'vue'
-import OpenSeadragon from 'openseadragon'
+import { onMounted, ref } from 'vue';
+import { setBusy, setNotBusy } from "../components/Waiter.vue"; 
+
+import OpenSeadragon from 'openseadragon';
 
 export default {
-  props: ['id'],
+  props: ['id'], 
   setup(props) {
-    const viewer = ref()
+    const viewer = ref();
 
     onMounted(async () => {
-      const module = await import(`@/assets/gallery/${props.id}.jpeg`)
-      const image = module.default
-      
-      viewer.value = OpenSeadragon({
-        id: 'viewer',
-        tileSources: {
-          type: 'image',
-          url: image,
-        },
-        prefixUrl: '/openseadragon/', // Set the base URL for relative URLs
-        showNavigationControl: true,
-        sequenceMode: false, // Enable sequence mode
-        showReferenceStrip: true,
-        immediateRender: true,
-        visibilityRatio: 1.0,
-        minZoomImageRatio: 1.0,
-        homeFillsViewer: false,
-        showZoomControl: true,
-        showHomeControl: false,
-        showFullPageControl: true,
-        showNavigator:  false,
-        navigatorAutoFade:  true,
-        //navigatorId:   "navigator-div",
-        fullPageButton: "full-page",
-        zoomInButton: "zoom-in",
-        zoomOutButton: "zoom-out",
-      })
-    })
+      setNotBusy();
+
+      try {
+        const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${props.id}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        const iiifFile = data.results[0]?.iiif_file;
+
+        if (iiifFile) {
+          viewer.value = OpenSeadragon({
+            id: 'viewer',
+            tileSources: `${iiifFile}/info.json`,
+            prefixUrl: '/openseadragon/',
+            showNavigationControl: true,
+            showReferenceStrip: true,
+            immediateRender: true,
+            visibilityRatio: 1.0,
+            minZoomImageRatio: 1.0,
+            homeFillsViewer: false,
+            showZoomControl: true,
+            showHomeControl: false,
+            showFullPageControl: true,
+            showNavigator: false,
+            navigatorAutoFade: true,
+            fullPageButton: "full-page",
+            zoomInButton: "zoom-in",
+            zoomOutButton: "zoom-out",
+          });
+        } else {
+          console.error("IIIF file URL not found in the API response.");
+        }
+      } catch (error) {
+        console.error("Error fetching IIIF image data:", error);
+      }
+    });
 
     return {
-      viewer
-    }
-  }
-}
+      viewer,
+    };
+  },
+};
 </script>
 
 <style scoped>

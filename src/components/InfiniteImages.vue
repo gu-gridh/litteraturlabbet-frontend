@@ -24,10 +24,10 @@
               <h5>{{ item.author }}</h5>
             </div>
         </div>
-        <img 
-          :src="`${item.iiif_file}/full/250,/0/default.jpg`" 
-          loading="lazy" 
-        />
+        <router-link :to="{ name: 'image-viewer', params: { id: item.id } }">
+          <img :src="`${item.iiif_file}/full/250,/0/default.jpg`" loading="lazy" />
+        </router-link>
+     
         </div>
     </div>
   </div>
@@ -39,6 +39,9 @@ import Masonry from 'masonry-layout';
 import InfiniteScroll from 'infinite-scroll';
 import imagesLoaded from 'imagesloaded';
 import { storeToRefs } from "pinia";
+import { useRouter } from 'vue-router'; 
+
+const router = useRouter();
 
 let msnry;
 let pageIndex = ref(1);
@@ -47,7 +50,6 @@ let infScroll;
 const images = ref([]);
 const selectedLabel = ref("Alla");
 const galleryLabels = ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder"];
-const diana = inject("diana") as DianaClient;
 
 // let layoutKey = ref(0);
 // let loadedImagesCount = ref(0);
