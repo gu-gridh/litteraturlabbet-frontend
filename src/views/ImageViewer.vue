@@ -116,6 +116,8 @@ export default {
   width: 100%;
   height: 70vh;
   margin-bottom: 0px;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .metadata {
@@ -269,8 +271,13 @@ export default {
   color: white;
   opacity: 0.8;
   margin-bottom: 3px;
+  outline: none;
 }
 .NavButton:hover {
   opacity: 1;
 }
+
+*:focus {
+        outline:none!important;
+      }
 </style>

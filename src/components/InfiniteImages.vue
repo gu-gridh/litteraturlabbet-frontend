@@ -1,7 +1,7 @@
 <template>
 
   <div id="gallery-container">
-   
+    <div class="gallery-labels-container">
      <div class="gallery-labels">
       <button
         v-for="label in galleryLabels"
@@ -13,6 +13,7 @@
       </button>
   
     </div>
+  </div>
    
     <div class="gallery">
       <div class="gallery__col-sizer"></div>
@@ -219,7 +220,7 @@ watch(selectedLabel, async () => {
   padding-bottom:50px;
  /* height:calc(100vh - 200px); */
 /*   min-height:calc(100vh - 140px); */
-height:calc(100%);
+  height:calc(100%);
   overflow:hidden;
   z-index:100!important;
   background-color: white;
@@ -244,11 +245,12 @@ height:calc(100%);
   } */
 
 .gallery {
-  padding-top:10px;
-  max-height: 100%;
+  padding-top:0px;
+  max-height: calc(100% + 5px);
   overflow-y: auto;
   max-width: 100%; 
   margin: 0 auto; 
+  /* margin-top:-60px; */
 }
 
 .gallery::-webkit-scrollbar {
@@ -319,7 +321,7 @@ height:calc(100%);
   position:absolute!important;
   height:100%!important;
   width:100%!important;
-  z-index:1000!important;
+  z-index:500!important;
   bottom:0px;
   transition: all 0.5s ease-in-out;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.0) 0px, rgba(0, 0, 0, 0)50%) !important;
@@ -367,21 +369,40 @@ margin-top:10px;
   color: #777;
 }
 
-.gallery-labels {
+.gallery-labels-container {
   display: flex;
   justify-content: center;
   align-items: center; 
   width:100%;
+  z-index:1000;
+  margin-bottom:10px;
+}
+
+.gallery-labels {
+  margin-top:0px;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  width:auto;
+  z-index:1000;
+/*   
+  padding:5px 10px;
+  background-color:rgba(255,255,255,0.7);
+  border-radius:12px;
+  -webkit-backdrop-filter: blur(5px); 
+  backdrop-filter: blur(5px); */
 }
 
 .gallery-labels button {
   margin: 5px;
-  margin-bottom:20px;
   padding: 4px 10px;
   border-radius: 4px;
   font-family: "Barlow Condensed", sans-serif !important;
-  font-size: 15px;
+  font-size: 1.1em;
   border: none;
+  user-select: none;
+  -webkit-user-select: none;
+  background-color:white;
 }
 
 .gallery-labels button:hover {
