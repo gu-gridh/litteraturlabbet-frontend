@@ -210,13 +210,14 @@ watch(selectedLabel, async () => {
 
 <style>
 #gallery-container{
-  position:relative;
+  position:absolute;
   width:100%;
   padding-left:10px;
   padding-right:8px;
   padding-bottom:50px;
-  height:calc(100vh - 200px);
-  min-height:calc(100vh - 140px);
+ /* height:calc(100vh - 200px); */
+/*   min-height:calc(100vh - 140px); */
+height:calc(100%);
   overflow:hidden;
   z-index:100!important;
   background-color: white;

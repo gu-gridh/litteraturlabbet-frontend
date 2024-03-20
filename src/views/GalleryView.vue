@@ -28,14 +28,21 @@ onMounted(() => {
       Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska elementen är sorterade kronologiskt.
     </div>
     
+    <div class="gallery-area">
 
   <ImageDisplays
   ref="imageComponent"
         @toggle-gallery="toggleGallery">
 </ImageDisplays>
+
+</div>
 </template>
 
 <style scoped>
+
+.gallery-area{
+  min-height:calc(68vh);
+}
 .galleryLabel {
   display: flex;
   justify-content: left;
