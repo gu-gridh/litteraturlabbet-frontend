@@ -14,6 +14,12 @@
           <a id="zoom-out" href="#zoom-out">
             <div id="ZoomOut" class="NavButton"></div>
           </a>    
+          <a id="rotate-left" href="#rotate-left">
+        <div id="RotateLeft" class="NavButton"></div>
+      </a>
+      <a id="rotate-right" href="#rotate-right">
+        <div id="RotateRight" class="NavButton"></div>
+      </a>
       </div>
     </div>
     
@@ -67,9 +73,12 @@ export default {
             showFullPageControl: true,
             showNavigator: false,
             navigatorAutoFade: true,
+            showRotationControl: true,
             fullPageButton: "full-page",
             zoomInButton: "zoom-in",
             zoomOutButton: "zoom-out",
+            rotateLeftButton: "rotate-left",
+            rotateRightButton: "rotate-right",
           });
         } else {
           console.error("IIIF file URL not found in the API response.");
@@ -105,8 +114,8 @@ export default {
 
 #viewer {
   width: 100%;
-  height: 50vh;
-  margin-bottom: 20px;
+  height: 70vh;
+  margin-bottom: 0px;
 }
 
 .metadata {
@@ -214,6 +223,34 @@ export default {
   background-color: rgba(35, 35, 35, 0.9);
   overflow: hidden;
 }
+
+#RotateLeft {
+  background: url(../assets/openseadragon/rotateleft.svg);
+  background-size: 35%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(35, 35, 35, 0.9);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor:pointer;
+  overflow: hidden;
+  margin-top:10px;
+}
+
+#RotateRight {
+  background: url(../assets/openseadragon/rotateright.svg);
+  background-size: 35%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(35, 35, 35, 0.9);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor:pointer;
+  overflow: hidden;
+}
+
 
 #Download {
   margin-top: 20px;
