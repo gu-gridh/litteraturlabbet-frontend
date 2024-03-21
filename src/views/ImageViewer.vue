@@ -28,7 +28,17 @@
         <h3>{{ pageData.work?.title }}</h3>
         <p>Författare: {{ pageData.work?.main_author?.name }}</p>
         <p>Utgiven: {{ pageData.work?.sort_year }}</p>
-        <!-- <p>Språk: {{ pageData.work?.language }}</p> -->
+      </div>
+
+      <!--Gallery display-->
+      <div class="gallery">
+        <MasonryWall :items="imageUrls" class="masonry" :columnWidth="150" :gap="5">
+          <template v-slot:default="{ item, index }">
+            <div class="card">
+              <img :src="item" :alt="`Image ${index + 1}`" class="masonry-image" />
+            </div>
+          </template>
+        </MasonryWall>
       </div>
   </div>
 
@@ -37,16 +47,34 @@
 <script lang="ts">
 import { onMounted, ref } from 'vue';
 import OpenSeadragon from 'openseadragon';
-import { setBusy, setNotBusy } from "../components/Waiter.vue"; 
+import { setNotBusy } from "../components/Waiter.vue"; 
+import MasonryWall from "@yeger/vue-masonry-wall";
 
 export default {
+  components: {
+    MasonryWall,
+  },
   props: ['id'],
   setup(props) {
     const viewer = ref();
     const pageData = ref(null);
+    const imageUrls = ref([]);
+
+    const fetchNeighboursData = async () => {
+      const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
+      const response = await fetch(`${baseUrl}?id=${props.id}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      const neighbours = JSON.parse(data.results[0].neighbours);
+
+      imageUrls.value = neighbours['0'].map(neighbour => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
+    };
 
     onMounted(async () => {
-            setNotBusy();
+      setNotBusy();
+      await fetchNeighboursData();
 
       try {
         const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${props.id}`);
@@ -101,12 +129,22 @@ export default {
     return {
       viewer,
       pageData,
+      imageUrls
     };
   },
 };
 </script>
 
 <style scoped>
+.gallery {
+  margin: 5px;
+}
+
+.masonry-image {
+  width: 100%;
+  display: block;
+}
+
 .container {
   display: flex;
   flex-direction: column;
