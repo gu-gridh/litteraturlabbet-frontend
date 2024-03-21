@@ -1,7 +1,15 @@
 <template>
 
-  <div id="gallery-container">
-    <div class="gallery-labels-container" v-show="!showOverlay">
+  <div id="gallery-container" v-show="!showOverlay">
+    <div class="module-title">
+      <h1 style="top:30px;  font-size:2.0em!important; font-weight:100!important; z-index:1000; line-height:inherit;">Grafiska element</h1>
+    </div>
+    <div class="module-content">
+      I litteraturen finner vi grafiska element i form av figurer, ornament, anfanger och musiknoter. 
+      Med detta verktyg kan vi extrahera dessa element antingen från författare och enskilda verk, eller från all litteratur under ett eller flera årtionden.
+      Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska elementen är sorterade kronologiskt.
+    </div>
+    <div class="gallery-labels-container">
      <div class="gallery-labels">
       <button
         v-for="label in galleryLabels"
@@ -36,7 +44,7 @@ import Masonry from 'masonry-layout';
 import InfiniteScroll from 'infinite-scroll';
 import imagesLoaded from 'imagesloaded';
 import { storeToRefs } from "pinia";
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import ImageViewer from "../views/ImageViewer.vue";
 import type { ImageI } from "@/types/litteraturlabbet";
 
@@ -49,7 +57,7 @@ let infScroll;
 const images = ref([] as ImageI[]);
 const selectedLabel = ref("Alla");
 const galleryLabels = ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder"];
-
+const route = useRoute();
 const showOverlay = ref(false);
 // let layoutKey = ref(0);
 // let loadedImagesCount = ref(0);
@@ -225,6 +233,15 @@ watch(selectedLabel, async () => {
   });
 });
 
+watch(() => route.path, (path) => {
+  if (path.match('/gallery/\d+?$')) {
+    console.log("A");
+    selectedImageId.value = parseInt(path.split('/').pop());
+    activateOverlay(selectedImageId.value);
+  } else {
+    console.log("B");
+  }
+});
 
 </script>
 

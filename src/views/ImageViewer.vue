@@ -30,6 +30,10 @@
         <h3>{{ pageData.work?.title }}</h3>
         <p>Författare: <span>{{ pageData.work?.main_author?.name }}</span></p>
         <p>Utgiven: <span>{{ pageData.work?.sort_year }}</span></p>
+        <!--<p>Förlag: <span>{{ extraData.value.data[0].publisher }}</span></p>-->
+        <p>Sida: <span>{{ pageData.number }}</span></p>
+        <p>Länk till originalsida på LB: <span><a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number)+"/faksimil"'>Länk</a></span></p>
+        
       </div>
 
       <!--Gallery display-->
@@ -68,6 +72,7 @@ export default {
     const iiifFile = ref(null);
     const pageId = ref(null);
     const imageUrls = ref([]);
+    const extraData = ref({});
 
     const fetchNeighboursData = async () => {
       // const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
@@ -99,6 +104,7 @@ export default {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        
       const graphicData = await response.json();
         iiifFile.value = graphicData.results[0].iiif_file;
         pageId.value = graphicData.results[0].page;
@@ -138,12 +144,17 @@ export default {
         }
         const pageDataResponse = await pageResponse.json();
         pageData.value = pageDataResponse.results[0];
+        
+        const extraDataResult = await fetch(`https://litteraturbanken.se/api/get_work_info?lbworkid=${pageData.value.work.lbworkid}`);
+        extraData.value = await extraDataResult.json();
+        console.log(extraData.value.data[0].publisher);
       }
     });
 
     return {
       viewer,
       pageData,
+      extraData,
       iiifFile,
       unshowSelf,
       imageUrls

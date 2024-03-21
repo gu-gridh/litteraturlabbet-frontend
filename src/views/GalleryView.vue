@@ -19,14 +19,8 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="module-title">
-      <h1 style="top:30px;  font-size:2.0em!important; font-weight:100!important; z-index:1000;">Grafiska element</h1>
-    </div>
-    <div class="module-content">
-      I litteraturen finner vi grafiska element i form av figurer, ornament, anfanger och musiknoter. 
-      Med detta verktyg kan vi extrahera dessa element antingen från författare och enskilda verk, eller från all litteratur under ett eller flera årtionden.
-      Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska elementen är sorterade kronologiskt.
-    </div>
+ 
+    
     
     <div class="gallery-area">
 
