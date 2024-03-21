@@ -1,24 +1,18 @@
 <template>
 
   <div id="gallery-container">
-    <div class="gallery-labels-container">
+    <div class="gallery-labels-container" v-show="!showOverlay">
      <div class="gallery-labels">
       <button
         v-for="label in galleryLabels"
         :key="label"
         :id="label"
         @click="selectedLabel = label"
-      ></button>
-
-    <div class="gallery-labels">
-      <button v-for="label in galleryLabels" :key="label" :id="label" @click="selectedLabel = label">
-        {{ label }}
-      </button>
-
-    </div>
+      >{{ label }}</button>
+  </div>
   </div>
    
-    <div class="gallery">
+    <div class="gallery" v-show="!showOverlay">
       <div class="gallery__col-sizer"></div>
       <div class="gallery__gutter-sizer"></div>
       <div v-for="item in images" :key="item.id" class="gallery__item">
@@ -32,8 +26,8 @@
       </div>
     </div>
   </div>
-  </div>
-  <ImageViewer v-if="showOverlay" :images="images" @close="showOverlay = false" />
+  
+  <ImageViewer v-if="showOverlay" @unshow="deactivateOverlay()"/>
 </template>
 
 <script lang="ts" setup>
@@ -190,10 +184,17 @@ function activateOverlay(item) {
   //  router.push({ name: 'image-viewer', params: { id: item.id } });
   showOverlay.value = true;
   console.log("Activate");
-  // set .detailOverlay to visible and pass the item to the overlay
+  //router.push(`/gallery/${item.id}`);
+  history.replaceState(null, '', `/gallery/${item.id}`);
+  
+}
 
-
-  console.log(item);
+function deactivateOverlay() {
+  showOverlay.value = false;
+  // reset route
+  //router.push('/gallery');
+  history.replaceState(null, '', '/gallery');
+  console.log("Deactivate");
 }
 onMounted(() => {
   fetchData().then(() => {
