@@ -144,6 +144,7 @@ const initMasonry = () => {
   msnry.options.itemSelector = '.gallery__item';
   let items = gallery.querySelectorAll('.gallery__item');
   msnry.appended( items );
+
 });
 
   infScroll = new InfiniteScroll( gallery, {
@@ -163,7 +164,7 @@ const initMasonry = () => {
     outlayer: msnry,
     status: '.page-load-status',
     history: false,
-    scrollThreshold: 500,
+    scrollThreshold: 800,
     append: false,
     elementScroll: '.gallery',
     elementScroll: true,
