@@ -32,7 +32,7 @@
         <p>Utgiven: <span>{{ pageData.work?.sort_year }}</span></p>
         <!--<p>Förlag: <span>{{ extraData.value.data[0].publisher }}</span></p>-->
         <p>Sida: <span>{{ pageData.number }}</span></p>
-        <p>Länk till originalsida på LB: <span><a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number)+"/faksimil"'>Länk</a></span></p>
+        <p><a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number)+"/faksimil"'><span>Originalsida på LB</span></a></p>
         
       </div>
 
