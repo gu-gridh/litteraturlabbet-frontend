@@ -8,7 +8,7 @@
         :key="label"
         :id="label"
         @click="selectedLabel = label"
-      >
+      ></button>
 
     <div class="gallery-labels">
       <button v-for="label in galleryLabels" :key="label" :id="label" @click="selectedLabel = label">
@@ -31,6 +31,7 @@
         <img :src="`${item.iiif_file}/full/250,/0/default.jpg`" loading="lazy" @click="activateOverlay(item)" />
       </div>
     </div>
+  </div>
   </div>
   <ImageViewer v-if="showOverlay" :images="images" @close="showOverlay = false" />
 </template>
