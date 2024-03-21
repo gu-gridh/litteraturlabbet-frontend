@@ -31,7 +31,7 @@
         <p>Författare: <span>{{ pageData.work?.main_author?.name }}</span></p>
         <p>Utgiven: <span>{{ pageData.work?.sort_year }}</span></p>
         <p>Förlag: <span>{{ publisher }}</span></p>
-        <p>Figurtyp: <span>{{ labelSv }}</span></p>
+        <!-- <p>Figurtyp: <span>{{ labelSv }}</span></p> -->
         <p>Beskrivning: <span>{{ labelSv }} på sidan {{ pageData.number }}</span></p>
         <!--<p>Sida: <span>{{ pageData.number }}</span></p>-->
         <p>Länk:<a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number)+"/faksimil"'><span> Originalsida hos LB</span></a></p>
