@@ -19,23 +19,22 @@ onMounted(() => {
 </script>
 
 <template>
- 
-    
-    
-    <div class="gallery-area">
 
-  <ImageDisplays
-  ref="imageComponent"
+  <div class="gallery-area">
+
+      <ImageDisplays
+        ref="imageComponent"
         @toggle-gallery="toggleGallery">
-</ImageDisplays>
+      </ImageDisplays>
 
-</div>
+  </div>
+
 </template>
 
 <style scoped>
 
 .gallery-area{
-  min-height:calc(68vh);
+  min-height:calc(82vh);
 }
 .galleryLabel {
   display: flex;

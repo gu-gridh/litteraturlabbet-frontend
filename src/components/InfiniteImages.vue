@@ -275,13 +275,10 @@ watch(store.yearEnd, async () => {
   width:100%;
   padding-left:10px;
   padding-right:5px;
-  padding-bottom:50px;
- /* height:calc(100vh - 200px); */
-/*   min-height:calc(100vh - 140px); */
-  height:100vh;
+  padding-bottom:200px;
+  height:calc(100vh + 200px);
   overflow:hidden;
   z-index:100!important;
-  background-color: white;
 }
 
 /* 
