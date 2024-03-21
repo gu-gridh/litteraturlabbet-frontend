@@ -111,6 +111,7 @@ const fetchData = async () => {
     }))
 
     images.value = [...images.value, ...newImages];
+    images.value=images.value.sort()
 
   } catch (error) {
     console.error("Error fetching additional images:", error);
