@@ -68,15 +68,15 @@ export default {
     const imageUrls = ref([]);
 
     const fetchNeighboursData = async () => {
-    //   const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
-    //   const response = await fetch(`${baseUrl}?id=${props.id}`);
-    //   if (!response.ok) {
-    //     throw new Error(`HTTP error! Status: ${response.status}`);
-    //   }
-    //   const data = await response.json();
-    //   const neighbours = JSON.parse(data.results[0].neighbours);
+      // const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
+      // const response = await fetch(`${baseUrl}?id=${props.id}`);
+      // if (!response.ok) {
+      //   throw new Error(`HTTP error! Status: ${response.status}`);
+      // }
+      // const data = await response.json();
+      // const neighbours = JSON.parse(data.results[0].neighbours);
 
-    //   imageUrls.value = neighbours['0'].map(neighbour => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
+      // imageUrls.value = neighbours['0'].map(neighbour => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
     };
 
     const unshowSelf = () =>{
@@ -89,25 +89,17 @@ export default {
     
     
     onMounted(async () => {
-      /*
-      viewer.value = OpenSeadragon({
-      id: 'viewer',
-      prefixUrl: '/openseadragon/',
-      showNavigationControl: true,
-      */
+
       setNotBusy();
       await fetchNeighboursData();
 
-      
       const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=380`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
       const graphicData = await response.json();
         iiifFile.value = graphicData.results[0].iiif_file;
-        console.log("IIIF file: ", iiifFile.value);
         pageId.value = graphicData.results[0].page;
-        console.log(iiifFile.value+"/info.json");
         if (!viewer) {
           console.log("No viewer");
           return;
@@ -135,7 +127,7 @@ export default {
           tileSources: `${iiifFile.value}/info.json`,
 
         });
-        ;
+
       //fetch metadata
       if (pageId) {
         const pageResponse = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/page/?id=${pageId.value}&depth=4`);
@@ -145,12 +137,8 @@ export default {
         const pageDataResponse = await pageResponse.json();
         pageData.value = pageDataResponse.results[0];
       }
-      //setNotBusy();
-      });
-    
-      
-  
-      
+    });
+
     return {
       viewer,
       pageData,
@@ -189,6 +177,7 @@ export default {
 }
 
 .metadata {
+  z-index: 1000;
   padding: 10px;
   padding-left:20px;
   background-color: #f7f7f7;
