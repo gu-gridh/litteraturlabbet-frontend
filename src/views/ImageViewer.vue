@@ -14,6 +14,12 @@
           <a id="zoom-out" href="#zoom-out">
             <div id="ZoomOut" class="NavButton"></div>
           </a>    
+          <a id="rotate-left" href="#rotate-left">
+        <div id="RotateLeft" class="NavButton"></div>
+      </a>
+      <a id="rotate-right" href="#rotate-right">
+        <div id="RotateRight" class="NavButton"></div>
+      </a>
       </div>
     </div>
     
@@ -22,8 +28,9 @@
         <h3>{{ pageData.work?.title }}</h3>
         <p>Författare: {{ pageData.work?.main_author?.name }}</p>
         <p>År: {{ pageData.work?.sort_year }}</p>
-        <p>Språk: {{ pageData.work?.language }}</p>
+        <p>Utgiven: {{ pageData.work?.sort_year }}</p>
         <p>Länk till originalsida på LB: <a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number)+"/faksimil"'>Länk</a></p>
+        <!-- <p>Språk: {{ pageData.work?.language }}</p> -->
       </div>
   </div>
 
@@ -67,9 +74,12 @@ export default {
             showFullPageControl: true,
             showNavigator: false,
             navigatorAutoFade: true,
+            showRotationControl: true,
             fullPageButton: "full-page",
             zoomInButton: "zoom-in",
             zoomOutButton: "zoom-out",
+            rotateLeftButton: "rotate-left",
+            rotateRightButton: "rotate-right",
           });
         } else {
           console.error("IIIF file URL not found in the API response.");
@@ -115,14 +125,16 @@ body {
 
 #viewer {
   width: 100%;
-  height: 50vh;
-  margin-bottom: 20px;
+  height: 70vh;
+  margin-bottom: 0px;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .metadata {
   padding: 10px;
-  background-color: #f9f9f9;
-  border-top: 1px solid #ccc;
+  background-color: #f7f7f7;
+  border-top: 0px solid #ccc;
   border-radius: 4px;
 }
 
@@ -225,6 +237,34 @@ body {
   overflow: hidden;
 }
 
+#RotateLeft {
+  background: url(../assets/openseadragon/rotateleft.svg);
+  background-size: 35%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(35, 35, 35, 0.9);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor:pointer;
+  overflow: hidden;
+  margin-top:10px;
+}
+
+#RotateRight {
+  background: url(../assets/openseadragon/rotateright.svg);
+  background-size: 35%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(35, 35, 35, 0.9);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor:pointer;
+  overflow: hidden;
+}
+
+
 #Download {
   margin-top: 20px;
   background: url(../../public/interface/downloadwhite.png);
@@ -242,8 +282,13 @@ body {
   color: white;
   opacity: 0.8;
   margin-bottom: 3px;
+  outline: none;
 }
 .NavButton:hover {
   opacity: 1;
 }
+
+*:focus {
+        outline:none!important;
+      }
 </style>
