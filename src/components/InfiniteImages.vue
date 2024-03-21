@@ -49,8 +49,8 @@ let pageIndex = ref(1);
 let canIncrement = ref(true);
 let infScroll;
 const images = ref([]);
-const selectedLabel = ref("Alla");
-const galleryLabels = ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder"];
+const selectedLabel = ref("Illustrationer");
+const galleryLabels = ["Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder", "Alla"];
 
 // let layoutKey = ref(0);
 // let loadedImagesCount = ref(0);
