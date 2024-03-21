@@ -247,7 +247,21 @@ watch(selectedLabel, async () => {
   });
 });
 
+watch(store.yearEnd, async () => {
+  images.value = [];
+  pageIndex.value = 1;
+  canIncrement.value = true;
 
+  if (infScroll) {
+    infScroll.destroy();
+  }
+
+  await fetchData();
+
+  imagesLoaded(document.querySelector('.gallery'), () => {
+    initMasonry();
+  });
+});
 
 </script>
 
