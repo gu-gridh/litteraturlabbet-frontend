@@ -267,6 +267,8 @@ watch(selectedLabel, async () => {
   overflow-y: auto;
   max-width: 100%; 
   margin: 0 auto; 
+  user-select: none;
+  -webkit-user-select: none;
   /* margin-top:-60px; */
 }
 

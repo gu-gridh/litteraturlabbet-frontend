@@ -28,11 +28,19 @@
       <!--Metadata display-->
       <div v-if="pageData" class="metadata">
         <h3>{{ pageData.work?.title }}</h3>
-        <p>Författare: {{ pageData.work?.main_author?.name }}</p>
-        <p>År: {{ pageData.work?.sort_year }}</p>
-        <p>Utgiven: {{ pageData.work?.sort_year }}</p>
-        <p>Länk till originalsida på LB: <a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number)+"/faksimil"'>Länk</a></p>
-        <!-- <p>Språk: {{ pageData.work?.language }}</p> -->
+        <p>Författare: <span>{{ pageData.work?.main_author?.name }}</span></p>
+        <p>Utgiven: <span>{{ pageData.work?.sort_year }}</span></p>
+      </div>
+
+      <!--Gallery display-->
+      <div class="gallery">
+        <MasonryWall :items="imageUrls" class="masonry" :columnWidth="150" :gap="5">
+          <template v-slot:default="{ item, index }">
+            <div class="card">
+              <img :src="item" :alt="`Image ${index + 1}`" class="masonry-image" />
+            </div>
+          </template>
+        </MasonryWall>
       </div>
   </div>
 
@@ -44,9 +52,12 @@ import OpenSeadragon from 'openseadragon';
 import { setBusy, setNotBusy } from "../components/Waiter.vue"; 
 import router from '@/router';
 import { useRoute } from 'vue-router';
-
+import MasonryWall from "@yeger/vue-masonry-wall";
 
 export default {
+  components: {
+    MasonryWall,
+  },
   props: ['id'],
   setup(props, context) {
     const route = useRoute();
@@ -56,6 +67,19 @@ export default {
     const pageData = ref(null);
     const iiifFile = ref(null);
     const pageId = ref(null);
+    const imageUrls = ref([]);
+
+    const fetchNeighboursData = async () => {
+      const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
+      const response = await fetch(`${baseUrl}?id=${props.id}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      const neighbours = JSON.parse(data.results[0].neighbours);
+
+      imageUrls.value = neighbours['0'].map(neighbour => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
+    };
 
     const unshowSelf = () =>{
       console.log("Unshowing");
@@ -67,34 +91,25 @@ export default {
     
     
     onMounted(async () => {
+      /*
       viewer.value = OpenSeadragon({
       id: 'viewer',
       prefixUrl: '/openseadragon/',
       showNavigationControl: true,
-            showReferenceStrip: true,
-            immediateRender: true,
-            visibilityRatio: 1.0,
-            minZoomImageRatio: 1.0,
-            homeFillsViewer: false,
-            showZoomControl: true,
-            showHomeControl: false,
-            showFullPageControl: true,
-            showNavigator: false,
-            navigatorAutoFade: true,
-            showRotationControl: true,
-            fullPageButton: "full-page",
-            zoomInButton: "zoom-in",
-            zoomOutButton: "zoom-out",
-            rotateLeftButton: "rotate-left",
-            rotateRightButton: "rotate-right",
-    });
-      let id_ = route.params.id;
-      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${id_}`);
+      */
+      setNotBusy();
+      await fetchNeighboursData();
+
       
+      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${props.id}`);
         if (!response.ok) {
-          
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
+       
+       
+      let id_ = route.params.id;
+      
+      
       
       const graphicData = await response.json();
         iiifFile.value = graphicData.results[0].iiif_file;
@@ -141,7 +156,7 @@ export default {
         const pageDataResponse = await pageResponse.json();
         pageData.value = pageDataResponse.results[0];
       }
-      setNotBusy();
+      //setNotBusy();
       });
     
       
@@ -151,13 +166,23 @@ export default {
       viewer,
       pageData,
       iiifFile,
-      unshowSelf
+      unshowSelf,
+      imageUrls
     };
   },
 };
 </script>
 
 <style scoped>
+.gallery {
+  margin: 5px;
+}
+
+.masonry-image {
+  width: 100%;
+  display: block;
+}
+
 .container {
   
   display: flex;
@@ -174,10 +199,27 @@ export default {
 
 .metadata {
   padding: 10px;
+  padding-left:20px;
   background-color: #f7f7f7;
   border-top: 0px solid #ccc;
   border-radius: 4px;
 }
+
+.metadata h3 {
+font-weight:500;
+font-size:1.4em;
+}
+
+.metadata p {
+font-size:1.2em;
+}
+
+.metadata p span{
+color:var(--theme-accent-color-dark);
+font-weight:500;
+}
+
+
 
 .close-button{
   font-size:16px;
