@@ -26,7 +26,7 @@
       <div v-for="item in images" :key="item.id" class="gallery__item">
         <div class="item-info">
           <div class="item-info-meta">
-            <h5>{{ item.title }}</h5>
+            <h5>{{ item.lb_title }}</h5>
             <h6>{{ item.author }}</h6>
           </div>
         </div>
@@ -184,7 +184,7 @@ const initMasonry = () => {
         page_num: item?.page?.number ?? null,
         work_id: item?.page?.work?.id ?? null,
         lb_id: item?.page?.work?.lbworkid ?? null,
-        lb_title: item?.page?.work?.modernized_title ?? null,
+        lb_title: item?.page?.work?.short_title ?? null,
         title: item?.page?.work?.title ?? null,
         year: item?.page?.work?.sort_year ?? null,
         author: item?.page?.work?.main_author?.name ?? null,
