@@ -16,6 +16,11 @@ interface Count {
   count: number;
 }
 
+interface ImageI extends AbstractBase {
+  title: string;
+  author: string;
+  iiif_file: string;
+}
 interface Author extends AbstractBase {
   id: number;
   gender: string;
@@ -95,5 +100,6 @@ export type {
   Litteraturlabbet,
   PaginatedLitteraturlabbet,
   Count,
-  AlignedSegment
+  AlignedSegment,
+  ImageI
 };
