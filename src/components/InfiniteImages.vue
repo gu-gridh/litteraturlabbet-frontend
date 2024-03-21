@@ -79,9 +79,13 @@ const fetchData = async () => {
     else { searchQuery = selectedLabel.value }
 
     // change style of selected button to same as on hover style
-    const deselectedStyle = window.getComputedStyle(document.querySelector("button"))
-    document.getElementById(selectedLabel.value).style = 'background: rgb(162, 60, 0); color: white'
-
+    const deselectedStyle = window.getComputedStyle(<HTMLElement>document.querySelector("button"));
+      const selectedElement = document.getElementById(selectedLabel.value);
+      if (selectedElement) {
+        selectedElement.style.background = "rgb(162, 60, 0)";
+        selectedElement.style.color = "white";
+      }
+    
     // filter the selected label from labels list and reset the style on all buttons other buttons
     for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) { document.getElementById(lbl).style = deselectedStyle }
     const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?label_sv=${encodeURIComponent(searchQuery)}&limit=50&depth=3`;
@@ -246,7 +250,7 @@ watch(selectedLabel, async () => {
     initMasonry();
   });
 });
-
+/*
 watch(store.yearEnd, async () => {
   images.value = [];
   pageIndex.value = 1;
@@ -262,7 +266,7 @@ watch(store.yearEnd, async () => {
     initMasonry();
   });
 });
-
+*/
 </script>
 
 <style>

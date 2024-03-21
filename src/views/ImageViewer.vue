@@ -63,7 +63,7 @@ export default {
     MasonryWall,
   },
   props: {
-    imageId: Number
+    imageId: String
   },
   setup(props, context) {
     const route = useRoute();
