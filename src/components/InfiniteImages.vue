@@ -20,7 +20,7 @@
   </div>
   </div>
    
-    <div class="gallery" v-show="!showOverlay">
+    <div class="gallery are-images-unloaded" v-show="!showOverlay">
       <div class="gallery__col-sizer"></div>
       <div class="gallery__gutter-sizer"></div>
       <div v-for="item in images" :key="item.id" class="gallery__item">
@@ -34,6 +34,7 @@
       </div>
     </div>
   </div>
+
   
   <ImageViewer v-if="showOverlay" @unshow="deactivateOverlay()" :imageId="selectedImageId"/>
 </template>
@@ -124,14 +125,27 @@ const initMasonry = () => {
     return;
   }
 
+
   msnry = new Masonry(gallery, {
-    itemSelector: '.gallery__item',
+    itemSelector: 'none', // select none at first
     columnWidth: '.gallery__col-sizer',
     gutter: '.gallery__gutter-sizer',
     percentPosition: true,
+    stagger: 30,
+    // nicer reveal transition
+    visibleStyle: { transform: 'translateY(0)', opacity: 1 },
+    hiddenStyle: { transform: 'translateY(100px)', opacity: 0 },
   });
 
-  infScroll = new InfiniteScroll(gallery, {
+  // initial items reveal
+  imagesLoaded( gallery, function() {
+  gallery.classList.remove('are-images-unloaded');
+  msnry.options.itemSelector = '.gallery__item';
+  let items = gallery.querySelectorAll('.gallery__item');
+  msnry.appended( items );
+});
+
+  infScroll = new InfiniteScroll( gallery, {
     path: () => {
       if (canIncrement.value) {
         pageIndex.value++;
@@ -144,11 +158,15 @@ const initMasonry = () => {
       const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&id=&uuid=&label_en=&label_sv=${encodeURIComponent(searchQuery)}&score=&limit=25&offset=${offset}`;
       return url;
     },
+    append: '.gallery__item',
     outlayer: msnry,
     status: '.page-load-status',
     history: false,
-    scrollThreshold: 1200,
+    scrollThreshold: 200,
+    append: false,
+    elementScroll: '.gallery',
     elementScroll: true,
+    loadOnScroll: true,
   });
 
   infScroll.on('load', async function (response) {
@@ -275,8 +293,8 @@ watch(store.yearEnd, async () => {
   width:100%;
   padding-left:10px;
   padding-right:5px;
-  padding-bottom:200px;
-  height:calc(100vh + 200px);
+  padding-bottom:400px;
+  height:calc(100% + 200px);
   overflow:hidden;
   z-index:100!important;
 }
@@ -302,13 +320,12 @@ watch(store.yearEnd, async () => {
 
 .gallery {
   padding-top:0px;
-  max-height: calc(100% + 5px);
+  max-height: calc(100%);
   overflow-y: auto;
   max-width: 100%; 
   margin: 0 auto; 
   user-select: none;
   -webkit-user-select: none;
-  /* margin-top:-60px; */
 }
 
 .gallery::-webkit-scrollbar {
@@ -371,14 +388,14 @@ watch(store.yearEnd, async () => {
 }
 
 /* hide by default */
-.gallery.are-images-unloaded .image-gallery__item {
+.gallery.are-images-unloaded .image-grid__item {
   opacity: 0;
 }
 
 .gallery__item {
   margin-bottom: 10px;
-  float: left;
-  overflow: hidden !important;
+  float:left;
+  overflow:hidden;
 }
 
 .gallery__item--height1 {

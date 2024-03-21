@@ -117,7 +117,7 @@ export default {
           prefixUrl: '/openseadragon/',
           showNavigationControl: true,
           showReferenceStrip: true,
-          immediateRender: true,
+          immediateRender: false,
           visibilityRatio: 1.0,
           minZoomImageRatio: 1.0,
           homeFillsViewer: false,
