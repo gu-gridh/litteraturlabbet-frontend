@@ -260,7 +260,7 @@ watch(selectedLabel, async () => {
   padding-bottom:50px;
  /* height:calc(100vh - 200px); */
 /*   min-height:calc(100vh - 140px); */
-  height:calc(100%);
+  height:100vh;
   overflow:hidden;
   z-index:100!important;
   background-color: white;
