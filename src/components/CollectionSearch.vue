@@ -147,6 +147,25 @@ onBeforeMount(() => {
     if (route.path.startsWith('/reuse/phrase/')) {
       searchQuery.value = <string>route.params.phrase;
     }
+    if (route.path.match(/reuse\/\d+\/\d+/)) {
+      console.log(route.params);
+      store.author = { id: parseInt(route.params.author) };
+      store.work = { id: parseInt(route.params.work) };
+      currentAuthor.value = store.author.id;
+      currentAuthor2.value = undefined;
+      currentWork.value = store.work?.id;
+    } else if (route.path.match(/reuse\/\d+/)) {
+      store.author = { id: parseInt(route.params.id) };
+      currentAuthor.value = store.author.id;
+      currentAuthor2.value = undefined;
+      currentWork.value = undefined;
+    } else if (route.path.match(/reuse\/link\/\d+\/\d+/)) {
+      store.author1 = { id: parseInt(route.params.id1) };
+      store.author2 = { id: parseInt(route.params.id2) };
+      currentAuthor.value = store.author.id;
+      currentWork.value = undefined;
+      currentAuthor2.value = store.author2.id;
+    }
     authorSelect.value.refreshOptions();
     workSelect.value.refreshOptions();
   }
