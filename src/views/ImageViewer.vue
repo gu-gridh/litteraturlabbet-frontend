@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div id="viewer">
-      <div id="ToolbarVertical">
+        <div id="ToolbarVertical">
         <!--<div class="close-button NavButton" onclick="history.back()">
           -->
           <div class="close-button NavButton" @click="unshowSelf()">
@@ -62,23 +62,21 @@ export default {
   setup(props, context) {
     const route = useRoute();
     const viewer = ref();
-
-  
     const pageData = ref(null);
     const iiifFile = ref(null);
     const pageId = ref(null);
     const imageUrls = ref([]);
 
     const fetchNeighboursData = async () => {
-      const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
-      const response = await fetch(`${baseUrl}?id=${props.id}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      const neighbours = JSON.parse(data.results[0].neighbours);
+    //   const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
+    //   const response = await fetch(`${baseUrl}?id=${props.id}`);
+    //   if (!response.ok) {
+    //     throw new Error(`HTTP error! Status: ${response.status}`);
+    //   }
+    //   const data = await response.json();
+    //   const neighbours = JSON.parse(data.results[0].neighbours);
 
-      imageUrls.value = neighbours['0'].map(neighbour => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
+    //   imageUrls.value = neighbours['0'].map(neighbour => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
     };
 
     const unshowSelf = () =>{
@@ -101,21 +99,14 @@ export default {
       await fetchNeighboursData();
 
       
-      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${props.id}`);
+      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=380`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-       
-       
-      let id_ = route.params.id;
-      
-      
-      
       const graphicData = await response.json();
         iiifFile.value = graphicData.results[0].iiif_file;
         console.log("IIIF file: ", iiifFile.value);
         pageId.value = graphicData.results[0].page;
-        console.log("Page id: ", pageId.value);
         console.log(iiifFile.value+"/info.json");
         if (!viewer) {
           console.log("No viewer");
@@ -141,13 +132,11 @@ export default {
           zoomOutButton: "zoom-out",
           rotateLeftButton: "rotate-left",
           rotateRightButton: "rotate-right",
-          tileSources: {
-            type: 'image',
-            url: iiifFile.value+"/info.json",
-          },
+          tileSources: `${iiifFile.value}/info.json`,
+
         });
         ;
-            //fetch metadata
+      //fetch metadata
       if (pageId) {
         const pageResponse = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/page/?id=${pageId.value}&depth=4`);
         if (!pageResponse.ok) {
@@ -184,17 +173,19 @@ export default {
 }
 
 .container {
-  
   display: flex;
   flex-direction: column;
 }
 
 #viewer {
   width: 100%;
-  height: 70vh;
+  height: 70vh; 
   margin-bottom: 0px;
   user-select: none;
   -webkit-user-select: none;
+  position: relative; 
+  z-index: 1000;
+  overflow: hidden;
 }
 
 .metadata {
