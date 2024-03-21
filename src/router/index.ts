@@ -88,7 +88,7 @@ const router = createRouter({
     {
       path: "/gallery/:id",
       name: "image-viewer",
-      component: ImageViewer,
+      component: GalleryView,
       props: true,
     },
   ],

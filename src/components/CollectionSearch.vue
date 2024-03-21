@@ -119,7 +119,7 @@ const showReuseSearch = ref(false);
 const showSearch = ref(false);
 const showWelcome = ref(true);
 
-const route = useRoute()
+const route = useRoute();
 
 const searchQuery = ref("");
 const errorMessage = ref(false);
@@ -480,6 +480,11 @@ watch(() => route.path, (path) => {
     showWelcome.value = false;
     if (path.startsWith('/reuse/phrase/')) {
       searchQuery.value = <string>route.params.phrase;
+    }
+    if (path.match(/\/reuse\/\d+\/\d+/)) {
+      authorSelect.value.refreshOptions();
+      store.author = authors.find((a) => a.id === parseInt(route.params.id1));
+      workSelect.value.refreshOptions();
     }
     authorSelect.value.refreshOptions();
   }

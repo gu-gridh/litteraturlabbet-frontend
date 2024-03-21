@@ -1,76 +1,225 @@
 <template>
- 
-  <div id="viewer">
-    <div id="ToolbarVertical">
-      <div class="close-button NavButton" onclick="history.back()">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="-2 -2 28 28" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12" /></svg>
+  <div class="container">
+    <div id="viewer">
+        <div id="ToolbarVertical">
+        <!--<div class="close-button NavButton" onclick="history.back()">
+          -->
+          <div class="close-button NavButton" @click="unshowSelf()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="-2 -2 28 28" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12" /></svg>     
+        </div>
+        <!-- <a id="full-page" href="#full-page">
+              <div id="FullPage" class="NavButton"></div>
+            </a> -->
+          <a id="zoom-in" href="#zoom-in">
+            <div id="ZoomIn" class="NavButton"></div>
+          </a>
+          <a id="zoom-out" href="#zoom-out">
+            <div id="ZoomOut" class="NavButton"></div>
+          </a>    
+          <a id="rotate-left" href="#rotate-left">
+        <div id="RotateLeft" class="NavButton"></div>
+      </a>
+      <a id="rotate-right" href="#rotate-right">
+        <div id="RotateRight" class="NavButton"></div>
+      </a>
       </div>
-      <!-- <a id="full-page" href="#full-page">
-        <div id="FullPage" class="NavButton"></div>
-      </a> -->
-      <a id="zoom-in" href="#zoom-in">
-        <div id="ZoomIn" class="NavButton"></div>
-      </a>
-      <a id="zoom-out" href="#zoom-out">
-        <div id="ZoomOut" class="NavButton"></div>
-      </a>
-    </div> 
+    </div>
+    
+      <!--Metadata display-->
+      <div v-if="pageData" class="metadata">
+        <h3>{{ pageData.work?.title }}</h3>
+        <p>Författare: <span>{{ pageData.work?.main_author?.name }}</span></p>
+        <p>Utgiven: <span>{{ pageData.work?.sort_year }}</span></p>
+        <p>Förlag: <span>{{ publisher }}</span></p>
+        <!--<p>Sida: <span>{{ pageData.number }}</span></p>-->
+        <p>Länk till originalsida på LB: <span><a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number)+"/faksimil"'>Länk</a></span></p>
+        
+      </div>
 
+      <!--Gallery display-->
+      <div class="gallery">
+        <MasonryWall :items="imageUrls" class="masonry" :columnWidth="150" :gap="5">
+          <template v-slot:default="{ item, index }">
+            <div class="card">
+              <img :src="item" :alt="`Image ${index + 1}`" class="masonry-image" />
+            </div>
+          </template>
+        </MasonryWall>
+      </div>
   </div>
+
 </template>
 
 <script lang="ts">
-import { onMounted, ref } from 'vue'
-import OpenSeadragon from 'openseadragon'
+import { onBeforeMount, onMounted, ref } from 'vue';
+import OpenSeadragon from 'openseadragon';
+import { setBusy, setNotBusy } from "../components/Waiter.vue"; 
+import router from '@/router';
+import { useRoute } from 'vue-router';
+import MasonryWall from "@yeger/vue-masonry-wall";
 
 export default {
-  props: ['id'],
-  setup(props) {
-    const viewer = ref()
+  components: {
+    MasonryWall,
+  },
+  props: {
+    imageId: Number
+  },
+  setup(props, context) {
+    const route = useRoute();
+    const viewer = ref();
+    const pageData = ref(null);
+    const iiifFile = ref(null);
+    const pageId = ref(null);
+    const imageUrls = ref([]);
+    const publisher = ref("");
 
+    const fetchNeighboursData = async () => {
+      const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
+      const response = await fetch(`${baseUrl}?id=${props.imageId}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      const neighbours = JSON.parse(data.results[0].neighbours);
+
+      imageUrls.value = neighbours['0'].map(neighbour => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
+    };
+
+    const unshowSelf = () =>{
+      console.log("Unshowing");
+      // emit event to parent
+      context.emit('unshow');
+    }
+    
+
+    
+    
     onMounted(async () => {
-      const module = await import(`@/assets/gallery/${props.id}.jpeg`)
-      const image = module.default
-      
-      viewer.value = OpenSeadragon({
-        id: 'viewer',
-        tileSources: {
-          type: 'image',
-          url: image,
-        },
-        prefixUrl: '/openseadragon/', // Set the base URL for relative URLs
-        showNavigationControl: true,
-        sequenceMode: false, // Enable sequence mode
-        showReferenceStrip: true,
-        immediateRender: true,
-        visibilityRatio: 1.0,
-        minZoomImageRatio: 1.0,
-        homeFillsViewer: false,
-        showZoomControl: true,
-        showHomeControl: false,
-        showFullPageControl: true,
-        showNavigator:  false,
-        navigatorAutoFade:  true,
-        //navigatorId:   "navigator-div",
-        fullPageButton: "full-page",
-        zoomInButton: "zoom-in",
-        zoomOutButton: "zoom-out",
-      })
-    })
+
+      setNotBusy();
+      await fetchNeighboursData();
+
+      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${props.imageId}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+      const graphicData = await response.json();
+        iiifFile.value = graphicData.results[0].iiif_file;
+        pageId.value = graphicData.results[0].page;
+        if (!viewer) {
+          console.log("No viewer");
+          return;
+        }
+        viewer.value = OpenSeadragon({
+          id: 'viewer',
+          prefixUrl: '/openseadragon/',
+          showNavigationControl: true,
+          showReferenceStrip: true,
+          immediateRender: true,
+          visibilityRatio: 1.0,
+          minZoomImageRatio: 1.0,
+          homeFillsViewer: false,
+          showZoomControl: true,
+          showHomeControl: false,
+          showFullPageControl: true,
+          showNavigator: false,
+          navigatorAutoFade: true,
+          showRotationControl: true,
+          fullPageButton: "full-page",
+          zoomInButton: "zoom-in",
+          zoomOutButton: "zoom-out",
+          rotateLeftButton: "rotate-left",
+          rotateRightButton: "rotate-right",
+          tileSources: `${iiifFile.value}/info.json`,
+
+        });
+
+      //fetch metadata
+      if (pageId) {
+        const pageResponse = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/page/?id=${pageId.value}&depth=4`);
+        if (!pageResponse.ok) {
+          throw new Error(`HTTP error! Status: ${pageResponse.status}`);
+        }
+        const pageDataResponse = await pageResponse.json();
+        pageData.value = pageDataResponse.results[0];
+        
+        const extraDataResult = await fetch(`https://litteraturbanken.se/api/get_work_info?lbworkid=${pageData.value.work.lbworkid}`);
+        console.log(extraDataResult);
+        const extraData = await extraDataResult.json();
+        console.log(extraData);
+        const p = extraData.data[0].publisher.join(", ");
+        console.log(p);
+        publisher.value = p;
+      }
+    });
 
     return {
-      viewer
-    }
-  }
-}
+      viewer,
+      pageData,
+      publisher,
+      iiifFile,
+      unshowSelf,
+      imageUrls
+    };
+  },
+};
 </script>
 
 <style scoped>
-#viewer {
-  position:absolute;
-  height:100%;
-  width: 100%;
+.gallery {
+  margin: 5px;
+  z-index: 1000;
 }
+
+.masonry-image {
+  width: 100%;
+  display: block;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+#viewer {
+  width: 100%;
+  height: 70vh; 
+  margin-bottom: 0px;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative; 
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.metadata {
+  z-index: 1000;
+  padding: 10px;
+  padding-left:20px;
+  background-color: #f7f7f7;
+  border-top: 0px solid #ccc;
+  border-radius: 4px;
+}
+
+.metadata h3 {
+font-weight:500;
+font-size:1.4em;
+line-height:1.0;
+margin-bottom:10px;
+}
+
+.metadata p {
+font-size:1.2em;
+}
+
+.metadata p span{
+color:var(--theme-accent-color-dark);
+font-weight:500;
+}
+
+
 
 .close-button{
   font-size:16px;
@@ -171,6 +320,34 @@ export default {
   overflow: hidden;
 }
 
+#RotateLeft {
+  background: url(../assets/openseadragon/rotateleft.svg);
+  background-size: 35%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(35, 35, 35, 0.9);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor:pointer;
+  overflow: hidden;
+  margin-top:10px;
+}
+
+#RotateRight {
+  background: url(../assets/openseadragon/rotateright.svg);
+  background-size: 35%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(35, 35, 35, 0.9);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor:pointer;
+  overflow: hidden;
+}
+
+
 #Download {
   margin-top: 20px;
   background: url(../../public/interface/downloadwhite.png);
@@ -188,8 +365,13 @@ export default {
   color: white;
   opacity: 0.8;
   margin-bottom: 3px;
+  outline: none;
 }
 .NavButton:hover {
   opacity: 1;
 }
+
+*:focus {
+        outline:none!important;
+      }
 </style>
