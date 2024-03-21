@@ -93,7 +93,7 @@ import { ref, onMounted, watch, onBeforeMount } from "vue";
 import Multiselect from "@vueform/multiselect";
 import Slider from '@vueform/slider'
 import { get } from "@/services/diana";
-import type { Author } from "@/types/litteraturlabbet";
+import type { Author, Work } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
 import reuseAuthors from "@/assets/authors_with_reuse.json";
 import reuseWorks from "@/assets/works_with_reuse.json";
@@ -132,12 +132,53 @@ const currentWork = ref(-1);
 
 let author2changed = false;
 
+// initialize an empty author object with the given id
+function initAuthorId(id: number) {
+  const author: Author = {
+    id: 0,
+    gender: "",
+    lbauthorid: "",
+    normalized_lbauthorid: "",
+    name: "",
+    formatted_name: "",
+    surname: null,
+    birth_year: 0,
+    death_year: null,
+    created_at: "",
+    updated_at: "",
+    published: false
+  };
+  author["id"] = id;
+  return author;
+}
+
+// initialize an empty work object with the given id
+function initWorkId(id: number) {
+  const work: Work = {
+    title: "",
+    short_title: "",
+    modernized_title: "",
+    lbworkid: "",
+    librisid: "",
+    main_author: initAuthorId(-1),
+    edition: "",
+    language: "",
+    imprint_year: 0,
+    sort_year: 0,
+    word_count: 0,
+    authors: [],
+    pages: [],
+    id: 0,
+    created_at: "",
+    updated_at: "",
+    published: false
+  };
+  work["id"] = id;
+  return work;
+}
+
 onBeforeMount(() => {
   console.log("Before mount");
-  // TODO initialize store
-  // - The work menu is incorrectly initalized if directly accessing using URL params
-  // - Setting store.author and store.work should solve the problem
-
   // open the correct collection search based on route
   if (route.path.startsWith('/reuse/')) {
     showSearch.value = true;
@@ -149,22 +190,22 @@ onBeforeMount(() => {
     }
     if (route.path.match(/reuse\/\d+\/\d+/)) {
       console.log(route.params);
-      store.author = { id: parseInt(route.params.author) };
-      store.work = { id: parseInt(route.params.work) };
-      currentAuthor.value = store.author.id;
-      currentAuthor2.value = undefined;
-      currentWork.value = store.work?.id;
+      store.author = initAuthorId(parseInt(route.params.author+""));
+      store.work = initWorkId(parseInt(route.params.work+""));
+      currentAuthor.value = store.author!.id;
+      currentAuthor2.value = -1;
+      currentWork.value = store.work!.id;
     } else if (route.path.match(/reuse\/\d+/)) {
-      store.author = { id: parseInt(route.params.id) };
-      currentAuthor.value = store.author.id;
-      currentAuthor2.value = undefined;
-      currentWork.value = undefined;
+      store.author = initAuthorId(parseInt(route.params.id+""));
+      currentAuthor.value = store.author!.id;
+      currentAuthor2.value = -1;
+      currentWork.value = -1;
     } else if (route.path.match(/reuse\/link\/\d+\/\d+/)) {
-      store.author1 = { id: parseInt(route.params.id1) };
-      store.author2 = { id: parseInt(route.params.id2) };
-      currentAuthor.value = store.author.id;
-      currentWork.value = undefined;
-      currentAuthor2.value = store.author2.id;
+      store.author = initAuthorId(parseInt(route.params.id1+""));
+      store.author2 = initAuthorId(parseInt(route.params.id2+""));
+      currentAuthor.value = store.author!.id;
+      currentWork.value = -1;
+      currentAuthor2.value = store.author2!.id;
     }
     authorSelect.value.refreshOptions();
     workSelect.value.refreshOptions();
@@ -480,11 +521,6 @@ watch(() => route.path, (path) => {
     showWelcome.value = false;
     if (path.startsWith('/reuse/phrase/')) {
       searchQuery.value = <string>route.params.phrase;
-    }
-    if (path.match(/\/reuse\/\d+\/\d+/)) {
-      authorSelect.value.refreshOptions();
-      store.author = authors.find((a) => a.id === parseInt(route.params.id1));
-      workSelect.value.refreshOptions();
     }
     authorSelect.value.refreshOptions();
   }
