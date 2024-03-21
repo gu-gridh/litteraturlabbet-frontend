@@ -31,7 +31,6 @@
         <p>Författare: <span>{{ pageData.work?.main_author?.name }}</span></p>
         <p>Utgiven: <span>{{ pageData.work?.sort_year }}</span></p>
         <p>Förlag: <span>{{ publisher }}</span></p>
-        <!-- <p>Figurtyp: <span>{{ labelSv }}</span></p> -->
         <p>Beskrivning: <span>{{ labelSv }} på sidan {{ pageData.number }}</span></p>
         <!--<p>Sida: <span>{{ pageData.number }}</span></p>-->
         <p>Länk:<a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number)+"/faksimil"'><span> Originalsida hos LB</span></a></p>
@@ -72,6 +71,7 @@ export default {
     const viewer = ref();
     const pageData = ref(null);
     const iiifFile = ref(null);
+    const labelSv = ref(null);
     const pageId = ref(null);
     const imageUrls = ref([]);
     const publisher = ref("");
@@ -110,6 +110,7 @@ export default {
       const graphicData = await response.json();
         iiifFile.value = graphicData.results[0].iiif_file;
         pageId.value = graphicData.results[0].page;
+        labelSv.value = graphicData.results[0].label_sv;
         if (!viewer) {
           console.log("No viewer");
           return;
@@ -163,7 +164,8 @@ export default {
       publisher,
       iiifFile,
       unshowSelf,
-      imageUrls
+      imageUrls,
+      labelSv,
     };
   },
 };
