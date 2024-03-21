@@ -27,7 +27,7 @@
     </div>
   </div>
   
-  <ImageViewer v-if="showOverlay" @unshow="deactivateOverlay()"/>
+  <ImageViewer v-if="showOverlay" @unshow="deactivateOverlay()" :imageId="selectedImageId"/>
 </template>
 
 <script lang="ts" setup>
@@ -40,8 +40,8 @@ import { useRouter } from 'vue-router';
 import ImageViewer from "../views/ImageViewer.vue";
 import type { ImageI } from "@/types/litteraturlabbet";
 
+const selectedImageId = ref(null);
 const router = useRouter();
-
 let msnry;
 let pageIndex = ref(1);
 let canIncrement = ref(true);
@@ -182,6 +182,7 @@ const initMasonry = () => {
 // };
 function activateOverlay(item) {
   //  router.push({ name: 'image-viewer', params: { id: item.id } });
+  selectedImageId.value = item.id;
   showOverlay.value = true;
   console.log("Activate");
   //router.push(`/gallery/${item.id}`);

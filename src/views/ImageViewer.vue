@@ -58,7 +58,9 @@ export default {
   components: {
     MasonryWall,
   },
-  props: ['id'],
+  props: {
+    imageId: Number
+  },
   setup(props, context) {
     const route = useRoute();
     const viewer = ref();
@@ -93,7 +95,7 @@ export default {
       setNotBusy();
       await fetchNeighboursData();
 
-      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=380`);
+      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${props.imageId}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
