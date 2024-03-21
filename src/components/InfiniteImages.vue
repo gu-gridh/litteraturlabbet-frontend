@@ -424,7 +424,7 @@ watch(store.yearEnd, async () => {
   position: absolute;
   color: white;
   bottom: 0px;
-  padding: 10px 15px;
+  padding: 5px 10px;
   display: none;
   line-height: 1.1;
 }
