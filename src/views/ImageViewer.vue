@@ -191,6 +191,8 @@ export default {
 .metadata h3 {
 font-weight:500;
 font-size:1.4em;
+line-height:1.0;
+margin-bottom:10px;
 }
 
 .metadata p {
