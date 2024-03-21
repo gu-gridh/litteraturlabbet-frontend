@@ -23,6 +23,7 @@
         <p>Författare: {{ pageData.work?.main_author?.name }}</p>
         <p>År: {{ pageData.work?.sort_year }}</p>
         <p>Språk: {{ pageData.work?.language }}</p>
+        <p>Länk till originalsida på LB: <a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number)+"/faksimil"'>Länk</a></p>
       </div>
   </div>
 
@@ -38,7 +39,6 @@ export default {
   setup(props) {
     const viewer = ref();
     const pageData = ref(null);
-
     onMounted(async () => {
             setNotBusy();
 
@@ -98,7 +98,17 @@ export default {
 </script>
 
 <style scoped>
+body {
+  background-color: #2b00c7;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
 .container {
+  
   display: flex;
   flex-direction: column;
 }
