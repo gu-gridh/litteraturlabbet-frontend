@@ -26,8 +26,8 @@
       <!--Metadata display-->
       <div v-if="pageData" class="metadata">
         <h3>{{ pageData.work?.title }}</h3>
-        <p>Författare: {{ pageData.work?.main_author?.name }}</p>
-        <p>Utgiven: {{ pageData.work?.sort_year }}</p>
+        <p>Författare: <span>{{ pageData.work?.main_author?.name }}</span></p>
+        <p>Utgiven: <span>{{ pageData.work?.sort_year }}</span></p>
       </div>
 
       <!--Gallery display-->
@@ -160,10 +160,27 @@ export default {
 
 .metadata {
   padding: 10px;
+  padding-left:20px;
   background-color: #f7f7f7;
   border-top: 0px solid #ccc;
   border-radius: 4px;
 }
+
+.metadata h3 {
+font-weight:500;
+font-size:1.4em;
+}
+
+.metadata p {
+font-size:1.2em;
+}
+
+.metadata p span{
+color:var(--theme-accent-color-dark);
+font-weight:500;
+}
+
+
 
 .close-button{
   font-size:16px;
