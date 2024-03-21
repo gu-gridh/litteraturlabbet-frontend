@@ -163,7 +163,7 @@ const initMasonry = () => {
     outlayer: msnry,
     status: '.page-load-status',
     history: false,
-    scrollThreshold: 200,
+    scrollThreshold: 500,
     append: false,
     elementScroll: '.gallery',
     elementScroll: true,
@@ -397,6 +397,10 @@ watch(store.yearEnd, async () => {
   margin-bottom: 10px;
   float:left;
   overflow:hidden;
+  -webkit-transition-property: none!important;
+-moz-transition-property: none!important;
+-o-transition-property: none!important;
+transition-property: none!important;
 }
 
 .gallery__item--height1 {
