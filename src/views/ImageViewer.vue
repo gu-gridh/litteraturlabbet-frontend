@@ -70,15 +70,15 @@ export default {
     const imageUrls = ref([]);
 
     const fetchNeighboursData = async () => {
-      // const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
-      // const response = await fetch(`${baseUrl}?id=${props.id}`);
-      // if (!response.ok) {
-      //   throw new Error(`HTTP error! Status: ${response.status}`);
-      // }
-      // const data = await response.json();
-      // const neighbours = JSON.parse(data.results[0].neighbours);
+      const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
+      const response = await fetch(`${baseUrl}?id=${props.imageId}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      const neighbours = JSON.parse(data.results[0].neighbours);
 
-      // imageUrls.value = neighbours['0'].map(neighbour => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
+      imageUrls.value = neighbours['0'].map(neighbour => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
     };
 
     const unshowSelf = () =>{
@@ -155,6 +155,7 @@ export default {
 <style scoped>
 .gallery {
   margin: 5px;
+  z-index: 1000;
 }
 
 .masonry-image {
