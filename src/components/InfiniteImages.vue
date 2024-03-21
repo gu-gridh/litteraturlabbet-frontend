@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, inject, onMounted, defineComponent, watch } from "vue";
+import { ref, inject, onMounted, defineComponent, watch, onBeforeMount } from "vue";
 import Masonry from 'masonry-layout';
 import InfiniteScroll from 'infinite-scroll';
 import imagesLoaded from 'imagesloaded';
@@ -48,12 +48,12 @@ import { useRoute, useRouter } from 'vue-router';
 import ImageViewer from "../views/ImageViewer.vue";
 import type { ImageI } from "@/types/litteraturlabbet";
 
-const selectedImageId = ref(null);
+const selectedImageId = ref("");
 const router = useRouter();
-let msnry;
+let msnry: any;
 let pageIndex = ref(1);
 let canIncrement = ref(true);
-let infScroll;
+let infScroll: any;
 const images = ref([] as ImageI[]);
 const selectedLabel = ref("Alla");
 const galleryLabels = ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder"];
@@ -61,6 +61,15 @@ const route = useRoute();
 const showOverlay = ref(false);
 // let layoutKey = ref(0);
 // let loadedImagesCount = ref(0);
+
+onBeforeMount(() => {
+  if (route.params.id) {
+    selectedImageId.value = route.params.id+"";
+    console.log("Selected image id: ", selectedImageId.value);
+    //activateOverlay(selectedImageId.value);
+    showOverlay.value = true;
+  }
+});
 
 const fetchData = async () => {
   try {
@@ -199,6 +208,11 @@ function activateOverlay(item) {
 }
 
 function deactivateOverlay() {
+  fetchData().then(() => {
+    imagesLoaded(document.querySelector('.gallery'), () => {
+      initMasonry();
+    });
+  });
   showOverlay.value = false;
   // reset route
   //router.push('/gallery');
@@ -233,15 +247,7 @@ watch(selectedLabel, async () => {
   });
 });
 
-watch(() => route.path, (path) => {
-  if (path.match('/gallery/\d+?$')) {
-    console.log("A");
-    selectedImageId.value = parseInt(path.split('/').pop());
-    activateOverlay(selectedImageId.value);
-  } else {
-    console.log("B");
-  }
-});
+
 
 </script>
 
