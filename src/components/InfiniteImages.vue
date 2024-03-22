@@ -48,6 +48,7 @@ import { storeToRefs } from "pinia";
 import { useRoute, useRouter } from 'vue-router';
 import ImageViewer from "../views/ImageViewer.vue";
 import type { ImageI } from "@/types/litteraturlabbet";
+import { searchStore } from "@/stores/search";
 
 const selectedImageId = ref("");
 const router = useRouter();
@@ -62,6 +63,7 @@ const route = useRoute();
 const showOverlay = ref(false);
 // let layoutKey = ref(0);
 // let loadedImagesCount = ref(0);
+const store = searchStore();
 
 onBeforeMount(() => {
   if (route.params.id) {
@@ -75,9 +77,24 @@ onBeforeMount(() => {
 const fetchData = async () => {
   try {
     // replace Alla label with empty string for search query so all results are returned
-    let searchQuery = ''
-    if (selectedLabel.value == 'Alla') { searchQuery = '' }
-    else { searchQuery = selectedLabel.value }
+    let searchQuery = 'label_sv='
+    // Build the base query based on the selected label
+    if (selectedLabel.value !== 'Alla') {
+      searchQuery += `${selectedLabel.value}`;
+    }
+
+    // Add additional parameters with proper separators
+    const addParam = (paramName: string, value: any) => {
+      if (value) {
+        searchQuery += (searchQuery.length === 0) ? '?' : '&'; // Use '?' for first param, '&' for others
+        searchQuery += `${paramName}=${value}`;
+      }
+    };
+
+    addParam('year_start', store.yearStart);
+    addParam('year_end', store.yearEnd);
+    addParam('author', store.author?.id); // Use optional chaining for potential undefined author
+    addParam('work', store.work?.id); // Use optional chaining for potential undefined work
 
     // change style of selected button to same as on hover style
     const deselectedStyle = window.getComputedStyle(<HTMLElement>document.querySelector("button"));
@@ -89,10 +106,10 @@ const fetchData = async () => {
     
     // filter the selected label from labels list and reset the style on all buttons other buttons
     for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) { document.getElementById(lbl).style = deselectedStyle }
-    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?label_sv=${encodeURIComponent(searchQuery)}&limit=50&depth=3`;
+    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${(searchQuery)}&limit=50&depth=3`;
     const res = await fetch(urlToFetch);
     const data = await res.json();
-    const newImages = data.results.map(item => ({
+    const newImages = data.results.map((item: ImageI) => ({
       id: item.id ?? null,
       iiif_file: item.iiif_file ?? null,
       page_id: item?.page?.id ?? null,
@@ -153,21 +170,41 @@ const initMasonry = () => {
         pageIndex.value++;
       }
       canIncrement.value = false;
-      let searchQuery = ''
+      /*let searchQuery = ''
       if (selectedLabel.value == 'Alla') { searchQuery = '' }
       else { searchQuery = selectedLabel.value };
+      */
+      let searchQuery = 'label_sv='
+    // Build the base query based on the selected label
+    if (selectedLabel.value !== 'Alla') {
+      searchQuery += `${selectedLabel.value}`;
+    }
+
+    // Add additional parameters with proper separators
+    const addParam = (paramName: string, value: any) => {
+      if (value) {
+        searchQuery += (searchQuery.length === 0) ? '?' : '&'; // Use '?' for first param, '&' for others
+        searchQuery += `${paramName}=${value}`;
+      }
+    };
+
+    addParam('year_start', store.yearStart);
+    addParam('year_end', store.yearEnd);
+    addParam('author', store.author?.id); // Use optional chaining for potential undefined author
+    addParam('work', store.work?.id); // Use optional chaining for potential undefined work
+
       const offset = (pageIndex.value - 1) * 25;
       const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&id=&uuid=&label_en=&label_sv=${encodeURIComponent(searchQuery)}&score=&limit=25&offset=${offset}`;
       return url;
     },
-    append: '.gallery__item',
+    //append: '.gallery__item',
     outlayer: msnry,
     status: '.page-load-status',
     history: false,
     scrollThreshold: 800,
     append: false,
     elementScroll: '.gallery',
-    elementScroll: true,
+    //elementScroll: true,
     loadOnScroll: true,
   });
 
@@ -269,6 +306,25 @@ watch(selectedLabel, async () => {
   imagesLoaded(document.querySelector('.gallery'), () => {
     initMasonry();
   });
+});
+
+watch(() => store.triggerImageSearch,
+ async () => {
+  console.log("Image search 2");
+  images.value = [];
+  pageIndex.value = 1;
+  canIncrement.value = true;
+
+  if (infScroll) {
+    infScroll.destroy();
+  }
+
+  await fetchData();
+
+  imagesLoaded(document.querySelector('.gallery'), () => {
+    initMasonry();
+  });
+  store.triggerImageSearch = false;
 });
 /*
 watch(store.yearEnd, async () => {

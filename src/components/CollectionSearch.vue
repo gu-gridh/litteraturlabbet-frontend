@@ -66,6 +66,10 @@
       </div>
 
       <div class="button-container">
+        <div v-if="imageSearch">
+          <div class="search-button2" @click="triggerImageSearch">Sök</div>
+        </div>
+        <div v-else>
         <div v-if="!hasQuery">
           <div v-if="store.author2">
             <div class="search-button2" @click="triggerSearch1">Sök</div>
@@ -78,6 +82,7 @@
           <div class="search-button2" @click="triggerSearch">Sök
           </div>
         </div>
+      </div>
         <div class="errormessage-container">
           <div v-if="errorMessage">
             <span class="errormessage">{{ phraseErrorMessage }}</span>
@@ -131,6 +136,8 @@ const currentAuthor2 = ref(-1);
 const currentWork = ref(-1);
 
 let author2changed = false;
+
+const imageSearch = ref(false);
 
 // initialize an empty author object with the given id
 function initAuthorId(id: number) {
@@ -262,7 +269,13 @@ function updateSearchQuery(e: any) {
   }
 }
 
-// Search functions            
+// Search functions    
+function triggerImageSearch() {
+  console.log("Image search");
+  // emit event
+  store.triggerImageSearch = true;
+} 
+
 async function triggerSearch1() {
   setBusy();
   if (store.author?.id === currentAuthor.value && store.author2?.id === currentAuthor2.value) {
@@ -513,6 +526,7 @@ watch(() => route.path, (path) => {
     showSlider.value = true;
     showWelcome.value = false;
     authorSelect.value.refreshOptions();
+    imageSearch.value = true;
   }
   else if (path.startsWith('/reuse/')) {
     showSearch.value = true;
@@ -523,15 +537,18 @@ watch(() => route.path, (path) => {
       searchQuery.value = <string>route.params.phrase;
     }
     authorSelect.value.refreshOptions();
+    imageSearch.value = false;
   }
 
   else if (path === '/about/') {
     showSearch.value = false;
     showWelcome.value = true;
+    imageSearch.value = false;
   }
   else if (path === '/') {
     showSearch.value = false;
     showWelcome.value = true;
+    imageSearch.value = false;
   }
 })
 </script>
