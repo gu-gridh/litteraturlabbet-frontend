@@ -15,7 +15,7 @@
         v-for="label in galleryLabels"
         :key="label"
         :id="label"
-        @click="selectedLabel = label"
+        @click="setLabel(label)"
       >{{ label }}</button>
   </div>
   </div>
@@ -70,12 +70,39 @@ const showOverlay = ref(false);
 // let loadedImagesCount = ref(0);
 const store = searchStore();
 
+function setLabel(label: string) {
+  
+  if (label == "Alla") {
+    selectedLabel.value = "";
+   // history.replaceState(null, '', `/gallery/`);
+  } else {
+    selectedLabel.value = label;
+   // history.replaceState(null, '', `/gallery/${label}`);
+  }
+  
+
+}
 onBeforeMount(() => {
-  if (route.params.id) {
+  if (route.path.match("/gallery/\d+?$")) {
     selectedImageId.value = route.params.id+"";
     console.log("Selected image id: ", selectedImageId.value);
     //activateOverlay(selectedImageId.value);
     showOverlay.value = true;
+  }
+  if (route.path.match("/gallery/ornament")) {
+    selectedLabel.value = "Ornament";
+  }
+  if (route.path.match("/gallery/illustrationer")) {
+    selectedLabel.value = "Illustrationer";
+  }
+  if (route.path.match("/gallery/anfanger")) {
+    selectedLabel.value = "Anfanger";
+  }
+  if (route.path.match("/gallery/musiknoter")) {
+    selectedLabel.value = "Musiknoter";
+  }
+  if (route.path.match("/gallery/omslagsbilder")) {
+    selectedLabel.value = "Omslagsbilder";
   }
 });
 
