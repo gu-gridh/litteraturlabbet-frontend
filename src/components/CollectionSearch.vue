@@ -108,6 +108,8 @@ import { works } from "@/assets/works_years.json";
 import { authors } from "@/assets/authors_years.json";
 import router from "@/router";
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
+import { works_with_graphic } from "@/assets/works_with_graphic.json";
+import { authors_with_graphic } from "@/assets/authors_with_graphic.json";
 
 const store = searchStore();
 
@@ -357,6 +359,23 @@ function onClearPhrase() {
   console.log("Clear phrase");
 }
 
+function workHasGraphic(work: any) {
+  if (work) {
+    const numid = parseInt(work.id);
+    return works_with_graphic.indexOf(numid)>-1;
+  }
+  return false;
+}
+
+function hasGraphic(author: any) {
+  if (author) {
+    const numid = parseInt(author.id);
+    return authors_with_graphic.indexOf(numid)>-1;
+  }
+  return false;
+}
+
+
 // Search for authors given an id
 async function searchAuthor(query: string) {
   // sort authors so that authors that are disabled are at the bottom
@@ -381,6 +400,25 @@ async function searchAuthor(query: string) {
       authors_with_reuse = authors_with_reuse.filter((a) =>  parseInt(a.max_year) <= store.yearEnd!);
     }
     return authors_with_reuse.concat(authors_without_reuse);
+  } else if (route.path.startsWith('/gallery')) {
+    let allAuthors = authors.sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""))
+      .map((b) => {
+        return {
+          ...b,
+          disabled: !hasGraphic(b)
+        }
+      });
+      let authors_without_graphic = allAuthors.filter((a) => !hasGraphic(a));
+      let authors_with_graphic = allAuthors.filter((a) => hasGraphic(a));
+      if (store.yearStart) {
+        authors_without_graphic = authors_without_graphic.filter((a) => parseInt(a.min_year) >= store.yearStart!);
+        authors_with_graphic = authors_with_graphic.filter((a) => parseInt(a.min_year) >= store.yearStart!);
+      }
+      if (store.yearEnd) {
+        authors_without_graphic = authors_without_graphic.filter((a) =>  parseInt(a.max_year) <= store.yearEnd!);
+        authors_with_graphic = authors_with_graphic.filter((a) =>  parseInt(a.max_year) <= store.yearEnd!);
+      }
+      return authors_with_graphic.concat(authors_without_graphic);
   } else {
     return authors.sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""));
   }
@@ -388,6 +426,7 @@ async function searchAuthor(query: string) {
 
 // Search for works given for example an author id
 async function searchWork(query: string, params: any) {
+  if (route.path.startsWith("/reuse")) {
   if (params.main_author) {
     let subset = works.filter((w) => w.main_author === params.main_author);
     if (store.yearStart) {
@@ -415,7 +454,44 @@ async function searchWork(query: string, params: any) {
       subset = subset.filter((w) => parseInt(w.imprint_year) <= store.yearEnd!);
     }
     workCount.value = subset.length;
-  return subset;
+    const subset_without_reuse = subset.filter((w) => !workHasReuse(w));
+    const subset_with_reuse = subset.filter((w) => workHasReuse(w));
+    return subset_with_reuse.concat(subset_without_reuse);
+} else if (route.path.startsWith("/gallery")) {
+  if (params.main_author) {
+    let subset = works.filter((w) => w.main_author === params.main_author);
+    if (store.yearStart) {
+      subset = subset.filter((w) => parseInt(w.imprint_year) >= store.yearStart!);
+    }
+    if (store.yearEnd) {
+      subset = subset.filter((w) => parseInt(w.imprint_year) <= store.yearEnd!);
+    }
+    workCount.value = subset.length;
+    subset = subset.map((w) => {
+      return {
+        ...w,
+        disabled: !workHasGraphic(w)
+      }
+    });
+    const subset_without_reuse = subset.filter((w) => !workHasGraphic(w));
+    const subset_with_reuse = subset.filter((w) => workHasGraphic(w));
+    return subset_with_reuse.concat(subset_without_reuse);
+  }
+  let subset = works;
+  if (store.yearStart) {
+      subset = subset.filter((w) => parseInt(w.imprint_year) >= store.yearStart!);
+    }
+    if (store.yearEnd) {
+      subset = subset.filter((w) => parseInt(w.imprint_year) <= store.yearEnd!);
+    }
+    workCount.value = subset.length;
+    const subset_without_reuse = subset.filter((w) => !workHasGraphic(w));
+    const subset_with_reuse = subset.filter((w) => workHasGraphic(w));
+    return subset_with_reuse.concat(subset_without_reuse);
+  
+} else {
+  return works;
+}
 }
 
 function hasReuse(author: any) {
