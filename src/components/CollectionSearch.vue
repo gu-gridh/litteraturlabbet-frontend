@@ -46,8 +46,8 @@
         </div>
         <Multiselect v-model="store.work" :value="store.work" mode="single" spellcheck="false" placeholder="Verk"
           noResultsText="Inga verk matchar sökningen" noOptionsText="Inga verk matchar sökningen" :resolve-on-load="true"
-          :delay="1" :searchable="true" :object="true" valueProp="id" label="title" :clear-on-select="true"
-          :clear-on-search="true" :disabled="store.author2"
+          :delay="1" :searchable="true" :object="true" valueProp="id" label="title" :clear-on-select="false"
+          :clear-on-search="false" :disabled="store.author2"
           :options="async (query: string, select$: any) => searchWork(query, { main_author: store.author?.id })"
           @select="onSelectWork" @clear="onClearWork" ref="workSelect" />
       </div>
@@ -240,7 +240,6 @@ function setTimespan() {
   store.yearStart = timeRange.value[0];
   store.yearEnd = timeRange.value[1];
   console.log("Setting timespan to", timeRange.value[0], timeRange.value[1]);
-  // rebuild graph -- NOT DONE
   // filter authors
   authorSelect.value.refreshOptions();
   // filter works
@@ -454,6 +453,12 @@ async function searchWork(query: string, params: any) {
       subset = subset.filter((w) => parseInt(w.imprint_year) <= store.yearEnd!);
     }
     workCount.value = subset.length;
+    subset = subset.map((w) => {
+      return {
+        ...w,
+        disabled: !workHasReuse(w)
+      }
+    });
     const subset_without_reuse = subset.filter((w) => !workHasReuse(w));
     const subset_with_reuse = subset.filter((w) => workHasReuse(w));
     return subset_with_reuse.concat(subset_without_reuse);
@@ -485,10 +490,15 @@ async function searchWork(query: string, params: any) {
       subset = subset.filter((w) => parseInt(w.imprint_year) <= store.yearEnd!);
     }
     workCount.value = subset.length;
+    subset = subset.map((w) => {
+      return {
+        ...w,
+        disabled: !workHasGraphic(w)
+      }
+    });
     const subset_without_reuse = subset.filter((w) => !workHasGraphic(w));
     const subset_with_reuse = subset.filter((w) => workHasGraphic(w));
     return subset_with_reuse.concat(subset_without_reuse);
-  
 } else {
   return works;
 }
