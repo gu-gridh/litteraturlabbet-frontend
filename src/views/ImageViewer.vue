@@ -52,12 +52,16 @@
 </template>
 
 <script lang="ts">
-import { onBeforeMount, onMounted, ref } from 'vue';
+interface PageData {
+  work: Work;
+  number: number;
+}
+import { onMounted, ref } from 'vue';
 import OpenSeadragon from 'openseadragon';
-import { setBusy, setNotBusy } from "../components/Waiter.vue"; 
-import router from '@/router';
+import { setNotBusy } from "../components/Waiter.vue"; 
 import { useRoute } from 'vue-router';
 import MasonryWall from "@yeger/vue-masonry-wall";
+import type { Work } from '@/types/litteraturlabbet';
 
 export default {
   components: {
@@ -69,7 +73,7 @@ export default {
   setup(props, context) {
     const route = useRoute();
     const viewer = ref();
-    const pageData = ref(null);
+    const pageData = ref<PageData>();
     const iiifFile = ref(null);
     const labelSv = ref(null);
     const pageId = ref(null);
@@ -85,7 +89,7 @@ export default {
       const data = await response.json();
       const neighbours = JSON.parse(data.results[0].neighbours);
 
-      imageUrls.value = neighbours['0'].map(neighbour => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
+      imageUrls.value = neighbours['0'].map((neighbour:any) => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
     };
 
     const unshowSelf = () =>{
@@ -147,14 +151,13 @@ export default {
         }
         const pageDataResponse = await pageResponse.json();
         pageData.value = pageDataResponse.results[0];
-        
-        const extraDataResult = await fetch(`https://litteraturbanken.se/api/get_work_info?lbworkid=${pageData.value.work.lbworkid}`);
-        console.log(extraDataResult);
-        const extraData = await extraDataResult.json();
-        console.log(extraData);
-        const p = extraData.data[0].publisher.join(", ");
-        console.log(p);
-        publisher.value = p;
+        let extraDataResult;
+        if (pageData) {
+          extraDataResult = await fetch(`https://litteraturbanken.se/api/get_work_info?lbworkid=${pageData!.value!.work.lbworkid}`);
+          const extraData = await extraDataResult.json();
+          const p = extraData.data[0].publisher.join(", ");
+          publisher.value = p;
+        }
       }
     });
 
