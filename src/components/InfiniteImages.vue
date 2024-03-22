@@ -397,11 +397,11 @@ watch(store.yearEnd, async () => {
 .gallery__item {
   margin-bottom: 10px;
   float:left;
-  overflow:hidden;
+  overflow:hidden!important;
   -webkit-transition-property: none!important;
--moz-transition-property: none!important;
--o-transition-property: none!important;
-transition-property: none!important;
+  -moz-transition-property: none!important;
+  -o-transition-property: none!important;
+  transition-property: none!important;
 }
 
 .gallery__item--height1 {
@@ -429,13 +429,18 @@ transition-property: none!important;
   position: absolute;
   color: white;
   bottom: 0px;
-  padding: 5px 10px;
+  padding: 10px 10px 10px 12px;
   display: none;
   line-height: 1.1;
 }
 
 .item-info-meta h5 {
-  margin-top: 10px;
+  font-size:1.2em;
+}
+
+.item-info-meta h6 {
+  margin-top: 4px;
+  font-size:1.0em;
 }
 
 .gallery__item img {
@@ -510,7 +515,6 @@ transition-property: none!important;
 
 .detailOverlay {
   position: relative;
-
   width: 2000px;
   height: 700px;
   background-color: rgba(0, 0, 0, 0.8);
