@@ -83,26 +83,11 @@ function setLabel(label: string) {
 
 }
 onBeforeMount(() => {
-  if (route.path.match("/gallery/\d+?$")) {
+  if (route.params.id) {
     selectedImageId.value = route.params.id+"";
     console.log("Selected image id: ", selectedImageId.value);
     //activateOverlay(selectedImageId.value);
     showOverlay.value = true;
-  }
-  if (route.path.match("/gallery/ornament")) {
-    selectedLabel.value = "Ornament";
-  }
-  if (route.path.match("/gallery/illustrationer")) {
-    selectedLabel.value = "Illustrationer";
-  }
-  if (route.path.match("/gallery/anfanger")) {
-    selectedLabel.value = "Anfanger";
-  }
-  if (route.path.match("/gallery/musiknoter")) {
-    selectedLabel.value = "Musiknoter";
-  }
-  if (route.path.match("/gallery/omslagsbilder")) {
-    selectedLabel.value = "Omslagsbilder";
   }
 });
 
@@ -123,8 +108,8 @@ const fetchData = async () => {
       }
     };
 
-    addParam('year_start', store.yearStart);
-    addParam('year_end', store.yearEnd);
+    addParam('year_start', store.yearStart??1800);
+    addParam('year_end', store.yearEnd??1900);
     addParam('author', store.author?.id); // Use optional chaining for potential undefined author
     addParam('work', store.work?.id); // Use optional chaining for potential undefined work
 
@@ -222,8 +207,8 @@ const initMasonry = () => {
       }
     };
 
-    addParam('year_start', store.yearStart);
-    addParam('year_end', store.yearEnd);
+    addParam('year_start', store.yearStart??1800);
+    addParam('year_end', store.yearEnd??1900);
     addParam('author', store.author?.id); // Use optional chaining for potential undefined author
     addParam('work', store.work?.id); // Use optional chaining for potential undefined work
 
