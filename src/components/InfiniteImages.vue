@@ -19,7 +19,12 @@
       >{{ label }}</button>
   </div>
   </div>
-   
+   <div>
+    <!-- No images to show -->
+    <div v-if="images.length === 0" class="module-content">
+      <p>Inga bilder att visa.</p>
+    </div>
+   </div>
     <div class="gallery are-images-unloaded" v-show="!showOverlay">
       <div class="gallery__col-sizer"></div>
       <div class="gallery__gutter-sizer"></div>
@@ -105,7 +110,9 @@ const fetchData = async () => {
       }
     
     // filter the selected label from labels list and reset the style on all buttons other buttons
-    for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) { document.getElementById(lbl).style = deselectedStyle }
+    for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) { 
+      document.getElementById(lbl)!.setAttribute('style', deselectedStyle.cssText);
+    }
     const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&limit=50&depth=3`;
     const res = await fetch(urlToFetch);
     const data = await res.json();
@@ -197,18 +204,18 @@ const initMasonry = () => {
       const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&limit=25&offset=${offset}`;
       return url;
     },
-    append: '.gallery__item',
+    //append: '.gallery__item',
     outlayer: msnry,
     status: '.page-load-status',
     history: false,
     scrollThreshold: 800,
     append: false,
     elementScroll: '.gallery',
-    elementScroll: true,
+    //elementScroll: true,
     loadOnScroll: true,
   });
 
-  infScroll.on('load', async function (response) {
+  infScroll.on('load', async function (response: any) {
     try {
       let bodyContent = response.querySelector("body").textContent;
 
@@ -235,7 +242,7 @@ const initMasonry = () => {
 
       images.value = [...images.value, ...newImages];
 
-      imagesLoaded(document.querySelector('.gallery'), () => {
+      imagesLoaded('.gallery', () => {
         msnry.reloadItems();
         msnry.layout();
       });
@@ -269,20 +276,25 @@ function activateOverlay(item: ImageI) {
 }
 
 function deactivateOverlay() {
-  fetchData().then(() => {
-    imagesLoaded(document.querySelector('.gallery'), () => {
-      initMasonry();
-    });
-  });
+  // if there are no images, fetch images
+  
   showOverlay.value = false;
   // reset route
   //router.push('/gallery');
   history.replaceState(null, '', '/gallery');
   console.log("Deactivate");
+  if (infScroll) {
+    infScroll.destroy();
+  }
+  imagesLoaded('.gallery', () => {
+      initMasonry();
+  });
 }
+
+
 onMounted(() => {
   fetchData().then(() => {
-    imagesLoaded(document.querySelector('.gallery'), () => {
+    imagesLoaded('.gallery', () => {
       initMasonry();
       // msnry.reloadItems();
       // msnry.layout();
@@ -303,7 +315,7 @@ watch(selectedLabel, async () => {
 
   await fetchData();
 
-  imagesLoaded(document.querySelector('.gallery'), () => {
+  imagesLoaded('.gallery', () => {
     initMasonry();
   });
 });
@@ -321,7 +333,7 @@ watch(() => store.triggerImageSearch,
 
   await fetchData();
 
-  imagesLoaded(document.querySelector('.gallery'), () => {
+  imagesLoaded('.gallery', () => {
     initMasonry();
   });
   store.triggerImageSearch = false;
