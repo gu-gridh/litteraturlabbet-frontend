@@ -106,7 +106,7 @@ const fetchData = async () => {
     
     // filter the selected label from labels list and reset the style on all buttons other buttons
     for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) { document.getElementById(lbl).style = deselectedStyle }
-    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${(searchQuery)}&limit=50&depth=3`;
+    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&limit=50&depth=3`;
     const res = await fetch(urlToFetch);
     const data = await res.json();
     const newImages = data.results.map((item: ImageI) => ({
@@ -174,7 +174,7 @@ const initMasonry = () => {
       if (selectedLabel.value == 'Alla') { searchQuery = '' }
       else { searchQuery = selectedLabel.value };
       */
-      let searchQuery = 'label_sv='
+      let searchQuery = ''
     // Build the base query based on the selected label
     if (selectedLabel.value !== 'Alla') {
       searchQuery += `${selectedLabel.value}`;
@@ -194,17 +194,17 @@ const initMasonry = () => {
     addParam('work', store.work?.id); // Use optional chaining for potential undefined work
 
       const offset = (pageIndex.value - 1) * 25;
-      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&id=&uuid=&label_en=&label_sv=${encodeURIComponent(searchQuery)}&score=&limit=25&offset=${offset}`;
+      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&limit=25&offset=${offset}`;
       return url;
     },
-    //append: '.gallery__item',
+    append: '.gallery__item',
     outlayer: msnry,
     status: '.page-load-status',
     history: false,
     scrollThreshold: 800,
     append: false,
     elementScroll: '.gallery',
-    //elementScroll: true,
+    elementScroll: true,
     loadOnScroll: true,
   });
 
@@ -214,7 +214,7 @@ const initMasonry = () => {
 
       const data = JSON.parse(bodyContent);
 
-      const newImages = data.results.map(item => ({
+      const newImages = data.results.map((item: ImageI) => ({
         id: item.id ?? null,
         iiif_file: item.iiif_file ?? null,
         page_id: item?.page?.id ?? null,
@@ -258,9 +258,9 @@ const initMasonry = () => {
 // const refreshMasonry = () => {
 //   layoutKey.value++;
 // };
-function activateOverlay(item) {
+function activateOverlay(item: ImageI) {
   //  router.push({ name: 'image-viewer', params: { id: item.id } });
-  selectedImageId.value = item.id;
+  selectedImageId.value = item.id+"";
   showOverlay.value = true;
   console.log("Activate");
   //router.push(`/gallery/${item.id}`);
