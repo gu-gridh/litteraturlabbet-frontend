@@ -34,6 +34,8 @@
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
     "@types/d3": "^7.4.0",
+    "@types/imagesloaded": "^4.1.6",
+    "@types/infinite-scroll": "^4.0.4",
     "@types/lodash": "^4.14.190",
     "@types/masonry-layout": "^4.2.7",
     "@types/node": "^18.11.9",
