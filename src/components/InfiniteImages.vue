@@ -91,8 +91,8 @@ const fetchData = async () => {
     // Add additional parameters with proper separators
     const addParam = (paramName: string, value: any) => {
       if (value) {
-        searchQuery += (searchQuery.length === 0) ? '?' : '&'; // Use '?' for first param, '&' for others
-        searchQuery += `${paramName}=${value}`;
+        //searchQuery += (searchQuery.length === 0) ? '?' : '&'; // Use '?' for first param, '&' for others
+        searchQuery += `&${paramName}=${value}`;
       }
     };
 
@@ -190,8 +190,8 @@ const initMasonry = () => {
     // Add additional parameters with proper separators
     const addParam = (paramName: string, value: any) => {
       if (value) {
-        searchQuery += (searchQuery.length === 0) ? '?' : '&'; // Use '?' for first param, '&' for others
-        searchQuery += `${paramName}=${value}`;
+        //searchQuery += (searchQuery.length === 0) ? '?' : '&'; // Use '?' for first param, '&' for others
+        searchQuery += `&${paramName}=${value}`;
       }
     };
 
