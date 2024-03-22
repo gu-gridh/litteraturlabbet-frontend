@@ -28,12 +28,22 @@
       <!--Metadata display-->
       <div v-if="pageData" class="metadata">
         <h3>{{ pageData.work?.title }}</h3>
-        <p>Författare: <span>{{ pageData.work?.main_author?.name }}</span></p>
-        <p>Utgiven: <span>{{ pageData.work?.sort_year }}</span></p>
-        <p>Förlag: <span>{{ publisher }}</span></p>
-        <p>Beskrivning: <span>{{ labelSv }} på sidan {{ pageData.number }}</span></p>
+        <div class="metadata-item">
+          <p>Författare: <span>{{ pageData.work?.main_author?.name }}</span></p>
+        </div>
+        <div class="metadata-item">
+          <p>Utgiven: <span>{{ pageData.work?.sort_year }}</span></p>
+        </div>
+        <div class="metadata-item">
+          <p>Förlag: <span>{{ publisher }}</span></p>
+        </div>
+          <div class="metadata-item">
+            <p>Beskrivning: <span>{{ labelSv }} på sidan {{ pageData.number }}</span></p>
+          </div>
         <!--<p>Sida: <span>{{ pageData.number }}</span></p>-->
-        <p>Länk:<a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number)+"/faksimil"'><span> Originalsida hos LB</span></a></p>
+        <div class="metadata-item">
+          <p>Länk:<a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number)+"/faksimil"'><span> Originalsida hos LB</span></a></p>
+        </div>
         
       </div>
 
@@ -215,6 +225,13 @@ export default {
   border-radius: 4px;
 }
 
+
+.metadata-item {
+float:left;
+margin-right:30px;
+}
+
+
 .metadata h3 {
 font-weight:500;
 font-size:1.4em;
@@ -386,4 +403,6 @@ font-weight:500;
 *:focus {
         outline:none!important;
       }
+
+
 </style>
