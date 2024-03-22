@@ -20,6 +20,12 @@ interface ImageI extends AbstractBase {
   title: string;
   author: string;
   iiif_file: string;
+  lb_title: string;
+  page: Page;
+  label_sv: string;
+  file: string;
+  extract_id: string;
+  year: number;
 }
 interface Author extends AbstractBase {
   id: number;
