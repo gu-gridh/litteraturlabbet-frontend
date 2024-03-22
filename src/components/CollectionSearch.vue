@@ -46,8 +46,8 @@
         </div>
         <Multiselect v-model="store.work" :value="store.work" mode="single" spellcheck="false" placeholder="Verk"
           noResultsText="Inga verk matchar sökningen" noOptionsText="Inga verk matchar sökningen" :resolve-on-load="true"
-          :delay="1" :searchable="true" :object="true" valueProp="id" label="title" :clear-on-select="false"
-          :clear-on-search="false" :disabled="store.author2"
+          :delay="1" :searchable="true" :object="true" valueProp="id" label="title" :clear-on-select="true"
+          :clear-on-search="true" :disabled="store.author2"
           :options="async (query: string, select$: any) => searchWork(query, { main_author: store.author?.id })"
           @select="onSelectWork" @clear="onClearWork" ref="workSelect" />
       </div>
