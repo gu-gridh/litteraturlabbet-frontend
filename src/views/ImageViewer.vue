@@ -103,7 +103,6 @@ export default {
     
     onMounted(async () => {
 
-      setNotBusy();
       await fetchNeighboursData();
 
       const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${props.imageId}`);
@@ -160,7 +159,7 @@ export default {
         }
       }
     });
-
+    setNotBusy();
     return {
       viewer,
       pageData,

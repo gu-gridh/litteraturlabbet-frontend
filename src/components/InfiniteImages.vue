@@ -278,13 +278,13 @@ const initMasonry = () => {
 //   layoutKey.value++;
 // };
 function activateOverlay(item: ImageI) {
+  setBusy();
   //  router.push({ name: 'image-viewer', params: { id: item.id } });
   selectedImageId.value = item.id+"";
   showOverlay.value = true;
   console.log("Activate");
   //router.push(`/gallery/${item.id}`);
   history.replaceState(null, '', `/gallery/${item.id}`);
-  
 }
 
 function deactivateOverlay() {
