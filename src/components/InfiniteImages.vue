@@ -45,15 +45,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, inject, onMounted, defineComponent, watch, onBeforeMount } from "vue";
+import { ref, onMounted, watch, onBeforeMount } from "vue";
 import Masonry from 'masonry-layout';
 import InfiniteScroll from 'infinite-scroll';
 import imagesLoaded from 'imagesloaded';
-import { storeToRefs } from "pinia";
 import { useRoute, useRouter } from 'vue-router';
 import ImageViewer from "../views/ImageViewer.vue";
 import type { ImageI } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
+import { setBusy, setNotBusy } from "./Waiter.vue";
 
 const selectedImageId = ref("");
 const router = useRouter();
@@ -334,6 +334,8 @@ watch(selectedLabel, async () => {
 
 watch(() => store.triggerImageSearch,
  async () => {
+  setBusy();
+  showOverlay.value = false;
   console.log("Image search 2");
   images.value = [];
   pageIndex.value = 1;
@@ -346,9 +348,13 @@ watch(() => store.triggerImageSearch,
   await fetchData();
 
   imagesLoaded('.gallery', () => {
-    initMasonry();
+    //initMasonry();
+    msnry.reloadItems();
+    msnry.layout();
+    setNotBusy();
   });
   store.triggerImageSearch = false;
+  
 });
 /*
 watch(store.yearEnd, async () => {
