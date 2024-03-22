@@ -19,7 +19,8 @@ export const searchStore = defineStore("search", {
     const phrase = ref<string | undefined>(undefined);
     const yearStart = ref<number | undefined>(undefined);
     const yearEnd = ref<number | undefined>(undefined);
-    return { author, author2, work, page, cluster, segment, phrase, yearStart, yearEnd };
+    const triggerImageSearch = ref(false);
+    return { author, author2, work, page, cluster, segment, phrase, yearStart, yearEnd, triggerImageSearch };
   },
   getters: {
     paramsPath(state) {
