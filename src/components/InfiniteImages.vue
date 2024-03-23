@@ -180,8 +180,7 @@ const initMasonry = () => {
   msnry.options.itemSelector = '.gallery__item';
   let items = gallery.querySelectorAll('.gallery__item');
   msnry.appended( items );
-
-});
+}); 
 
   infScroll = new InfiniteScroll( gallery, {
     path: () => {
