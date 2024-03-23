@@ -570,7 +570,7 @@ watch(store.yearEnd, async () => {
 
 .gallery-labels button {
   margin: 5px;
-  padding: 4px 10px;
+  padding: 2px 10px 4px 10px;
   border-radius: 4px;
   font-family: "Barlow Condensed", sans-serif !important;
   font-size: 1.1em;
