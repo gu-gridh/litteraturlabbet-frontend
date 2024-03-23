@@ -22,7 +22,9 @@
    <div>
     <!-- No images to show -->
     <div v-if="images.length === 0" class="module-content">
-      <p>Inga bilder att visa.</p>
+      <div class="no-result">
+      <p>Inga grafiska element att visa.</p>
+    </div>
     </div>
    </div>
     <div class="gallery are-images-unloaded" v-show="!showOverlay">
@@ -387,24 +389,11 @@ watch(store.yearEnd, async () => {
   z-index:100!important;
 }
 
-/* 
-@media screen and (min-width: 1900px) {
-  #gallery-container{ 
-    padding-left:600px;
+.no-result{
+  width:100%;
+  text-align:center;
+  margin-top:10%;
 }
-  }
-
-@media screen and (max-width: 1500px) {
-  #gallery-container{ 
-    padding-left:500px;
-}
-  }
-
-  @media screen and (max-width: 900px) {
-  #gallery-container{ 
-    padding-left:5px;
-}
-  } */
 
 .gallery {
   padding-top:0px;
