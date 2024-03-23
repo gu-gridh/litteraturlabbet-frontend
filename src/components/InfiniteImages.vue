@@ -21,10 +21,8 @@
   </div>
    <div>
     <!-- No images to show -->
-    <div v-if="images.length === 0" class="module-content">
-      <div class="no-result">
-      <p>Inga grafiska element att visa.</p>
-    </div>
+    <div v-if="images.length === 0" class="no-images module-content">
+      <p>Inga bilder att visa.</p>
     </div>
    </div>
     <div class="gallery are-images-unloaded" v-show="!showOverlay">
@@ -127,7 +125,7 @@ const fetchData = async () => {
     for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) { 
       document.getElementById(lbl)!.setAttribute('style', deselectedStyle.cssText);
     }
-    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&limit=50&depth=3`;
+    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&limit=75&depth=3`;
     const res = await fetch(urlToFetch);
     const data = await res.json();
     const newImages = data.results.map((item: ImageI) => ({
@@ -389,8 +387,8 @@ watch(store.yearEnd, async () => {
   z-index:100!important;
 }
 
-.no-result{
-  width:100%;
+.no-images{
+  width:100%!important;
   text-align:center;
   margin-top:10%;
 }
