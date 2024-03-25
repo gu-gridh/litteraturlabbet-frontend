@@ -340,9 +340,9 @@ watch(() => store.triggerImageSearch,
   pageIndex.value = 1;
   canIncrement.value = true;
 
-  if (infScroll) {
-    infScroll.destroy();
-  }
+  // if (infScroll) {
+  //   infScroll.destroy();
+  // }
 
   await fetchData();
 
