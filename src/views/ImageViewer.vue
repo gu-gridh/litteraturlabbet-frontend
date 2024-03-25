@@ -17,12 +17,15 @@
             <div id="ZoomOut" class="NavButton"></div>
           </a>    
           <a id="rotate-left" href="#rotate-left">
-        <div id="RotateLeft" class="NavButton"></div>
+            <div id="RotateLeft" class="NavButton"></div>
+          </a>
+          <a id="rotate-right" href="#rotate-right">
+            <div id="RotateRight" class="NavButton"></div>
+          </a>
+          <a id="Download">
+        <div id="Download" class="NavButton" @click="downloadImage"></div>
       </a>
-      <a id="rotate-right" href="#rotate-right">
-        <div id="RotateRight" class="NavButton"></div>
-      </a>
-      </div>
+        </div>
     </div>
     
       <!--Metadata display-->
@@ -48,7 +51,7 @@
       </div>
 
       <!--Gallery display-->
-      <div class="gallery">
+      <div v-if="imageUrls.length > 0" class="gallery">
         <MasonryWall :items="imageUrls" class="masonry" :columnWidth="150" :gap="5">
           <template v-slot:default="{ item, index }">
             <div class="card">
@@ -85,10 +88,35 @@ export default {
     const viewer = ref();
     const pageData = ref<PageData>();
     const iiifFile = ref(null);
+    const completeUrl = ref(null);
     const labelSv = ref(null);
     const pageId = ref(null);
     const imageUrls = ref([]);
     const publisher = ref("");
+
+     const downloadImage = () => {
+        const imageUrl = completeUrl.value;
+        if (!imageUrl) {
+          console.error("No image URL provided for download.");
+          return;
+        }
+        
+        fetch(imageUrl)
+          .then(response => response.blob())
+          .then(blob => {
+            const blobUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = blobUrl;
+            link.setAttribute('download', 'image.jpg');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(blobUrl);
+          })
+          .catch(error => {
+            console.error("Failed to download image:", error);
+          });
+    };
 
     const fetchNeighboursData = async () => {
       const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
@@ -97,9 +125,14 @@ export default {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      const neighbours = JSON.parse(data.results[0].neighbours);
 
-      imageUrls.value = neighbours['0'].map((neighbour:any) => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
+      if (data.results.length > 0 && data.results[0].neighbours) {
+        const neighbours = JSON.parse(data.results[0].neighbours);
+        imageUrls.value = neighbours['0'].map((neighbour: any) => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
+      } else {
+        imageUrls.value = [];
+        console.log('No neighbors data found');
+      }
     };
 
     const unshowSelf = () =>{
@@ -107,10 +140,7 @@ export default {
       // emit event to parent
       context.emit('unshow');
     }
-    
-
-    
-    
+  
     onMounted(async () => {
 
       await fetchNeighboursData();
@@ -124,6 +154,8 @@ export default {
         iiifFile.value = graphicData.results[0].iiif_file;
         pageId.value = graphicData.results[0].page;
         labelSv.value = graphicData.results[0].label_sv;
+        completeUrl.value = graphicData.results[0].file;
+
         if (!viewer) {
           console.log("No viewer");
           return;
@@ -178,6 +210,8 @@ export default {
       unshowSelf,
       imageUrls,
       labelSv,
+      downloadImage,
+      completeUrl, 
     };
   },
 };
@@ -307,6 +341,18 @@ font-weight:500;
   overflow: hidden;
 }
 
+#Download {
+  position: relative;
+  top: 10px;
+  background: url(../assets/openseadragon/downbuttonwhite.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(35, 35, 35, 0.9);
+  overflow: hidden;
+  cursor: pointer;
+}
+
 #Prev {
   background: url(../assets/openseadragon/prev.png);
   background-size: 35px 35px;
@@ -375,17 +421,6 @@ font-weight:500;
   overflow: hidden;
 }
 
-
-#Download {
-  margin-top: 20px;
-  background: url(../../public/interface/downloadwhite.png);
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: rgba(35, 35, 35, 0.9);
-  cursor: pointer;
-  overflow: hidden;
-}
 .NavButton {
   border-radius: 50%;
   width: 35px;
