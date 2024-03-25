@@ -23,8 +23,8 @@
             <div id="RotateRight" class="NavButton"></div>
           </a>
           <a id="Download">
-        <div id="Download" class="NavButton" @click="downloadImage"></div>
-      </a>
+            <div id="Download" class="NavButton" @click="downloadImage"></div>
+          </a>
         </div>
     </div>
     
@@ -155,7 +155,6 @@ export default {
         pageId.value = graphicData.results[0].page;
         labelSv.value = graphicData.results[0].label_sv;
         completeUrl.value = graphicData.results[0].file;
-
         if (!viewer) {
           console.log("No viewer");
           return;
@@ -181,7 +180,6 @@ export default {
           rotateLeftButton: "rotate-left",
           rotateRightButton: "rotate-right",
           tileSources: `${iiifFile.value}/info.json`,
-
         });
 
       //fetch metadata
@@ -342,8 +340,7 @@ font-weight:500;
 }
 
 #Download {
-  position: relative;
-  top: 10px;
+  margin-top: 20px;
   background: url(../assets/openseadragon/downbuttonwhite.png);
   background-size: 100%;
   background-repeat: no-repeat;
