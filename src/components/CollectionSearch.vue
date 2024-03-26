@@ -46,8 +46,8 @@
         </div>
         <Multiselect v-model="store.work" :value="store.work" mode="single" spellcheck="false" placeholder="Verk"
           noResultsText="Inga verk matchar sökningen" noOptionsText="Inga verk matchar sökningen" :resolve-on-load="true"
-          :delay="1" :searchable="true" :object="true" valueProp="id" label="title" :clear-on-select="true"
-          :clear-on-search="true" :disabled="store.author2"
+          :delay="1" :searchable="true" :object="true" valueProp="id" label="title" :clear-on-select="false"
+          :clear-on-search="false" :disabled="store.author2"
           :options="async (query: string, select$: any) => searchWork(query, { main_author: store.author?.id })"
           @select="onSelectWork" @clear="onClearWork" ref="workSelect" />
       </div>
@@ -425,9 +425,11 @@ async function searchAuthor(query: string) {
 
 // Search for works given for example an author id
 async function searchWork(query: string, params: any) {
+  console.log("Loading works with params", params);
   if (route.path.startsWith("/reuse")) {
   if (params.main_author) {
-    let subset = works.filter((w) => w.main_author === params.main_author);
+    const pma = params.main_author+"";
+    let subset = works.filter((w) => w.main_author === pma);
     if (store.yearStart) {
       subset = subset.filter((w) => parseInt(w.imprint_year) >= store.yearStart!);
     }
@@ -464,7 +466,8 @@ async function searchWork(query: string, params: any) {
     return subset_with_reuse.concat(subset_without_reuse);
 } else if (route.path.startsWith("/gallery")) {
   if (params.main_author) {
-    let subset = works.filter((w) => w.main_author === params.main_author);
+    const pma = params.main_author+"";
+    let subset = works.filter((w) => w.main_author === pma);
     if (store.yearStart) {
       subset = subset.filter((w) => parseInt(w.imprint_year) >= store.yearStart!);
     }
