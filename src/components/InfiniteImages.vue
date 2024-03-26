@@ -35,8 +35,10 @@
             <h6>{{ item.author }}</h6>
           </div>
         </div>
-        <img :src="`${item.iiif_file}/full/250,/0/default.jpg`" loading="lazy" @click="activateOverlay(item)" />
-      </div>
+          <div class="image-wrapper">
+            <img :src="`${item.iiif_file}/full/250,/0/default.jpg`" loading="lazy" @click="activateOverlay(item)" />
+          </div>      
+        </div>
     </div>
   </div>
 
@@ -375,6 +377,23 @@ watch(store.yearEnd, async () => {
 </script>
 
 <style>
+.image-wrapper {
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.image-wrapper img {
+  transition: transform 0.2s ease-in-out;
+  width: 100%;
+  height: auto;
+}
+
+.image-wrapper img:hover {
+  transform: scale(1.05);
+}
+
 #gallery-container{
   position:absolute;
   width:100%;
@@ -487,7 +506,7 @@ watch(store.yearEnd, async () => {
 .gallery__item {
   margin-bottom: 10px;
   float:left;
-  overflow:hidden!important;
+  /* overflow:hidden!important; */
   -webkit-transition-property: none!important;
   -moz-transition-property: none!important;
   -o-transition-property: none!important;
@@ -540,11 +559,11 @@ watch(store.yearEnd, async () => {
 }
 
 
-.gallery__item img:hover {
+/* .gallery__item img:hover {
   display: block;
   transform: scale(1.05);
   filter: brightness(0.8);
-}
+} */
 
 .gallery__item:hover .item-info {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0px, rgba(0, 0, 0, 0)100%) !important;
