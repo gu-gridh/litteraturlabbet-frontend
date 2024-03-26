@@ -605,6 +605,12 @@ function onClearWork(event: undefined) {
 
 onMounted(() => {
   countWorks();
+  // trigger a reload of works shortly after component is mounted
+  // to correctly gray out works from the start
+  setTimeout(() => {
+    searchWork("", { main_author: store.author?.id });
+    workSelect.value.refreshOptions();
+  }, 100);
 });
 
 
