@@ -386,6 +386,24 @@ watch(store.yearEnd, async () => {
   z-index:100!important;
 }
 
+@media (max-height: 750px) {
+  #gallery-container {
+      height:calc(100% + 500px);
+  }
+}
+
+@media (max-height: 500px) {
+  #gallery-container {
+      height:calc(100% + 650px);
+  }
+}
+
+@media (max-height: 300px) {
+  #gallery-container {
+      height:calc(100% + 800px);
+  }
+}
+
 .no-images{
   width:100%!important;
   text-align:center;
