@@ -33,6 +33,7 @@
 import { onMounted } from "vue";
 import { setNotBusy } from "./Waiter.vue";
 import { etext_ids } from "@/assets/etext_ids.json";
+import { pagefix } from "@/assets/pagefix.json";
 
 const props = defineProps<{
   segment1: any;
@@ -46,12 +47,23 @@ let lblink1 = "";
 let lblink2 = "";
 const isEtext1 = etext_ids.indexOf(props.segment1.series.id) > -1;
 const isEtext2 = etext_ids.indexOf(props.segment2.series.id) > -1;
+const wid1 = props.segment1.series.id+"";
+const wid2 = props.segment2.series.id+"";
+const pfks = Object.keys(pagefix);
+let offset1 = 0;
+let offset2 = 0;
+if (pfks.indexOf(wid1) > -1) {
+  offset1 = pagefix[wid1 as keyof typeof pagefix];
+}
+if (pfks.indexOf(wid2) > -1) {
+  offset2 = pagefix[wid2 as keyof typeof pagefix];
+}
 if (props.segment1) {
    text1 = text1.replace(
     props.segment1.text,
     `<span class="highlight">${props.segment1.text}</span>`
   );
-  lblink1 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment1.series.main_author.lbauthorid+"/titlar/"+props.segment1.series.modernized_title+"/sida/"+(props.segment1.page.number+(isEtext1?0:1))+(isEtext1?"/etext":"/faksimil");
+  lblink1 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment1.series.main_author.lbauthorid+"/titlar/"+props.segment1.series.modernized_title+"/sida/"+(props.segment1.page.number+(isEtext1?0:1)-offset1)+(isEtext1?"/etext":"/faksimil");
  
 }
 if (props.segment2) {
@@ -59,7 +71,7 @@ if (props.segment2) {
     props.segment2.text,
     `<span class="highlight">${props.segment2.text}</span>`
   );
-  lblink2 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment2.series.main_author.lbauthorid+"/titlar/"+props.segment2.series.modernized_title+"/sida/"+(props.segment2.page.number+(isEtext2?0:1))+(isEtext2?"/etext":"/faksimil");
+  lblink2 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment2.series.main_author.lbauthorid+"/titlar/"+props.segment2.series.modernized_title+"/sida/"+(props.segment2.page.number+(isEtext2?0:1)-offset2)+(isEtext2?"/etext":"/faksimil");
 }
 
 onMounted(() => {

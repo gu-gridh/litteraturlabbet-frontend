@@ -18,6 +18,7 @@ import { onMounted } from "vue";
 import type { Segment } from "@/types/litteraturlabbet";
 import { setNotBusy } from "./Waiter.vue";
 import { etext_ids } from "@/assets/etext_ids.json";
+import { pagefix } from "@/assets/pagefix.json";
 
 const props = defineProps<{
   segment: Segment;
@@ -36,7 +37,14 @@ if (props.segment) {
     `<span class="highlight">${target}</span>`
   );
   const isEtext = etext_ids.indexOf(work.id) > -1;
-  lblink = "https://litteraturbanken.se/f%C3%B6rfattare/"+work.main_author.lbauthorid+"/titlar/"+work.modernized_title+"/sida/"+(page.number+(isEtext?0:1))+(isEtext?"/etext":"/faksimil");
+  const wid = work.id+"";
+  const pfks = Object.keys(pagefix);
+  let offset = 0;
+  if (pfks.indexOf(wid) > -1) {
+    offset = pagefix[wid as keyof typeof pagefix];
+  }
+  lblink = "https://litteraturbanken.se/f%C3%B6rfattare/"+work.main_author.lbauthorid+"/titlar/"+work.modernized_title+"/sida/"+(page.number+(isEtext?0:1)-offset)+(isEtext?"/etext":"/faksimil");
+  
 }
 
 onMounted(() => {

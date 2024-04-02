@@ -45,7 +45,7 @@
           </div>
         <!--<p>Sida: <span>{{ pageData.number }}</span></p>-->
         <div class="metadata-item">
-          <p>Länk:<a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number)+"/faksimil"'><span> Originalsida hos LB</span></a></p>
+          <p>Länk:<a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number-offset)+"/faksimil"'><span> Originalsida hos LB</span></a></p>
         </div>
         
       </div>
@@ -75,6 +75,7 @@ import { setNotBusy } from "../components/Waiter.vue";
 import { useRoute } from 'vue-router';
 import MasonryWall from "@yeger/vue-masonry-wall";
 import type { Work } from '@/types/litteraturlabbet';
+import { pagefix } from "@/assets/pagefix.json";
 
 export default {
   components: {
@@ -93,6 +94,7 @@ export default {
     const pageId = ref(null);
     const imageUrls = ref([]);
     const publisher = ref("");
+    const offset = 0;
 
      const downloadImage = () => {
         const imageUrl = completeUrl.value;
@@ -197,6 +199,13 @@ export default {
           const p = extraData.data[0].publisher.join(", ");
           publisher.value = p;
         }
+        // page fix
+        const pfks = Object.keys(pagefix);
+        let offset = 0;
+        const wid = pageData.value!.work.id+"";
+        if (pfks.indexOf(wid) > -1) {
+          offset = pagefix[wid as keyof typeof pagefix];
+        }
       }
     });
     setNotBusy();
@@ -210,6 +219,7 @@ export default {
       labelSv,
       downloadImage,
       completeUrl, 
+      offset
     };
   },
 };
