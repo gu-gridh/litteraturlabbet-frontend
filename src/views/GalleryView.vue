@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { watch, defineComponent, onMounted, ref } from 'vue'
 import { useRouter } from "vue-router";
-import { setNotBusy } from '@/components/Waiter.vue'
+import { setBusy, setNotBusy } from '@/components/Waiter.vue'
 import ImageDisplays from '@/components/InfiniteImages.vue'
+import { onBeforeMount } from 'vue';
 
 var showGallery = true;
 // const viewImage = (index: number) => {
@@ -12,7 +13,11 @@ function toggleGallery() {
       showGallery = !showGallery;}
 
 onMounted(() => {
-  setNotBusy();
+  //setNotBusy();
+})
+
+onBeforeMount(() => {
+  setBusy();
 })
 
 

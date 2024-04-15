@@ -73,7 +73,7 @@ const showOverlay = ref(false);
 const store = searchStore();
 
 function setLabel(label: string) {
-  
+  setBusy();
   if (label == "Alla") {
     selectedLabel.value = "";
    // history.replaceState(null, '', `/gallery/`);
@@ -311,6 +311,7 @@ onMounted(() => {
       initMasonry();
       // msnry.reloadItems();
       // msnry.layout();
+      setNotBusy();
     });
   });
 });
@@ -330,6 +331,7 @@ watch(selectedLabel, async () => {
 
   imagesLoaded('.gallery', () => {
     initMasonry();
+    setNotBusy();
   });
 });
 
