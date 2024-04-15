@@ -73,17 +73,13 @@ const showOverlay = ref(false);
 const store = searchStore();
 
 function setLabel(label: string) {
-  setBusy();
-  if (label == "Alla") {
-    selectedLabel.value = "";
-   // history.replaceState(null, '', `/gallery/`);
-  } else {
-    selectedLabel.value = label;
-   // history.replaceState(null, '', `/gallery/${label}`);
+  if (label === selectedLabel.value) {
+    return;
   }
-  
-
+  setBusy();
+  selectedLabel.value = label;
 }
+
 onBeforeMount(() => {
   if (route.params.id) {
     selectedImageId.value = route.params.id+"";
