@@ -4,26 +4,26 @@
         <div id="ToolbarVertical">
         <!--<div class="close-button NavButton" onclick="history.back()">
           -->
-          <div class="close-button NavButton" @click="unshowSelf()"  title="Close">
+          <div class="close-button NavButton" @click="unshowSelf()"  title="Stäng">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="-2 -2 28 28" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12" /></svg>     
         </div>
         <!-- <a id="full-page" href="#full-page">
               <div id="FullPage" class="NavButton"></div>
             </a> -->
           <a id="zoom-in" href="#zoom-in">
-            <div id="ZoomIn" class="NavButton"></div>
+            <div id="ZoomIn" class="NavButton" title="Zooma in"></div>
           </a>
           <a id="zoom-out" href="#zoom-out">
-            <div id="ZoomOut" class="NavButton"></div>
+            <div id="ZoomOut" class="NavButton" title="Zooma ut"></div>
           </a>    
           <a id="rotate-left" href="#rotate-left">
-            <div id="RotateLeft" class="NavButton"></div>
+            <div id="RotateLeft" class="NavButton" title="Vrid vänster"></div>
           </a>
           <a id="rotate-right" href="#rotate-right">
-            <div id="RotateRight" class="NavButton"></div>
+            <div id="RotateRight" class="NavButton" title="Vrid höger"></div>
           </a>
           <a id="Download" title="Download">
-            <div id="Download" class="NavButton" @click="downloadImage"></div>
+            <div id="Download" class="NavButton" @click="downloadImage" title="Ladda ner"></div>
           </a>
         </div>
     </div>

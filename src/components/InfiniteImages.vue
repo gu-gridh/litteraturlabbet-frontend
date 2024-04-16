@@ -18,7 +18,7 @@
           Samtliga bilder har fri upphovsrätt. För att läsa mer om teknikerna som använts, se <a href="https://github.com/gu-gridh/litteraturlabbet-frontend" style="font-style: italic; font-weight: 500;">GitHub</a>.
         </p>
       </div>
-        <button id="readmore" @click="toggleContent">{{ isExpanded ? 'Read Less' : 'Read More' }}</button>
+        <button id="readmore" @click="toggleContent">{{ isExpanded ? 'Läs mindre' : 'Läs mer' }}</button>
     </div>
     <div class="gallery-labels-container">
      <div class="gallery-labels">
