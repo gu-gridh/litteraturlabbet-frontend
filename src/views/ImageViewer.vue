@@ -186,7 +186,9 @@ export default {
 
       //fetch metadata
       if (pageId) {
-        const pageResponse = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/page/?id=${pageId.value}&depth=4`);
+        console.log(pageId.value);
+        const pid = pageId.value as any;
+        const pageResponse = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/page/?id=${pid.id}&depth=4`);
         if (!pageResponse.ok) {
           throw new Error(`HTTP error! Status: ${pageResponse.status}`);
         }
