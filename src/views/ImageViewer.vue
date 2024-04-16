@@ -146,13 +146,13 @@ export default {
       await fetchNeighboursData();
 
       const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${props.imageId}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
       const graphicData = await response.json();
         iiifFile.value = graphicData.results[0].iiif_file;
-        pageId.value = graphicData.results[0].page;
+        pageId.value = graphicData.results[0].page.id;
         labelSv.value = graphicData.results[0].label_sv;
         completeUrl.value = graphicData.results[0].file;
         if (!viewer) {
@@ -183,28 +183,28 @@ export default {
         });
 
       //fetch metadata
-      // if (pageId) {
-      //   const pageResponse = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/page/?id=${pageId.value}&depth=4`);
-      //   if (!pageResponse.ok) {
-      //     throw new Error(`HTTP error! Status: ${pageResponse.status}`);
-      //   }
-      //   const pageDataResponse = await pageResponse.json();
-      //   pageData.value = pageDataResponse.results[0];
-      //   let extraDataResult;
-      //   if (pageData) {
-      //     extraDataResult = await fetch(`https://litteraturbanken.se/api/get_work_info?lbworkid=${pageData!.value!.work.lbworkid}`);
-      //     const extraData = await extraDataResult.json();
-      //     const p = extraData.data[0].publisher.join(", ");
-      //     publisher.value = p;
-      //   }
-      //   // page fix
-      //   const pfks = Object.keys(pagefix);
-      //   let offset = 0;
-      //   const wid = pageData.value!.work.id+"";
-      //   if (pfks.indexOf(wid) > -1) {
-      //     offset = pagefix[wid as keyof typeof pagefix];
-      //   }
-      // }
+      if (pageId) {
+        const pageResponse = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/page/?id=${pageId.value}&depth=4`);
+        if (!pageResponse.ok) {
+          throw new Error(`HTTP error! Status: ${pageResponse.status}`);
+        }
+        const pageDataResponse = await pageResponse.json();
+        pageData.value = pageDataResponse.results[0];
+        let extraDataResult;
+        if (pageData) {
+          extraDataResult = await fetch(`https://litteraturbanken.se/api/get_work_info?lbworkid=${pageData!.value!.work.lbworkid}`);
+          const extraData = await extraDataResult.json();
+          const p = extraData.data[0].publisher.join(", ");
+          publisher.value = p;
+        }
+        // page fix
+        const pfks = Object.keys(pagefix);
+        let offset = 0;
+        const wid = pageData.value!.work.id+"";
+        if (pfks.indexOf(wid) > -1) {
+          offset = pagefix[wid as keyof typeof pagefix];
+        }
+      }
     });
     setNotBusy();
     return {
