@@ -407,6 +407,7 @@ watch(store.yearEnd, async () => {
 
 #module-text-smaller{
   font-size: 1.0rem;
+  margin-top: 5px;
 }
 
 .image-wrapper {
