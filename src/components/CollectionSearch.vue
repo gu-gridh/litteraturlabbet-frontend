@@ -23,7 +23,7 @@
           <p>Sök efter författare</p>
         </div>
         <Multiselect v-model="store.author" :value="store.author" mode="single" spellcheck="false"
-          placeholder="Författare #1" noResultsText="Inga författare matchar sökningen"
+          :placeholder=dynamicPlaceholder(0) noResultsText="Inga författare matchar sökningen"
           noOptionsText="Inga författare matchar sökningen" :resolve-on-load="true" :delay="1" :searchable="true"
           :object="true" valueProp="id" label="formatted_name"
           :options="async (query: string, select$: any) => searchAuthor(query)" :clear-on-select="true"
@@ -31,7 +31,7 @@
 
         <div id="author2-select" v-show="showReuseSearch">
           <Multiselect v-model="store.author2" :value="store.author2" mode="single" spellcheck="false"
-            placeholder="Författare #2" noResultsText="Inga författare matchar sökningen"
+            :placeholder=dynamicPlaceholder(1) noResultsText="Inga författare matchar sökningen"
             noOptionsText="Inga författare matchar sökningen" :resolve-on-load="true" :delay="1" :searchable="true"
             :object="true" valueProp="id" label="formatted_name"
             :options="async (query: string, select$: any) => searchAuthor(query)" :clear-on-select="true"
@@ -141,6 +141,19 @@ let author2changed = false;
 
 const imageSearch = ref(false);
 
+// dynamic placeholder for author select
+// return "Författare" if in gallery, "Författare #1" if in reuse
+function dynamicPlaceholder(index: number) {
+  if (index === 0) {
+    if (route.path.startsWith('/gallery')) {
+      return "Författare";
+    }
+    return "Författare #1";
+  } else if (index === 1) {
+    return "Författare #2";
+  }
+  return "Författare";
+}
 // initialize an empty author object with the given id
 function initAuthorId(id: number) {
   const author: Author = {
@@ -190,6 +203,8 @@ onBeforeMount(() => {
   console.log("Before mount");
   // open the correct collection search based on route
   if (route.path.startsWith('/reuse/')) {
+    // set placeholder for authorSelect to Författare #1 if in reuse
+    authorSelect.value.setPlaceholder("Författare #1");
     showSearch.value = true;
     showReuseSearch.value = true;
     showSlider.value = false;
