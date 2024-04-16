@@ -5,9 +5,20 @@
       <h1 style="top:30px;  font-size:2.0em!important; font-weight:100!important; z-index:1000; line-height:inherit;">Grafiska element</h1>
     </div>
     <div class="module-content">
-      I litteraturen finner vi grafiska element i form av figurer, ornament, anfanger och musiknoter. 
-      Med detta verktyg kan vi extrahera dessa element antingen från författare och enskilda verk, eller från all litteratur under ett eller flera årtionden.
-      Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska elementen är sorterade kronologiskt.
+      <p>
+        I litteraturen finner vi grafiska element i form av figurer, ornament, anfanger och musiknoter. 
+        Med detta verktyg kan vi extrahera dessa element antingen från författare och enskilda verk, eller från all litteratur under ett eller flera årtionden.
+        Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska elementen är sorterade kronologiskt.
+      </p>
+      <div v-if="isExpanded">
+        <p id="module-text-smaller">
+          Bilderna har extraherats automatiskt från de olika verken med AI-teknik. AI:n har tränats på på verk från 1800-talet där bilder blivit manuellt utmärkta. Det gör att modellen kan förutse plats och typ av illustrationer och skära ut bilderna digitalt. Manuell granskning har skett efteråt. De närmaste grannarna, alltså de mest lika unika bilderna, beräknas även de fram med en form av AI-teknik.
+        </p>
+        <p id="module-text-smaller">
+          Samtliga bilder har fri upphovsrätt. För att läsa mer om teknikerna som använts, se <a href="https://github.com/gu-gridh/litteraturlabbet-frontend" style="font-style: italic; font-weight: 500;">GitHub</a>.
+        </p>
+      </div>
+        <button id="readmore" @click="toggleContent">{{ isExpanded ? 'Read Less' : 'Read More' }}</button>
     </div>
     <div class="gallery-labels-container">
      <div class="gallery-labels">
@@ -68,9 +79,14 @@ const selectedLabel = ref("Alla");
 const galleryLabels = ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder"];
 const route = useRoute();
 const showOverlay = ref(false);
+const isExpanded = ref(false);
 // let layoutKey = ref(0);
 // let loadedImagesCount = ref(0);
 const store = searchStore();
+
+function toggleContent() {
+  isExpanded.value = !isExpanded.value;
+}
 
 function setLabel(label: string) {
   if (label === selectedLabel.value) {
@@ -375,6 +391,24 @@ watch(store.yearEnd, async () => {
 </script>
 
 <style>
+#readmore {
+  margin-top: 10px;
+  border-radius: 8px;
+  padding: 2px 10px 4px 10px;
+  font-family: "Barlow Condensed", sans-serif !important;
+  font-size: 0.9em;
+  border: none;
+}
+
+#readmore:hover {
+  background-color: rgb(162, 60, 0);
+  color:white;
+}
+
+#module-text-smaller{
+  font-size: 1.0rem;
+}
+
 .image-wrapper {
   overflow: hidden;
   display: block;
