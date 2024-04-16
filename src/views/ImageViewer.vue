@@ -4,7 +4,7 @@
         <div id="ToolbarVertical">
         <!--<div class="close-button NavButton" onclick="history.back()">
           -->
-          <div class="close-button NavButton" @click="unshowSelf()">
+          <div class="close-button NavButton" @click="unshowSelf()"  title="Close">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="-2 -2 28 28" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12" /></svg>     
         </div>
         <!-- <a id="full-page" href="#full-page">
@@ -22,7 +22,7 @@
           <a id="rotate-right" href="#rotate-right">
             <div id="RotateRight" class="NavButton"></div>
           </a>
-          <a id="Download">
+          <a id="Download" title="Download">
             <div id="Download" class="NavButton" @click="downloadImage"></div>
           </a>
         </div>
@@ -122,15 +122,13 @@ export default {
 
     const fetchNeighboursData = async () => {
       const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
-      const response = await fetch(`${baseUrl}?id=${props.imageId}`);
+      const response = await fetch(`${baseUrl}?image=${props.imageId}`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-
-      if (data.results.length > 0 && data.results[0].neighbours) {
-        const neighbours = JSON.parse(data.results[0].neighbours);
-        imageUrls.value = neighbours['0'].map((neighbour: any) => `https://data.dh.gu.se/diana/static/litteraturlabbet/original/${neighbour.match_img}`);
+     if (data.results.length > 0 && data.results[0].neighbours.length > 0) {
+       //TODO
       } else {
         imageUrls.value = [];
         console.log('No neighbors data found');
@@ -185,28 +183,28 @@ export default {
         });
 
       //fetch metadata
-      if (pageId) {
-        const pageResponse = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/page/?id=${pageId.value}&depth=4`);
-        if (!pageResponse.ok) {
-          throw new Error(`HTTP error! Status: ${pageResponse.status}`);
-        }
-        const pageDataResponse = await pageResponse.json();
-        pageData.value = pageDataResponse.results[0];
-        let extraDataResult;
-        if (pageData) {
-          extraDataResult = await fetch(`https://litteraturbanken.se/api/get_work_info?lbworkid=${pageData!.value!.work.lbworkid}`);
-          const extraData = await extraDataResult.json();
-          const p = extraData.data[0].publisher.join(", ");
-          publisher.value = p;
-        }
-        // page fix
-        const pfks = Object.keys(pagefix);
-        let offset = 0;
-        const wid = pageData.value!.work.id+"";
-        if (pfks.indexOf(wid) > -1) {
-          offset = pagefix[wid as keyof typeof pagefix];
-        }
-      }
+      // if (pageId) {
+      //   const pageResponse = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/page/?id=${pageId.value}&depth=4`);
+      //   if (!pageResponse.ok) {
+      //     throw new Error(`HTTP error! Status: ${pageResponse.status}`);
+      //   }
+      //   const pageDataResponse = await pageResponse.json();
+      //   pageData.value = pageDataResponse.results[0];
+      //   let extraDataResult;
+      //   if (pageData) {
+      //     extraDataResult = await fetch(`https://litteraturbanken.se/api/get_work_info?lbworkid=${pageData!.value!.work.lbworkid}`);
+      //     const extraData = await extraDataResult.json();
+      //     const p = extraData.data[0].publisher.join(", ");
+      //     publisher.value = p;
+      //   }
+      //   // page fix
+      //   const pfks = Object.keys(pagefix);
+      //   let offset = 0;
+      //   const wid = pageData.value!.work.id+"";
+      //   if (pfks.indexOf(wid) > -1) {
+      //     offset = pagefix[wid as keyof typeof pagefix];
+      //   }
+      // }
     });
     setNotBusy();
     return {
