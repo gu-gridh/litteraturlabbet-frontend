@@ -51,15 +51,22 @@
       </div>
 
       <!--Gallery display-->
-      <div v-if="imageUrls.length > 0" class="gallery">
-        <MasonryWall :items="imageUrls" class="masonry" :columnWidth="150" :gap="5">
+      <div v-if="relatedImages.length > 0" class="gallery">
+        <MasonryWall :items="relatedImages" class="masonry" :columnWidth="150" :gap="5">
           <template v-slot:default="{ item, index }">
-            <div class="card">
-              <img :src="item" :alt="`Image ${index + 1}`" class="masonry-image" />
+            <div class="gallery__item_related">
+              <div class="item-info">
+                <div class="item-info-meta">
+                  <h5>{{ item.title }}</h5>
+                  <h6>{{ item.author }}</h6>
+                </div>
+              </div>
+              <img :src="item.image" :alt="`Image ${index + 1}`" class="masonry-image" />
             </div>
           </template>
         </MasonryWall>
       </div>
+     
   </div>
 
 </template>
@@ -95,6 +102,7 @@ export default {
     const imageUrls = ref([]);
     const publisher = ref("");
     const offset = 0;
+    const relatedImages = ref([]);
 
      const downloadImage = () => {
         const imageUrl = completeUrl.value;
@@ -122,13 +130,22 @@ export default {
 
     const fetchNeighboursData = async () => {
       const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
-      const response = await fetch(`${baseUrl}?image=${props.imageId}`);
+      const response = await fetch(`${baseUrl}?image_id=${props.imageId}&depth=2`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
+      
      if (data.results.length > 0 && data.results[0].neighbours.length > 0) {
-       //TODO
+        const neighbours = data.results[0].neighbours;
+        console.log(neighbours);
+        imageUrls.value = neighbours.map((neighbour: any) => neighbour.image.file);
+        relatedImages.value = neighbours.map((neighbour: any) => {
+          return {
+            title: neighbour.image.page.work.title,
+            author: neighbour.image.page.work.main_author.name,
+            image: neighbour.image.file,
+          }});
       } else {
         imageUrls.value = [];
         console.log('No neighbors data found');
@@ -143,7 +160,7 @@ export default {
   
     onMounted(async () => {
 
-      await fetchNeighboursData();
+      fetchNeighboursData();
 
       const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${props.imageId}`);
       if (!response.ok) {
@@ -217,7 +234,8 @@ export default {
       labelSv,
       downloadImage,
       completeUrl, 
-      offset
+      offset,
+      relatedImages,
     };
   },
 };
@@ -443,5 +461,22 @@ font-weight:500;
         outline:none!important;
       }
 
+      .gallery__item_related {
+  margin-bottom: 10px;
+  float:left;
+  /* overflow:hidden!important; */
+  -webkit-transition-property: none!important;
+  -moz-transition-property: none!important;
+  -o-transition-property: none!important;
+  transition-property: none!important;
+}
 
+
+.gallery__item_related:hover .item-info {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0px, rgba(0, 0, 0, 0)100%) !important;
+}
+
+.gallery__item_related:hover .item-info-meta {
+  display: block;
+}
 </style>
