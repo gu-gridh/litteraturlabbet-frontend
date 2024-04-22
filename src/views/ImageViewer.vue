@@ -1,72 +1,77 @@
 <template>
   <div class="container">
     <div id="viewer">
-        <div id="ToolbarVertical">
+      <div id="ToolbarVertical">
         <!--<div class="close-button NavButton" onclick="history.back()">
           -->
-          <div class="close-button NavButton" @click="unshowSelf()"  title="Stäng">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="-2 -2 28 28" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12" /></svg>     
+        <div class="close-button NavButton" @click="unshowSelf()" title="Stäng">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="-2 -2 28 28"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </div>
         <!-- <a id="full-page" href="#full-page">
               <div id="FullPage" class="NavButton"></div>
             </a> -->
-          <a id="zoom-in" href="#zoom-in">
-            <div id="ZoomIn" class="NavButton" title="Zooma in"></div>
-          </a>
-          <a id="zoom-out" href="#zoom-out">
-            <div id="ZoomOut" class="NavButton" title="Zooma ut"></div>
-          </a>    
-          <a id="rotate-left" href="#rotate-left">
-            <div id="RotateLeft" class="NavButton" title="Vrid vänster"></div>
-          </a>
-          <a id="rotate-right" href="#rotate-right">
-            <div id="RotateRight" class="NavButton" title="Vrid höger"></div>
-          </a>
-          <a id="Download" title="Download">
-            <div id="Download" class="NavButton" @click="downloadImage" title="Ladda ner"></div>
-          </a>
-        </div>
+        <a id="zoom-in" href="#zoom-in">
+          <div id="ZoomIn" class="NavButton" title="Zooma in"></div>
+        </a>
+        <a id="zoom-out" href="#zoom-out">
+          <div id="ZoomOut" class="NavButton" title="Zooma ut"></div>
+        </a>
+        <a id="rotate-left" href="#rotate-left">
+          <div id="RotateLeft" class="NavButton" title="Vrid vänster"></div>
+        </a>
+        <a id="rotate-right" href="#rotate-right">
+          <div id="RotateRight" class="NavButton" title="Vrid höger"></div>
+        </a>
+        <a id="Download" title="Download">
+          <div id="Download" class="NavButton" @click="downloadImage" title="Ladda ner"></div>
+        </a>
+      </div>
     </div>
-    
-      <!--Metadata display-->
-      <div v-if="pageData" class="metadata">
-        <h3>{{ pageData.work?.title }}</h3>
-        <div class="metadata-item">
-          <p>Författare: <span>{{ pageData.work?.main_author?.name }}</span></p>
-        </div>
-        <div class="metadata-item">
-          <p>Utgiven: <span>{{ pageData.work?.sort_year }}</span></p>
-        </div>
-        <div class="metadata-item">
-          <p>Förlag: <span>{{ publisher }}</span></p>
-        </div>
-          <div class="metadata-item">
-            <p>Beskrivning: <span>{{ labelSv }} på sidan {{ pageData.number }}</span></p>
-          </div>
-        <!--<p>Sida: <span>{{ pageData.number }}</span></p>-->
-        <div class="metadata-item">
-          <p>Länk:<a target="_blank" :href='"https://litteraturbanken.se/f%C3%B6rfattare/"+pageData.work.main_author.lbauthorid+"/titlar/"+pageData.work.modernized_title+"/sida/"+(pageData.number-offset)+"/faksimil"'><span> Originalsida hos LB</span></a></p>
-        </div>
-        
+
+    <!--Metadata display-->
+    <div v-if="pageData" class="metadata">
+      <h3>{{ pageData.work?.title }}</h3>
+      <div class="metadata-item">
+        <p>Författare: <span>{{ pageData.work?.main_author?.name }}</span></p>
+      </div>
+      <div class="metadata-item">
+        <p>Utgiven: <span>{{ pageData.work?.sort_year }}</span></p>
+      </div>
+      <div class="metadata-item">
+        <p>Förlag: <span>{{ publisher }}</span></p>
+      </div>
+      <div class="metadata-item">
+        <p>Beskrivning: <span>{{ labelSv }} på sidan {{ pageData.number }}</span></p>
+      </div>
+      <!--<p>Sida: <span>{{ pageData.number }}</span></p>-->
+      <div class="metadata-item">
+        <p>Länk:<a target="_blank"
+            :href='"https://litteraturbanken.se/f%C3%B6rfattare/" + pageData.work.main_author.lbauthorid + "/titlar/" + pageData.work.modernized_title + "/sida/" + (pageData.number - offset) + "/faksimil"'><span>
+              Originalsida hos LB</span></a></p>
       </div>
 
-      <!--Gallery display-->
-      <div v-if="relatedImages.length > 0" class="gallery">
-        <MasonryWall :items="relatedImages" class="masonry" :columnWidth="150" :gap="5">
-          <template v-slot:default="{ item, index }">
-            <div class="gallery__item_related">
-              <div class="item-info">
-                <div class="item-info-meta">
-                  <h5>{{ item.title }}</h5>
-                  <h6>{{ item.author }}</h6>
-                </div>
-              </div>
-              <img :src="item.image" :alt="`Image ${index + 1}`" class="masonry-image" />
+    </div>
+
+    <!--Gallery display-->
+    <div v-if="loadingMessage" class="loading-message">{{ loadingMessage }}</div>
+    <MasonryWall :items="relatedImages" class="masonry" :columnWidth="150" :gap="5" id="masonrywall">
+
+      <template v-slot:default="{ item, index }">
+        <div class="gallery__item_related" @click="navigate(item.id)">
+          <div class="item-info">
+            <div class="item-info-meta">
+              <h5>{{ item.title }}</h5>
+              <h6>{{ item.author }}</h6>
             </div>
-          </template>
-        </MasonryWall>
-      </div>
-     
+          </div>
+          <img :src="item.image" :alt="`Image ${index + 1}`" class="masonry-image" />
+        </div>
+      </template>
+
+    </MasonryWall>
   </div>
 
 </template>
@@ -78,11 +83,13 @@ interface PageData {
 }
 import { onMounted, ref } from 'vue';
 import OpenSeadragon from 'openseadragon';
-import { setNotBusy } from "../components/Waiter.vue"; 
+import { setBusy, setNotBusy } from "../components/Waiter.vue";
 import { useRoute } from 'vue-router';
 import MasonryWall from "@yeger/vue-masonry-wall";
 import type { Work } from '@/types/litteraturlabbet';
 import { pagefix } from "@/assets/pagefix.json";
+import Masonry from 'masonry-layout';
+import { watch } from 'vue';
 
 export default {
   components: {
@@ -103,101 +110,125 @@ export default {
     const publisher = ref("");
     const offset = 0;
     const relatedImages = ref([]);
+    const loadingMessage = ref("");
+    const currentImageId = ref(props.imageId);
 
-     const downloadImage = () => {
-        const imageUrl = completeUrl.value;
-        if (!imageUrl) {
-          console.error("No image URL provided for download.");
-          return;
-        }
-        
-        fetch(imageUrl)
-          .then(response => response.blob())
-          .then(blob => {
-            const blobUrl = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = blobUrl;
-            link.setAttribute('download', 'image.jpg');
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            window.URL.revokeObjectURL(blobUrl);
-          })
-          .catch(error => {
-            console.error("Failed to download image:", error);
-          });
+    const downloadImage = () => {
+      const imageUrl = completeUrl.value;
+      if (!imageUrl) {
+        console.error("No image URL provided for download.");
+        return;
+      }
+
+      fetch(imageUrl)
+        .then(response => response.blob())
+        .then(blob => {
+          const blobUrl = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = blobUrl;
+          link.setAttribute('download', 'image.jpg');
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.URL.revokeObjectURL(blobUrl);
+        })
+        .catch(error => {
+          console.error("Failed to download image:", error);
+        });
     };
 
     const fetchNeighboursData = async () => {
+      loadingMessage.value = "Hämtar relaterade bilder...";
       const baseUrl = 'https://diana.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
       const response = await fetch(`${baseUrl}?image_id=${props.imageId}&depth=2`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      
-     if (data.results.length > 0 && data.results[0].neighbours.length > 0) {
+      if (data.results.length > 0 && data.results[0].neighbours.length > 0) {
         const neighbours = data.results[0].neighbours;
-        console.log(neighbours);
+
         imageUrls.value = neighbours.map((neighbour: any) => neighbour.image.file);
         relatedImages.value = neighbours.map((neighbour: any) => {
           return {
-            title: neighbour.image.page.work.title,
+            title: neighbour.image.page.work.short_title ?? neighbour.image.page.work.title,
             author: neighbour.image.page.work.main_author.name,
             image: neighbour.image.file,
-          }});
+            id: neighbour.image.id,
+          }
+        });
+        loadingMessage.value = "";
+
+        setTimeout(() => {
+          const masonry = document.getElementById('masonrywall');
+          
+          if (masonry) {
+            const masonryWall = new Masonry(masonry, {
+              itemSelector: '.gallery__item_related',
+              columnWidth: 150,
+              gutter: 5,
+              fitWidth: false,
+            });
+            if (masonryWall) {
+              if (masonryWall.destroy) {
+                console.log('Destroying masonry wall');
+                masonryWall.destroy();
+              }
+              // calling .layout() does not work
+            }
+          }
+        }, 100);
       } else {
         imageUrls.value = [];
+        loadingMessage.value = "Inga relaterade bilder hittades";
         console.log('No neighbors data found');
       }
     };
 
-    const unshowSelf = () =>{
+    const unshowSelf = () => {
       console.log("Unshowing");
       // emit event to parent
       context.emit('unshow');
     }
-  
-    onMounted(async () => {
 
-      fetchNeighboursData();
+    const navigate = (id: string) => {
+      console.log("Navigating to", id);
+      context.emit('navigate', id);
+    }
 
-      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${props.imageId}`);
+    const clean = (str: string) => {
+      // replace &nbsp; with space
+      str = str.replace(/&nbsp;/g, ' ');
+      // replace &amp; with &
+      str = str.replace(/&amp;/g, '&');
+      // replace other html entities
+      str = str.replace(/&#(\d+);/g, function (_match, dec) {
+        return String.fromCharCode(dec);
+      });
+      // remove html tags
+      return str.replace(/<\/?[^>]+(>|$)/g, "");
+    }
+
+    watch(() => props.imageId, async (newVal, oldVal) => {
+      setBusy();
+      if (newVal !== oldVal) {
+        console.log("Image ID changed, fetching new data");
+        fetchNeighboursData();
+        relatedImages.value = [];
+        currentImageId.value = newVal;
+        
+        const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${newVal}`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       const graphicData = await response.json();
-        iiifFile.value = graphicData.results[0].iiif_file;
-        pageId.value = graphicData.results[0].page.id;
-        labelSv.value = graphicData.results[0].label_sv;
-        completeUrl.value = graphicData.results[0].file;
-        if (!viewer) {
-          console.log("No viewer");
-          return;
-        }
-        viewer.value = OpenSeadragon({
-          id: 'viewer',
-          prefixUrl: '/openseadragon/',
-          showNavigationControl: true,
-          showReferenceStrip: true,
-          immediateRender: false,
-          visibilityRatio: 1.0,
-          minZoomImageRatio: 1.0,
-          homeFillsViewer: false,
-          showZoomControl: true,
-          showHomeControl: false,
-          showFullPageControl: true,
-          showNavigator: false,
-          navigatorAutoFade: true,
-          showRotationControl: true,
-          fullPageButton: "full-page",
-          zoomInButton: "zoom-in",
-          zoomOutButton: "zoom-out",
-          rotateLeftButton: "rotate-left",
-          rotateRightButton: "rotate-right",
-          tileSources: `${iiifFile.value}/info.json`,
-        });
+      iiifFile.value = graphicData.results[0].iiif_file;
+      pageId.value = graphicData.results[0].page.id;
+      labelSv.value = graphicData.results[0].label_sv;
+      completeUrl.value = graphicData.results[0].file;
+      viewer.value.open(iiifFile.value + '/info.json');
+
 
       //fetch metadata
       if (pageId) {
@@ -212,16 +243,94 @@ export default {
           extraDataResult = await fetch(`https://litteraturbanken.se/api/get_work_info?lbworkid=${pageData!.value!.work.lbworkid}`);
           const extraData = await extraDataResult.json();
           const p = extraData.data[0].publisher.join(", ");
-          publisher.value = p;
+          publisher.value = clean(p);
         }
         // page fix
         const pfks = Object.keys(pagefix);
         let offset = 0;
-        const wid = pageData.value!.work.id+"";
+        const wid = pageData.value!.work.id + "";
         if (pfks.indexOf(wid) > -1) {
           offset = pagefix[wid as keyof typeof pagefix];
         }
       }
+      
+      setNotBusy();
+      }
+      
+    });
+
+
+    const initComponent = async () =>{
+      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${currentImageId.value}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const graphicData = await response.json();
+      iiifFile.value = graphicData.results[0].iiif_file;
+      pageId.value = graphicData.results[0].page.id;
+      labelSv.value = graphicData.results[0].label_sv;
+      completeUrl.value = graphicData.results[0].file;
+
+
+      if (!viewer) {
+        console.log("No viewer");
+        return;
+      }  
+      viewer.value = OpenSeadragon({
+        id: 'viewer',
+        prefixUrl: '/openseadragon/',
+        showNavigationControl: true,
+        showReferenceStrip: true,
+        immediateRender: true,
+        visibilityRatio: 1.0,
+        minZoomImageRatio: 1.0,
+        homeFillsViewer: false,
+        showZoomControl: true,
+        showHomeControl: false,
+        showFullPageControl: true,
+        showNavigator: false,
+        navigatorAutoFade: true,
+        showRotationControl: true,
+        fullPageButton: "full-page",
+        zoomInButton: "zoom-in",
+        zoomOutButton: "zoom-out",
+        rotateLeftButton: "rotate-left",
+        rotateRightButton: "rotate-right",
+        tileSources: `${iiifFile.value}/info.json`,
+      });
+      
+      
+
+      //fetch metadata
+      if (pageId) {
+        const pageResponse = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/page/?id=${pageId.value}&depth=4`);
+        if (!pageResponse.ok) {
+          throw new Error(`HTTP error! Status: ${pageResponse.status}`);
+        }
+        const pageDataResponse = await pageResponse.json();
+        pageData.value = pageDataResponse.results[0];
+        let extraDataResult;
+        if (pageData) {
+          extraDataResult = await fetch(`https://litteraturbanken.se/api/get_work_info?lbworkid=${pageData!.value!.work.lbworkid}`);
+          const extraData = await extraDataResult.json();
+          const p = extraData.data[0].publisher.join(", ");
+          publisher.value = clean(p);
+        }
+        // page fix
+        const pfks = Object.keys(pagefix);
+        let offset = 0;
+        const wid = pageData.value!.work.id + "";
+        if (pfks.indexOf(wid) > -1) {
+          offset = pagefix[wid as keyof typeof pagefix];
+        }
+      }
+    }
+    onMounted(async () => {
+
+      fetchNeighboursData();
+      initComponent();
+      
     });
     setNotBusy();
     return {
@@ -233,11 +342,15 @@ export default {
       imageUrls,
       labelSv,
       downloadImage,
-      completeUrl, 
+      completeUrl,
       offset,
       relatedImages,
+      loadingMessage,
+      navigate,
+      initComponent,
     };
   },
+
 };
 </script>
 
@@ -245,16 +358,21 @@ export default {
 .gallery {
   padding: 20px;
   z-index: 1000;
-  background-color: #f7f7f7!important;
+  background-color: #f7f7f7 !important;
 }
 
-.masonry{
-  background-color: #f7f7f7!important;
+.masonry {
+  background-color: #f7f7f7 !important;
 }
 
 .masonry-image {
   width: 100%;
   display: block;
+}
+
+.loading-message {
+  padding: 20px;
+  text-align: center;
 }
 
 .container {
@@ -264,11 +382,11 @@ export default {
 
 #viewer {
   width: 100%;
-  height: 70vh; 
+  height: 70vh;
   margin-bottom: 0px;
   user-select: none;
   -webkit-user-select: none;
-  position: relative; 
+  position: relative;
   z-index: 1000;
   overflow: hidden;
 }
@@ -276,7 +394,7 @@ export default {
 .metadata {
   z-index: 1000;
   padding: 10px;
-  padding-left:20px;
+  padding-left: 20px;
   background-color: #f7f7f7;
   border-top: 0px solid #ccc;
   border-radius: 4px;
@@ -284,42 +402,42 @@ export default {
 
 
 .metadata-item {
-float:left;
-margin-right:30px;
+  float: left;
+  margin-right: 30px;
 }
 
 
 .metadata h3 {
-font-weight:500;
-font-size:1.4em;
-line-height:1.0;
-margin-bottom:10px;
+  font-weight: 500;
+  font-size: 1.4em;
+  line-height: 1.0;
+  margin-bottom: 10px;
 }
 
 .metadata p {
-font-size:1.2em;
+  font-size: 1.2em;
 }
 
-.metadata p span{
-color:var(--theme-accent-color-dark);
-font-weight:500;
+.metadata p span {
+  color: var(--theme-accent-color-dark);
+  font-weight: 500;
 }
 
 
 
-.close-button{
-  font-size:16px;
-  text-align:center;
-  cursor:pointer;
+.close-button {
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
   background-color: rgba(35, 35, 35, 0.9);
 }
 
-#navigatorDiv{
-  position:absolute;
-  width:80px;
-  height:80px;
-  margin-top:10px;
-  margin-right:10px;
+#navigatorDiv {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  margin-top: 10px;
+  margin-right: 10px;
 
 }
 
@@ -330,9 +448,11 @@ font-weight:500;
   width: 100%;
   z-index: 1000;
 }
+
 #CenterNav {
   margin: auto;
 }
+
 #ToolbarHorizontal span {
   background-color: rgba(35, 35, 35, 0.6);
   color: white;
@@ -426,9 +546,9 @@ font-weight:500;
   border-radius: 50%;
   width: 35px;
   height: 35px;
-  cursor:pointer;
+  cursor: pointer;
   overflow: hidden;
-  margin-top:10px;
+  margin-top: 10px;
 }
 
 #RotateRight {
@@ -440,7 +560,7 @@ font-weight:500;
   border-radius: 50%;
   width: 35px;
   height: 35px;
-  cursor:pointer;
+  cursor: pointer;
   overflow: hidden;
 }
 
@@ -453,22 +573,23 @@ font-weight:500;
   margin-bottom: 3px;
   outline: none;
 }
+
 .NavButton:hover {
   opacity: 1;
 }
 
 *:focus {
-        outline:none!important;
-      }
+  outline: none !important;
+}
 
-      .gallery__item_related {
+.gallery__item_related {
   margin-bottom: 10px;
-  float:left;
+  float: left;
   /* overflow:hidden!important; */
-  -webkit-transition-property: none!important;
-  -moz-transition-property: none!important;
-  -o-transition-property: none!important;
-  transition-property: none!important;
+  -webkit-transition-property: none !important;
+  -moz-transition-property: none !important;
+  -o-transition-property: none !important;
+  transition-property: none !important;
 }
 
 

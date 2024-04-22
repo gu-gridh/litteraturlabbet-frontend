@@ -54,7 +54,7 @@
   </div>
 
   
-  <ImageViewer v-if="showOverlay" @unshow="deactivateOverlay()" :imageId="selectedImageId"/>
+  <ImageViewer v-if="showOverlay" @unshow="deactivateOverlay" @navigate="parentNavigate" :imageId="selectedImageId"/>
 </template>
 
 <script lang="ts" setup>
@@ -104,6 +104,14 @@ onBeforeMount(() => {
     showOverlay.value = true;
   }
 });
+
+function parentNavigate(id: string) {
+  console.log("Parent navigate: ", id);
+  showOverlay.value = false;
+  selectedImageId.value = id;
+  showOverlay.value = true;
+  history.replaceState(null, '', `/gallery/${id}`);
+}
 
 const fetchData = async () => {
   try {
