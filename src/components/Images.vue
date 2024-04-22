@@ -19,7 +19,7 @@ export default {
     var Y = []
     var thumbnails = []
     var extractions = []
-    var imgLayout = []
+    var imgLayout: any[] = []
 
     for (let image of umapCoords) {
       X.push(image.uX)
@@ -74,9 +74,29 @@ export default {
       activeViewer: 'Gallery',
       galleryLabels: ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder"],
       filteredData: [],
+      loadedImagesCount: 0,
+      layoutKey: 0,
+      selectedIiifFile: '',
+      idForMetaData: '',
+      showImageViewer: false,
+      IiifFileforImageViewer: '',
       data: {},
       query: '',
-      imageGroups: [],
+      // add typings to imageGroups (same as typemap)
+      imageGroups: [] as Array<{
+        type: string;
+        text?: string;
+        items: Array<{
+          id: number | null;
+          page_id: number | null;
+          page_num: number | null;
+          work_id: number | null;
+          lb_id: number | null;
+          lb_title: string | null;
+          title: string | null;
+          year: number | null;}>}>,
+      
+      
       specificOrder: [
         { type: "Anfanger", order: 1 },
         { type: "Illustrationer", order: 2 },
@@ -93,7 +113,7 @@ export default {
         this.$emit('toggle-gallery');
       }
     },
-    async fetchData(query) {
+    async fetchData(query: any) {
       let fixQuery = ''
       if (query === 'Alla') { fixQuery = '' }
       else (fixQuery = query)
@@ -104,7 +124,26 @@ export default {
 
       let typeMap = this.specificOrder.map((order) => ({
         ...order,
-        items: [],
+        // add typing to items
+        items: [] as Array<{
+          id: number | null;
+          page_id: number | null;
+          page_num: number | null;
+          work_id: number | null;
+          lb_id: number | null;
+          lb_title: string | null;
+          title: string | null;
+          year: number | null;
+          author: string | null;
+          author_id: number | null;
+          type: string | null;
+          label: string | null;
+          iiif_file: string | null;
+          img_file: string | null;
+          correct_file: string;
+          lb_link: string;
+        }>,
+        
       }));
       for (let image of data.results) {
         let type = image.type;
@@ -130,7 +169,7 @@ export default {
           lb_link: 'https://litteraturbanken.se/f%C3%B6rfattare/' + image.page.work.main_author.lbauthorid + '/titlar/' + image.page.work.modernized_title + '/sida/' + image.page.number + '/faksimil'
         };
 
-        let typeIndex = typeMap.findIndex((x) => x.label_sv === type);
+        let typeIndex = typeMap.findIndex((x: any) => x.label_sv === type);
         if (typeIndex !== -1) {
           typeMap[typeIndex].items.push(item);
         }
@@ -139,12 +178,12 @@ export default {
       }
       this.imageGroups = Array.from(typeMap.values());
     },
-    imageLoadLog(imageIndex, groupIndex, image) {
+    imageLoadLog(_imageIndex: any, _groupIndex: any, image: any) {
       if (!image.loaded) {
         this.imageLoaded(image);
       }
     },
-    imageLoaded(event) {
+    imageLoaded(_event: any) {
       // used for refreshing the gallery when the images are loaded
       this.loadedImagesCount += 1;
       // Check if all images are loaded
@@ -158,7 +197,7 @@ export default {
       }
     },
   },
-  onImageClicked(iiifFile, id) {
+  onImageClicked(_iiifFile: any, id: any) {
     this.selectedIiifFile = id;
     this.idForMetaData = id;
 
@@ -341,7 +380,7 @@ export default {
   padding: 0px;
   background-color: transparent;
   font-size: 0.1em;
-  //box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.2) !important;
+  /*box-shadow: 0rem 0rem 1rem rgba(0, 0, 0, 0.2) !important;*/
 }
 
 .card img {
