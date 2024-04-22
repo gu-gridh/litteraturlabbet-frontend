@@ -15,7 +15,7 @@
           Bilderna har extraherats automatiskt från de olika verken med AI-teknik. AI:n har tränats på på verk från 1800-talet där bilder blivit manuellt utmärkta. Det gör att modellen kan förutse plats och typ av illustrationer och skära ut bilderna digitalt. Manuell granskning har skett efteråt. De närmaste grannarna, alltså de mest lika unika bilderna, beräknas även de fram med en form av AI-teknik.
         </p>
         <p id="module-text-smaller">
-          Samtliga bilder har fri upphovsrätt. För att läsa mer om teknikerna som använts, se <a href="https://github.com/gu-gridh/litteraturlabbet-frontend" style="font-style: italic; font-weight: 500;">GitHub</a>.
+          Samtliga bilder har fri upphovsrätt. För att läsa mer om teknikerna som använts, se <a href="https://github.com/gu-gridh/litteraturlabbet-frontend" style="font-style: italic; font-weight: 500;" target="_blank">GitHub</a>.
         </p>
       </div>
         <button id="readmore" @click="toggleContent">{{ isExpanded ? 'Läs mindre' : 'Läs mer' }}</button>
