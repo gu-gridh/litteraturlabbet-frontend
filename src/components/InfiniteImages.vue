@@ -42,7 +42,7 @@
       <div v-for="item in images" :key="item.id" class="gallery__item">
         <div class="item-info">
           <div class="item-info-meta">
-            <h5>{{ item.lb_title }}</h5>
+            <h5>{{ item.lb_title ||  item.title}}</h5>
             <h6>{{ item.author }}</h6>
           </div>
         </div>
