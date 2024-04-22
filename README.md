@@ -44,3 +44,8 @@ npm run build
 ```sh
 npm run lint
 ```
+## Images in the gallery
+
+The images shown in the gallery were extracted using a pre-trained Faster R-CNN model with ResNet50 backbone finetuned on a manually labelled subset of the Litterturbanken dataset.  The detected images were cropped with a border and exported.  The class labels are manually corrected where necessary.  
+
+Click on an image in the gallery to see the available metadata about the image and work it belongs to.  Below the metadata there is also a gallery of similar images.  These similar images were calculated by extracting the image embeddings from a ResNet50 model in Fastai with the TensorBoardCallback for input in Spotify's annoy library to calculate the approximate nearest neighbours with angular distance.  Recurring images, those used throughout a work, were excluded using the work id and a match distance threshold.
