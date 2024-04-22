@@ -112,63 +112,63 @@
     ],
     "authors": [
         {
+            "name": "Johan Olof Åberg",
+            "titles": 120,
+            "lbauthorid": "ÅbergJO",
+            "id": 0
+        },
+        {
+            "name": "Pehr Thomasson",
+            "titles": 59,
+            "lbauthorid":"ThomassonP",
+            "id": 0
+        },
+        {
+            "name": "Marie Sophie Schwartz",
+            "titles": 45,
+            "lbauthorid": "SchwartzMS",
+            "id": 0
+        },
+        {
+            "name": "Emilie Flygare-Carlén",
+            "titles": 42,
+            "lbauthorid": "FlygareCarlénE",
+            "id": 0
+        },
+        {
+            "name": "Wilhelmina Stålberg",
+            "titles": 38,
+            "lbauthorid": "StålbergW",
+            "id": 0
+        },
+        {
+            "name": "Zacharias Topelius",
+            "titles": 33,
+            "lbauthorid": "TopeliusZ",
+            "id": 0
+        },
+        {
             "name": "Carl Anton Wetterbergh",
-            "titles": 12,
+            "titles": 28,
             "lbauthorid": "WetterberghCA",
             "id": 0
         },
         {
             "name": "Gustaf Henrik Mellin",
-            "titles": 9,
-            "lbauthorid":"MellinGH",
-            "id": 0
-        },
-        {
-            "name": "Fredrik Cederborgh",
-            "titles": 5,
-            "lbauthorid": "CederborghF",
+            "titles": 27,
+            "lbauthorid": "MellinGH",
             "id": 0
         },
         {
             "name": "Julius Axel Kiellman-Göranson",
-            "titles": 4,
+            "titles": 26,
             "lbauthorid": "Kiellman-GöransonJA",
             "id": 0
         },
         {
-            "name": "Ludvig Teodor Öberg",
-            "titles": 3,
-            "lbauthorid": "ÖbergLT",
-            "id": 0
-        },
-        {
             "name": "Gustaf af Geijerstam",
-            "titles": 3,
+            "titles": 25,
             "lbauthorid": "GeijerstamG",
-            "id": 0
-        },
-        {
-            "name": "Carl Fredrik Ridderstad",
-            "titles": 3,
-            "lbauthorid": "RidderstadCF",
-            "id": 0
-        },
-        {
-            "name": "Richard Lundeblom",
-            "titles": 3,
-            "lbauthorid": "LundeblomR",
-            "id": 0
-        },
-        {
-            "name": "Herman Bjursten",
-            "titles": 2,
-            "lbauthorid": "BjurstenH",
-            "id": 0
-        },
-        {
-            "name": "Pehr Sparre",
-            "titles": 2,
-            "lbauthorid": "SparreP",
             "id": 0
         },
         {
