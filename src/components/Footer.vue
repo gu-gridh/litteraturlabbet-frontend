@@ -5,7 +5,7 @@
       <div class="links-stack border-style">
         <a class="site-link link" href="https://github.com/gu-gridh/litteraturlabbet-frontend" target="_blank">
           Kod och utveckling</a>
-        <a class="site-link link" href="https://www.lb.se"
+        <a class="site-link link" href="http://lb.se"
           target="_blank">Litteraturbanken</a>
       </div>
       <div class="links-stack">
