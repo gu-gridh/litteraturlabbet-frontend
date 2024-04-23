@@ -7,9 +7,7 @@
     </a>
 
       <div class="nav-content">
-        <div class="nav-item"><a href="https://litteraturbanken.se" class="nav-link">LITTERATURBANKEN </a>
-          <div class="nav-ornament" v-bind:class="{active: isActive('/home/')}"></div>
-        </div>
+  
         <div class="nav-item"><router-link to="/about/" class="nav-link title">LITTERATURLABORATORIET</router-link>
           <div class="nav-ornament" v-bind:class="{active: isActive('/about/')}"></div>
         </div>

@@ -1,22 +1,44 @@
 <template>
-  <footer id="footer">
-    <a href="http://www.litteraturbanken.se/">
-      <div id="PartnerLogo">LB</div>
-    </a>
-    <a href="https://dh.gu.se/">
-      <div id="CDHLogo">#GRIDH +</div> 
-    </a> 
-   
-    <!-- <div id="citation"> 
-      Citera portalen: Humlesjö, Siska, Åhlfeldt, Johan, Strinnholm, Anders <i>et al.</i> (2023).<br>
-      <i>Göteborgs jubileum 1923</i>, v.1.0 GRIDH. https://jubileet1923.dh.gu.se/. Accessed [datum]<br>
-      </div> -->
 
-    <div id="legal"> 
-      Bilder: <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.sv">CC0 1.0</a><br>
-      Texter: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+<div id="footer">
+    <div id="developer-info">
+      <div class="links-stack border-style">
+        <a class="site-link link" href="https://github.com/gu-gridh/litteraturlabbet-frontend" target="_blank">
+          Kod och utveckling</a>
+        <a class="site-link link" href="https://www.lb.se"
+          target="_blank">Litteraturbanken</a>
+      </div>
+      <div class="links-stack">
+        <a class="site-link link" href="https://litteraturbanken.se/diktensmuseum/nya-vagar-inledning/" target="_blank">
+          Projektet Nya vägar till det förflutna</a>
+
+      
+          <a class="download-link" href="" target="_blank">
+          Bilder: CC0 1.0 | Texter: CC BY 4.0 </a>
+
+      </div>
     </div>
-  </footer>
+    <div class="partners">
+
+
+      <a href="https://dh.gu.se/">
+        <div class="link GRIDHLogo" id="">GU / GRIDH</div>
+      </a>
+
+      <a href="http://www.litteraturbanken.se">
+        <div class="link PartnerLogo" id="">LB</div>
+      </a>
+
+      
+        <div class="link PartnerLogo" id="">Litteraturlaboratoriet</div>
+    
+
+    </div>
+  </div>
+
+
+ 
+
 </template>
 
 <script setup lang="ts">
@@ -51,38 +73,6 @@ a:visited{
   color:white!important;
 }
 
-#CDHLogo {
-  color:white;
-  float: right;
-  margin-top: 0px;
-  margin-right:10px;
-  width: auto;
-  height: auto;
-  text-align: left;
-  font-weight: 100;
-  font-style: normal;
-  font-size: 57px;
-  line-height: 0.4;
-  padding: 25px 0px 10px 0px;
-  vertical-align: middle;
-}
-
-#PartnerLogo {
-  color:white;
-  float: right;
-  margin-top: 0px;
-  margin-right: 50px;
-  width: auto;
-  height: auto;
-  text-align: left;
-  font-weight: 100;
-  font-style: normal;
-  font-size: 57px;
-  line-height: 0.4;
-  padding: 25px 0px 10px 0px;
-  vertical-align: middle;
-}
-
 #citation {
   float: right;
   margin-right: 20px;
@@ -115,4 +105,125 @@ a:visited{
   margin-top:23px;;
   vertical-align: middle;
 }
+
+
+
+
+  a:link {
+    font-weight: bold;
+    color: white !important;
+    text-decoration: none;
+  }
+
+  a:visited {
+    color: white !important;
+  }
+
+
+
+  .partners {
+    float: right;
+    position: fixed;
+
+    bottom: 0px;
+    right: 0px;
+    height: 80px;
+  }
+
+  .GRIDHLogo {
+    float: right;
+    margin-top: 30px;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 30px;
+    line-height: 0.8;
+    padding: 0px 60px 5px 30px;
+    vertical-align: middle;
+  }
+
+  .PartnerLogo {
+    float: right;
+    margin-top: 30px;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 30px;
+    line-height: 0.8;
+    padding: 0px 30px 5px 30px;
+    vertical-align: middle;
+    border-width: 0px 0.5px 0px 0px;
+    border-color: white;
+    border-style: solid;
+  }
+
+  #developer-info {
+    display: flex;
+    align-items: flex-end;
+    margin-left: 50px;
+    margin-top: 15px;
+    font-size: 1.5em;
+    line-height: 1.4;
+    font-weight: 200;
+  }
+
+  .border-style {
+    border-width: 0 0.5px 0 0px;
+    border-color: white;
+    border-style: dashed;
+    padding-left: 10px;
+    padding-right: 20px;
+
+  }
+
+  .link {
+    color: white;
+  }
+
+  .link:hover {
+    opacity: 0.8;
+  }
+
+  .download-link {
+    background: url("/downloadbuttonwhite.png");
+    background-size: 18px;
+    background-position: 0px 50%;
+    background-repeat: no-repeat;
+    padding-left: 25px;
+    margin-left: 0px;
+  }
+
+  .site-link {
+    background: url("linkbuttonwhite.png");
+    background-size: 18px;
+    background-position: 0px 50%;
+    background-repeat: no-repeat;
+    padding-left: 25px;
+
+  }
+
+  .no-link {
+
+    background-size: 18px;
+    background-position: 0px 50%;
+    background-repeat: no-repeat;
+    padding-left: 25px;
+
+  }
+
+  .links-stack {
+    margin-right: 20px;
+  }
+
+  .links-stack a {
+    display: block;
+  }
+
+  #developer-info a:link {
+    font-weight: 200;
+  }
 </style>

@@ -152,8 +152,8 @@ a:visited {
   cursor:pointer;
   margin-top: 50px;
   margin-left: 50px;
-  width: 250px;
-  height: 250px;
+  width: 150px;
+  height: 150px;
   background-size: contain !important;
   background-repeat: no-repeat;
   z-index: 1;
@@ -168,12 +168,12 @@ a:visited {
 .nav-content {
   float: left;
   border-style: solid;
-  border-width: 0px 0px 0px 1px;
+  border-width: 0px 0px 0px 0px;
   border-color: white;
   height: auto;
   margin-left: -20px;
   color: black;
-  top: 140px;
+  top: 80px;
   font-size: 18px !important;
   padding: 3px 0px 0px 20px !important;
   text-align: left;
