@@ -351,11 +351,11 @@ async function triggerSearch() {
     phraseErrorMessage.value = "Du har redan sökt efter denna fras.";
     return;
   }
-  const searchQueryWords = searchQuery.value.split(" ");
-  if (searchQueryWords.length < 2) {
+  const searchQueryChars = searchQuery.value;
+  if (searchQueryChars.length < 2) {
     setNotBusy();
     errorMessage.value = true;
-    phraseErrorMessage.value = "Sökfrasen måste innehålla minst två ord.";
+    phraseErrorMessage.value = "Sökfrasen måste innehålla minst två bokstäver.";
     return;
   }
   errorMessage.value = false;
