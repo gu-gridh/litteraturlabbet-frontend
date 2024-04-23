@@ -44,7 +44,7 @@
           <div class="item-info-meta">
             <h5>{{ item.lb_title ||  item.title}}</h5>
             <h6>{{ item.author }}</h6>
-            <h7>{{ item.year }}</h7>
+            <h7 v-if="item.label !== 'Ornament' || item.label !== 'Anfanger'">{{ item.year }}</h7>
           </div>
         </div>
           <div class="image-wrapper">
