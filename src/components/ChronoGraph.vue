@@ -10,6 +10,8 @@
         Sortering:
         <span class="chronoline-sorting" @click="sortBy('year')" :class="{'chronosorting-current': sortOrder == 'year'}">År</span>
         <span class="chronoline-sorting" @click="sortBy('author')" :class="{'chronosorting-current': sortOrder == 'author'}">Författare</span>
+        <br>
+        <br>
         <!-- By year -->
         <div v-show="sortOrder == 'year'">
           <div v-for="y in byYear">
@@ -30,9 +32,9 @@
                   <div class="chronoitem-title">
                     {{ d.title }}
                   </div>
-                  <div class="chronoitem-year">
+                <!--   <div class="chronoitem-year">
                     {{ d.imprint_year }}
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
@@ -346,16 +348,17 @@ watch(
 
 .chronoline {
   width: 100%;
-  border-top: 1px solid #ccc;
+
   border-bottom: 1px solid #ccc;
   padding: 10px;
   margin: 20px 0;
 }
 
 .chronoheader {
-  background-color: #f2f2f2;
+  background-color: #f7f7f7;
   padding: 10px;
   margin-bottom: 10px;
+
 }
 
 .chronoitems {
@@ -365,16 +368,15 @@ watch(
 }
 
 .chronoitem {
-  background-color: #fff;
+  background-color: rgb(245,245,245);
   padding: 10px;
   margin-bottom: 10px;
-  margin-right: 2px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  margin-right: 8px;
+  border-radius: 8px;
 }
 
 .chronoitem.chronoitem-current {
-  background-color: #eee;
+  background-color: rgb(230,230,230);
 }
 
 .chronoitem-excluded {
@@ -409,6 +411,8 @@ watch(
 .chronoline-sorting {
   margin-right: 5px;
   margin-left: 5px;
+  cursor:pointer;
+  user-select:none;
 }
 </style>
  
