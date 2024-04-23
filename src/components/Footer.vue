@@ -22,16 +22,16 @@
 
 
       <a href="https://dh.gu.se/">
-        <div class="link GRIDHLogo" id="">GU / GRIDH</div>
+        <div class="GRIDHLogo" id="">GU / GRIDH</div>
       </a>
 
       <a href="http://www.litteraturbanken.se">
-        <div class="link PartnerLogo" id="">LB</div>
+        <div class="PartnerLogo" id="">LB</div>
       </a>
 
-      
-        <div class="link PartnerLogo" id="">Litteraturlaboratoriet</div>
-    
+      <a href="">
+        <div class="PartnerLogo" id="">Litteraturlaboratoriet</div>
+      </a>
 
     </div>
   </div>
@@ -116,6 +116,14 @@ a:visited{
   }
 
   a:visited {
+    color: white !important;
+  }
+
+  a:hover {
+    color: white !important;
+  }
+
+  a:hover {
     color: white !important;
   }
 

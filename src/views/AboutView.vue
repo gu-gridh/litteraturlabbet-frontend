@@ -5,13 +5,13 @@
         <h1>Om verktygen</h1>
       </div>
       <div class="module-content"> 
-        <div style="font-size:1.4em">
+        <div style="font-size:1.3em">
         Här kan du analysera verken från Litteraturbankens 1800-talsmaterial med olika verktyg.
         I dagsläget erbjuder vi verktygen <i>Textåterbruk</i>, för att hitta liknande textstycken,
         samt <i>Grafiska element</i> för att undersöka verkens visuella uttryck. Under projektets gång kommer
         Litteraturlaboratoriet att utvecklas med fler verktyg.
       </div>
-        <div class="about-content" style="font-size:1.1em">
+        <div class="about-content" style="font-size:1.05em">
         Med verktyget <i>Textåterbruk</i> kan du undersöka nätverket av textåterbruk i delar
       av Litteraturbankens material. Textåterbruk, på engelska <i>textual reuse</i>, är ett fenomen där
       textstycken återkommer i flera olika skrivna verk. 
@@ -65,8 +65,6 @@ a:hover {
 .about {
   width: 100%;
 }
-
-
 
 .about-content {
   padding-top: 30px;
