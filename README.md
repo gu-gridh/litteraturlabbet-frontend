@@ -1,7 +1,7 @@
 # litteraturlabbet-frontend
 
 ## Development
-The tools were developed by Gothenburg's Research Infrastructure for Digital Humanities (GRIDH) in collaboration with the Literature Bank. Jonathan Westin and Siska Humlesjö have been project managers. Primary developers have been Victor Wåhlstrand Skärström, Aram Karimi, David Alfter, Ashely Green, Jonathan Westin, Kristin Åkerlund and Tristan Bridge. The Text Recycling tool uses Passim, developed by David Smith, to detect similar phrases.
+The tools were developed by Gothenburg's Research Infrastructure in Digital Humanities (GRIDH) in collaboration with the Literature Bank. Jonathan Westin and Siska Humlesjö have been project managers. Primary developers have been Victor Wåhlstrand Skärström, Aram Karimi, David Alfter, Ashely Green, Jonathan Westin, Kristin Åkerlund and Tristan Bridge. The Text Recycling tool uses Passim, developed by David Smith, to detect similar phrases.
 
 ## Recommended IDE Setup
 
