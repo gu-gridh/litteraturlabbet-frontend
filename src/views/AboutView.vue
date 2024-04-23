@@ -4,7 +4,7 @@
       <div class="module-title">
         <h1>Om verktygen</h1>
       </div>
-      <div class="module-content"> 
+      <div class="module-content" style="margin-top:-20px;"> 
         <div style="font-size:1.3em">
         Här kan du analysera verken från Litteraturbankens 1800-talsmaterial med olika verktyg.
         I dagsläget erbjuder vi verktygen <i>Textåterbruk</i>, för att hitta liknande textstycken,
@@ -12,7 +12,7 @@
         Litteraturlaboratoriet att utvecklas med fler verktyg.
       </div>
         <div class="about-content" style="font-size:1.05em">
-        Med verktyget <i>Textåterbruk</i> kan du undersöka nätverket av textåterbruk i delar
+        Med verktyget <i><b>Textåterbruk</b></i> kan du undersöka nätverket av textåterbruk i delar
       av Litteraturbankens material. Textåterbruk, på engelska <i>textual reuse</i>, är ett fenomen där
       textstycken återkommer i flera olika skrivna verk. 
       <br><br>
@@ -23,8 +23,8 @@
         Verktygen utvecklas av <a href="https://dh.gu.se">Göteborgs Forskningsinfrastruktur för Digital Humaniora
           (GRIDH)</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a>.
         Jonathan Westin och Siska Humlesjö har varit projektledare. Primära utvecklare har varit Victor Wåhlstrand Skärström, Aram Karimi, David Alfter, Ashely Green, Jonathan Westin, Kristin Åkerlund och Tristan
-        Bridge. Första versionen publicerades i oktober 2023. Kodbasen finns att hämta på GitHub: <a
-          href="https://github.com/gu-gridh/">https://github.com/gu-gridh/</a>
+        Bridge. Första versionen publicerades i oktober 2023. Kodbasen finns att hämta på <a
+          href="https://github.com/gu-gridh/litteraturlabbet-frontend">GitHub</a>
         <br> <br>
         Verktyget <i>Textåterbruk</i> använder sig av <i><a href="https://github.com/dasmiq/passim">Passim</a></i>,
         utvecklat av David Smith, för att upptäcka liknande fraser.
@@ -69,7 +69,7 @@ a:hover {
 .about-content {
   padding-top: 30px;
   columns: 2;
-  column-gap: 30px;
+  column-gap: 40px;
 }
 
 @media screen and (max-width: 1350px) {
