@@ -115,18 +115,24 @@ export default {
 
     const downloadImage = () => {
       const imageUrl = completeUrl.value;
+      const author = pageData.value.work?.main_author?.name
+      const work = pageData.value.work?.short_title || pageData.value.work?.title
+      const workCorrect = work.replaceAll(',','-').replaceAll('.','-')
+      const pubYear = pageData.value.work?.sort_year
+      const pageNum = pageData.value.number
+      const downloadName = `${author}_${workCorrect}_${pubYear}_${pageNum}.jpg`
       if (!imageUrl) {
         console.error("No image URL provided for download.");
         return;
       }
 
-      fetch(imageUrl)
+      fetch(downloadName)
         .then(response => response.blob())
         .then(blob => {
           const blobUrl = window.URL.createObjectURL(blob);
           const link = document.createElement('a');
           link.href = blobUrl;
-          link.setAttribute('download', 'image.jpg');
+          link.setAttribute('download', downloadName);
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
