@@ -44,6 +44,7 @@
           <div class="item-info-meta">
             <h5>{{ item.lb_title ||  item.title}}</h5>
             <h6>{{ item.author }}</h6>
+            <h7>{{ item.year }}</h7>
           </div>
         </div>
           <div class="image-wrapper">
@@ -75,8 +76,8 @@ let pageIndex = ref(1);
 let canIncrement = ref(true);
 let infScroll: any;
 const images = ref([] as ImageI[]);
-const selectedLabel = ref("Alla");
-const galleryLabels = ["Alla", "Illustrationer", "Ornament", "Anfanger", "Musiknoter", "Omslagsbilder"];
+const selectedLabel = ref("Illustrationer");
+const galleryLabels = ["Alla", "Omslagsbilder", "Illustrationer", "Musiknoter", "Anfanger", "Ornament"];
 const route = useRoute();
 const showOverlay = ref(false);
 const isExpanded = ref(false);
@@ -585,12 +586,16 @@ watch(store.yearEnd, async () => {
 }
 
 .item-info-meta h5 {
-  font-size:1.2em;
+  font-size:1.1em;
 }
 
 .item-info-meta h6 {
   margin-top: 4px;
-  font-size:1.0em;
+  font-size:0.9em;
+}
+.item-info-meta h7 {
+  margin-top: 4px;
+  font-size:0.8em;
 }
 
 .gallery__item img {
