@@ -3,18 +3,18 @@
 <div id="footer">
     <div id="developer-info">
       <div class="links-stack border-style">
-        <a class="site-link link" href="https://github.com/gu-gridh/litteraturlabbet-frontend" target="_blank">
+        <a class="site-link link" href="https://github.com/gu-gridh/litteraturlabbet-frontend#development" target="_blank">
           Kod och utveckling</a>
         <a class="site-link link" href="http://lb.se"
           target="_blank">Litteraturbanken</a>
       </div>
       <div class="links-stack">
         <a class="site-link link" href="https://litteraturbanken.se/diktensmuseum/nya-vagar-inledning/" target="_blank">
-          Projektet Nya vägar till det förflutna</a>
+          Projektet <i>Nya vägar till det förflutna</i></a>
 
       
           <a class="download-link" href="" target="_blank">
-          Bilder: CC0 1.0 | Texter: CC BY 4.0 </a>
+            Texter: CC BY 4.0 |  Bilder: CC0 1.0</a>
 
       </div>
     </div>
