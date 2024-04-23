@@ -1,6 +1,7 @@
 # litteraturlabbet-frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+## Development
+The tools were developed by Gothenburg's Research Infrastructure for Digital Humanities (GRIDH) in collaboration with the Literature Bank. Jonathan Westin and Siska Humlesjö have been project managers. Primary developers have been Victor Wåhlstrand Skärström, Aram Karimi, David Alfter, Ashely Green, Jonathan Westin, Kristin Åkerlund and Tristan Bridge. The Text Recycling tool uses Passim, developed by David Smith, to detect similar phrases.
 
 ## Recommended IDE Setup
 
@@ -50,5 +51,3 @@ The images shown in the gallery were extracted using a pre-trained Faster R-CNN 
 
 Click on an image in the gallery to see the available metadata about the image and work it belongs to.  Below the metadata there is also a gallery of similar images.  These similar images were calculated by extracting the image embeddings from a ResNet50 model in Fastai with the TensorBoardCallback for input in Spotify's annoy library to calculate the approximate nearest neighbours with angular distance.  Recurring images, those used throughout a work, were excluded using the work id and a match distance threshold.
 
-## Development
-The tools were developed by Gothenburg's Research Infrastructure for Digital Humanities (GRIDH) in collaboration with the Literature Bank. Jonathan Westin and Siska Humlesjö have been project managers. Primary developers have been Victor Wåhlstrand Skärström, Aram Karimi, David Alfter, Ashely Green, Jonathan Westin, Kristin Åkerlund and Tristan Bridge. 
