@@ -29,6 +29,7 @@
           <div id="Download" class="NavButton" @click="downloadImage" title="Ladda ner"></div>
         </a>
       </div>
+
     </div>
 
     <!--Metadata display-->
@@ -52,9 +53,11 @@
             :href='"https://litteraturbanken.se/f%C3%B6rfattare/" + pageData.work.main_author.lbauthorid + "/titlar/" + pageData.work.modernized_title + "/sida/" + (pageData.number - offset) + "/faksimil"'><span>
               Originalsida hos LB</span></a></p>
       </div>
-
     </div>
-
+    <div class="metadata">
+      <h4 id="image-copyright">Alla bilder som visas är licensierade <a
+          href='https://creativecommons.org/publicdomain/zero/1.0/deed.sv' target="_blank"> CC0 1.0</a></h4>
+    </div>
     <!--Gallery display-->
     <div v-if="loadingMessage" class="loading-message">{{ loadingMessage }}</div>
     <MasonryWall :items="relatedImages" class="masonry" :columnWidth="150" :gap="5" id="masonrywall">
@@ -117,7 +120,7 @@ export default {
       const imageUrl = completeUrl.value;
       const author = pageData.value.work?.main_author?.name
       const work = pageData.value.work?.short_title || pageData.value.work?.title
-      const workCorrect = work.replaceAll(',','-').replaceAll('.','-')
+      const workCorrect = work.replaceAll(',', '-').replaceAll('.', '-')
       const pubYear = pageData.value.work?.sort_year
       const pageNum = pageData.value.number
       const downloadName = `${author}_${workCorrect}_${pubYear}_${pageNum}.jpg`
@@ -167,7 +170,7 @@ export default {
 
         setTimeout(() => {
           const masonry = document.getElementById('masonrywall');
-          
+
           if (masonry) {
             const masonryWall = new Masonry(masonry, {
               itemSelector: '.gallery__item_related',
@@ -222,51 +225,51 @@ export default {
         fetchNeighboursData();
         relatedImages.value = [];
         currentImageId.value = newVal;
-        
+
         const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${newVal}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const graphicData = await response.json();
+        iiifFile.value = graphicData.results[0].iiif_file;
+        pageId.value = graphicData.results[0].page.id;
+        labelSv.value = graphicData.results[0].label_sv;
+        completeUrl.value = graphicData.results[0].file;
+        viewer.value.open(iiifFile.value + '/info.json');
+
+
+        //fetch metadata
+        if (pageId) {
+          const pageResponse = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/page/?id=${pageId.value}&depth=4`);
+          if (!pageResponse.ok) {
+            throw new Error(`HTTP error! Status: ${pageResponse.status}`);
+          }
+          const pageDataResponse = await pageResponse.json();
+          pageData.value = pageDataResponse.results[0];
+          let extraDataResult;
+          if (pageData) {
+            extraDataResult = await fetch(`https://litteraturbanken.se/api/get_work_info?lbworkid=${pageData!.value!.work.lbworkid}`);
+            const extraData = await extraDataResult.json();
+            const p = extraData.data[0].publisher.join(", ");
+            publisher.value = clean(p);
+          }
+          // page fix
+          const pfks = Object.keys(pagefix);
+          let offset = 0;
+          const wid = pageData.value!.work.id + "";
+          if (pfks.indexOf(wid) > -1) {
+            offset = pagefix[wid as keyof typeof pagefix];
+          }
+        }
+
+        setNotBusy();
       }
 
-      const graphicData = await response.json();
-      iiifFile.value = graphicData.results[0].iiif_file;
-      pageId.value = graphicData.results[0].page.id;
-      labelSv.value = graphicData.results[0].label_sv;
-      completeUrl.value = graphicData.results[0].file;
-      viewer.value.open(iiifFile.value + '/info.json');
-
-
-      //fetch metadata
-      if (pageId) {
-        const pageResponse = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/page/?id=${pageId.value}&depth=4`);
-        if (!pageResponse.ok) {
-          throw new Error(`HTTP error! Status: ${pageResponse.status}`);
-        }
-        const pageDataResponse = await pageResponse.json();
-        pageData.value = pageDataResponse.results[0];
-        let extraDataResult;
-        if (pageData) {
-          extraDataResult = await fetch(`https://litteraturbanken.se/api/get_work_info?lbworkid=${pageData!.value!.work.lbworkid}`);
-          const extraData = await extraDataResult.json();
-          const p = extraData.data[0].publisher.join(", ");
-          publisher.value = clean(p);
-        }
-        // page fix
-        const pfks = Object.keys(pagefix);
-        let offset = 0;
-        const wid = pageData.value!.work.id + "";
-        if (pfks.indexOf(wid) > -1) {
-          offset = pagefix[wid as keyof typeof pagefix];
-        }
-      }
-      
-      setNotBusy();
-      }
-      
     });
 
 
-    const initComponent = async () =>{
+    const initComponent = async () => {
       const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${currentImageId.value}`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -282,7 +285,7 @@ export default {
       if (!viewer) {
         console.log("No viewer");
         return;
-      }  
+      }
       viewer.value = OpenSeadragon({
         id: 'viewer',
         prefixUrl: '/openseadragon/',
@@ -305,8 +308,8 @@ export default {
         rotateRightButton: "rotate-right",
         tileSources: `${iiifFile.value}/info.json`,
       });
-      
-      
+
+
 
       //fetch metadata
       if (pageId) {
@@ -336,7 +339,7 @@ export default {
 
       fetchNeighboursData();
       initComponent();
-      
+
     });
     setNotBusy();
     return {
@@ -416,6 +419,13 @@ export default {
 .metadata h3 {
   font-weight: 500;
   font-size: 1.4em;
+  line-height: 1.0;
+  margin-bottom: 10px;
+}
+
+.metadata h4 {
+  font-weight: 400;
+  font-size: 1.2em;
   line-height: 1.0;
   margin-bottom: 10px;
 }
