@@ -73,40 +73,6 @@ a:visited{
   color:white!important;
 }
 
-#citation {
-  float: right;
-  margin-right: 20px;
-  width: 500px;
-  height: auto;
-  text-align: right;
-  font-weight: 200;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 1.3;
-  padding-right:20px;
-  margin-top:23px;;
-  vertical-align: middle;
-  border-style:solid;
-  border-width:0 0.5px 0 0px;
-  border-color:white;
-}
-
-#legal{
-  color:white;
-  float: left;
-  margin-left: 50px;
-  width: 200px;
-  height: auto;
-  text-align: left;
-  font-weight: 200;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 1.3;
-  margin-top:23px;;
-  vertical-align: middle;
-}
-
-
 
 
   a:link {
@@ -172,7 +138,7 @@ a:visited{
   #developer-info {
     display: flex;
     align-items: flex-end;
-    margin-left: 50px;
+    margin-left: 40px;
     margin-top: 15px;
     font-size: 1.5em;
     line-height: 1.4;
@@ -207,15 +173,6 @@ a:visited{
 
   .site-link {
     background: url("/linkbuttonwhite.png");
-    background-size: 18px;
-    background-position: 0px 50%;
-    background-repeat: no-repeat;
-    padding-left: 25px;
-
-  }
-
-  .no-link {
-
     background-size: 18px;
     background-position: 0px 50%;
     background-repeat: no-repeat;
