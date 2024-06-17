@@ -14,6 +14,10 @@ function toggleGallery() {
 
 onMounted(() => {
   //setNotBusy();
+  scrollTo({
+    top: 220,
+    behavior: 'smooth'
+  })
 })
 
 onBeforeMount(() => {

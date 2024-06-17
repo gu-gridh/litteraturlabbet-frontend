@@ -52,10 +52,11 @@ import { searchStore } from "@/stores/search";
 import { networkStore } from "@/stores/network";
 import type { Link, Node } from "@/types/network";
 import { unpaginated, list } from "@/services/diana";
-import { onBeforeUnmount, onMounted, watch } from "vue";
+import { onBeforeUnmount, onMounted, ref, watch } from "vue";
 import TopLists from "./TopLists.vue";
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
 import { authors } from "@/assets/authors_years.json";
+import { onBeforeMount } from "vue";
 
 const store = searchStore();
 const dataStore = networkStore();
@@ -67,7 +68,17 @@ const props = defineProps<{
 }>();
 
 const data = (props.author||props.work) ? await fetch() : { nodes: [], links: [] };
-// dataStore.data = data;
+/*
+let data: any;
+if (dataStore.data.nodes && dataStore.data.nodes.length>0) {
+  data = { nodes: [], links: [] };
+  data.nodes = dataStore.data.nodes;
+  data.links = dataStore.data.links;
+} else {
+  data = (props.author||props.work) ? await fetch() : { nodes: [], links: [] };
+  dataStore.data.nodes = data.nodes;
+  dataStore.data.links = data.links;
+}*/
 
 if (props.author) {
   get<Author>(props.author, "author").then((a) => {
@@ -91,6 +102,10 @@ watch(() => store.author, () => {
 // })
 onMounted(() => {
   setNotBusy();
+  scrollTo({
+    top: 220,
+    behavior: "smooth",
+  })
 })
 
 onBeforeUnmount(() => {
@@ -103,6 +118,18 @@ function fShowGraph() {
 function fShowChronograph() {
   showGraph = false;
 }
+
+//onBeforeMount(() => {
+  //if (dataStore.data.nodes && dataStore.data.nodes.length > 0) {
+   // console.log(dataStore.data);
+    //data.value = dataStore.data;
+    //console.log("Reusing data!");
+  //} else {
+   // console.log("Loading data");
+    //data.value = { nodes: [], links: [] };
+    //loadData();
+  //}
+//})
 
 async function fetch() {
   
