@@ -113,6 +113,9 @@ function build(graphData: any, author?: number) {
   const graph = ForceGraph();
   const highlightNodes = new Set();
   const highlightLinks = new Set();
+  if (graphData.nodes.length === 0) {
+    return graph;
+  }
   const data = structuredClone(graphData);
   // Check if node is in the network
   // If not, return empty graph

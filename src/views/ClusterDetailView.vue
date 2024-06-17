@@ -67,6 +67,12 @@ function filterData() {
     for (let i = 0; i < c.segments.length; i++) {
       const segment_i = c.segments[i];
       const gid = segment_i.gid;
+      const author = segment_i.series.main_author.id;
+      if (!store.selfReuse) {
+        if (author === store.author?.id) {
+          continue;
+        }
+      }
       if (seenSegmentIds.has(gid)) {
         c.segments.splice(i, 1);
         i--;

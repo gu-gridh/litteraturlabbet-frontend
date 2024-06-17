@@ -193,16 +193,18 @@ async function fetchClusters(page: number, authorID: number | undefined, workID:
     }
   });
   
-  
-  clusters.value = clusterResults.results.sort((a, b) => b.size - a.size);
-
   // remove clusters where the author is the same as the main author
   if (!store.selfReuse) {
-  clusters.value = clusters.value.filter((c) => {
-    console.log(c.segments[0].series.main_author.id, authorID);
+  clusters.value = clusterResults.results.filter((c) => {
+    //console.log(c.segments[0].series.main_author.id, authorID);
+    
         return c.segments[0].series.main_author.id !== authorID;
   });
   }
+
+  clusters.value = clusterResults.results.sort((a, b) => b.size - a.size);
+
+  
   //clusterCount.value = clusterResults.results.map((c) => c.segments.length).length;
   clusterCount.value = clusterResults.count;
   //setNotBusy();
