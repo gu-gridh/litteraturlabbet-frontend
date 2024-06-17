@@ -27,7 +27,7 @@
         <span class="mouse-pointer" @click="toggleShowWork()">Dölj verk</span>
         <ChronoGraph :author="authorSelected?.id" :work="workSelected?.id"></ChronoGraph>
       </div>
-      <span v-show="!showWorks" class="mouse-pointer" @click="toggleShowWork()">Visa alla verk som ingår i sökningen</span>
+      <span v-show="!showWorks" class="mouse-pointer" @click="toggleShowWork()">Visa vilka verk som ingår i sökningen</span>
     </div>
   </div>
   <div class="card-container">
@@ -273,6 +273,14 @@ onBeforeUnmount(() => {
 .mouse-pointer 
 {
   cursor: pointer;
+  padding:8px 10px;
+  border-radius:8px;
+  background-color:rgb(240,240,240);
+}
+
+.mouse-pointer:hover
+{
+  background-color:rgb(220,220,220);
 }
 .card-container {
   height: 100%;

@@ -3,18 +3,18 @@
 <div id="footer">
     <div id="developer-info">
       <div class="links-stack border-style">
-        <a class="site-link link" href="https://github.com/gu-gridh/litteraturlabbet-frontend" target="_blank">
+        <a class="site-link link" href="https://github.com/gu-gridh/litteraturlabbet-frontend#development" target="_blank">
           Kod och utveckling</a>
-        <a class="site-link link" href="https://www.lb.se"
+        <a class="site-link link" href="http://lb.se"
           target="_blank">Litteraturbanken</a>
       </div>
       <div class="links-stack">
         <a class="site-link link" href="https://litteraturbanken.se/diktensmuseum/nya-vagar-inledning/" target="_blank">
-          Projektet Nya vägar till det förflutna</a>
+          Projektet <i>Nya vägar till det förflutna</i></a>
 
       
           <a class="download-link" href="" target="_blank">
-          Bilder: CC0 1.0 | Texter: CC BY 4.0 </a>
+            Texter: CC BY 4.0 |  Bilder: CC0 1.0</a>
 
       </div>
     </div>
@@ -73,40 +73,6 @@ a:visited{
   color:white!important;
 }
 
-#citation {
-  float: right;
-  margin-right: 20px;
-  width: 500px;
-  height: auto;
-  text-align: right;
-  font-weight: 200;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 1.3;
-  padding-right:20px;
-  margin-top:23px;;
-  vertical-align: middle;
-  border-style:solid;
-  border-width:0 0.5px 0 0px;
-  border-color:white;
-}
-
-#legal{
-  color:white;
-  float: left;
-  margin-left: 50px;
-  width: 200px;
-  height: auto;
-  text-align: left;
-  font-weight: 200;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 1.3;
-  margin-top:23px;;
-  vertical-align: middle;
-}
-
-
 
 
   a:link {
@@ -148,7 +114,7 @@ a:visited{
     font-style: normal;
     font-size: 30px;
     line-height: 0.8;
-    padding: 0px 60px 5px 30px;
+    padding: 0px 50px 5px 30px;
     vertical-align: middle;
   }
 
@@ -172,7 +138,7 @@ a:visited{
   #developer-info {
     display: flex;
     align-items: flex-end;
-    margin-left: 50px;
+    margin-left: 40px;
     margin-top: 15px;
     font-size: 1.5em;
     line-height: 1.4;
@@ -206,16 +172,7 @@ a:visited{
   }
 
   .site-link {
-    background: url("linkbuttonwhite.png");
-    background-size: 18px;
-    background-position: 0px 50%;
-    background-repeat: no-repeat;
-    padding-left: 25px;
-
-  }
-
-  .no-link {
-
+    background: url("/linkbuttonwhite.png");
     background-size: 18px;
     background-position: 0px 50%;
     background-repeat: no-repeat;
