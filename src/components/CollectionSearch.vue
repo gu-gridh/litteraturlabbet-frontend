@@ -28,7 +28,7 @@
           :object="true" valueProp="id" label="formatted_name"
           :options="async (query: string, select$: any) => searchAuthor(query)" :clear-on-select="true"
           :clear-on-search="true" @select="onSelectAuthor1" @clear="onClearAuthor1" ref="authorSelect" />
-
+        <div class="doubleArrow"><img src="../assets/double-arrow.png" style="margin-left:auto; margin-right: auto; display:block;"/></div>
         <div id="author2-select" v-show="showReuseSearch">
           <Multiselect v-model="store.author2" :value="store.author2" mode="single" spellcheck="false"
             :placeholder=dynamicPlaceholder(1) noResultsText="Inga författare matchar sökningen"
@@ -59,6 +59,11 @@
         <input type="search" id="search" class="search-box" name="search" spellcheck="false" placeholder="Fras"
           :value="searchQuery" @keydown="handleBackspace" @input="updateSearchQuery"
           @keydown.enter="triggerSearch" @clear="onClearPhrase" />
+      </div>
+
+      <div class="self-reuse-wrapper" id="self-reuse-check" v-show="showReuseSearch">
+        <input type="checkbox" id="self-reuse" name="self-reuse" v-model="store.selfReuse" />
+        <label for="self-reuse">Inkludera självåterbruk</label>
       </div>
 
       <div class="count-label">
@@ -144,6 +149,7 @@ const imageSearch = ref(false);
 // dynamic placeholder for author select
 // return "Författare" if in gallery, "Författare #1" if in reuse
 function dynamicPlaceholder(index: number) {
+  /*
   if (index === 0) {
     if (route.path.startsWith('/gallery')) {
       return "Författare";
@@ -152,6 +158,7 @@ function dynamicPlaceholder(index: number) {
   } else if (index === 1) {
     return "Författare #2";
   }
+  */
   return "Författare";
 }
 // initialize an empty author object with the given id
@@ -272,6 +279,7 @@ function handleBackspace(event: KeyboardEvent) {
 }
 
 function updateSearchQuery(e: any) {
+  store.phraseResults = undefined;
   const value = e["target"]["value"];
   errorMessage.value = false;
   store.author = undefined;
@@ -725,6 +733,20 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   pointer-events: all;
 }
 
+input[type="checkbox"] {
+  margin-top: 1rem;
+  margin-left: 2rem;
+  margin-right: 2.5rem;
+  font-size: 2em;
+}
+
+#self-reuse-check {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  margin-right: 2.5rem;
+  font-size: 1.2em;
+}
+
 .slider-container {
   margin-left: 1rem;
 }
@@ -800,6 +822,11 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   position: relative;
   margin-left: -00px;
   overflow: hidden !important;
+}
+
+.doubleArrow {
+  align-content: center;
+  margin-bottom: -10px;
 }
 
 button {

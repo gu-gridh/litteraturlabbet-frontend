@@ -19,10 +19,12 @@ import type { Segment } from "@/types/litteraturlabbet";
 import { setNotBusy } from "./Waiter.vue";
 import { etext_ids } from "@/assets/etext_ids.json";
 import { pagefix } from "@/assets/pagefix.json";
+import { Fuzzy } from "@nexucis/fuzzy";
 
 const props = defineProps<{
   segment: Segment;
   lblink?: string;
+  otherTarget?: string;
 }>();
 
 const author = props.segment.series.main_author;
@@ -31,11 +33,41 @@ const page = props.segment.page;
 let text = props.segment.page.text;
 let lblink = "";
 if (props.segment) {
-  const target = props.segment.text;
+  console.log(props.otherTarget);
+  const hasOtherTarget = props.otherTarget && props.otherTarget.length > 0;
+  const target = hasOtherTarget?props.otherTarget as string:props.segment.text;
   text = text.replace(
     target,
     `<span class="highlight">${target}</span>`
   );
+  if (hasOtherTarget) {
+    let index = text.toLowerCase().indexOf(target.toLowerCase());
+    
+    if (index === -1) {
+      console.log("Phrase not found in segment text");
+      index = text.indexOf(target.split(" ")[0]);
+      if (index === -1) {
+        index = 0;
+      }
+    }
+    // set the text to include the phrase and up to 50 characters before and 250 characters after the phrase
+    text = text.slice(Math.max(0,index-50), Math.min(index+250, text.length));
+
+    // highlight phrase in text
+    const fuz = new Fuzzy({pre: "<span class='highlight'>", post: "</span>"});
+    
+    // Original highlighter
+
+    text = text.replace(
+        target,
+        `<span class="highlight">${target}</span>`
+    );
+    // v3 better highlighter
+    const matches = fuz.filter(target, [text]);
+    if (matches.length > 0) {
+      text = matches[0].rendered;
+    }
+  }
   const isEtext = etext_ids.indexOf(work.id) > -1;
   const wid = work.id+"";
   const pfks = Object.keys(pagefix);

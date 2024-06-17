@@ -1,5 +1,6 @@
 <template>
   <br/>
+  <!--
         <div class="change-order">
         <label for="order">Sortera efter:</label>
         <select class="dropdown" v-model="order" @change="update()">
@@ -7,8 +8,9 @@
           <option value="author">Författare</option>
         </select>
       </div>
-
+-->
     <div class="card-container">
+<!--
       <div class="littlabbinfo label-color" style="font-size:1.2em; margin-top:4px;">Klicka på ett stycke för att se hela texten hos Litteraturbanken.se</div>
       <div v-if="numExcluded > 0">
         <div class="exclude-label label-color">
@@ -16,10 +18,16 @@
           exkludera<span v-if="numExcluded === 1">t</span><span v-if="numExcluded > 1">de</span> på grund av att de<span v-if="numExcluded === 1">t</span> faller utanför vald tidsperiod.
         </div>
       </div>
+      -->
+      <div class="title-container page-container">
+        <h1 class="title">Frassökning: {{ props.phrase }}</h1>
+      Vi hittar frasen <i>{{ props.phrase }}</i> i <b>{{ segmentClusters.size }}</b> återbruk.
+      </div>
       <div v-if="isEmpty" class="page-container">
           <b>Inga träffar för frasen <i>{{ props.phrase }}</i>.</b>
         </div>
         <div v-else>
+          <!--
         <phrase-card 
       v-for="segment in segments"
       :segment="segment"
@@ -27,6 +35,12 @@
       :key="segment.id"
     >
     </phrase-card>
+    -->
+    <cluster-phrase-card
+      v-for="segmentCluster in segmentClusters"
+      :cluster="segmentCluster"
+      :phrase="props.phrase"
+      ></cluster-phrase-card>
   </div>
     </div>
   </template>
@@ -34,11 +48,13 @@
   <script setup lang="ts">
   import { onBeforeUnmount, onMounted, watch } from 'vue';
   import { search2 } from "@/services/diana";
-  import PhraseCard from "@/components/PhraseCard.vue";
   import { ref } from "vue";
   import Fuse from "fuse.js";
+  // import cluster Phrase card
+  import ClusterPhraseCard from "@/components/ClusterPhraseCard.vue";
 import { setBusy, setNotBusy } from '@/components/Waiter.vue';
 import { searchStore } from '@/stores/search';
+import { onBeforeMount } from 'vue';
 
 
   const isEmpty = ref(false);
@@ -47,15 +63,16 @@ import { searchStore } from '@/stores/search';
   const props = defineProps<{
     phrase: string;
   }>();
-
+  const segmentClusters = ref<Map<number, any[]>>(new Map());
+  const originalSegments = ref<any[]>([]);
   const order = ref<string>("year");
-
+  const sumResults = ref<number>(0);
   const params = {
     phrase: props.phrase,
     depth: 4
   }
   let segments = ref<any[]>([]);
-
+  async function loadData() {
   const data = await search2<any>(params, "phrase_search");
   if (data.count === 0) {
     console.log("No results");
@@ -64,7 +81,7 @@ import { searchStore } from '@/stores/search';
     isEmpty.value = false;
   }
   
-  let originalSegments = data.results;
+  originalSegments.value = data.results;
 
   const options = {
     isCaseInsensitive: true,
@@ -78,14 +95,14 @@ import { searchStore } from '@/stores/search';
   // Perform additional client-side filtering
   // to exclude potential cluster matches
   // that are not exact matches
-  const fuse = new Fuse(originalSegments, options);
+  const fuse = new Fuse(originalSegments.value, options);
   const result = fuse.search(props.phrase);
   let nseg: any[] = [];
   result.forEach((r) => {
     nseg.push(r.item);
   });
   
-  originalSegments = nseg;
+  originalSegments.value = nseg;
   
   segments.value = nseg.filter((s) => {
     if (store.yearStart) {
@@ -116,13 +133,36 @@ import { searchStore } from '@/stores/search';
     return a.series.imprint_year - b.series.imprint_year;
   });
   
+  // aggregate results by cluster
+  
+
+  function aggregateResults() {
+    let clusters = new Map();
+    for (let i = 0; i < originalSegments.value.length; i++) {
+      const segment_i = originalSegments.value[i];
+      if (segment_i.cluster) {
+        if (clusters.has(segment_i.cluster.id)) {
+          clusters.get(segment_i.cluster.id).push(segment_i);
+        } else {
+          clusters.set(segment_i.cluster.id, [segment_i]);
+        }
+      }
+    }
+    return clusters;
+  }
+  
+  segmentClusters.value = aggregateResults();
+  // sort segment clusters by size, descending
+  segmentClusters.value = new Map([...segmentClusters.value.entries()].sort((a, b) => b[1].length - a[1].length));
+  store.phraseResults = segmentClusters.value;
+  }
 
   function filterData() {
-    const s = originalSegments;
+    const s = originalSegments.value;
     let includedSegments = [];
     let excludedSegments = [];
-    for (let i = 0; i < originalSegments.length; i++) {
-      const segment_i = originalSegments[i];
+    for (let i = 0; i < originalSegments.value.length; i++) {
+      const segment_i = originalSegments.value[i];
       if (store.yearStart) {
         if (store.yearEnd) {
           if (segment_i.series.imprint_year >= store.yearStart && segment_i.series.imprint_year <= store.yearEnd) {
@@ -231,12 +271,19 @@ import { searchStore } from '@/stores/search';
   }
 
   onBeforeUnmount(() => {
-    console.log("OBU");
+    
     //setBusy();
   });
 
+  onBeforeMount(() => {
+    if (!store.phraseResults) {
+      loadData();
+    } else {
+      segmentClusters.value = store.phraseResults;
+    }
+  });
   onMounted(() => {
-    setNotBusy();
+    //setNotBusy();
   });
 
   watch(

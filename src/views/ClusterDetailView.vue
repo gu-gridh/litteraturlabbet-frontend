@@ -30,7 +30,7 @@
         </div>
       </div>
       <div v-else>
-          <segment-card v-for="segment in segments" v-bind:key="segment.id" :segment="segment"></segment-card>
+          <segment-card v-for="segment in segments" v-bind:key="segment.id" :segment="segment" :other-target="otherTarget"></segment-card>
       </div>
     
   </div>
@@ -46,7 +46,8 @@ import type {
 } from "@/types/litteraturlabbet";
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
 import { searchStore } from "@/stores/search";
-
+import { useRoute } from "vue-router";
+const route = useRoute();
 const props = defineProps<{
   id: string;
 }>();
@@ -55,6 +56,7 @@ const cluster = ref<Cluster>();
 let segments = ref<Array<Segment>>();
 let order = ref<string>("year");
 const numExcluded = ref<number>(0);
+const otherTarget = ref<string>("");
 
 function filterData() {
   const numId = parseInt(props.id);
@@ -129,7 +131,15 @@ function filterData() {
   });
 }
 
-onBeforeMount(() => filterData());
+onBeforeMount(() => {
+  filterData();
+  // if route contains phrase parameter, highlight the phrase in the text
+  if (route.params.phrase) {
+    console.log("Phrase: " + route.params.phrase);
+    otherTarget.value = route.params.phrase+"";
+  }
+  
+});
 
 function customBack() {
   setBusy();
