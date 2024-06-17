@@ -90,6 +90,10 @@ function toggleContent() {
 }
 
 function setLabel(label: string) {
+  scrollTo({
+    top: 220,
+    behavior: 'smooth'
+  });
   if (label === selectedLabel.value) {
     return;
   }

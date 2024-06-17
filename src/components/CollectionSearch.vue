@@ -28,7 +28,7 @@
           :object="true" valueProp="id" label="formatted_name"
           :options="async (query: string, select$: any) => searchAuthor(query)" :clear-on-select="true"
           :clear-on-search="true" @select="onSelectAuthor1" @clear="onClearAuthor1" ref="authorSelect" />
-        <div class="doubleArrow"><img src="../assets/double-arrow.png" style="margin-left:auto; margin-right: auto; display:block;"/></div>
+        <div class="doubleArrow" v-if="showReuseSearch"><img src="../assets/double-arrow.png" style="margin-left:auto; margin-right: auto; display:block;"/></div>
         <div id="author2-select" v-show="showReuseSearch">
           <Multiselect v-model="store.author2" :value="store.author2" mode="single" spellcheck="false"
             :placeholder=dynamicPlaceholder(1) noResultsText="Inga författare matchar sökningen"
@@ -295,12 +295,20 @@ function updateSearchQuery(e: any) {
 
 // Search functions    
 function triggerImageSearch() {
+  scrollTo({
+    top: 220,
+    behavior: 'smooth'
+  });
   console.log("Image search");
   // emit event
   store.triggerImageSearch = true;
 } 
 
 async function triggerSearch1() {
+  scrollTo({
+    top: 220,
+    behavior: 'smooth'
+  });
   setBusy();
   if (store.author?.id === currentAuthor.value && store.author2?.id === currentAuthor2.value) {
     setNotBusy();
@@ -316,6 +324,10 @@ async function triggerSearch1() {
 }
 
 async function triggerSearch2() {
+  scrollTo({
+    top: 220,
+    behavior: 'smooth'
+  });
   setBusy();
   if (!store.author) {
     setNotBusy();
@@ -734,16 +746,16 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 }
 
 input[type="checkbox"] {
-  margin-top: 1rem;
+  margin-top: 0rem;
   margin-left: 2rem;
-  margin-right: 2.5rem;
+  margin-right: 0.5rem;
   font-size: 2em;
 }
 
 #self-reuse-check {
-  margin-top: 1rem;
-  margin-left: 1rem;
-  margin-right: 2.5rem;
+  margin-top: 0.0rem;
+  margin-left: 0.5rem;
+  margin-right: 2.0rem;
   font-size: 1.2em;
 }
 
@@ -785,13 +797,13 @@ input[type="checkbox"] {
   border-color: var(--theme-accent-color);
   border-width: 1px 0 0 0;
   margin-top: 2rem;
-  padding: 2rem 0 0 0;
+  padding: 1.5rem 0 0 0;
 }
 
 .button-container {
   width: 100%;
   float: left;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.0rem;
 }
 
 .search-button {
