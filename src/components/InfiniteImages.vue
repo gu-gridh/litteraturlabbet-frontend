@@ -5,20 +5,20 @@
       <h1 style="top:30px;  font-size:2.0em!important; font-weight:100!important; z-index:1000; line-height:inherit;">Grafiska element</h1>
     </div>
     <div class="module-content">
+      <div v-if="!isExpanded">
       <p>
         I litteraturen finner vi grafiska element i form av figurer, ornament, anfanger och musiknoter. 
         Med detta verktyg kan vi extrahera dessa element antingen från författare och enskilda verk, eller från all litteratur under ett eller flera årtionden.
         Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska elementen är sorterade kronologiskt.
       </p>
+    </div>
       <div v-if="isExpanded">
-        <p id="module-text-smaller">
+        <p>
           Bilderna har extraherats automatiskt från de olika verken med AI-teknik. AI:n har tränats på på verk från 1800-talet där bilder blivit manuellt utmärkta. Det gör att modellen kan förutse plats och typ av illustrationer och skära ut bilderna digitalt. Manuell granskning har skett efteråt. De närmaste grannarna, alltså de mest lika unika bilderna, beräknas även de fram med en form av AI-teknik.
-        </p>
-        <p id="module-text-smaller">
           Samtliga bilder har fri upphovsrätt. För att läsa mer om teknikerna som använts, se <a href="https://github.com/gu-gridh/litteraturlabbet-frontend" style="font-style: italic; font-weight: 500;" target="_blank">GitHub</a>.
         </p>
       </div>
-        <button id="readmore" @click="toggleContent">{{ isExpanded ? 'Läs mindre' : 'Läs mer' }}</button>
+        <button id="readmore" @click="toggleContent">{{ isExpanded ? 'Om verktyget' : 'Om metoden' }}</button>
     </div>
     <div class="gallery-labels-container">
      <div class="gallery-labels">
@@ -404,14 +404,76 @@ watch(store.yearEnd, async () => {
 </script>
 
 <style>
+
+  .module-content{
+    height:150px;
+    font-size: 1.1em;
+  }
+
+  .gallery {
+  padding-top:0px;
+  max-height: calc(100% - 35px);
+  overflow-y: auto;
+  max-width: 100%; 
+  margin: 0 auto; 
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 #readmore {
   margin-top: 10px;
-  border-radius: 8px;
-  padding: 2px 10px 4px 10px;
+  border-radius: 4px;
+  padding: 4px 10px 4px 10px;
   font-family: "Barlow Condensed", sans-serif !important;
   font-size: 0.9em;
   border: none;
 }
+
+  @media screen and (min-width: 1500px) {
+    .module-content{
+    height:140px;
+  }
+  .gallery {
+  max-height: calc(100% - 25px);
+}
+}
+
+  @media screen and (max-width: 1250px) {
+    .module-content{
+    font-size: 1.0em;
+
+  }
+}
+
+@media screen and (max-width: 1200px) {
+    .module-content{
+    height:170px;
+  }
+  .gallery {
+  max-height: calc(100% - 55px);
+}
+
+#readmore {
+display:none;
+}
+}
+
+@media screen and (max-width: 900px) {
+    .module-content{
+    height:280px;
+    font-size:1.5em;
+    text-align:left;
+  }
+  .gallery {
+  max-height: calc(100% - 100px);
+}
+
+#readmore {
+display:block;
+}
+}
+  
+
 
 #readmore:hover {
   background-color: rgb(162, 60, 0);
@@ -451,22 +513,21 @@ watch(store.yearEnd, async () => {
   z-index:100!important;
 }
 
-@media (max-height: 750px) {
+@media (max-height: 850px) {
   #gallery-container {
-      height:calc(100% + 500px);
+    padding-bottom:40px;
+    height:calc(690px);
   }
-}
 
-@media (max-height: 500px) {
-  #gallery-container {
-      height:calc(100% + 650px);
-  }
+  .gallery {
+  padding-top:0px;
+  max-height: calc(465px);
+  overflow-y: auto;
+  max-width: 100%; 
+  margin: 0 auto; 
+  user-select: none;
+  -webkit-user-select: none;
 }
-
-@media (max-height: 300px) {
-  #gallery-container {
-      height:calc(100% + 800px);
-  }
 }
 
 .no-images{
@@ -475,15 +536,7 @@ watch(store.yearEnd, async () => {
   margin-top:10%;
 }
 
-.gallery {
-  padding-top:0px;
-  max-height: calc(100%);
-  overflow-y: auto;
-  max-width: 100%; 
-  margin: 0 auto; 
-  user-select: none;
-  -webkit-user-select: none;
-}
+
 
 .gallery::-webkit-scrollbar {
   display: none;

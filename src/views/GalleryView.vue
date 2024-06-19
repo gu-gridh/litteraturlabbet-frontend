@@ -35,7 +35,7 @@ onBeforeMount(() => {
         ref="imageComponent"
         @toggle-gallery="toggleGallery">
       </ImageDisplays>
-
+      <div class="paddy">  </div>
   </div>
 
 </template>
@@ -43,8 +43,18 @@ onBeforeMount(() => {
 <style scoped>
 
 .gallery-area{
+  margin-top:0px;
+  max-height:calc(82vh);
   min-height:calc(82vh);
 }
+
+@media screen and (max-width: 900px) {
+  .gallery-area{
+    max-height:auto;
+    min-height:100vh;
+}
+}
+
 .galleryLabel {
   display: flex;
   justify-content: left;
