@@ -68,6 +68,8 @@
 
       <div class="count-label">
         <p>Totalt {{ workCount }} verk i samlingen.</p>
+        <div class="cc-notice" v-if="imageSearch">Alla bilder som visas är licensierade <a
+          href='https://creativecommons.org/publicdomain/zero/1.0/deed.sv' target="_blank"> CC0 1.0</a></div>
       </div>
 
       <div class="button-container">
@@ -83,6 +85,7 @@
             <div class="search-button2" @click="triggerSearch2">Sök</div>
           </div>
         </div>
+        
         <div v-if="hasQuery">
           <div class="search-button2" @click="triggerSearch">Sök
           </div>
@@ -93,9 +96,11 @@
             <span class="errormessage">{{ phraseErrorMessage }}</span>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+    
   </div>
+  
 </template>
 
 <script setup lang="ts">
@@ -695,6 +700,17 @@ a:visited {
   text-decoration: none;
   color: white;
   text-decoration-style: none;
+}
+
+.cc-notice a:link{
+  color: black;
+  text-decoration: none;
+}
+
+
+.cc-notice a:visited{
+  color: black;
+  text-decoration: none;
 }
 
 .multiselect-input {

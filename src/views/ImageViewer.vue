@@ -54,10 +54,10 @@
               Originalsida hos LB</span></a></p>
       </div>
     </div>
-    <div class="metadata">
-      <h4 id="image-copyright">Alla bilder som visas är licensierade <a
-          href='https://creativecommons.org/publicdomain/zero/1.0/deed.sv' target="_blank"> CC0 1.0</a></h4>
-    </div>
+     <!-- <div class="metadata">
+     <h4 id="image-copyright">Alla bilder som visas är licensierade <a
+          href='https://creativecommons.org/publicdomain/zero/1.0/deed.sv' target="_blank"> CC0 1.0</a></h4> 
+    </div>-->
     <!--Gallery display-->
     <div v-if="loadingMessage" class="loading-message">{{ loadingMessage }}</div>
     <MasonryWall :items="relatedImages" class="masonry" :columnWidth="150" :gap="5" id="masonrywall">
@@ -407,6 +407,9 @@ export default {
   background-color: #f7f7f7;
   border-top: 0px solid #ccc;
   border-radius: 4px;
+  height:110px;
+  overflow:hidden;
+  overflow-y:auto;
 }
 
 
