@@ -369,7 +369,7 @@ watch(
 
 .chronoitem {
   background-color: rgb(235,235,235);
-  padding: 10px;
+  padding: 8px 15px;
   margin-bottom: 10px;
   margin-right: 8px;
   border-radius: 8px;
