@@ -376,7 +376,8 @@ watch(
 }
 
 .chronoitem.chronoitem-current {
-  background-color: rgb(230,230,230);
+  background-color: var(--theme-accent-color);
+  color:white;
 }
 
 .chronoitem-excluded {
