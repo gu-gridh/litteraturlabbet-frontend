@@ -387,11 +387,12 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
+  justify-content:flex-start;
 }
 
 #viewer {
   width: 100%;
-  height: 70vh;
+height:60vh;
   margin-bottom: 0px;
   user-select: none;
   -webkit-user-select: none;
@@ -404,12 +405,10 @@ export default {
   z-index: 1000;
   padding: 10px;
   padding-left: 20px;
-  background-color: #f7f7f7;
+  background: linear-gradient(rgba(247,247,247,1) 0%, rgba(255,255,255,1) 100%);
   border-top: 0px solid #ccc;
   border-radius: 4px;
-  height:110px;
-  overflow:hidden;
-  overflow-y:auto;
+    height:auto;
 }
 
 
