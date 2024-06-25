@@ -511,8 +511,8 @@
 
   #Download {
     margin-top: 20px;
-    background: url(../assets/openseadragon/downbuttonwhite.png);
-    background-size: 100%;
+    background: url(../assets/openseadragon/downloadbuttonwhite.png);
+    background-size: 90%;
     background-repeat: no-repeat;
     background-position: center;
     background-color: rgba(35, 35, 35, 0.9);
