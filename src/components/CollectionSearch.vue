@@ -28,7 +28,9 @@
           :object="true" valueProp="id" label="formatted_name"
           :options="async (query: string, select$: any) => searchAuthor(query)" :clear-on-select="true"
           :clear-on-search="true" @select="onSelectAuthor1" @clear="onClearAuthor1" ref="authorSelect" />
-        <div class="doubleArrow" v-if="showReuseSearch"><img src="../assets/double-arrow.png" style="margin-left:auto; margin-right: auto; display:block;"/></div>
+        <div class="doubleArrow" v-if="showReuseSearch">
+          <!-- <img src="../assets/double-arrow.png" style="margin-left:auto; margin-right: auto; display:block;"/> -->
+        </div>
         <div id="author2-select" v-show="showReuseSearch">
           <Multiselect v-model="store.author2" :value="store.author2" mode="single" spellcheck="false"
             :placeholder=dynamicPlaceholder(1) noResultsText="Inga författare matchar sökningen"
@@ -154,17 +156,16 @@ const imageSearch = ref(false);
 // dynamic placeholder for author select
 // return "Författare" if in gallery, "Författare #1" if in reuse
 function dynamicPlaceholder(index: number) {
-  /*
+  
   if (index === 0) {
     if (route.path.startsWith('/gallery')) {
       return "Författare";
     }
-    return "Författare #1";
+    return "Författare";
   } else if (index === 1) {
-    return "Författare #2";
+    return "Sök återbruk mellan två författare";
   }
-  */
-  return "Författare";
+  
 }
 // initialize an empty author object with the given id
 function initAuthorId(id: number) {
@@ -853,8 +854,14 @@ input[type="checkbox"] {
 }
 
 .doubleArrow {
+  margin-top:4px;
+  margin-bottom:-6px;
+  height:20px;
+  width:45px;
   align-content: center;
-  margin-bottom: -10px;
+  border-width:0px 1.5px 0px 0px;
+  border-style:dotted;
+  border-color:var(--theme-accent-color);
 }
 
 button {
