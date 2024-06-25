@@ -387,7 +387,6 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  justify-content:flex-start;
 }
 
 #viewer {
@@ -408,7 +407,7 @@ height:60vh;
   background: linear-gradient(rgba(247,247,247,1) 0%, rgba(255,255,255,1) 100%);
   border-top: 0px solid #ccc;
   border-radius: 4px;
-    height:auto;
+  height:auto;
 }
 
 
