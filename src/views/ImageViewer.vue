@@ -414,7 +414,7 @@
   }
 
   .related-gallery{
-    height:100px;
+    height:122px;
   }
 
 
