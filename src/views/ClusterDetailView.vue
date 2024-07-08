@@ -30,7 +30,11 @@
         </div>
       </div>
       <div v-else>
-          <segment-card v-for="segment in segments" v-bind:key="segment.id" :segment="segment" :other-target="otherTarget"></segment-card>
+          I verk av andra författare finns {{ segmentsOther?.length }} likartade textstycken.
+          <segment-card v-for="segment in segmentsOther" v-bind:key="segment.id" :segment="segment" :other-target="otherTarget"></segment-card>
+          <hr/>
+          I verk av <b>{{ store.author?.name }}</b> finns {{ segmentsSelf?.length }} textstycken.
+          <segment-card v-for="segment in segmentsSelf" v-bind:key="segment.id" :segment="segment" :other-target="otherTarget"></segment-card>
       </div>
     
   </div>
@@ -43,6 +47,7 @@ import SegmentCard from "@/components/SegmentCard.vue";
 import type {
   Segment,
   Cluster,
+Author,
 } from "@/types/litteraturlabbet";
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
 import { searchStore } from "@/stores/search";
@@ -57,6 +62,8 @@ let segments = ref<Array<Segment>>();
 let order = ref<string>("year");
 const numExcluded = ref<number>(0);
 const otherTarget = ref<string>("");
+const segmentsSelf = ref<Array<Segment>>();
+const segmentsOther = ref<Array<Segment>>();
 
 function filterData() {
   const numId = parseInt(props.id);
@@ -134,7 +141,27 @@ function filterData() {
       }
       return 0;
     });
+    let segmentsOthers: Segment[] | undefined = [];
+  let segmentsCurrent: Segment[] | undefined = [];
+  segments.value?.forEach((segment) => {
+    console.log(segment.series.main_author);
+    console.log(store.author?.id);
+    if (segment.series.main_author.id === store.author?.id) {
+      segmentsCurrent.push(segment);
+    } else {
+      segmentsOthers.push(segment);
+    }
+    
   });
+  segmentsSelf.value = segmentsCurrent;
+  segmentsOther.value = segmentsOthers;
+  console.log(segmentsCurrent);
+  console.log(segmentsOthers);
+  });
+  // sort results such that the segments are ordered by not-current-author first, then current author last
+  
+  
+  
 }
 
 onBeforeMount(() => {
@@ -144,7 +171,11 @@ onBeforeMount(() => {
     console.log("Phrase: " + route.params.phrase);
     otherTarget.value = route.params.phrase+"";
   }
-  
+  else if (route.params.author) {
+    get(parseInt(route.params.author+""), "author", 2).then((a) => {
+      store.author = a as Author;
+    });
+  }
 });
 
 function customBack() {
