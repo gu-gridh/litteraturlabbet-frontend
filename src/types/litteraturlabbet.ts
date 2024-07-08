@@ -66,6 +66,7 @@ interface Work extends AbstractBase {
 interface Cluster extends AbstractBase {
   size: number;
   segments: Array<Segment>;
+  selfReuseCount: number;
 }
 
 interface Segment extends AbstractBase {
