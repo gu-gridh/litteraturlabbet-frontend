@@ -13,8 +13,9 @@
   <div class="cluster-card">
     <div class="cluster-metadata-container">
       <div>
-        <p class="cluster-size-label">{{ cluster.size }} </p> återbruk
+        <p class="cluster-size-label">{{ cluster.size - cluster.selfReuseCount }} </p> återbruk
       </div>
+      
       <div>
         <!-- <router-link
           :to="{
@@ -27,6 +28,12 @@
         > -->
       </div>
     </div>
+    <div class="cluster-metadata-container">
+      <div>
+        <p class="cluster-size-label">{{ cluster.selfReuseCount }} </p> självåterbruk
+      </div>
+    </div>
+    
     <div class="cluster-text-container">
       {{ cluster.segments[0].text.slice(0, 300) }}...
     </div>
