@@ -201,7 +201,6 @@ async function fetchClusters(page: number, authorID: number | undefined, workID:
         count++;
       }
     });
-    console.log(count);
     cluster.selfReuseCount = count;
   });
 

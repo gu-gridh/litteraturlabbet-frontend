@@ -33,7 +33,6 @@ const page = props.segment.page;
 let text = props.segment.page.text;
 let lblink = "";
 if (props.segment) {
-  console.log(props.otherTarget);
   const hasOtherTarget = props.otherTarget && props.otherTarget.length > 0;
   const target = hasOtherTarget?props.otherTarget as string:props.segment.text;
   text = text.replace(

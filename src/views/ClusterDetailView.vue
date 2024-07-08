@@ -144,8 +144,6 @@ function filterData() {
     let segmentsOthers: Segment[] | undefined = [];
   let segmentsCurrent: Segment[] | undefined = [];
   segments.value?.forEach((segment) => {
-    console.log(segment.series.main_author);
-    console.log(store.author?.id);
     if (segment.series.main_author.id === store.author?.id) {
       segmentsCurrent.push(segment);
     } else {
@@ -155,8 +153,6 @@ function filterData() {
   });
   segmentsSelf.value = segmentsCurrent;
   segmentsOther.value = segmentsOthers;
-  console.log(segmentsCurrent);
-  console.log(segmentsOthers);
   });
   // sort results such that the segments are ordered by not-current-author first, then current author last
   
