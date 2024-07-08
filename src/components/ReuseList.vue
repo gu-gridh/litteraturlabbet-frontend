@@ -193,14 +193,17 @@ async function fetchClusters(page: number, authorID: number | undefined, workID:
     }
   });
   
-  // remove clusters where the author is the same as the main author
-  if (!store.selfReuse) {
-  clusters.value = clusterResults.results.filter((c) => {
-    //console.log(c.segments[0].series.main_author.id, authorID);
-    
-        return c.segments[0].series.main_author.id !== authorID;
+  // for each cluster, count number of segments where the main author is the same as the author selected
+  clusterResults.results.forEach((cluster) => {
+    let count = 0;
+    cluster.segments.forEach((segment) => {
+      if ((<any>segment.series.main_author) as number === authorSelected.value?.id) {
+        count++;
+      }
+    });
+    console.log(count);
+    cluster.selfReuseCount = count;
   });
-  }
 
   clusters.value = clusterResults.results.sort((a, b) => b.size - a.size);
 
