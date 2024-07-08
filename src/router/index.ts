@@ -45,7 +45,7 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
     {
-      path: "/reuse/cluster/:id/:phrase?",
+      path: "/reuse/cluster/:id/:author/:phrase?",
       name: "cluster",
       component: ClusterDetailView,
       props: true,

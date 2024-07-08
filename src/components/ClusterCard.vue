@@ -7,6 +7,7 @@
             name: 'cluster',
             params: {
               id: cluster.id,
+              author: cluster.segments[0].series.main_author,
             },
           }"
           >
