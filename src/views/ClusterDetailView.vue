@@ -141,23 +141,20 @@ function filterData() {
       }
       return 0;
     });
+    // sort results such that the segments are ordered by not-current-author first, then current author last
     let segmentsOthers: Segment[] | undefined = [];
-  let segmentsCurrent: Segment[] | undefined = [];
-  segments.value?.forEach((segment) => {
-    if (segment.series.main_author.id === store.author?.id) {
-      segmentsCurrent.push(segment);
-    } else {
-      segmentsOthers.push(segment);
-    }
-    
-  });
-  segmentsSelf.value = segmentsCurrent;
-  segmentsOther.value = segmentsOthers;
-  });
-  // sort results such that the segments are ordered by not-current-author first, then current author last
-  
-  
-  
+    let segmentsCurrent: Segment[] | undefined = [];
+    segments.value?.forEach((segment) => {
+      if (segment.series.main_author.id === store.author?.id) {
+        segmentsCurrent.push(segment);
+      } else {
+        segmentsOthers.push(segment);
+      }
+      
+    });
+    segmentsSelf.value = segmentsCurrent;
+    segmentsOther.value = segmentsOthers;
+    });
 }
 
 onBeforeMount(() => {
@@ -221,6 +218,19 @@ function update() {
   } else {
     console.log("Error. Unknown order value: " + order.value);
   }
+  // sort results such that the segments are ordered by not-current-author first, then current author last
+  let segmentsOthers: Segment[] | undefined = [];
+    let segmentsCurrent: Segment[] | undefined = [];
+    segments.value?.forEach((segment) => {
+      if (segment.series.main_author.id === store.author?.id) {
+        segmentsCurrent.push(segment);
+      } else {
+        segmentsOthers.push(segment);
+      }
+      
+    });
+    segmentsSelf.value = segmentsCurrent;
+    segmentsOther.value = segmentsOthers;
 }
 
 function updateTime() {
