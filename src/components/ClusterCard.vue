@@ -7,7 +7,7 @@
             name: 'cluster',
             params: {
               id: cluster.id,
-              author: cluster.segments[0].series.main_author,
+              author: store.author?.id,
             },
           }"
           >
@@ -47,6 +47,9 @@
 <script setup lang="ts">
 import type { Cluster } from "@/types/litteraturlabbet";
 
+// init store
+import { searchStore } from "@/stores/search";
+const store = searchStore();
 defineProps<{
   cluster: Cluster;
 }>();
