@@ -158,7 +158,6 @@ function filterData() {
 }
 
 onBeforeMount(() => {
-  filterData();
   // if route contains phrase parameter, highlight the phrase in the text
   if (route.params.phrase) {
     console.log("Phrase: " + route.params.phrase);
@@ -169,6 +168,8 @@ onBeforeMount(() => {
       store.author = a as Author;
     });
   }
+  filterData();
+  
 });
 
 function customBack() {

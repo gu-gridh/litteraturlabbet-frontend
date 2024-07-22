@@ -197,7 +197,7 @@ async function fetchClusters(page: number, authorID: number | undefined, workID:
   clusterResults.results.forEach((cluster) => {
     let count = 0;
     cluster.segments.forEach((segment) => {
-      if ((<any>segment.series.main_author) as number === authorSelected.value?.id) {
+      if ((<any>segment.series.main_author) as number === store.author?.id) {
         count++;
       }
     });
