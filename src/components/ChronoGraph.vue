@@ -351,7 +351,7 @@ watch(
 
   border-bottom: 1px solid #ccc;
   padding: 10px;
-  margin: 20px 0;
+  margin: 20px 0 0 0;
 }
 
 .chronoheader {
