@@ -14,7 +14,7 @@
   <div class="cluster-card">
     <div class="cluster-metadata-container">
       <div>
-        <p class="cluster-size-label">{{ cluster.size - cluster.selfReuseCount }} </p> återbruk
+        <p class="cluster-size-label">{{ cluster.size - cluster.selfReuseCount }} </p> hos andra
       </div>
       <div>
         <p class="cluster-size-label">{{ cluster.selfReuseCount }} </p> hos författaren
@@ -87,7 +87,7 @@ defineProps<{
 
 
 .cluster-metadata-container {
-  width: 240px;
+  width: 260px;
   height:85px;
   line-height:1.1;
   text-align:center;
