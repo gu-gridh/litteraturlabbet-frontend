@@ -288,6 +288,7 @@ onBeforeUnmount(() => {
 }
 .card-container {
   height: 100%;
+  padding-top:30px;
 }
 
 .reuse-container {

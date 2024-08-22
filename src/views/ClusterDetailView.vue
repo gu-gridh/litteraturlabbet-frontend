@@ -30,10 +30,16 @@
         </div>
       </div>
       <div v-else>
-          I verk av andra författare finns {{ segmentsOther?.length }} likartade textstycken.
+        <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-top:20px;">
+          I verk av <span>andra författare</span> finns <span>{{ segmentsOther?.length }}</span> återbruk.
+        </div>
           <segment-card v-for="segment in segmentsOther" v-bind:key="segment.id" :segment="segment" :other-target="otherTarget"></segment-card>
+          <br>
           <hr/>
-          I verk av <b>{{ store.author?.name }}</b> finns {{ segmentsSelf?.length }} textstycken.
+          <br>
+          <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-top:20px;">
+          I verk av <span>{{ store.author?.name }}</span> finns <span>{{ segmentsSelf?.length }}</span> återbruk.
+        </div>
           <segment-card v-for="segment in segmentsSelf" v-bind:key="segment.id" :segment="segment" :other-target="otherTarget"></segment-card>
       </div>
     
@@ -251,6 +257,10 @@ watch(
 </script>
 
 <style scoped>
+  .littlabbinfo span{
+    color:var(--theme-accent-color);
+    font-weight: 600;
+  }
 .text-container{
   margin-top:15%;
   width:100%;
