@@ -20,19 +20,18 @@
     </div>
     <div class="partners">
 
-
-      <a href="https://dh.gu.se/">
-        <div class="GRIDHLogo" id="">GU / GRIDH</div>
-      </a>
-
-      <a href="http://www.litteraturbanken.se">
-        <div class="PartnerLogo" id="">LB</div>
-      </a>
-
+      <div class="partner-1">
       <a href="">
         <div class="PartnerLogo" id="">Litteraturlaboratoriet</div>
       </a>
-
+    </div>
+      <a href="http://www.litteraturbanken.se">
+        <div class="PartnerLogo" id="">LB</div>
+      </a>
+     
+      <a href="https://dh.gu.se/">
+        <div class="GRIDHLogo" id="">GU / GRIDH</div>
+      </a>
     </div>
   </div>
 
@@ -96,13 +95,20 @@ a:visited{
 
 
   .partners {
-    float: right;
-    position: fixed;
 
+    position: fixed;
+display:flex;
+flex-direction: row;
     bottom: 0px;
     right: 0px;
     height: 80px;
   }
+
+  @media screen and (max-width: 1000px) {
+.partner-1 {
+ display:none;
+}
+}
 
   .GRIDHLogo {
     float: right;
