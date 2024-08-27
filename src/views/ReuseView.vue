@@ -6,6 +6,7 @@
   <div style="min-height:580px">
 
   <div v-if="author" class="reuse-container-w-author">
+    <Suspense>
     <div v-if="showGraph">
       <div class="chart-container">
         <network-chart
@@ -17,6 +18,7 @@
       </network-chart>
       </div>
     </div>
+  </Suspense>
   
     <div class="Fade"></div>
   
@@ -67,18 +69,24 @@ const props = defineProps<{
   work?: number;
 }>();
 
-const data = (props.author||props.work) ? await fetch() : { nodes: [], links: [] };
-/*
+//let data = (props.author||props.work) ? await fetch() : { nodes: [], links: [] };
+
 let data: any;
-if (dataStore.data.nodes && dataStore.data.nodes.length>0) {
-  data = { nodes: [], links: [] };
-  data.nodes = dataStore.data.nodes;
-  data.links = dataStore.data.links;
-} else {
-  data = (props.author||props.work) ? await fetch() : { nodes: [], links: [] };
-  dataStore.data.nodes = data.nodes;
-  dataStore.data.links = data.links;
-}*/
+
+async function loadData() {
+  
+  if (dataStore.data.nodes && dataStore.data.nodes.length>0) {
+    console.log("Reusing data");
+    data = { nodes: [], links: [] };
+    data.nodes.value = dataStore.data.nodes;
+    data.links.value = dataStore.data.links;
+  } else {
+    console.log("Fetching data");
+    data = (props.author||props.work) ? await fetch() : { nodes: [], links: [] };
+    dataStore.data.nodes = data.nodes;
+    dataStore.data.links = data.links;
+  }
+}
 
 if (props.author) {
   get<Author>(props.author, "author").then((a) => {
@@ -119,17 +127,9 @@ function fShowChronograph() {
   showGraph = false;
 }
 
-//onBeforeMount(() => {
-  //if (dataStore.data.nodes && dataStore.data.nodes.length > 0) {
-   // console.log(dataStore.data);
-    //data.value = dataStore.data;
-    //console.log("Reusing data!");
-  //} else {
-   // console.log("Loading data");
-    //data.value = { nodes: [], links: [] };
-    //loadData();
-  //}
-//})
+onBeforeMount(() => {
+  loadData();
+})
 
 async function fetch() {
   

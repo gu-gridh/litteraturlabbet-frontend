@@ -78,8 +78,13 @@ const pages = computed(() => {
 const numExcluded = ref<number>(0);
 const showWorks = ref(false);
 
-await fetchData(props.author, props.work);
-
+// only fetch data if no data in store
+if (store.clusters && store.clusters.length > 0) {
+  clusters.value = store.clusters;
+  clusterCount.value = store.clusterCount;
+} else {
+  await fetchData(props.author, props.work);
+}
 function toggleShowWork() {
   showWorks.value = !showWorks.value;
 }
@@ -87,15 +92,25 @@ function toggleShowWork() {
 async function fetchData(author: number, work?: number) {
   if (route.path.match(/\/reuse\/\d+(\/\d+)?$/)) {
     if (author) {
-      authorSelected.value = await get<Author>(author, "author");
-      workSelected.value = undefined;
+      if (authorSelected.value?.id !== author) {
+        authorSelected.value = await get<Author>(author, "author");
+        workSelected.value = undefined;
+      }
+      //authorSelected.value = await get<Author>(author, "author");
+      //workSelected.value = undefined;
     }
 
     if (work) {
-      workSelected.value = await get<Work>(work, "work/19th_century");
+      if (workSelected.value?.id !== work) {
+        workSelected.value = await get<Work>(work, "work/19th_century");
+        workTitle.value = workSelected.value.short_title
+          ? workSelected.value.short_title
+          : workSelected.value.title;
+      }
+      /*workSelected.value = await get<Work>(work, "work/19th_century");
       workTitle.value = workSelected.value.short_title
         ? workSelected.value.short_title
-        : workSelected.value.title;
+        : workSelected.value.title;*/
     }
 
     if (author) {
@@ -106,6 +121,13 @@ async function fetchData(author: number, work?: number) {
 
 async function fetchClusters(page: number, authorID: number | undefined, workID: number | undefined) {
   if (!route.path.match(/\/reuse\/\d+(\/\d+)?$/)) {
+    return;
+  }
+  // try reusing cluster values
+  if (store.clusters && store.clusters.length > 0) {
+    console.log("Cluster reuse");
+    clusters.value = store.clusters;
+    clusterCount.value = store.clusterCount;
     return;
   }
   //setBusy();
@@ -205,10 +227,11 @@ async function fetchClusters(page: number, authorID: number | undefined, workID:
   });
 
   clusters.value = clusterResults.results.sort((a, b) => b.size - a.size);
-
+  store.clusters = clusters.value;
   
   //clusterCount.value = clusterResults.results.map((c) => c.segments.length).length;
   clusterCount.value = clusterResults.count;
+  store.clusterCount = clusterCount.value;
   //setNotBusy();
 }
 
