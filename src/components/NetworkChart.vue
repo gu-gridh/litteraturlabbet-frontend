@@ -468,8 +468,8 @@ font-weight:600;
   font-size: 16px;
   padding: 2px 8px 0px 8px;
   border-radius: 5px;
-  color: black;
-  background: rgba(255, 255, 255, 0.9);
+  color: black !important;
+  background: rgba(255, 255, 255, 0.9) !important;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   visibility: hidden;
   /* by default */
