@@ -57,6 +57,7 @@ import ClusterCard from "@/components/ClusterCard.vue";
 import type { Author, Cluster, Work } from "@/types/litteraturlabbet";
 import { setBusy, setNotBusy } from "./Waiter.vue";
 import { searchStore } from "@/stores/search";
+import { flagStore } from "@/stores/flags";
 import ChronoGraph from "./ChronoGraph.vue";
 
 const props = defineProps<{
@@ -77,8 +78,9 @@ const pages = computed(() => {
 });
 const numExcluded = ref<number>(0);
 const showWorks = ref(false);
-
+const flags = flagStore();
 // only fetch data if no data in store
+/*
 if (store.clusters && store.clusters.length > 0) {
   clusters.value = store.clusters;
   clusterCount.value = store.clusterCount;
@@ -86,6 +88,8 @@ if (store.clusters && store.clusters.length > 0) {
   console.log("Fetching data 2");
   await fetchData(props.author, props.work);
 }
+*/
+await fetchData(props.author, props.work);
 
 function toggleShowWork() {
   showWorks.value = !showWorks.value;
@@ -94,6 +98,7 @@ function toggleShowWork() {
 async function fetchData(author: number, work?: number) {
   if (route.path.match(/\/reuse\/\d+(\/\d+)?$/)) {
     if (author) {
+      
       if (store.author?.id !== author) {
         console.log("Setting author 2");
         authorSelected.value = await get<Author>(author, "author");
@@ -101,9 +106,11 @@ async function fetchData(author: number, work?: number) {
       }
       //authorSelected.value = await get<Author>(author, "author");
       //workSelected.value = undefined;
+
     }
 
     if (work) {
+      
       if (store.work?.id !== work) {
         workSelected.value = await get<Work>(work, "work/19th_century");
         workTitle.value = workSelected.value.short_title
@@ -117,27 +124,38 @@ async function fetchData(author: number, work?: number) {
     }
 
     if (author) {
+      if (!flags.flags.hasClusters)  {
+        await fetchClusters(page.value, author, work);
+        store.clusters = clusters.value;
+        store.clusterCount = clusterCount.value;
+        flags.flags.hasClusters = true;
+      } else {
+        clusters.value = store.clusters;
+        clusterCount.value = store.clusterCount;
+      }
+      /*
       if (!store.clusters || store.clusters.length === 0) {
         await fetchClusters(page.value, author, work);
       } else {
         clusters.value = store.clusters;
         clusterCount.value = store.clusterCount;
-    }
+    }*/
   }
-}
-}
+}}
 
 async function fetchClusters(page: number, authorID: number | undefined, workID: number | undefined) {
   if (!route.path.match(/\/reuse\/\d+(\/\d+)?$/)) {
     return;
   }
   // try reusing cluster values
+  /*
   if (store.clusters && store.clusters.length > 0) {
     console.log("Cluster reuse");
     clusters.value = store.clusters;
     clusterCount.value = store.clusterCount;
     return;
   }
+    */
   //setBusy();
   const params = {
     has_author: authorID,
@@ -254,7 +272,9 @@ async function onPageChange() {
 watch(
   () => props.author,
   async (newAuthor, oldAuthor) => {
+    flags.flags.hasClusters = false;
     await fetchData(props.author, props.work);
+
   },
   {
     immediate: true,
