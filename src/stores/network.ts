@@ -8,7 +8,8 @@ export const networkStore = defineStore("network", {
     // const nodes = ref<Array<Node>>();
     const data = {
       links: ref<Array<Link>>(),
-      nodes: ref<Array<Node>>()
+      nodes: ref<Array<Node>>(),
+      exchange: Array<Link>(),
     }
 
     return { data };

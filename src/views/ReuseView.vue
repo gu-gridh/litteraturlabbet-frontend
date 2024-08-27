@@ -6,7 +6,7 @@
   <div style="min-height:580px">
 
   <div v-if="author" class="reuse-container-w-author">
-    <KeepAlive>
+    
     <div v-if="showGraph">
       <div class="chart-container">
         <network-chart
@@ -18,7 +18,7 @@
       </network-chart>
       </div>
     </div>
-    </KeepAlive>
+    
   
     <div class="Fade"></div>
   
@@ -54,7 +54,7 @@ import { searchStore } from "@/stores/search";
 import { networkStore } from "@/stores/network";
 import type { Link, Node } from "@/types/network";
 import { unpaginated, list } from "@/services/diana";
-import { onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { onBeforeUnmount, onMounted, ref, toRaw, watch } from "vue";
 import TopLists from "./TopLists.vue";
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
 import { authors } from "@/assets/authors_years.json";
@@ -74,7 +74,7 @@ let data = await fetch();
 
 
 //let data: any;
-
+/*
 async function loadData() {
   
   if (dataStore.data.nodes && dataStore.data.nodes.length>0) {
@@ -89,7 +89,7 @@ async function loadData() {
     dataStore.data.links = data.links as Link[];
   }
 }
-
+*/
 if (props.author) {
   if (!store.author) {
     console.log("Setting author");
@@ -108,7 +108,7 @@ if (props.work) {
 }
 
 watch(() => store.author, () => {
-  
+ 
 })
 
 // onMounted(async () => {
@@ -141,13 +141,18 @@ onBeforeMount(() => {
 })
 
 async function fetch() {
+  console.log("Fetching data");
+  /*
   if (dataStore.data.links && dataStore.data.links.length>0) {
     console.log("Reusing data");
     return { nodes: dataStore.data.nodes!.values, links: dataStore.data.links!.values };
   } else {
+    */
     console.log("Fetching data");
-    
-  let links = await unpaginated<Link>("author_exchange", {});
+    console.log(dataStore.data.exchange);
+  let links = dataStore.data.exchange.length>0?toRaw(dataStore.data.exchange):await unpaginated<Link>("author_exchange", {});
+  dataStore.data.exchange = links;
+  
   let ids = links
     .map((l) => l.source)
     .concat(links.map((l) => l.target))
@@ -180,11 +185,12 @@ let nodes = authors.map((a) => {
     links: new Array<Link>(),
   } as Node;
 });
-dataStore.data.nodes = nodes as Node[];
-dataStore.data.links = links as Link[];
+
+//dataStore.data.nodes = nodes as Node[];
+//dataStore.data.links = links as Link[];
 return { nodes: nodes, links: links };
 }
-}
+
 </script>
 
 <style scoped>
