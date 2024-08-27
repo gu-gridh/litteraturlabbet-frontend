@@ -31,9 +31,9 @@
         <div class="right-view-container">
           <div class="right-view-container-content">
             <Suspense>
-              
+              <KeepAlive include="keepAliveRoutes">
                 <router-view :key="$route.path"></router-view>
-              
+              </KeepAlive>
             </Suspense>
           </div>
         </div>
