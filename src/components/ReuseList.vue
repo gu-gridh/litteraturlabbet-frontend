@@ -100,7 +100,7 @@ async function fetchData(author: number, work?: number) {
     if (author) {
       
       if (store.author?.id !== author) {
-        console.log("Setting author 2");
+        //console.log("Setting author 2");
         authorSelected.value = await get<Author>(author, "author");
         workSelected.value = undefined;
       }

@@ -80,14 +80,12 @@ const store = searchStore();
 
 onMounted(() => {
   if (props.data) {
-    console.log("Data now loaded");
     graph.value = build(props.data, props.author);
   }
 });
 watch(
   () => props,
   () => {
-    console.log("Props changed");
     graph.value = build(props.data, props.author);
   },
   { deep: true }
@@ -118,7 +116,6 @@ function build(graphData: any, author?: number) {
   if (!graphData || !graphData.nodes || graphData.nodes.length === 0) {
     return graph;
   }
-  console.log(graphData);
   const data = structuredClone(graphData);
   // Check if node is in the network
   // If not, return empty graph
@@ -279,7 +276,7 @@ function build(graphData: any, author?: number) {
     .autoPauseRedraw(false) // keep redrawing after engine has stopped
     .onLinkClick((link) => {
       //TODO on click go to reuse page
-      console.log('go to reuse page', link);
+      //console.log('go to reuse page', link);
       if (link) {
         if (link.source && link.target) {
           const linkSource = <NodeObject>link.source;

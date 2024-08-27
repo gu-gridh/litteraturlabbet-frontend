@@ -92,7 +92,6 @@ async function loadData() {
 */
 if (props.author) {
   if (!store.author) {
-    console.log("Setting author");
     get<Author>(props.author, "author").then((a) => {
       store.author = a;
     });
@@ -141,15 +140,12 @@ onBeforeMount(() => {
 })
 
 async function fetch() {
-  console.log("Fetching data");
   /*
   if (dataStore.data.links && dataStore.data.links.length>0) {
     console.log("Reusing data");
     return { nodes: dataStore.data.nodes!.values, links: dataStore.data.links!.values };
   } else {
     */
-    console.log("Fetching data");
-    console.log(dataStore.data.exchange);
   let links = dataStore.data.exchange.length>0?toRaw(dataStore.data.exchange):await unpaginated<Link>("author_exchange", {});
   dataStore.data.exchange = links;
   

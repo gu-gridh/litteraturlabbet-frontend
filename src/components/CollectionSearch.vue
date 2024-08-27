@@ -213,7 +213,7 @@ function initWorkId(id: number) {
 }
 
 onBeforeMount(() => {
-  console.log("Before mount");
+  //console.log("Before mount");
   // open the correct collection search based on route
   if (route.path.startsWith('/reuse/')) {
     // set placeholder for authorSelect to Författare #1 if in reuse
@@ -226,7 +226,7 @@ onBeforeMount(() => {
       searchQuery.value = <string>route.params.phrase;
     }
     if (route.path.match(/reuse\/\d+\/\d+/)) {
-      console.log(route.params);
+      //console.log(route.params);
       store.author = initAuthorId(parseInt(route.params.author+""));
       store.work = initWorkId(parseInt(route.params.work+""));
       currentAuthor.value = store.author!.id;
@@ -267,7 +267,7 @@ onBeforeMount(() => {
 function setTimespan() {
   store.yearStart = timeRange.value[0];
   store.yearEnd = timeRange.value[1];
-  console.log("Setting timespan to", timeRange.value[0], timeRange.value[1]);
+  //console.log("Setting timespan to", timeRange.value[0], timeRange.value[1]);
   // filter authors
   authorSelect.value.refreshOptions();
   // filter works
@@ -305,7 +305,7 @@ function triggerImageSearch() {
     top: 220,
     behavior: 'smooth'
   });
-  console.log("Image search");
+  //console.log("Image search");
   // emit event
   store.triggerImageSearch = true;
 } 
@@ -323,7 +323,7 @@ async function triggerSearch1() {
     return;
   }
   errorMessage.value = false;
-  console.log(store.author?.id, store.author2?.id);
+  //console.log(store.author?.id, store.author2?.id);
   router.push({ name: 'reuse-link', params: { id1: store.author?.id, id2: store.author2?.id } });//.then(() => { router.go(0) });
   currentAuthor.value = store.author!.id;
   currentAuthor2.value = store.author2!.id;
@@ -466,7 +466,7 @@ async function searchAuthor(query: string) {
 
 // Search for works given for example an author id
 async function searchWork(query: string, params: any) {
-  console.log("Loading works with params", params);
+  //console.log("Loading works with params", params);
   if (route.path.startsWith("/reuse")) {
   if (params.main_author) {
     const pma = params.main_author+"";
@@ -608,7 +608,7 @@ async function onSelectWork(e: any) {
   const author = await get<Author>(value.main_author, "author");
   workSelect.value.clearSearch();
   workSelect.value.refreshOptions();
-  console.log(author);
+  //console.log(author);
   // Set global store value
   store.work = value;
   store.author = author;

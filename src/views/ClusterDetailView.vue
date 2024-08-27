@@ -122,7 +122,7 @@ function filterData() {
     //console.log("Included segments: ", includedSegments);
     //c.segments = includedSegments;
     if (excludedSegments.length > 0) {
-      console.log("Excluded segments: ", excludedSegments.length);
+      //console.log("Excluded segments: ", excludedSegments.length);
       numExcluded.value = excludedSegments.length;
     } else {
       numExcluded.value = 0;
@@ -166,7 +166,7 @@ function filterData() {
 onBeforeMount(() => {
   // if route contains phrase parameter, highlight the phrase in the text
   if (route.params.phrase) {
-    console.log("Phrase: " + route.params.phrase);
+    //console.log("Phrase: " + route.params.phrase);
     otherTarget.value = route.params.phrase+"";
   }
   else if (route.params.author) {
@@ -189,7 +189,7 @@ onBeforeUnmount(() => {
 
 function update() {
 
-  console.log("Update" + order.value);
+  //console.log("Update" + order.value);
   if (order.value === "year") {
     segments.value?.sort((a, b) => {
       if (a.series.imprint_year < b.series.imprint_year) {
