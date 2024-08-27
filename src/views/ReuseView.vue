@@ -89,15 +89,20 @@ async function loadData() {
 }
 
 if (props.author) {
-  get<Author>(props.author, "author").then((a) => {
-    store.author = a;
-  });
+  if (!store.author) {
+    console.log("Setting author");
+    get<Author>(props.author, "author").then((a) => {
+      store.author = a;
+    });
+  }
 } 
 
 if (props.work) {
-  get<Work>(props.work, "work/19th_century").then((w) => {
-    store.work = w;
-  });
+  if (!store.work) {
+    get<Work>(props.work, "work/19th_century").then((w) => {
+      store.work = w;
+    });
+  }
 }
 
 watch(() => store.author, () => {

@@ -127,7 +127,7 @@ type ChronoData = {
 let byYear: ChronoBY = {};
 let byAuthor: ChronoBA = {};
 
-const data: ChronoData[] = await list<Cluster>("cluster", params, 4).then((res) => {
+const data: ChronoData[] = store.chronoData ?? await list<Cluster>("cluster", params, 4).then((res) => {
   let out = [];
   let smap = [];
   for (let i = 0; i < res.results.length; i++) {
@@ -187,6 +187,7 @@ data.sort((a, b) => {
   }
   return 0;
 });
+store.chronoData = data;
 const abia = Object.keys(byAuthor).sort();
 const abiy = Object.keys(byYear).sort();
 byAuthor = abia.reduce((obj, key) => {

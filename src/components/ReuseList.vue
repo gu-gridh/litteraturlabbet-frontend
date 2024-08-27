@@ -83,8 +83,10 @@ if (store.clusters && store.clusters.length > 0) {
   clusters.value = store.clusters;
   clusterCount.value = store.clusterCount;
 } else {
+  console.log("Fetching data 2");
   await fetchData(props.author, props.work);
 }
+
 function toggleShowWork() {
   showWorks.value = !showWorks.value;
 }
@@ -92,7 +94,8 @@ function toggleShowWork() {
 async function fetchData(author: number, work?: number) {
   if (route.path.match(/\/reuse\/\d+(\/\d+)?$/)) {
     if (author) {
-      if (authorSelected.value?.id !== author) {
+      if (store.author?.id !== author) {
+        console.log("Setting author 2");
         authorSelected.value = await get<Author>(author, "author");
         workSelected.value = undefined;
       }
@@ -101,7 +104,7 @@ async function fetchData(author: number, work?: number) {
     }
 
     if (work) {
-      if (workSelected.value?.id !== work) {
+      if (store.work?.id !== work) {
         workSelected.value = await get<Work>(work, "work/19th_century");
         workTitle.value = workSelected.value.short_title
           ? workSelected.value.short_title
@@ -114,9 +117,14 @@ async function fetchData(author: number, work?: number) {
     }
 
     if (author) {
-      await fetchClusters(page.value, author, work);
+      if (!store.clusters || store.clusters.length === 0) {
+        await fetchClusters(page.value, author, work);
+      } else {
+        clusters.value = store.clusters;
+        clusterCount.value = store.clusterCount;
     }
   }
+}
 }
 
 async function fetchClusters(page: number, authorID: number | undefined, workID: number | undefined) {
@@ -294,6 +302,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   setBusy();
 });
+
 </script>
 
 <style scoped>

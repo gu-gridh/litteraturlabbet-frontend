@@ -24,7 +24,8 @@ export const searchStore = defineStore("search", {
     const triggerImageSearch = ref(false);
     const clusters = ref<Cluster[]>([]);
     const clusterCount = ref<number>(0);
-    return { author, author2, work, page, cluster, segment, phrase, yearStart, yearEnd, triggerImageSearch, phraseResults, selfReuse, clusters, clusterCount };
+    const chronoData = ref<any>();
+    return { author, author2, work, page, cluster, segment, phrase, yearStart, yearEnd, triggerImageSearch, phraseResults, selfReuse, clusters, clusterCount, chronoData };
   },
   getters: {
     paramsPath(state) {
