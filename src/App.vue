@@ -31,7 +31,9 @@
         <div class="right-view-container">
           <div class="right-view-container-content">
             <Suspense>
-              <router-view :key="$route.path"></router-view>
+              
+                <router-view :key="$route.path"></router-view>
+              
             </Suspense>
           </div>
         </div>

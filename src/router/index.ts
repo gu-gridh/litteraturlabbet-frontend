@@ -21,6 +21,7 @@ const router = createRouter({
       path: "/reuse/",
       name: "reuse",
       component: ReuseView,
+      meta: { keepAlive: true },
     },
     {
       path: "/reuse/:author/:work?",
@@ -30,6 +31,7 @@ const router = createRouter({
         author: route.params.author ? Number(route.params.author): undefined,
         work: route.params.work ? Number(route.params.work) : undefined,
       }),
+      meta: { keepAlive: true },
     },
     {
       path: "/embedding/",

@@ -63,7 +63,7 @@ let secondaryNodeNumber = ref(50);
 const showNetwork = ref(true);
 
 const props = defineProps<{
-  data: { nodes: Array<Node> | undefined; links: Array<Link> | undefined };
+  data: { nodes: Array<Node> | []; links: Array<Link> | [] };
   author?: number;
   height: number;
   width: number;
@@ -80,12 +80,14 @@ const store = searchStore();
 
 onMounted(() => {
   if (props.data) {
+    console.log("Data now loaded");
     graph.value = build(props.data, props.author);
   }
 });
 watch(
   () => props,
   () => {
+    console.log("Props changed");
     graph.value = build(props.data, props.author);
   },
   { deep: true }
@@ -113,9 +115,10 @@ function build(graphData: any, author?: number) {
   const graph = ForceGraph();
   const highlightNodes = new Set();
   const highlightLinks = new Set();
-  if (graphData.nodes.length === 0) {
+  if (!graphData || !graphData.nodes || graphData.nodes.length === 0) {
     return graph;
   }
+  console.log(graphData);
   const data = structuredClone(graphData);
   // Check if node is in the network
   // If not, return empty graph
@@ -342,6 +345,7 @@ watch(
     // deep: true,
   }
 );
+
 </script>
 <style>
 .chart-super-container {

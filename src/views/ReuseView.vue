@@ -6,7 +6,7 @@
   <div style="min-height:580px">
 
   <div v-if="author" class="reuse-container-w-author">
-    <Suspense>
+    <KeepAlive>
     <div v-if="showGraph">
       <div class="chart-container">
         <network-chart
@@ -18,13 +18,13 @@
       </network-chart>
       </div>
     </div>
-  </Suspense>
+    </KeepAlive>
   
     <div class="Fade"></div>
   
-    <suspense>
+    
       <reuse-list v-if="author" :author="author" :work="work"></reuse-list>
-    </suspense>
+    
   </div>
 
   <div v-else class="reuse-container-wo-author">
@@ -70,21 +70,23 @@ const props = defineProps<{
 }>();
 
 //let data = (props.author||props.work) ? await fetch() : { nodes: [], links: [] };
+let data = await fetch();
 
-let data: any;
+
+//let data: any;
 
 async function loadData() {
   
   if (dataStore.data.nodes && dataStore.data.nodes.length>0) {
     console.log("Reusing data");
     data = { nodes: [], links: [] };
-    data.nodes.value = dataStore.data.nodes;
-    data.links.value = dataStore.data.links;
+    data.nodes = dataStore.data.nodes as Node[];
+    data.links = dataStore.data.links as Link[];
   } else {
     console.log("Fetching data");
     data = (props.author||props.work) ? await fetch() : { nodes: [], links: [] };
-    dataStore.data.nodes = data.nodes;
-    dataStore.data.links = data.links;
+    dataStore.data.nodes = data.nodes as Node[];
+    dataStore.data.links = data.links as Link[];
   }
 }
 
@@ -133,11 +135,18 @@ function fShowChronograph() {
 }
 
 onBeforeMount(() => {
-  loadData();
+  //loadData();
+
+  
 })
 
 async function fetch() {
-  
+  if (dataStore.data.links && dataStore.data.links.length>0) {
+    console.log("Reusing data");
+    return { nodes: dataStore.data.nodes!.values, links: dataStore.data.links!.values };
+  } else {
+    console.log("Fetching data");
+    
   let links = await unpaginated<Link>("author_exchange", {});
   let ids = links
     .map((l) => l.source)
@@ -171,7 +180,10 @@ let nodes = authors.map((a) => {
     links: new Array<Link>(),
   } as Node;
 });
+dataStore.data.nodes = nodes as Node[];
+dataStore.data.links = links as Link[];
 return { nodes: nodes, links: links };
+}
 }
 </script>
 
