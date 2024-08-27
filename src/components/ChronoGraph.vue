@@ -127,7 +127,18 @@ type ChronoData = {
 let byYear: ChronoBY = {};
 let byAuthor: ChronoBA = {};
 
-const data: ChronoData[] = store.chronoData ?? await list<Cluster>("cluster", params, 4).then((res) => {
+const setChronodata = () => {
+  if (store.chronoData) {
+    // set chrono ready
+    chronographReady.value = true;
+    byYear = store.chronographByYear;
+    byAuthor = store.chronographByAuthor;
+    return store.chronoData;
+  }
+  return null;
+}
+
+const data: ChronoData[] = setChronodata() ?? await list<Cluster>("cluster", params, 4).then((res) => {
   let out = [];
   let smap = [];
   for (let i = 0; i < res.results.length; i++) {
@@ -210,6 +221,7 @@ byAuthor = abia.reduce((obj, key) => {
   obj[key] = a;
   return obj;
 }, {} as ChronoBA);
+store.chronographByAuthor = byAuthor;
 byYear = abiy.reduce((obj, key) => {
   const a = byYear[key];
   a.sort((a, b) => {
@@ -230,6 +242,7 @@ byYear = abiy.reduce((obj, key) => {
   obj[key] = a;
   return obj;
 }, {} as ChronoBY);
+store.chronographByYear = byYear;
 
 function navigate(d: ChronoData) {
   console.log("navigating");
