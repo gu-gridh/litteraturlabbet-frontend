@@ -3,11 +3,11 @@
     <Waiter></Waiter>
     <div class="top">
       <a href="https://litteraturbanken.se">
-      <div class="lb-logo-container"></div>
-    </a>
+        <div class="lb-logo-container"></div>
+      </a>
 
       <div class="nav-content">
-  
+
         <div class="nav-item"><router-link to="/about/" class="nav-link title">LITTERATURLABORATORIET</router-link>
           <div class="nav-ornament" v-bind:class="{active: isActive('/about/')}"></div>
         </div>
@@ -23,23 +23,24 @@
     <div class="main-container">
       <div class="left-column">
         <Suspense>
-          <collection-search></collection-search>
+          <template #default>
+            <collection-search></collection-search>
+          </template>
         </Suspense>
-
       </div>
       <div class="right-column">
         <div class="right-view-container">
-          <div class="right-view-container-content">
-            <Suspense>
-              
+          <Suspense>
+            <template #default>
+              <div class="right-view-container-content">
                 <router-view :key="$route.path"></router-view>
-              
-            </Suspense>
-          </div>
+              </div>
+            </template>
+          </Suspense>
         </div>
       </div>
-
     </div>
+
     <Footer></Footer>
   </div>
 </template>
@@ -67,11 +68,11 @@ const isActive = (routeName: string) => {
   opacity: 1;
 }
 
-.nav-content .title{
-  padding-top:0px;
+.nav-content .title {
+  padding-top: 0px;
 }
 
-.nav-content .sub-title{
-  padding-left:0px;
+.nav-content .sub-title {
+  padding-left: 0px;
 }
 </style>
