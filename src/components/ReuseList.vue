@@ -72,7 +72,7 @@ const workSelected = ref<Work>();
 const workTitle = ref<string>("");
 const clusters = ref<Array<Cluster>>([]);
 const clusterCount = ref<number>(0);
-const page = ref(1);
+const page = ref(store.currentPage);
 const pages = computed(() => {
   return Math.floor(clusterCount.value / 10) + 1;
 });
@@ -262,6 +262,7 @@ async function fetchClusters(page: number, authorID: number | undefined, workID:
 }
 
 async function onPageChange() {
+  store.currentPage = page.value;
   await fetchClusters(
     page.value,
     authorSelected.value?.id,
@@ -315,8 +316,11 @@ watch(
   }
 );
 
-onMounted(() => {
+onMounted(async () => {
   setNotBusy();
+  authorSelected.value = store.author;
+  workSelected.value = store.work;
+  await fetchClusters(store.currentPage, authorSelected.value?.id, workSelected.value?.id);
 });
 
 onBeforeUnmount(() => {

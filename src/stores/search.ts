@@ -27,7 +27,8 @@ export const searchStore = defineStore("search", {
     const chronoData = ref<any>();
     const chronographByAuthor = ref<any>();
     const chronographByYear = ref<any>();
-    return { author, author2, work, page, cluster, segment, phrase, yearStart, yearEnd, triggerImageSearch, phraseResults, selfReuse, clusters, clusterCount, chronoData, chronographByAuthor, chronographByYear };
+    const currentPage = ref<number>(1); //track the current page
+    return { author, author2, work, page, cluster, segment, phrase, yearStart, yearEnd, triggerImageSearch, phraseResults, selfReuse, clusters, clusterCount, chronoData, chronographByAuthor, chronographByYear, currentPage };
   },
   getters: {
     paramsPath(state) {

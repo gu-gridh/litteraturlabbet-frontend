@@ -38,7 +38,7 @@
             :object="true" valueProp="id" label="formatted_name"
             :options="async (query: string, select$: any) => searchAuthor(query)" :clear-on-select="true"
             :clear-on-search="true" :disabled="store.work || !store.author" @select="onSelectAuthor2"
-            @clear="onClearAuthor2" ref="authorSelect2" style="margin-top:10px;" />
+            @clear="onClearAuthor2" ref="authorSelect2" style="margin-top:10px; font-size: 18px;" />
         </div>
 
       </div>
