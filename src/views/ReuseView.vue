@@ -69,8 +69,8 @@ const props = defineProps<{
   work?: number;
 }>();
 
-//let data = (props.author||props.work) ? await fetch() : { nodes: [], links: [] };
-let data = await fetch();
+let data = (props.author||props.work) ? await fetch() : { nodes: [], links: [] };
+//let data = await fetch();
 
 
 //let data: any;
@@ -135,8 +135,7 @@ function fShowChronograph() {
 
 onBeforeMount(() => {
   //loadData();
-
-  
+  setBusy();
 })
 
 async function fetch() {
