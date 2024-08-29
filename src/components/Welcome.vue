@@ -34,11 +34,13 @@ const workCount = ref<number>();
   countWorks();
 
 function countWorks() {
+  /*
   list<Work>("work/19th_century", {
     main_author: store.author?.id,
   }).then((w) => {
     workCount.value = w.count;
   });
+  */
 }
 
 onMounted(() => {
