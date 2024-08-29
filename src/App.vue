@@ -5,7 +5,9 @@
       <a href="https://litteraturbanken.se">
         <div class="lb-logo-container"></div>
       </a>
+
       <div class="nav-content">
+
         <div class="nav-item"><router-link to="/about/" class="nav-link title">LITTERATURLABORATORIET</router-link>
           <div class="nav-ornament" v-bind:class="{active: isActive('/about/')}"></div>
         </div>
@@ -37,6 +39,7 @@
         </div>
       </div>
     </div>
+
     <Footer></Footer>
   </div>
 </template>
@@ -58,9 +61,11 @@ const isActive = (routeName: string) => {
 .active {
   opacity: 1;
 }
+
 .nav-content .title {
   padding-top: 0px;
 }
+
 .nav-content .sub-title {
   padding-left: 0px;
 }
