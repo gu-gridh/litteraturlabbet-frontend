@@ -45,7 +45,8 @@
         <p>Förlag: <span>{{ publisher }}</span></p>
       </div>
       <div class="metadata-item">
-        <p>Beskrivning: <span>{{ labelSv }} på sidan {{ pageData.number }}</span></p>
+        <p>Beskrivning: <span style="text-transform: capitalize">{{ labelSv }}</span><span> på sidan {{ pageData.number
+            }}</span></p>
       </div>
       <!--<p>Sida: <span>{{ pageData.number }}</span></p>-->
       <div class="metadata-item">
