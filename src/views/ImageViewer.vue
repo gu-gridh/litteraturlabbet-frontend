@@ -45,7 +45,7 @@
         <p>Förlag: <span>{{ publisher }}</span></p>
       </div>
       <div class="metadata-item">
-        <p>Beskrivning: <span style="text-transform: capitalize">{{ labelSv }}</span><span> på sidan {{ pageData.number
+        <p>Beskrivning: <span class='img-type'>{{ labelSv }}</span><span> på sidan {{ pageData.number
             }}</span></p>
       </div>
       <!--<p>Sida: <span>{{ pageData.number }}</span></p>-->
@@ -625,5 +625,9 @@ export default {
 
 .gallery__item_related:hover .item-info-meta {
   display: block;
+}
+
+.img-type {
+  text-transform: capitalize
 }
 </style>
