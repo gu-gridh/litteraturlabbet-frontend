@@ -49,7 +49,7 @@ npm run lint
 
 The images shown in the gallery were extracted using a pre-trained YOLOv8s object detection model finetuned on a subset of the Litteraturbanken data using manually labelled images and manually verified detections from a fine-tuned FasterRCNN model used previously.  The detected images were exported as crops during model prediction.  The class labels are manually corrected where necessary.
 
-Crops were tagged using the Recognize Anything Model from [Zhang et al. 2023] (https://arxiv.org/pdf/2306.03514).  The tags were returned in English and filtered to those most related to the works in the dataset, then translated to Swedish and assigned to a category.
+Crops were tagged using the Recognize Anything Model from [Zhang et al. 2023](https://arxiv.org/pdf/2306.03514).  The tags were returned in English and filtered to those most related to the works in the dataset, then translated to Swedish and assigned to a category.
 
 Click on an image in the gallery to see the available metadata about the image and work it belongs to.  Below the metadata there is also a gallery of similar images.  These similar images were calculated by extracting the image embeddings from a resnext50-32x4d-imagenet-torch model in FiftyOne for input in Spotify's annoy library to calculate the approximate nearest neighbours with euclidean metric.  Recurring images, those used throughout a work, were excluded using the work id and a match distance threshold.
 
