@@ -2,60 +2,63 @@
 
   <div id="gallery-container" v-show="!showOverlay">
     <div class="module-title">
-      <h1 style="top:30px;  font-size:2.0em!important; font-weight:100!important; z-index:1000; line-height:inherit;">Grafiska element</h1>
+      <h1 style="top:30px;  font-size:2.0em!important; font-weight:100!important; z-index:1000; line-height:inherit;">
+        Grafiska element</h1>
     </div>
     <div class="module-content">
       <div v-if="!isExpanded">
-      <p>
-        I litteraturen finner vi grafiska element i form av figurer, ornament, anfanger och musiknoter. 
-        Med detta verktyg kan vi extrahera dessa element antingen från författare och enskilda verk, eller från all litteratur under ett eller flera årtionden.
-        Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska elementen är sorterade kronologiskt.
-      </p>
-    </div>
-      <div v-if="isExpanded">
         <p>
-          Bilderna har extraherats automatiskt från de olika verken med AI-teknik. AI:n har tränats på på verk från 1800-talet där bilder blivit manuellt utmärkta. Det gör att modellen kan förutse plats och typ av illustrationer och skära ut bilderna digitalt. Manuell granskning har skett efteråt. De närmaste grannarna, alltså de mest lika unika bilderna, beräknas även de fram med en form av AI-teknik.
-          Samtliga bilder har fri upphovsrätt. För att läsa mer om teknikerna som använts, se <a href="https://github.com/gu-gridh/litteraturlabbet-frontend" style="font-style: italic; font-weight: 500;" target="_blank">GitHub</a>.
+          I litteraturen finner vi grafiska element i form av figurer, ornament, anfanger och musiknoter.
+          Med detta verktyg kan vi extrahera dessa element antingen från författare och enskilda verk, eller från all
+          litteratur under ett eller flera årtionden.
+          Detta ger oss en grafisk ingång till litteraturen, och ett redskap att synliggöra förändring med. De grafiska
+          elementen är sorterade kronologiskt.
         </p>
       </div>
-        <button id="readmore" @click="toggleContent">{{ isExpanded ? 'Om verktyget' : 'Om metoden' }}</button>
+      <div v-if="isExpanded">
+        <p>
+          Bilderna har extraherats automatiskt från de olika verken med AI-teknik. AI:n har tränats på på verk från
+          1800-talet där bilder blivit manuellt utmärkta. Det gör att modellen kan förutse plats och typ av
+          illustrationer och skära ut bilderna digitalt. Manuell granskning har skett efteråt. De närmaste grannarna,
+          alltså de mest lika unika bilderna, beräknas även de fram med en form av AI-teknik.
+          Samtliga bilder har fri upphovsrätt. För att läsa mer om teknikerna som använts, se <a
+            href="https://github.com/gu-gridh/litteraturlabbet-frontend" style="font-style: italic; font-weight: 500;"
+            target="_blank">GitHub</a>.
+        </p>
+      </div>
+      <button id="readmore" @click="toggleContent">{{ isExpanded ? 'Om verktyget' : 'Om metoden' }}</button>
     </div>
     <div class="gallery-labels-container">
-     <div class="gallery-labels">
-      <button
-        v-for="label in galleryLabels"
-        :key="label"
-        :id="label"
-        @click="setLabel(label)"
-      >{{ label }}</button>
-  </div>
-  </div>
-   <div>
-    <!-- No images to show -->
-    <div v-if="images.length === 0" class="no-images module-content">
-      <p>Inga bilder att visa.</p>
+      <div class="gallery-labels">
+        <button v-for="label in galleryLabels" :key="label" :id="label" @click="setLabel(label)">{{ label }}</button>
+      </div>
     </div>
-   </div>
+    <div>
+      <!-- No images to show -->
+      <div v-if="images.length === 0" class="no-images module-content">
+        <p>Inga bilder att visa.</p>
+      </div>
+    </div>
     <div class="gallery are-images-unloaded" v-show="!showOverlay">
       <div class="gallery__col-sizer"></div>
       <div class="gallery__gutter-sizer"></div>
       <div v-for="item in images" :key="item.id" class="gallery__item">
         <div class="item-info">
           <div class="item-info-meta">
-            <h5>{{ item.lb_title ||  item.title}}</h5>
+            <h5>{{ item.lb_title || item.title }}</h5>
             <h6>{{ item.author }}</h6>
             <h7 v-if="item.label !== 'Ornament' || item.label !== 'Anfanger'">{{ item.year }}</h7>
           </div>
         </div>
-          <div class="image-wrapper">
-            <img :src="`${item.iiif_file}/full/250,/0/default.jpg`" loading="lazy" @click="activateOverlay(item)" />
-          </div>      
+        <div class="image-wrapper">
+          <img :src="`${item.iiif_file}/full/250,/0/default.jpg`" loading="lazy" @click="activateOverlay(item)" />
         </div>
+      </div>
     </div>
   </div>
 
-  
-  <ImageViewer v-if="showOverlay" @unshow="deactivateOverlay" @navigate="parentNavigate" :imageId="selectedImageId"/>
+
+  <ImageViewer v-if="showOverlay" @unshow="deactivateOverlay" @navigate="parentNavigate" :imageId="selectedImageId" />
 </template>
 
 <script lang="ts" setup>
@@ -103,7 +106,7 @@ function setLabel(label: string) {
 
 onBeforeMount(() => {
   if (route.params.id) {
-    selectedImageId.value = route.params.id+"";
+    selectedImageId.value = route.params.id + "";
     console.log("Selected image id: ", selectedImageId.value);
     //activateOverlay(selectedImageId.value);
     showOverlay.value = true;
@@ -124,7 +127,7 @@ const fetchData = async () => {
     let searchQuery = 'label_sv='
     // Build the base query based on the selected label
     if (selectedLabel.value !== 'Alla') {
-      searchQuery += `${selectedLabel.value}`;
+      searchQuery += `${selectedLabel.value.toLowerCase()}`;
     }
 
     // Add additional parameters with proper separators
@@ -135,21 +138,22 @@ const fetchData = async () => {
       }
     };
 
-    addParam('year_start', store.yearStart??1800);
-    addParam('year_end', store.yearEnd??1900);
+    addParam('year_start', store.yearStart ?? 1800);
+    addParam('year_end', store.yearEnd ?? 1900);
     addParam('author', store.author?.id); // Use optional chaining for potential undefined author
     addParam('work', store.work?.id); // Use optional chaining for potential undefined work
+    addParam('display', 'true'); //Only return images that aren't near duplicates
 
     // change style of selected button to same as on hover style
     const deselectedStyle = window.getComputedStyle(<HTMLElement>document.querySelector("button"));
-      const selectedElement = document.getElementById(selectedLabel.value);
-      if (selectedElement) {
-        selectedElement.style.background = "rgb(162, 60, 0)";
-        selectedElement.style.color = "white";
-      }
-    
+    const selectedElement = document.getElementById(selectedLabel.value);
+    if (selectedElement) {
+      selectedElement.style.background = "rgb(162, 60, 0)";
+      selectedElement.style.color = "white";
+    }
+
     // filter the selected label from labels list and reset the style on all buttons other buttons
-    for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) { 
+    for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) {
       document.getElementById(lbl)!.setAttribute('style', deselectedStyle.cssText);
     }
     const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&limit=75&depth=3`;
@@ -175,7 +179,7 @@ const fetchData = async () => {
     }))
 
     images.value = [...images.value, ...newImages];
-    images.value=images.value.sort()
+    images.value = images.value.sort()
 
   } catch (error) {
     console.error("Error fetching additional images:", error);
@@ -202,14 +206,14 @@ const initMasonry = () => {
   });
 
   // initial items reveal
-  imagesLoaded( gallery, function() {
-  gallery.classList.remove('are-images-unloaded');
-  msnry.options.itemSelector = '.gallery__item';
-  let items = gallery.querySelectorAll('.gallery__item');
-  msnry.appended( items );
-}); 
+  imagesLoaded(gallery, function () {
+    gallery.classList.remove('are-images-unloaded');
+    msnry.options.itemSelector = '.gallery__item';
+    let items = gallery.querySelectorAll('.gallery__item');
+    msnry.appended(items);
+  });
 
-  infScroll = new InfiniteScroll( gallery, {
+  infScroll = new InfiniteScroll(gallery, {
     path: () => {
       if (canIncrement.value) {
         pageIndex.value++;
@@ -220,23 +224,23 @@ const initMasonry = () => {
       else { searchQuery = selectedLabel.value };
       */
       let searchQuery = ''
-    // Build the base query based on the selected label
-    if (selectedLabel.value !== 'Alla') {
-      searchQuery += `${selectedLabel.value}`;
-    }
-
-    // Add additional parameters with proper separators
-    const addParam = (paramName: string, value: any) => {
-      if (value) {
-        //searchQuery += (searchQuery.length === 0) ? '?' : '&'; // Use '?' for first param, '&' for others
-        searchQuery += `&${paramName}=${value}`;
+      // Build the base query based on the selected label
+      if (selectedLabel.value !== 'Alla') {
+        searchQuery += `${selectedLabel.value}`;
       }
-    };
 
-    addParam('year_start', store.yearStart??1800);
-    addParam('year_end', store.yearEnd??1900);
-    addParam('author', store.author?.id); // Use optional chaining for potential undefined author
-    addParam('work', store.work?.id); // Use optional chaining for potential undefined work
+      // Add additional parameters with proper separators
+      const addParam = (paramName: string, value: any) => {
+        if (value) {
+          //searchQuery += (searchQuery.length === 0) ? '?' : '&'; // Use '?' for first param, '&' for others
+          searchQuery += `&${paramName}=${value}`;
+        }
+      };
+
+      addParam('year_start', store.yearStart ?? 1800);
+      addParam('year_end', store.yearEnd ?? 1900);
+      addParam('author', store.author?.id); // Use optional chaining for potential undefined author
+      addParam('work', store.work?.id); // Use optional chaining for potential undefined work
 
       const offset = (pageIndex.value - 1) * 25;
       const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&limit=25&offset=${offset}`;
@@ -306,7 +310,7 @@ const initMasonry = () => {
 function activateOverlay(item: ImageI) {
   setBusy();
   //  router.push({ name: 'image-viewer', params: { id: item.id } });
-  selectedImageId.value = item.id+"";
+  selectedImageId.value = item.id + "";
   showOverlay.value = true;
   console.log("Activate");
   //router.push(`/gallery/${item.id}`);
@@ -315,7 +319,7 @@ function activateOverlay(item: ImageI) {
 
 function deactivateOverlay() {
   // if there are no images, fetch images
-  
+
   showOverlay.value = false;
   // reset route
   //router.push('/gallery');
@@ -325,7 +329,7 @@ function deactivateOverlay() {
     infScroll.destroy();
   }
   imagesLoaded('.gallery', () => {
-      initMasonry();
+    initMasonry();
   });
 }
 
@@ -361,29 +365,29 @@ watch(selectedLabel, async () => {
 });
 
 watch(() => store.triggerImageSearch,
- async () => {
-  setBusy();
-  showOverlay.value = false;
-  console.log("Image search 2");
-  images.value = [];
-  pageIndex.value = 1;
-  canIncrement.value = true;
+  async () => {
+    setBusy();
+    showOverlay.value = false;
+    console.log("Image search 2");
+    images.value = [];
+    pageIndex.value = 1;
+    canIncrement.value = true;
 
-  // if (infScroll) {
-  //   infScroll.destroy();
-  // }
+    // if (infScroll) {
+    //   infScroll.destroy();
+    // }
 
-  await fetchData();
+    await fetchData();
 
-  imagesLoaded('.gallery', () => {
-    //initMasonry();
-    msnry.reloadItems();
-    msnry.layout();
-    setNotBusy();
+    imagesLoaded('.gallery', () => {
+      //initMasonry();
+      msnry.reloadItems();
+      msnry.layout();
+      setNotBusy();
+    });
+    store.triggerImageSearch = false;
+
   });
-  store.triggerImageSearch = false;
-  
-});
 /*
 watch(store.yearEnd, async () => {
   images.value = [];
@@ -404,18 +408,17 @@ watch(store.yearEnd, async () => {
 </script>
 
 <style>
+.module-content {
+  height: 150px;
+  font-size: 1.1em;
+}
 
-  .module-content{
-    height:150px;
-    font-size: 1.1em;
-  }
-
-  .gallery {
-  padding-top:0px;
+.gallery {
+  padding-top: 0px;
   max-height: calc(100% - 35px);
   overflow-y: auto;
-  max-width: 100%; 
-  margin: 0 auto; 
+  max-width: 100%;
+  margin: 0 auto;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -429,58 +432,61 @@ watch(store.yearEnd, async () => {
   border: none;
 }
 
-  @media screen and (min-width: 1500px) {
-    .module-content{
-    height:140px;
+@media screen and (min-width: 1500px) {
+  .module-content {
+    height: 140px;
   }
+
   .gallery {
-  max-height: calc(100% - 25px);
-}
+    max-height: calc(100% - 25px);
+  }
 }
 
-  @media screen and (max-width: 1250px) {
-    .module-content{
+@media screen and (max-width: 1250px) {
+  .module-content {
     font-size: 1.0em;
 
   }
 }
 
 @media screen and (max-width: 1200px) {
-    .module-content{
-    height:170px;
+  .module-content {
+    height: 170px;
   }
-  .gallery {
-  max-height: calc(100% - 55px);
-}
 
-#readmore {
-display:none;
-}
+  .gallery {
+    max-height: calc(100% - 55px);
+  }
+
+  #readmore {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 900px) {
-    .module-content{
-    height:280px;
-    font-size:1.5em;
-    text-align:left;
+  .module-content {
+    height: 280px;
+    font-size: 1.5em;
+    text-align: left;
   }
+
   .gallery {
-  max-height: calc(100% - 100px);
+    max-height: calc(100% - 100px);
+  }
+
+  #readmore {
+    display: block;
+  }
 }
 
-#readmore {
-display:block;
-}
-}
-  
 
 
 #readmore:hover {
   background-color: rgb(162, 60, 0);
-  color:white;
+  color: white;
 }
 
-#module-text-smaller{
+#module-text-smaller {
   font-size: 1.0rem;
   margin-top: 5px;
 }
@@ -502,38 +508,38 @@ display:block;
   transform: scale(1.05);
 }
 
-#gallery-container{
-  position:absolute;
-  width:100%;
-  padding-left:10px;
-  padding-right:5px;
-  padding-bottom:400px;
-  height:calc(100% + 200px);
-  overflow:hidden;
-  z-index:100!important;
+#gallery-container {
+  position: absolute;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 5px;
+  padding-bottom: 400px;
+  height: calc(100% + 200px);
+  overflow: hidden;
+  z-index: 100 !important;
 }
 
 @media (max-height: 850px) {
   #gallery-container {
-    padding-bottom:40px;
-    height:calc(690px);
+    padding-bottom: 40px;
+    height: calc(690px);
   }
 
   .gallery {
-  padding-top:0px;
-  max-height: calc(465px);
-  overflow-y: auto;
-  max-width: 100%; 
-  margin: 0 auto; 
-  user-select: none;
-  -webkit-user-select: none;
-}
+    padding-top: 0px;
+    max-height: calc(465px);
+    overflow-y: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    user-select: none;
+    -webkit-user-select: none;
+  }
 }
 
-.no-images{
-  width:100%!important;
-  text-align:center;
-  margin-top:10%;
+.no-images {
+  width: 100% !important;
+  text-align: center;
+  margin-top: 10%;
 }
 
 
@@ -604,12 +610,12 @@ display:block;
 
 .gallery__item {
   margin-bottom: 10px;
-  float:left;
+  float: left;
   /* overflow:hidden!important; */
-  -webkit-transition-property: none!important;
-  -moz-transition-property: none!important;
-  -o-transition-property: none!important;
-  transition-property: none!important;
+  -webkit-transition-property: none !important;
+  -moz-transition-property: none !important;
+  -o-transition-property: none !important;
+  transition-property: none !important;
 }
 
 .gallery__item--height1 {
@@ -622,13 +628,13 @@ display:block;
   background: #C25;
 }
 
-.item-info{
-  pointer-events:none;
-  position:absolute!important;
-  height:100%!important;
-  width:100%!important;
-  z-index:500!important;
-  bottom:0px;
+.item-info {
+  pointer-events: none;
+  position: absolute !important;
+  height: 100% !important;
+  width: 100% !important;
+  z-index: 500 !important;
+  bottom: 0px;
   transition: all 0.5s ease-in-out;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.0) 0px, rgba(0, 0, 0, 0)50%) !important;
 }
@@ -643,16 +649,17 @@ display:block;
 }
 
 .item-info-meta h5 {
-  font-size:1.1em;
+  font-size: 1.1em;
 }
 
 .item-info-meta h6 {
   margin-top: 4px;
-  font-size:0.9em;
+  font-size: 0.9em;
 }
+
 .item-info-meta h7 {
   margin-top: 4px;
-  font-size:0.8em;
+  font-size: 0.8em;
 }
 
 .gallery__item img {
@@ -687,20 +694,20 @@ display:block;
 .gallery-labels-container {
   display: flex;
   justify-content: center;
-  align-items: center; 
-  width:100%;
-  z-index:1000;
-  margin-bottom:10px;
+  align-items: center;
+  width: 100%;
+  z-index: 1000;
+  margin-bottom: 10px;
 }
 
 .gallery-labels {
-  margin-top:0px;
+  margin-top: 0px;
   display: flex;
   justify-content: center;
-  align-items: center; 
-  width:auto;
-  z-index:1000;
-/*   
+  align-items: center;
+  width: auto;
+  z-index: 1000;
+  /*   
   padding:5px 10px;
   background-color:rgba(255,255,255,0.7);
   border-radius:12px;
@@ -717,7 +724,7 @@ display:block;
   border: none;
   user-select: none;
   -webkit-user-select: none;
-  background-color:white;
+  background-color: white;
 }
 
 .gallery-labels button:hover {
