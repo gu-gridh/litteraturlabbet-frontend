@@ -24,7 +24,7 @@
       Vi hittar frasen <i>{{ props.phrase }}</i> i <b>{{ segmentClusters.size }}</b> återbruk.
       </div>
       <div v-if="isEmpty" class="page-container">
-          <b>Inga träffar för frasen <i>{{ props.phrase }}</i>.</b>
+          <!--<b>Inga träffar för frasen <i>{{ props.phrase }}</i>.</b>-->
         </div>
         <div v-else>
           <!--
@@ -77,6 +77,7 @@ import { onBeforeMount } from 'vue';
   if (data.count === 0) {
     console.log("No results");
     isEmpty.value = true;
+    setNotBusy();
   } else {
     isEmpty.value = false;
   }
@@ -275,9 +276,9 @@ import { onBeforeMount } from 'vue';
     //setBusy();
   });
 
-  onBeforeMount(() => {
+  onBeforeMount(async () => {
     if (!store.phraseResults) {
-      loadData();
+      await loadData();
     } else {
       segmentClusters.value = store.phraseResults;
     }

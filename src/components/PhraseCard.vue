@@ -65,10 +65,11 @@ if (props.segment) {
     lblink = "https://litteraturbanken.se/f%C3%B6rfattare/"+work.main_author.lbauthorid+"/titlar/"+work.modernized_title+"/sida/"+(page.number+(isEtext?0:1)-offset)+(isEtext?"/etext":"/faksimil");
 } else {
   isEmpty.value = true;
+  //setNotBusy();
 }
 
 onMounted(() => {
-  setNotBusy();
+  //setNotBusy();
 });
 
 onBeforeUnmount(() => {

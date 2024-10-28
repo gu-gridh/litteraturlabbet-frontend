@@ -117,9 +117,13 @@ function build(graphData: any, author?: number) {
     return graph;
   }
   const data = structuredClone(graphData);
+  //console.log(graphData);
   // Check if node is in the network
   // If not, return empty graph
+  console.log(author);
+  console.log(data.nodes);
   if (author && data.nodes.filter((n: any) => n.id === author).length === 0) {
+    console.log("Author not in network");
     return graph;
   }
   if (!author) {
@@ -188,11 +192,14 @@ function build(graphData: any, author?: number) {
   }).filter((link: Link) => link); // removes null values
   data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
   let hoverNode: Node;
+
   if (author) {
     hoverNode = data.nodes.filter((n: Node) => n.id === author)[0];
+    if (hoverNode) {
     highlightNodes.add(hoverNode);
     hoverNode.neighbors.forEach((neighbor) => highlightNodes.add(neighbor));
     hoverNode.links.forEach((link: Link) => highlightLinks.add(link));
+    }
   }
   return graph(element.value)
     .graphData(data)

@@ -9,6 +9,7 @@
             params: {
               id: clusterId,
               phrase: phrase,
+              author: 0,
             },
           }"
           >

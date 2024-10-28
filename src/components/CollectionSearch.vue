@@ -62,12 +62,21 @@
           :value="searchQuery" @keydown="handleBackspace" @input="updateSearchQuery"
           @keydown.enter="triggerSearch" @clear="onClearPhrase" />
       </div>
-
+<!--
       <div class="self-reuse-wrapper" id="self-reuse-check" v-show="showReuseSearch">
         <input type="checkbox" id="self-reuse" name="self-reuse" v-model="store.selfReuse" />
         <label for="self-reuse">Inkludera självåterbruk</label>
       </div>
-
+-->
+      <div class="multiselect-input" id="tag-select" v-show="showGraphicSearch">
+        <!-- Add chips for searching by tags -->
+        <div class="select-label">
+          <p>Sök efter en tagg</p>
+        </div>
+        <div v-for="tag in tags" :key="tag">
+          <span class="tag-chip" @click="searchTag(tag)" :class="{'active-tag': getIsActive(tag)}">{{ tag }}</span>
+        </div>
+      </div>
       <div class="count-label">
         <p>Totalt {{ workCount }} verk i samlingen.</p>
         <div class="cc-notice" v-if="imageSearch">Alla bilder som visas är licensierade <a
@@ -129,6 +138,8 @@ const authorSelect = ref();
 const workSelect = ref();
 const workCount = ref<number>();
 
+const currentTags = ref([]);
+
 const collator = new Intl.Collator('sv-u-co-trad');
 
 const timeRange = ref([1700, 2025]);
@@ -137,6 +148,9 @@ const showSlider = ref(false);
 const showReuseSearch = ref(false);
 const showSearch = ref(false);
 const showWelcome = ref(true);
+const showGraphicSearch = ref(false);
+
+const tags = ["tag1", "tag2", "tag3", "tag4", "tag5"];
 
 const route = useRoute();
 
@@ -153,6 +167,9 @@ let author2changed = false;
 
 const imageSearch = ref(false);
 
+function getIsActive(tag: string) {
+  return currentTags.value.indexOf(tag) > -1;
+}
 // dynamic placeholder for author select
 // return "Författare" if in gallery, "Författare #1" if in reuse
 function dynamicPlaceholder(index: number) {
@@ -220,6 +237,7 @@ onBeforeMount(() => {
     authorSelect.value.setPlaceholder("Författare #1");
     showSearch.value = true;
     showReuseSearch.value = true;
+    showGraphicSearch.value = false;
     showSlider.value = false;
     showWelcome.value = false;
     if (route.path.startsWith('/reuse/phrase/')) {
@@ -250,6 +268,7 @@ onBeforeMount(() => {
   else if (route.path.startsWith('/gallery')) {
     showSearch.value = true;
     showReuseSearch.value = false;
+    showGraphicSearch.value = true;
     showSlider.value = true;
     showWelcome.value = false;
     authorSelect.value.refreshOptions();
@@ -257,10 +276,12 @@ onBeforeMount(() => {
   else if (route.path === '/about/') {
     showSearch.value = false;
     showWelcome.value = true;
+    showGraphicSearch.value = false;
   }
   else if (route.path === '/') {
     showSearch.value = false;
     showWelcome.value = true;
+    showGraphicSearch.value = false;
   }
 });
 
@@ -397,6 +418,16 @@ function onClearPhrase() {
   hasQuery.value = false;
   store.phrase = undefined;
   console.log("Clear phrase");
+  store.phraseResults = undefined;
+}
+
+function searchTag(tag: string) {
+  console.log("Searching for tag", tag);
+  if (currentTags.value.includes(tag)) {
+    currentTags.value = currentTags.value.filter((t) => t !== tag);
+  } else {
+    currentTags.value.push(tag);
+  }
 }
 
 function workHasGraphic(work: any) {
@@ -622,16 +653,16 @@ function countWorks() {
 }
 
 // After clearing
-function onClearAuthor1(event: undefined) {
+function onClearAuthor1() {
   store.author = undefined;
   store.work = undefined;
   countWorks();
   workSelect.value.clearSearch();
   workSelect.value.refreshOptions();
-  onClearAuthor2(event);
+  onClearAuthor2();
 }
 
-function onClearAuthor2(event: undefined) {
+function onClearAuthor2() {
   store.author2 = undefined;
   store.work = undefined;
   workSelect.value.clearSearch();
@@ -639,7 +670,7 @@ function onClearAuthor2(event: undefined) {
   author2changed = true;
 }
 
-function onClearWork(event: undefined) {
+function onClearWork() {
   store.work = undefined;
   workSelect.value.refreshOptions();
 }
@@ -659,6 +690,7 @@ watch(() => route.path, (path) => {
   if (path.startsWith('/gallery')) {
     showSearch.value = true;
     showReuseSearch.value = false;
+    showGraphicSearch.value = true;
     showSlider.value = true;
     showWelcome.value = false;
     authorSelect.value.refreshOptions();
@@ -667,6 +699,7 @@ watch(() => route.path, (path) => {
   else if (path.startsWith('/reuse/')) {
     showSearch.value = true;
     showReuseSearch.value = true;
+    showGraphicSearch.value = false;
     showSlider.value = false;
     showWelcome.value = false;
     if (path.startsWith('/reuse/phrase/')) {
@@ -679,10 +712,12 @@ watch(() => route.path, (path) => {
   else if (path === '/about/') {
     showSearch.value = false;
     showWelcome.value = true;
+    showGraphicSearch.value = false;
     imageSearch.value = false;
   }
   else if (path === '/') {
     showSearch.value = false;
+    showGraphicSearch.value = false;
     showWelcome.value = true;
     imageSearch.value = false;
   }
@@ -692,6 +727,24 @@ watch(() => route.path, (path) => {
 <style src="@vueform/slider/themes/default.css"></style>
 
 <style scoped>
+.tag-chip {
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: var(--theme-accent-color-dark);
+  color: white;
+  cursor: pointer;
+}
+.active-tag {
+  background-color: black;
+  color: white;
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
 a:link {
   color: white;
   text-decoration: none;

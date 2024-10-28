@@ -77,7 +77,7 @@ let canIncrement = ref(true);
 let infScroll: any;
 const images = ref([] as ImageI[]);
 const selectedLabel = ref("Illustrationer");
-const galleryLabels = ["Alla", "Omslagsbilder", "Illustrationer", "Musiknoter", "Anfanger", "Ornament"];
+const galleryLabels = ["Alla", "Provenance", "Omslagsbilder", "Illustrationer", "Musiknoter", "Anfanger", "Ornament"];
 const route = useRoute();
 const showOverlay = ref(false);
 const isExpanded = ref(false);
@@ -94,11 +94,11 @@ function setLabel(label: string) {
     top: 220,
     behavior: 'smooth'
   });
-  if (label === selectedLabel.value) {
+  if (label.toLowerCase() === selectedLabel.value.toLowerCase()) {
     return;
   }
   setBusy();
-  selectedLabel.value = label;
+  selectedLabel.value = label.toLowerCase();
 }
 
 onBeforeMount(() => {
@@ -176,7 +176,7 @@ const fetchData = async () => {
 
     images.value = [...images.value, ...newImages];
     images.value=images.value.sort()
-
+    console.log(images);
   } catch (error) {
     console.error("Error fetching additional images:", error);
   }
