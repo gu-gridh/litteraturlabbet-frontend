@@ -35,26 +35,31 @@
     <!--Metadata display-->
     <div v-if="pageData" class="metadata">
       <h3>{{ pageData.work?.title }}</h3>
-      <div class="metadata-item">
+      <div class="metadata-item" v-if="pageData & pageData.work?.main_author?.name">
         <p>Författare: <span>{{ pageData.work?.main_author?.name }}</span></p>
       </div>
-      <div class="metadata-item">
+      <div class="metadata-item" v-if="pageData & pageData.work?.sort_year">
         <p>Utgiven: <span>{{ pageData.work?.sort_year }}</span></p>
       </div>
-      <div class="metadata-item">
+      <div class="metadata-item" v-if="publisher">
         <p>Förlag: <span>{{ publisher }}</span></p>
       </div>
-      <div class="metadata-item">
+      <div class="metadata-item" v-if="labelSv">
         <p>Beskrivning: <span class='img-type'>{{ labelSv }}</span><span> på sidan {{ pageData.number
             }}</span></p>
       </div>
+      
       <!--<p>Sida: <span>{{ pageData.number }}</span></p>-->
       <div class="metadata-item">
         <p>Länk:<a target="_blank"
             :href='"https://litteraturbanken.se/f%C3%B6rfattare/" + pageData.work.main_author.lbauthorid + "/titlar/" + pageData.work.modernized_title + "/sida/" + (pageData.number - offset) + "/faksimil"'><span>
               Originalsida hos LB</span></a></p>
       </div>
+      <div class="metadata-item"><p>Antal nära dubletter: <span>{{ numberSimilar }}</span></p> </div>
+      <div class="tag-container" v-if="imageTags">
+        <p>Taggar: <span class="tag-labels"><button v-for="tag in imageTags">{{ tag }}</button></span></p></div>
     </div>
+
     <!-- <div class="metadata">
      <h4 id="image-copyright">Alla bilder som visas är licensierade <a
           href='https://creativecommons.org/publicdomain/zero/1.0/deed.sv' target="_blank"> CC0 1.0</a></h4> 
@@ -111,6 +116,8 @@ export default {
     const iiifFile = ref(null);
     const completeUrl = ref(null);
     const labelSv = ref(null);
+    const imageTags = ref([]);
+    const numberSimilar = ref(null);
     const pageId = ref(null);
     const imageUrls = ref([]);
     const publisher = ref("");
@@ -230,7 +237,7 @@ export default {
         relatedImages.value = [];
         currentImageId.value = newVal;
 
-        const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${newVal}`);
+        const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${newVal}&depth=4`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -241,7 +248,9 @@ export default {
         labelSv.value = graphicData.results[0].label_sv;
         completeUrl.value = graphicData.results[0].file;
         viewer.value.open(iiifFile.value + '/info.json');
-
+        numberSimilar.value = graphicData.results[0].similar_count;
+        imageTags.value = new Set(graphicData.results[0].tags.map((tag: any) => tag.category.cat_sv)); 
+        
 
         //fetch metadata
         if (pageId) {
@@ -274,7 +283,7 @@ export default {
 
 
     const initComponent = async () => {
-      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${currentImageId.value}`);
+      const response = await fetch(`https://diana.dh.gu.se/api/litteraturlabbet/graphic/?id=${currentImageId.value}&depth=4`);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -284,7 +293,8 @@ export default {
       pageId.value = graphicData.results[0].page.id;
       labelSv.value = graphicData.results[0].label_sv;
       completeUrl.value = graphicData.results[0].file;
-
+      numberSimilar.value = graphicData.results[0].similar_count;
+      imageTags.value = new Set(graphicData.results[0].tags.map((tag: any) => tag.category.cat_sv)); 
 
       if (!viewer) {
         console.log("No viewer");
@@ -354,6 +364,8 @@ export default {
       unshowSelf,
       imageUrls,
       labelSv,
+      numberSimilar,
+      imageTags,
       downloadImage,
       completeUrl,
       offset,
@@ -629,5 +641,32 @@ export default {
 
 .img-type {
   text-transform: capitalize
+}
+
+.tag-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  z-index: 1000;
+  margin-bottom: 10px;
+}
+
+
+.tag-labels button {
+  margin: 5px;
+  padding: 2px 10px 4px 10px;
+  border-radius: 4px;
+  font-family: "Barlow Condensed", sans-serif !important;
+  font-size: 1.0em;
+  border: none;
+  user-select: none;
+  -webkit-user-select: none;
+  background-color: white;
+}
+
+.tag-labels button:hover {
+  background-color: var(--theme-accent-color);
+  color: white;
 }
 </style>

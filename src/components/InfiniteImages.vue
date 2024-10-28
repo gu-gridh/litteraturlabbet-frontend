@@ -80,7 +80,7 @@ let canIncrement = ref(true);
 let infScroll: any;
 const images = ref([] as ImageI[]);
 const selectedLabel = ref("Illustrationer");
-const galleryLabels = ["Alla", "Provenance", "Omslagsbilder", "Illustrationer", "Musiknoter", "Anfanger", "Ornament"];
+const galleryLabels = ["Alla", "Exlibris", "Omslagsbilder", "Illustrationer", "Musiknoter", "Anfanger", "Ornament"];
 const route = useRoute();
 const showOverlay = ref(false);
 const isExpanded = ref(false);
@@ -126,9 +126,8 @@ const fetchData = async () => {
     // replace Alla label with empty string for search query so all results are returned
     let searchQuery = 'label_sv='
     // Build the base query based on the selected label
-    if (selectedLabel.value !== 'Alla') {
-      searchQuery += `${selectedLabel.value.toLowerCase()}`;
-    }
+    if (selectedLabel.value !== 'Alla') {searchQuery += `${selectedLabel.value.toLowerCase()}`}
+
 
     // Add additional parameters with proper separators
     const addParam = (paramName: string, value: any) => {
@@ -227,9 +226,8 @@ const initMasonry = () => {
       */
       let searchQuery = ''
       // Build the base query based on the selected label
-      if (selectedLabel.value !== 'Alla') {
-        searchQuery += `${selectedLabel.value}`;
-      }
+      if (selectedLabel.value !== 'Alla') {searchQuery += `${selectedLabel.value.toLowerCase()}`}
+
 
       // Add additional parameters with proper separators
       const addParam = (paramName: string, value: any) => {
