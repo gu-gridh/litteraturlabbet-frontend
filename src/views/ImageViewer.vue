@@ -663,6 +663,7 @@ export default {
   user-select: none;
   -webkit-user-select: none;
   background-color: white;
+  text-transform: capitalize;
 }
 
 .tag-labels button:hover {
