@@ -47,7 +47,9 @@ npm run lint
 ```
 ## Images in the gallery
 
-The images shown in the gallery were extracted using a pre-trained Faster R-CNN model with ResNet50 backbone finetuned on a manually labelled subset of the Litterturbanken dataset.  The detected images were cropped with a border and exported.  The class labels are manually corrected where necessary.  
+The images in the gallery were extracted using a YOLOv8s object detection model fine-tuned on a subset of the Litteraturbanken data using manually labelled images and manually verified detections from a FasterRCNN model used previously.  The detected images were exported as crops during model prediction.  The class labels are manually corrected where necessary.
 
-Click on an image in the gallery to see the available metadata about the image and work it belongs to.  Below the metadata there is also a gallery of similar images.  These similar images were calculated by extracting the image embeddings from a ResNet50 model in Fastai with the TensorBoardCallback for input in Spotify's annoy library to calculate the approximate nearest neighbours with angular distance.  Recurring images, those used throughout a work, were excluded using the work id and a match distance threshold.
+Crops were tagged using the Recognize Anything Model from [Zhang et al. 2023](https://arxiv.org/pdf/2306.03514).  The tags were returned in English and filtered to those most related to the works in the dataset, then translated to Swedish and assigned to a category.
+
+Click on an image in the gallery to see the available metadata about the image and work it belongs to.  Below the metadata there is also a gallery of similar images.  These similar images were calculated by extracting the image embeddings from a resnext50-32x4d-imagenet-torch model in FiftyOne for input in Spotify's annoy library to calculate the approximate nearest neighbours with euclidean metric.  Recurring images, those used throughout a work, were excluded using the work id and a match distance threshold.
 
