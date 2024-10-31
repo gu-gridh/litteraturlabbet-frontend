@@ -157,7 +157,7 @@ const fetchData = async () => {
     for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) {
       document.getElementById(lbl)!.setAttribute('style', deselectedStyle.cssText);
     }
-    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&limit=75&depth=3`;
+    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&page_size=50&depth=3`;
     const res = await fetch(urlToFetch);
     const data = await res.json();
     const newImages = data.results.map((item: ImageI) => ({
@@ -244,7 +244,7 @@ const initMasonry = () => {
       addParam('work', store.work?.id); // Use optional chaining for potential undefined work
 
       const offset = (pageIndex.value - 1) * 25;
-      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&limit=25&offset=${offset}`;
+      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=25&offset=${offset}`;
       return url;
     },
     //append: '.gallery__item',
