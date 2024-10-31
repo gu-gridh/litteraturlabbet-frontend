@@ -55,16 +55,17 @@ a:hover {
 }
 
 .about-container {
-  display: flex;
-  align-items:center;
-  flex-direction: row;
-  padding: 50px;
-  min-height:610px;
+  padding: 50px 50px;
+  min-height:auto!important;
+  overflow:visible;
 }
 
-.about {
-  width: 100%;
+.about{
+margin-top:70px;
+
 }
+
+
 
 .about-content {
   padding-top: 30px;
@@ -80,6 +81,9 @@ a:hover {
     font-weight: 600 !important;
     font-size: 35px !important;
   }
+  .about-container {
+    padding: 40px 20px;
+  }
 }
 
 @media screen and (max-width: 950px) {
@@ -89,6 +93,14 @@ a:hover {
   }
   .about-container {
   padding: 40px 20px;
+  min-height:1000px!important;
+  overflow:visible;
 }
+
+
+.about{
+margin-top:0px;
+}
+
 }
 </style>
