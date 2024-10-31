@@ -73,8 +73,11 @@
         <div class="select-label">
           <p>Sök efter en tagg</p>
         </div>
+        <div class="tag-organise">
         <div v-for="tag in tags" :key="tag">
-          <span class="tag-chip" @click="searchTag(tag)" :class="{'active-tag': getIsActive(tag)}">{{ tag }}</span>
+          
+            <span class="tag-chip" @click="searchTag(tag)" :class="{'active-tag': getIsActive(tag)}">{{ tag }}</span>
+          </div>
         </div>
       </div>
       <div class="count-label">
@@ -727,22 +730,29 @@ watch(() => route.path, (path) => {
 <style src="@vueform/slider/themes/default.css"></style>
 
 <style scoped>
+.tag-organise {
+  display: flex;
+  flex-direction:row;
+  flex-wrap: wrap;
+  justify-content:flex-start;
+  width:100%;
+}
+
 .tag-chip {
-  display: inline-block;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 8px;
-  background-color: var(--theme-accent-color-dark);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  background-color: grey;
   color: white;
   cursor: pointer;
 }
+
+.tag-chip:hover{
+  transform:scale(1.15);
+}
 .active-tag {
-  background-color: black;
-  color: white;
-  border-radius: 8px;
-  padding: 0.5rem;
-  margin-right: 0.5rem;
+  background-color: var(--theme-accent-color-dark);
   cursor: pointer;
 }
 a:link {
