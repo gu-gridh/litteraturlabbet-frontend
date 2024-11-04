@@ -249,7 +249,7 @@ export default {
         const graphicData = await response.json();
         iiifFile.value = graphicData.results[0].iiif_file;
         pageId.value = graphicData.results[0].page.id;
-        labelSv.value = graphicData.results[0].label_sv;
+        labelSv.value = graphicData.results[0].label_sv.replace('provenance', 'Exlibris');
         completeUrl.value = graphicData.results[0].file;
         viewer.value.open(iiifFile.value + '/info.json');
         numberSimilar.value = graphicData.results[0].similar_count;
@@ -295,7 +295,7 @@ export default {
       const graphicData = await response.json();
       iiifFile.value = graphicData.results[0].iiif_file;
       pageId.value = graphicData.results[0].page.id;
-      labelSv.value = graphicData.results[0].label_sv;
+      labelSv.value = graphicData.results[0].label_sv.replace('provenance', 'Exlibris');
       completeUrl.value = graphicData.results[0].file;
       numberSimilar.value = graphicData.results[0].similar_count;
       imageTags.value = new Set(graphicData.results[0].tags.map((tag: any) => tag.category.cat_sv));
