@@ -74,12 +74,15 @@
         <div class="select-label">
           <p>Sök efter en tagg</p>
         </div>
-        <div class="tag-organise">
+        <!-- <div class="tag-organise">
           <div v-for="tag in tags" :key="tag">
 
             <span class="tag-chip" @click="searchTag(tag)" :class="{ 'active-tag': getIsActive(tag) }">{{ tag }}</span>
           </div>
-        </div>
+        </div> -->
+        <Multiselect mode="single" spellcheck="false" placeholder="Tagg" noResultsText="Inga verk matchar sökningen"
+          noOptionsText="Inga verk matchar sökningen" :searchable="true" :clear-on-select="false"
+          :clear-on-search="false" :options=tags @select="" @clear="" ref="tagSelect" />
       </div>
       <div class="count-label">
         <p>Totalt {{ workCount }} verk i samlingen.</p>
