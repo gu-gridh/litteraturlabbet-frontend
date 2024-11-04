@@ -14,7 +14,8 @@
           <!-- <p>Välj ett tidsomfång</p> -->
         </div>
         <div class="slider-input">
-          <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor" @update="setTimespan" lazy />
+          <Slider v-model="timeRange" :min="1800" :max="1900" :step="5" class="sliderColor" @update="setTimespan"
+            lazy />
         </div>
       </div>
 
@@ -47,9 +48,9 @@
           <p>Sök efter verk</p>
         </div>
         <Multiselect v-model="store.work" :value="store.work" mode="single" spellcheck="false" placeholder="Verk"
-          noResultsText="Inga verk matchar sökningen" noOptionsText="Inga verk matchar sökningen" :resolve-on-load="true"
-          :delay="1" :searchable="true" :object="true" valueProp="id" label="title" :clear-on-select="false"
-          :clear-on-search="false" :disabled="store.author2"
+          noResultsText="Inga verk matchar sökningen" noOptionsText="Inga verk matchar sökningen"
+          :resolve-on-load="true" :delay="1" :searchable="true" :object="true" valueProp="id" label="title"
+          :clear-on-select="false" :clear-on-search="false" :disabled="store.author2"
           :options="async (query: string, select$: any) => searchWork(query, { main_author: store.author?.id })"
           @select="onSelectWork" @clear="onClearWork" ref="workSelect" />
       </div>
@@ -59,10 +60,10 @@
           <p>Sök efter en fras</p>
         </div>
         <input type="search" id="search" class="search-box" name="search" spellcheck="false" placeholder="Fras"
-          :value="searchQuery" @keydown="handleBackspace" @input="updateSearchQuery"
-          @keydown.enter="triggerSearch" @clear="onClearPhrase" />
+          :value="searchQuery" @keydown="handleBackspace" @input="updateSearchQuery" @keydown.enter="triggerSearch"
+          @clear="onClearPhrase" />
       </div>
-<!--
+      <!--
       <div class="self-reuse-wrapper" id="self-reuse-check" v-show="showReuseSearch">
         <input type="checkbox" id="self-reuse" name="self-reuse" v-model="store.selfReuse" />
         <label for="self-reuse">Inkludera självåterbruk</label>
@@ -73,14 +74,20 @@
         <div class="select-label">
           <p>Sök efter en tagg</p>
         </div>
-        <div v-for="tag in tags" :key="tag">
-          <span class="tag-chip" @click="searchTag(tag)" :class="{'active-tag': getIsActive(tag)}">{{ tag }}</span>
-        </div>
+        <!-- <div class="tag-organise">
+          <div v-for="tag in tags" :key="tag">
+
+            <span class="tag-chip" @click="searchTag(tag)" :class="{ 'active-tag': getIsActive(tag) }">{{ tag }}</span>
+          </div>
+        </div> -->
+        <Multiselect mode="single" spellcheck="false" placeholder="Tagg" noResultsText="Inga verk matchar sökningen"
+          noOptionsText="Inga verk matchar sökningen" :searchable="true" :clear-on-select="false"
+          :clear-on-search="false" :options=tags @select="" @clear="" ref="tagSelect" />
       </div>
       <div class="count-label">
         <p>Totalt {{ workCount }} verk i samlingen.</p>
         <div class="cc-notice" v-if="imageSearch">Alla bilder som visas är licensierade <a
-          href='https://creativecommons.org/publicdomain/zero/1.0/deed.sv' target="_blank"> CC0 1.0</a></div>
+            href='https://creativecommons.org/publicdomain/zero/1.0/deed.sv' target="_blank"> CC0 1.0</a></div>
       </div>
 
       <div class="button-container">
@@ -88,30 +95,30 @@
           <div class="search-button2" @click="triggerImageSearch">Sök</div>
         </div>
         <div v-else>
-        <div v-if="!hasQuery">
-          <div v-if="store.author2">
-            <div class="search-button2" @click="triggerSearch1">Sök</div>
+          <div v-if="!hasQuery">
+            <div v-if="store.author2">
+              <div class="search-button2" @click="triggerSearch1">Sök</div>
+            </div>
+            <div v-if="!store.author2">
+              <div class="search-button2" @click="triggerSearch2">Sök</div>
+            </div>
           </div>
-          <div v-if="!store.author2">
-            <div class="search-button2" @click="triggerSearch2">Sök</div>
+
+          <div v-if="hasQuery">
+            <div class="search-button2" @click="triggerSearch">Sök
+            </div>
           </div>
         </div>
-        
-        <div v-if="hasQuery">
-          <div class="search-button2" @click="triggerSearch">Sök
-          </div>
-        </div>
-      </div>
         <div class="errormessage-container">
           <div v-if="errorMessage">
             <span class="errormessage">{{ phraseErrorMessage }}</span>
           </div>
         </div>
-        </div>
       </div>
-    
+    </div>
+
   </div>
-  
+
 </template>
 
 <script setup lang="ts">
@@ -152,7 +159,7 @@ const showSearch = ref(false);
 const showWelcome = ref(true);
 const showGraphicSearch = ref(false);
 
-const tags = ["tag1", "tag2", "tag3", "tag4", "tag5"];
+const tags = ["porträtt", "föremål", "konstruktion(montering)", "öppna ytor", "fartyg", "arkitektoniska element", "legendariska varelser", "säsonger", "perioder", "levande organismer", "scenkonst", "material", "lantbruk", "scenkonstnärer", "genre", "begravningsstrukturer", "underhållningsevenemang", "rum och utrymmen", "djurarkitektur", "bebodda platser", "religiös", "fysiska aktiviteter", "evenemang(aktiviteter)", "organisationer", "fordonskomponenter", "naturliga händelser", "utrustning", "mat", "skyddsslitage", "vapen", "väder", "frukt", "fysikaliska begrepp", "ljudenheter", "transport", "enkelbyggda verk", "visuella verk", "växter", "landskap", "djur", "inredning", "personer", "informationsformulär(objekt)"].sort((a, b) => a.localeCompare(b))
 
 const route = useRoute();
 
@@ -175,7 +182,7 @@ function getIsActive(tag: string) {
 // dynamic placeholder for author select
 // return "Författare" if in gallery, "Författare #1" if in reuse
 function dynamicPlaceholder(index: number) {
-  
+
   if (index === 0) {
     if (route.path.startsWith('/gallery')) {
       return "Författare";
@@ -184,7 +191,7 @@ function dynamicPlaceholder(index: number) {
   } else if (index === 1) {
     return "Sök återbruk mellan två författare";
   }
-  
+
 }
 // initialize an empty author object with the given id
 function initAuthorId(id: number) {
@@ -247,19 +254,19 @@ onBeforeMount(() => {
     }
     if (route.path.match(/reuse\/\d+\/\d+/)) {
       //console.log(route.params);
-      store.author = initAuthorId(parseInt(route.params.author+""));
-      store.work = initWorkId(parseInt(route.params.work+""));
+      store.author = initAuthorId(parseInt(route.params.author + ""));
+      store.work = initWorkId(parseInt(route.params.work + ""));
       currentAuthor.value = store.author!.id;
       currentAuthor2.value = -1;
       currentWork.value = store.work!.id;
     } else if (route.path.match(/reuse\/\d+/)) {
-      store.author = initAuthorId(parseInt(route.params.id+""));
+      store.author = initAuthorId(parseInt(route.params.id + ""));
       currentAuthor.value = store.author!.id;
       currentAuthor2.value = -1;
       currentWork.value = -1;
     } else if (route.path.match(/reuse\/link\/\d+\/\d+/)) {
-      store.author = initAuthorId(parseInt(route.params.id1+""));
-      store.author2 = initAuthorId(parseInt(route.params.id2+""));
+      store.author = initAuthorId(parseInt(route.params.id1 + ""));
+      store.author2 = initAuthorId(parseInt(route.params.id2 + ""));
       currentAuthor.value = store.author!.id;
       currentWork.value = -1;
       currentAuthor2.value = store.author2!.id;
@@ -331,7 +338,7 @@ function triggerImageSearch() {
   //console.log("Image search");
   // emit event
   store.triggerImageSearch = true;
-} 
+}
 
 async function triggerSearch1() {
   scrollTo({
@@ -435,7 +442,7 @@ function searchTag(tag: string) {
 function workHasGraphic(work: any) {
   if (work) {
     const numid = parseInt(work.id);
-    return works_with_graphic.indexOf(numid)>-1;
+    return works_with_graphic.indexOf(numid) > -1;
   }
   return false;
 }
@@ -443,7 +450,7 @@ function workHasGraphic(work: any) {
 function hasGraphic(author: any) {
   if (author) {
     const numid = parseInt(author.id);
-    return authors_with_graphic.indexOf(numid)>-1;
+    return authors_with_graphic.indexOf(numid) > -1;
   }
   return false;
 }
@@ -479,8 +486,8 @@ async function searchAuthor(query: string) {
       authors_with_reuse = authors_with_reuse.filter((a) => parseInt(a.min_year) >= store.yearStart!);
     }
     if (store.yearEnd) {
-      authors_without_reuse = authors_without_reuse.filter((a) =>  parseInt(a.max_year) <= store.yearEnd!);
-      authors_with_reuse = authors_with_reuse.filter((a) =>  parseInt(a.max_year) <= store.yearEnd!);
+      authors_without_reuse = authors_without_reuse.filter((a) => parseInt(a.max_year) <= store.yearEnd!);
+      authors_with_reuse = authors_with_reuse.filter((a) => parseInt(a.max_year) <= store.yearEnd!);
     }
     return authors_with_reuse.concat(authors_without_reuse);
   } else if (route.path.startsWith('/gallery')) {
@@ -491,17 +498,17 @@ async function searchAuthor(query: string) {
           disabled: !hasGraphic(b)
         }
       });
-      let authors_without_graphic = allAuthors.filter((a) => !hasGraphic(a));
-      let authors_with_graphic = allAuthors.filter((a) => hasGraphic(a));
-      if (store.yearStart) {
-        authors_without_graphic = authors_without_graphic.filter((a) => parseInt(a.min_year) >= store.yearStart!);
-        authors_with_graphic = authors_with_graphic.filter((a) => parseInt(a.min_year) >= store.yearStart!);
-      }
-      if (store.yearEnd) {
-        authors_without_graphic = authors_without_graphic.filter((a) =>  parseInt(a.max_year) <= store.yearEnd!);
-        authors_with_graphic = authors_with_graphic.filter((a) =>  parseInt(a.max_year) <= store.yearEnd!);
-      }
-      return authors_with_graphic.concat(authors_without_graphic);
+    let authors_without_graphic = allAuthors.filter((a) => !hasGraphic(a));
+    let authors_with_graphic = allAuthors.filter((a) => hasGraphic(a));
+    if (store.yearStart) {
+      authors_without_graphic = authors_without_graphic.filter((a) => parseInt(a.min_year) >= store.yearStart!);
+      authors_with_graphic = authors_with_graphic.filter((a) => parseInt(a.min_year) >= store.yearStart!);
+    }
+    if (store.yearEnd) {
+      authors_without_graphic = authors_without_graphic.filter((a) => parseInt(a.max_year) <= store.yearEnd!);
+      authors_with_graphic = authors_with_graphic.filter((a) => parseInt(a.max_year) <= store.yearEnd!);
+    }
+    return authors_with_graphic.concat(authors_without_graphic);
   } else {
     return authors.sort((x, y) => collator.compare(x.formatted_name || "", y.formatted_name || ""));
   }
@@ -511,9 +518,27 @@ async function searchAuthor(query: string) {
 async function searchWork(query: string, params: any) {
   //console.log("Loading works with params", params);
   if (route.path.startsWith("/reuse")) {
-  if (params.main_author) {
-    const pma = params.main_author+"";
-    let subset = works.filter((w) => w.main_author === pma);
+    if (params.main_author) {
+      const pma = params.main_author + "";
+      let subset = works.filter((w) => w.main_author === pma);
+      if (store.yearStart) {
+        subset = subset.filter((w) => parseInt(w.imprint_year) >= store.yearStart!);
+      }
+      if (store.yearEnd) {
+        subset = subset.filter((w) => parseInt(w.imprint_year) <= store.yearEnd!);
+      }
+      workCount.value = subset.length;
+      subset = subset.map((w) => {
+        return {
+          ...w,
+          disabled: !workHasReuse(w)
+        }
+      });
+      const subset_without_reuse = subset.filter((w) => !workHasReuse(w));
+      const subset_with_reuse = subset.filter((w) => workHasReuse(w));
+      return subset_with_reuse.concat(subset_without_reuse);
+    }
+    let subset = works;
     if (store.yearStart) {
       subset = subset.filter((w) => parseInt(w.imprint_year) >= store.yearStart!);
     }
@@ -530,28 +555,28 @@ async function searchWork(query: string, params: any) {
     const subset_without_reuse = subset.filter((w) => !workHasReuse(w));
     const subset_with_reuse = subset.filter((w) => workHasReuse(w));
     return subset_with_reuse.concat(subset_without_reuse);
-  }
-  let subset = works;
-  if (store.yearStart) {
-      subset = subset.filter((w) => parseInt(w.imprint_year) >= store.yearStart!);
-    }
-    if (store.yearEnd) {
-      subset = subset.filter((w) => parseInt(w.imprint_year) <= store.yearEnd!);
-    }
-    workCount.value = subset.length;
-    subset = subset.map((w) => {
-      return {
-        ...w,
-        disabled: !workHasReuse(w)
+  } else if (route.path.startsWith("/gallery")) {
+    if (params.main_author) {
+      const pma = params.main_author + "";
+      let subset = works.filter((w) => w.main_author === pma);
+      if (store.yearStart) {
+        subset = subset.filter((w) => parseInt(w.imprint_year) >= store.yearStart!);
       }
-    });
-    const subset_without_reuse = subset.filter((w) => !workHasReuse(w));
-    const subset_with_reuse = subset.filter((w) => workHasReuse(w));
-    return subset_with_reuse.concat(subset_without_reuse);
-} else if (route.path.startsWith("/gallery")) {
-  if (params.main_author) {
-    const pma = params.main_author+"";
-    let subset = works.filter((w) => w.main_author === pma);
+      if (store.yearEnd) {
+        subset = subset.filter((w) => parseInt(w.imprint_year) <= store.yearEnd!);
+      }
+      workCount.value = subset.length;
+      subset = subset.map((w) => {
+        return {
+          ...w,
+          disabled: !workHasGraphic(w)
+        }
+      });
+      const subset_without_reuse = subset.filter((w) => !workHasGraphic(w));
+      const subset_with_reuse = subset.filter((w) => workHasGraphic(w));
+      return subset_with_reuse.concat(subset_without_reuse);
+    }
+    let subset = works;
     if (store.yearStart) {
       subset = subset.filter((w) => parseInt(w.imprint_year) >= store.yearStart!);
     }
@@ -568,27 +593,9 @@ async function searchWork(query: string, params: any) {
     const subset_without_reuse = subset.filter((w) => !workHasGraphic(w));
     const subset_with_reuse = subset.filter((w) => workHasGraphic(w));
     return subset_with_reuse.concat(subset_without_reuse);
+  } else {
+    return works;
   }
-  let subset = works;
-  if (store.yearStart) {
-      subset = subset.filter((w) => parseInt(w.imprint_year) >= store.yearStart!);
-    }
-    if (store.yearEnd) {
-      subset = subset.filter((w) => parseInt(w.imprint_year) <= store.yearEnd!);
-    }
-    workCount.value = subset.length;
-    subset = subset.map((w) => {
-      return {
-        ...w,
-        disabled: !workHasGraphic(w)
-      }
-    });
-    const subset_without_reuse = subset.filter((w) => !workHasGraphic(w));
-    const subset_with_reuse = subset.filter((w) => workHasGraphic(w));
-    return subset_with_reuse.concat(subset_without_reuse);
-} else {
-  return works;
-}
 }
 
 function hasReuse(author: any) {
@@ -611,7 +618,7 @@ function workHasReuse(work: any) {
 // After selecting
 async function onSelectAuthor1(e: any) {
   // previous params value: Author, select$: any
-  const value = {...e};
+  const value = { ...e };
   // clear graph
   errorMessage.value = false;
   store.work = undefined;
@@ -634,7 +641,7 @@ async function onSelectAuthor1(e: any) {
 }
 
 async function onSelectAuthor2(e: any) {
-  const value = {...e};
+  const value = { ...e };
   workSelect.value.clearSearch();
   store.work = undefined;
 
@@ -649,7 +656,7 @@ async function onSelectAuthor2(e: any) {
 }
 
 async function onSelectWork(e: any) {
-  const value = {...e};
+  const value = { ...e };
   // Fetch the current work and full author
   errorMessage.value = false;
   const author = await get<Author>(value.main_author, "author");
@@ -743,24 +750,33 @@ watch(() => route.path, (path) => {
 <style src="@vueform/slider/themes/default.css"></style>
 
 <style scoped>
+.tag-organise {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+}
+
 .tag-chip {
-  display: inline-block;
   margin-right: 0.5rem;
   margin-bottom: 0.5rem;
-  padding: 0.5rem;
-  border-radius: 8px;
-  background-color: var(--theme-accent-color-dark);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  background-color: grey;
   color: white;
   cursor: pointer;
 }
+
+.tag-chip:hover {
+  transform: scale(1.15);
+}
+
 .active-tag {
-  background-color: black;
-  color: white;
-  border-radius: 8px;
-  padding: 0.5rem;
-  margin-right: 0.5rem;
+  background-color: var(--theme-accent-color-dark);
   cursor: pointer;
 }
+
 a:link {
   color: white;
   text-decoration: none;
@@ -772,13 +788,13 @@ a:visited {
   text-decoration-style: none;
 }
 
-.cc-notice a:link{
+.cc-notice a:link {
   color: black;
   text-decoration: none;
 }
 
 
-.cc-notice a:visited{
+.cc-notice a:visited {
   color: black;
   text-decoration: none;
 }
@@ -923,14 +939,14 @@ input[type="checkbox"] {
 }
 
 .doubleArrow {
-  margin-top:4px;
-  margin-bottom:-6px;
-  height:20px;
-  width:45px;
+  margin-top: 4px;
+  margin-bottom: -6px;
+  height: 20px;
+  width: 45px;
   align-content: center;
-  border-width:0px 1.5px 0px 0px;
-  border-style:dotted;
-  border-color:var(--theme-accent-color);
+  border-width: 0px 1.5px 0px 0px;
+  border-style: dotted;
+  border-color: var(--theme-accent-color);
 }
 
 button {

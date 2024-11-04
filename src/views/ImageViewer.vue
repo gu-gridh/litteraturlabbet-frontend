@@ -48,16 +48,20 @@
         <p>Beskrivning: <span class='img-type'>{{ labelSv }}</span><span> på sidan {{ pageData.number
             }}</span></p>
       </div>
-      
+
       <!--<p>Sida: <span>{{ pageData.number }}</span></p>-->
       <div class="metadata-item">
         <p>Länk:<a target="_blank"
             :href='"https://litteraturbanken.se/f%C3%B6rfattare/" + pageData.work.main_author.lbauthorid + "/titlar/" + pageData.work.modernized_title + "/sida/" + (pageData.number - offset) + "/faksimil"'><span>
               Originalsida hos LB</span></a></p>
       </div>
-      <div class="metadata-item"><p>Antal nära dubletter: <span>{{ numberSimilar }}</span></p> </div>
-      <div class="tag-container" v-if="imageTags">
-        <p>Taggar: <span class="tag-labels"><button v-for="tag in imageTags">{{ tag }}</button></span></p></div>
+      <div class="metadata-item">
+        <p>Antal nära dubletter i verk: <span>{{ numberSimilar }}</span></p>
+      </div>
+      <div class="tag-container">
+        <p>Taggar: <span v-if="imageTags.size > 0" class="tag-labels"><button v-for="tag in imageTags">{{ tag
+              }}</button></span> <span v-else> Inga taggar registrerade</span></p>
+      </div>
     </div>
 
     <!-- <div class="metadata">
@@ -245,12 +249,12 @@ export default {
         const graphicData = await response.json();
         iiifFile.value = graphicData.results[0].iiif_file;
         pageId.value = graphicData.results[0].page.id;
-        labelSv.value = graphicData.results[0].label_sv;
+        labelSv.value = graphicData.results[0].label_sv.replace('provenance', 'Exlibris');
         completeUrl.value = graphicData.results[0].file;
         viewer.value.open(iiifFile.value + '/info.json');
         numberSimilar.value = graphicData.results[0].similar_count;
-        imageTags.value = new Set(graphicData.results[0].tags.map((tag: any) => tag.category.cat_sv)); 
-        
+        imageTags.value = new Set(graphicData.results[0].tags.map((tag: any) => tag.category.cat_sv));
+
 
         //fetch metadata
         if (pageId) {
@@ -291,10 +295,10 @@ export default {
       const graphicData = await response.json();
       iiifFile.value = graphicData.results[0].iiif_file;
       pageId.value = graphicData.results[0].page.id;
-      labelSv.value = graphicData.results[0].label_sv;
+      labelSv.value = graphicData.results[0].label_sv.replace('provenance', 'Exlibris');
       completeUrl.value = graphicData.results[0].file;
       numberSimilar.value = graphicData.results[0].similar_count;
-      imageTags.value = new Set(graphicData.results[0].tags.map((tag: any) => tag.category.cat_sv)); 
+      imageTags.value = new Set(graphicData.results[0].tags.map((tag: any) => tag.category.cat_sv));
 
       if (!viewer) {
         console.log("No viewer");

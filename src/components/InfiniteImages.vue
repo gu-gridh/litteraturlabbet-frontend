@@ -47,7 +47,7 @@
           <div class="item-info-meta">
             <h5>{{ item.lb_title || item.title }}</h5>
             <h6>{{ item.author }}</h6>
-            <h7 v-if="item.label !== 'Ornament' || item.label !== 'Anfanger'">{{ item.year }}</h7>
+            <h7 v-if="item.label_sv !== 'ornament' && item.label_sv !== 'anfanger'">{{ item.year }}</h7>
           </div>
         </div>
         <div class="image-wrapper">
@@ -79,8 +79,8 @@ let pageIndex = ref(1);
 let canIncrement = ref(true);
 let infScroll: any;
 const images = ref([] as ImageI[]);
-const selectedLabel = ref("Illustrationer");
-const galleryLabels = ["Alla", "Exlibris", "Omslagsbilder", "Illustrationer", "Musiknoter", "Anfanger", "Ornament"];
+const selectedLabel = ref("illustrationer");
+const galleryLabels = ["alla", "exlibris", "omslagsbilder", "illustrationer", "musiknoter", "anfanger", "ornament"];
 const route = useRoute();
 const showOverlay = ref(false);
 const isExpanded = ref(false);
@@ -126,7 +126,9 @@ const fetchData = async () => {
     // replace Alla label with empty string for search query so all results are returned
     let searchQuery = 'label_sv='
     // Build the base query based on the selected label
-    if (selectedLabel.value !== 'Alla') {searchQuery += `${selectedLabel.value.toLowerCase()}`}
+    if (selectedLabel.value !== 'alla' && selectedLabel.value !== 'exlibris') { searchQuery += `${selectedLabel.value}` }
+    // Handle use of provnance label in database instead of exlibris
+    if (selectedLabel.value === 'exlibris') { searchQuery += 'provenance' }
 
 
     // Add additional parameters with proper separators
@@ -155,7 +157,7 @@ const fetchData = async () => {
     for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) {
       document.getElementById(lbl)!.setAttribute('style', deselectedStyle.cssText);
     }
-    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&limit=75&depth=3`;
+    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&page_size=50&depth=3`;
     const res = await fetch(urlToFetch);
     const data = await res.json();
     const newImages = data.results.map((item: ImageI) => ({
@@ -220,13 +222,12 @@ const initMasonry = () => {
         pageIndex.value++;
       }
       canIncrement.value = false;
-      /*let searchQuery = ''
-      if (selectedLabel.value == 'Alla') { searchQuery = '' }
-      else { searchQuery = selectedLabel.value };
-      */
-      let searchQuery = ''
+      // replace Alla label with empty string for search query so all results are returned
+      let searchQuery = 'label_sv='
       // Build the base query based on the selected label
-      if (selectedLabel.value !== 'Alla') {searchQuery += `${selectedLabel.value.toLowerCase()}`}
+      if (selectedLabel.value !== 'alla' && selectedLabel.value !== 'exlibris') { searchQuery += `${selectedLabel.value}` }
+      // Handle use of provnance label in database instead of exlibris
+      if (selectedLabel.value === 'exlibris') { searchQuery += 'provenance' }
 
 
       // Add additional parameters with proper separators
@@ -243,7 +244,7 @@ const initMasonry = () => {
       addParam('work', store.work?.id); // Use optional chaining for potential undefined work
 
       const offset = (pageIndex.value - 1) * 25;
-      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&limit=25&offset=${offset}`;
+      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=25&offset=${offset}`;
       return url;
     },
     //append: '.gallery__item',
@@ -668,13 +669,6 @@ watch(store.yearEnd, async () => {
   transition: all 0.2s ease-in-out;
 }
 
-
-/* .gallery__item img:hover {
-  display: block;
-  transform: scale(1.05);
-  filter: brightness(0.8);
-} */
-
 .gallery__item:hover .item-info {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0px, rgba(0, 0, 0, 0)100%) !important;
 }
@@ -707,12 +701,7 @@ watch(store.yearEnd, async () => {
   align-items: center;
   width: auto;
   z-index: 1000;
-  /*   
-  padding:5px 10px;
-  background-color:rgba(255,255,255,0.7);
-  border-radius:12px;
-  -webkit-backdrop-filter: blur(5px); 
-  backdrop-filter: blur(5px); */
+
 }
 
 .gallery-labels button {
@@ -725,6 +714,7 @@ watch(store.yearEnd, async () => {
   user-select: none;
   -webkit-user-select: none;
   background-color: white;
+  text-transform: capitalize;
 }
 
 .gallery-labels button:hover {
