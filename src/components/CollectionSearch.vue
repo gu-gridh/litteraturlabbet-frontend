@@ -157,7 +157,7 @@ const showSearch = ref(false);
 const showWelcome = ref(true);
 const showGraphicSearch = ref(false);
 
-const tags = ["porträtt", "föremål", "konstruktion(montering)", "öppna ytor", "fartyg", "arkitektoniska element", "legendariska varelser", "säsonger", "perioder", "levande organismer", "scenkonst", "material", "lantbruk", "scenkonstnärer", "genre", "begravningsstrukturer", "underhållningsevenemang", "rum och utrymmen", "djurarkitektur", "bebodda platser", "religiös", "fysiska aktiviteter", "evenemang(aktiviteter)", "organisationer", "fordonskomponenter", "naturliga händelser", "utrustning", "mat", "skyddsslitage", "vapen", "väder", "frukt", "fysikaliska begrepp", "ljudenheter", "transport", "enkelbyggda verk", "visuella verk", "växter", "landskap", "djur", "inredning", "personer", "informationsformulär(objekt)"];
+const tags = ["porträtt", "föremål", "konstruktion(montering)", "öppna ytor", "fartyg", "arkitektoniska element", "legendariska varelser", "säsonger", "perioder", "levande organismer", "scenkonst", "material", "lantbruk", "scenkonstnärer", "genre", "begravningsstrukturer", "underhållningsevenemang", "rum och utrymmen", "djurarkitektur", "bebodda platser", "religiös", "fysiska aktiviteter", "evenemang(aktiviteter)", "organisationer", "fordonskomponenter", "naturliga händelser", "utrustning", "mat", "skyddsslitage", "vapen", "väder", "frukt", "fysikaliska begrepp", "ljudenheter", "transport", "enkelbyggda verk", "visuella verk", "växter", "landskap", "djur", "inredning", "personer", "informationsformulär(objekt)"].sort((a, b) => a.localeCompare(b))
 
 const route = useRoute();
 
