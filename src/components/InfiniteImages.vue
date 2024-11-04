@@ -32,6 +32,11 @@
       <div class="gallery-labels">
         <button v-for="label in galleryLabels" :key="label" :id="label" @click="setLabel(label)">{{ label }}</button>
       </div>
+      <div class="filtering-labels">
+        <button :class="[selectedTag == '' ? 'reset-button disabled' : '', 'reset-button']" @click="resetTag()">Rensa
+          tagg
+          sök</button>
+      </div>
     </div>
     <div>
       <!-- No images to show -->
@@ -107,8 +112,13 @@ function setLabel(label: string) {
 }
 
 function updateTag(tag: string) {
+  setLabel("alla")
   selectedTag.value = tag
-  selectedLabel.value = ""
+
+}
+
+function resetTag() {
+  selectedTag.value = ""
 }
 
 onBeforeMount(() => {
@@ -759,5 +769,40 @@ watch(store.yearEnd, async () => {
   justify-content: center;
   align-items: center;
   overflow-y: auto;
+}
+
+.filtering-labels {
+  margin-top: 0px;
+  display: inline;
+  justify-content: end;
+  align-items: end;
+  width: auto;
+  z-index: 1000;
+
+}
+
+.reset-button {
+  margin: 5px;
+  padding: 2px 10px 4px 10px;
+  border-radius: 4px;
+  font-family: "Barlow Condensed", sans-serif !important;
+  font-size: 1.1em;
+  border: none;
+  user-select: none;
+  -webkit-user-select: none;
+  background-color: var(--theme-main-color-light);
+  text-transform: capitalize;
+}
+
+.reset-button:hover {
+  background-color: var(--theme-accent-color);
+  color: white;
+}
+
+.disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: #777;
+  opacity: 0.5;
 }
 </style>
