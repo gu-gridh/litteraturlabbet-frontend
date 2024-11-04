@@ -59,7 +59,8 @@
         <p>Antal nära dubletter i verk: <span>{{ numberSimilar }}</span></p>
       </div>
       <div class="tag-container">
-        <p>Taggar: <span v-if="imageTags.size > 0" class="tag-labels"><button v-for="tag in imageTags">{{ tag
+        <p>Taggar: <span v-if="imageTags.size > 0" class="tag-labels"><button @click="tagClicked(tag)"
+              v-for="tag in imageTags">{{ tag
               }}</button></span> <span v-else> Inga taggar registrerade</span></p>
       </div>
     </div>
@@ -220,6 +221,12 @@ export default {
       context.emit('navigate', id);
     }
 
+    const tagClicked = (tag: string) => {
+      console.log("New tag search:", tag);
+      context.emit('tagClicked', tag);
+      unshowSelf()
+    }
+
     const clean = (str: string) => {
       // replace &nbsp; with space
       str = str.replace(/&nbsp;/g, ' ');
@@ -377,6 +384,7 @@ export default {
       loadingMessage,
       navigate,
       initComponent,
+      tagClicked,
     };
   },
 

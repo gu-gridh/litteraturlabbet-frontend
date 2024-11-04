@@ -58,7 +58,8 @@
   </div>
 
 
-  <ImageViewer v-if="showOverlay" @unshow="deactivateOverlay" @navigate="parentNavigate" :imageId="selectedImageId" />
+  <ImageViewer v-if="showOverlay" @unshow="deactivateOverlay" @navigate="parentNavigate" @tagClicked="updateTag"
+    :imageId="selectedImageId" />
 </template>
 
 <script lang="ts" setup>
@@ -81,6 +82,7 @@ let infScroll: any;
 const images = ref([] as ImageI[]);
 const selectedLabel = ref("illustrationer");
 const galleryLabels = ["alla", "exlibris", "omslagsbilder", "illustrationer", "musiknoter", "anfanger", "ornament"];
+const selectedTag = ref("");
 const route = useRoute();
 const showOverlay = ref(false);
 const isExpanded = ref(false);
@@ -102,6 +104,11 @@ function setLabel(label: string) {
   }
   setBusy();
   selectedLabel.value = label.toLowerCase();
+}
+
+function updateTag(tag: string) {
+  selectedTag.value = tag
+  selectedLabel.value = ""
 }
 
 onBeforeMount(() => {
@@ -144,6 +151,7 @@ const fetchData = async () => {
     addParam('author', store.author?.id); // Use optional chaining for potential undefined author
     addParam('work', store.work?.id); // Use optional chaining for potential undefined work
     addParam('display', 'true'); //Only return images that aren't near duplicates
+    addParam('category_sv', selectedTag.value);
 
     // change style of selected button to same as on hover style
     const deselectedStyle = window.getComputedStyle(<HTMLElement>document.querySelector("button"));
@@ -242,6 +250,8 @@ const initMasonry = () => {
       addParam('year_end', store.yearEnd ?? 1900);
       addParam('author', store.author?.id); // Use optional chaining for potential undefined author
       addParam('work', store.work?.id); // Use optional chaining for potential undefined work
+      addParam('display', 'true'); //Only return images that aren't near duplicates
+      addParam('category_sv', selectedTag.value);
 
       const offset = (pageIndex.value - 1) * 25;
       const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=25&offset=${offset}`;
@@ -349,6 +359,23 @@ onMounted(() => {
 
 
 watch(selectedLabel, async () => {
+  images.value = [];
+  pageIndex.value = 1;
+  canIncrement.value = true;
+
+  if (infScroll) {
+    infScroll.destroy();
+  }
+
+  await fetchData();
+
+  imagesLoaded('.gallery', () => {
+    initMasonry();
+    setNotBusy();
+  });
+});
+
+watch(selectedTag, async () => {
   images.value = [];
   pageIndex.value = 1;
   canIncrement.value = true;
