@@ -75,6 +75,7 @@ function filterData() {
   const numId = parseInt(props.id);
   let includedSegments: Segment[] = [];
   let excludedSegments = [];
+  console.log(numId);
   get<Cluster>(numId, "cluster", 4).then((c) => {
     let seenSegmentIds = new Set();
     for (let i = 0; i < c.segments.length; i++) {
@@ -111,6 +112,7 @@ function filterData() {
           includedSegments.push(segment_i);
         }
     }
+    console.log(excludedSegments);
     c.size = 0;//c.size - seenSegmentIds.size + 1;
     cluster.value = c;
     if (store.yearStart) {
@@ -124,6 +126,8 @@ function filterData() {
     if (excludedSegments.length > 0) {
       //console.log("Excluded segments: ", excludedSegments.length);
       numExcluded.value = excludedSegments.length;
+      console.log(numExcluded.value);
+      console.log(excludedSegments);
     } else {
       numExcluded.value = 0;
     }

@@ -168,8 +168,18 @@ async function fetchClusters(page: number, authorID: number | undefined, workID:
   };
 
   const clusterResults = await list<Cluster>("cluster", params);
-  
+  console.log(clusterResults);
+  // for each cluster, count number of segments where the main author is the same as the author selected
   clusterResults.results.forEach((cluster) => {
+    let count = 0;
+    cluster.segments.forEach((segment) => {
+      if ((<any>segment.series.main_author) as number === store.author?.id) {
+        count++;
+      }
+    });
+    cluster.selfReuseCount = count;
+  //});
+  //clusterResults.results.forEach((cluster) => {
     
     let seenSegmentIds = new Set();
     
@@ -241,16 +251,7 @@ async function fetchClusters(page: number, authorID: number | undefined, workID:
     }
   });
   
-  // for each cluster, count number of segments where the main author is the same as the author selected
-  clusterResults.results.forEach((cluster) => {
-    let count = 0;
-    cluster.segments.forEach((segment) => {
-      if ((<any>segment.series.main_author) as number === store.author?.id) {
-        count++;
-      }
-    });
-    cluster.selfReuseCount = count;
-  });
+  
 
   clusters.value = clusterResults.results.sort((a, b) => b.size - a.size);
   store.clusters = clusters.value;

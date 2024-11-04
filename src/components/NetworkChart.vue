@@ -121,14 +121,16 @@ function build(graphData: any, author?: number) {
   // Check if node is in the network
   // If not, return empty graph
   console.log(author);
-  console.log(data.nodes);
+  
   if (author && data.nodes.filter((n: any) => n.id === author).length === 0) {
     console.log("Author not in network");
     return graph;
   }
   if (!author) {
+    console.log("No author");
     return graph;
   }
+  console.log(data.links);
   /*
   if (author === 3292) {
     graphVisible = ref(false);
@@ -150,10 +152,14 @@ function build(graphData: any, author?: number) {
   data.links = data.links.map(function (link: Link) {
     const sourceNode = data.nodes.find(function (n: Node) { return n.id === link.source; });
     const targetNode = data.nodes.find(function (n: Node) { return n.id === link.target; });
+    
     if (sourceNode && targetNode) {
+      console.log("debug value 1");
       const isCurrentAuthor = sourceNode.id === author || targetNode.id === author;
       const isNeighbor = seenNeighbors.indexOf(sourceNode.id) > -1;
       if (isCurrentAuthor || isNeighbor) {
+        console.log("debug value 2");
+
         if (isNeighbor) {
           if (neighborCount >= secondaryNodeNumber.value) {
             return;
@@ -190,11 +196,18 @@ function build(graphData: any, author?: number) {
 
     return null;
   }).filter((link: Link) => link); // removes null values
+  console.log(data.links);
+  console.log(data.nodes);
   data.nodes = data.nodes.filter((node: Node) => node.neighbors.length > 0);
+  console.log(data.nodes);
   let hoverNode: Node;
 
   if (author) {
+    console.log(author);
+    console.log(data.nodes);
+    console.log(data.nodes.filter((n: Node) => n.id === author));
     hoverNode = data.nodes.filter((n: Node) => n.id === author)[0];
+    console.log(hoverNode);
     if (hoverNode) {
     highlightNodes.add(hoverNode);
     hoverNode.neighbors.forEach((neighbor) => highlightNodes.add(neighbor));

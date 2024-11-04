@@ -48,10 +48,12 @@ import type { Cluster } from "@/types/litteraturlabbet";
 
 // init store
 import { searchStore } from "@/stores/search";
+
 const store = searchStore();
-defineProps<{
+const props = defineProps<{
   cluster: Cluster;
 }>();
+
 </script>
 
 <style scoped>

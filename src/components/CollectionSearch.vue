@@ -36,7 +36,7 @@
             :placeholder=dynamicPlaceholder(1) noResultsText="Inga författare matchar sökningen"
             noOptionsText="Inga författare matchar sökningen" :resolve-on-load="true" :delay="1" :searchable="true"
             :object="true" valueProp="id" label="formatted_name"
-            :options="async (query: string, select$: any) => searchAuthor(query)" :clear-on-select="true"
+            :options="async (query: string, select$: any) => searchAuthor2(query)" :clear-on-select="true"
             :clear-on-search="true" :disabled="store.work || !store.author" @select="onSelectAuthor2"
             @clear="onClearAuthor2" ref="authorSelect2" style="margin-top:10px; font-size: 18px;" />
         </div>
@@ -127,6 +127,7 @@ import { useRoute } from 'vue-router'
 import Welcome from "@/components/Welcome.vue";
 import { works } from "@/assets/works_years.json";
 import { authors } from "@/assets/authors_years.json";
+import { author_author_reuse } from "@/assets/author_author_reuse_ids.json";
 import router from "@/router";
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
 import { works_with_graphic } from "@/assets/works_with_graphic.json";
@@ -135,6 +136,7 @@ import { authors_with_graphic } from "@/assets/authors_with_graphic.json";
 const store = searchStore();
 
 const authorSelect = ref();
+const authorSelect2 = ref();
 const workSelect = ref();
 const workCount = ref<number>();
 
@@ -446,7 +448,17 @@ function hasGraphic(author: any) {
   return false;
 }
 
-
+async function searchAuthor2(query: string) {
+  if (route.path.startsWith('/reuse/')) {
+    if (store.author) {
+      // find all authors that have reuse with the current author
+      const v = author_author_reuse[store.author!.id];
+      // filter all authors for authors whose id is in v
+      const authors2 = authors.filter((a) => v.includes(parseInt(a.id)));
+      return authors2;
+    }
+  }
+}
 // Search for authors given an id
 async function searchAuthor(query: string) {
   // sort authors so that authors that are disabled are at the bottom
@@ -610,11 +622,15 @@ async function onSelectAuthor1(e: any) {
 
   // Set global store value
   store.author = value;
-
+  
   workSelect.value.refreshOptions();
   searchQuery.value = "";
   hasQuery.value = false;
   store.phrase = undefined;
+  // reset authorSelect2
+  store.author2 = undefined;
+
+  authorSelect2.value.refreshOptions();
 }
 
 async function onSelectAuthor2(e: any) {

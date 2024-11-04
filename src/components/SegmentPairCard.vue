@@ -63,7 +63,7 @@ if (props.segment1) {
     props.segment1.text,
     `<span class="highlight">${props.segment1.text}</span>`
   );
-  lblink1 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment1.series.main_author.lbauthorid+"/titlar/"+props.segment1.series.modernized_title+"/sida/"+(props.segment1.page.number+(isEtext1?0:1)-offset1)+(isEtext1?"/etext":"/faksimil");
+  lblink1 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment1.series.main_author.lbauthorid+"/titlar/"+props.segment1.series.modernized_title+"/sida/"+(parseInt(props.segment1.page.number)+(isEtext1?0:1)-offset1)+(isEtext1?"/etext":"/faksimil");
  
 }
 if (props.segment2) {
@@ -71,7 +71,7 @@ if (props.segment2) {
     props.segment2.text,
     `<span class="highlight">${props.segment2.text}</span>`
   );
-  lblink2 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment2.series.main_author.lbauthorid+"/titlar/"+props.segment2.series.modernized_title+"/sida/"+(props.segment2.page.number+(isEtext2?0:1)-offset2)+(isEtext2?"/etext":"/faksimil");
+  lblink2 = "https://litteraturbanken.se/f%C3%B6rfattare/"+props.segment2.series.main_author.lbauthorid+"/titlar/"+props.segment2.series.modernized_title+"/sida/"+(parseInt(props.segment2.page.number)+(isEtext2?0:1)-offset2)+(isEtext2?"/etext":"/faksimil");
 }
 
 onMounted(() => {

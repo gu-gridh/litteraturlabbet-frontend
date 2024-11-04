@@ -146,6 +146,11 @@ async function fetch() {
   } else {
     */
   let links = dataStore.data.exchange.length>0?toRaw(dataStore.data.exchange):await unpaginated<Link>("author_exchange", {});
+  
+  const test = links.filter((l) => l.source === 37 || l.target === 37);
+  // check if links contains the value 37 in either target or source, find all nodes
+  console.log(test);
+  
   dataStore.data.exchange = links;
   
   let ids = links
