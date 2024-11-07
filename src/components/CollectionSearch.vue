@@ -80,9 +80,9 @@
             <span class="tag-chip" @click="searchTag(tag)" :class="{ 'active-tag': getIsActive(tag) }">{{ tag }}</span>
           </div>
         </div> -->
-        <Multiselect mode="single" spellcheck="false" placeholder="Tagg" noResultsText="Inga verk matchar sökningen"
-          noOptionsText="Inga verk matchar sökningen" :searchable="true" :clear-on-select="false"
-          :clear-on-search="false" :options=tags @select="" @clear="" ref="tagSelect" />
+        <Multiselect mode="single" spellcheck="false" placeholder="Tagg" noResultsText="Inga taggar matchar sökningen"
+          noOptionsText="Inga taggar matchar sökningen" :searchable="true" :clear-on-select="false"
+          :clear-on-search="false" :options=tags @select="onSelectTag()" @clear="onClearTag()" ref="tagSelect" />
       </div>
       <div class="count-label">
         <p>Totalt {{ workCount }} verk i samlingen.</p>
@@ -178,6 +178,12 @@ const imageSearch = ref(false);
 
 function getIsActive(tag: string) {
   return currentTags.value.indexOf(tag) > -1;
+}
+function onClearTag() {
+  currentTags.value = [];
+}
+function onSelectTag() {
+  console.log("Tag selected");
 }
 // dynamic placeholder for author select
 // return "Författare" if in gallery, "Författare #1" if in reuse
