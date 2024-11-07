@@ -38,10 +38,9 @@ function filterData() {
         for (let j = 0; j < data.results[i].segments.length; j++) {
             const s = data.results[i].segments[j];
             const main_author = s.series.main_author.id;
-            const year = parseInt(s.series.imprint_year);
+            const year = s.series.imprint_year;
             const id = s.series.id;
             if (main_author == a1) {
-                console.log("A1");
                 if (s1) {
                     s2 = s;
                     y2 = year;
@@ -52,7 +51,6 @@ function filterData() {
                     id1 = id;
                 }
             } else if (main_author == a2) {
-                console.log("A2");
                 if (s2) {
                     s1 = s;
                     y1 = year;
@@ -72,8 +70,6 @@ function filterData() {
         }
             
         // Throw away invalid pairs where one or two of the segments are null
-        console.log(y1);
-        console.log(y2);
         if (!y1 || !y2) {
             continue;
         }
@@ -83,27 +79,22 @@ function filterData() {
         else
             segments.push([s2, s1]);
     }
-    console.log(segments);
     segments.sort((a,b) => {
-        if (parseInt(a[0].series.imprint_year) < parseInt(b[0].series.imprint_year)) {
+        if (a[0].series.imprint_year < b[0].series.imprint_year) {
             return -1;
         }
-        if (parseInt(a[0].series.imprint_year) > parseInt(b[0].series.imprint_year)) {
+        if (a[0].series.imprint_year > b[0].series.imprint_year) {
             return 1;
         }
         return 0;
     });
-    console.log(segments);
     if (store.yearStart) {
-        segments = segments.filter((s) => parseInt(s[0].series.imprint_year) >= store.yearStart! && parseInt(s[1].series.imprint_year) >= store.yearStart!);
+        segments = segments.filter((s) => s[0].series.imprint_year >= store.yearStart! && s[1].series.imprint_year >= store.yearStart!);
     }
     if (store.yearEnd) {
-        segments = segments.filter((s) => parseInt(s[0].series.imprint_year) <= store.yearEnd! && parseInt(s[1].series.imprint_year) <= store.yearEnd!);
+        segments = segments.filter((s) => s[0].series.imprint_year <= store.yearEnd! && s[1].series.imprint_year <= store.yearEnd!);
     }
-    console.log(segments);
     numExcluded.value = data.results.length - segments.length;
-    console.log(data.results);
-    console.log(segments);
     segments2.value = segments;
 }
 
@@ -153,7 +144,7 @@ watch(
         <div v-if="numExcluded > 0">
             <div class="exclude-label label-color">
           <span class="exclusion-number">{{ numExcluded }} stycke<span v-if="numExcluded > 1">n</span></span> 
-          exkludera<span v-if="numExcluded === 1">t</span><span v-if="numExcluded > 1">de</span> på grund av att de<span v-if="numExcluded === 1">t</span> faller utanför vald tidsperiod.
+          exkludera<span v-if="numExcluded === 1">t</span><span v-if="numExcluded > 1">de</span> på grund av att de<span v-if="numExcluded === 1">t</span> faller utanför vald tidsperiod <i>eller</i> att de inte är mellan valda författare.
         </div>
       </div>
               <div class="link-container">
