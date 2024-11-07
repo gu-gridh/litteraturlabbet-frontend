@@ -140,6 +140,12 @@ import { setBusy, setNotBusy } from "@/components/Waiter.vue";
 import { works_with_graphic } from "@/assets/works_with_graphic.json";
 import { authors_with_graphic } from "@/assets/authors_with_graphic.json";
 
+interface AuthorReuse {
+  [authorId: string]: number[]
+}
+
+const author_author_reuse_typed = author_author_reuse as unknown as AuthorReuse;
+
 const store = searchStore();
 
 const authorSelect = ref();
@@ -176,9 +182,6 @@ let author2changed = false;
 
 const imageSearch = ref(false);
 
-function getIsActive(tag: string) {
-  return currentTags.value.indexOf(tag) > -1;
-}
 function onClearTag() {
   currentTags.value = [];
 }
@@ -436,15 +439,6 @@ function onClearPhrase() {
   store.phraseResults = undefined;
 }
 
-function searchTag(tag: string) {
-  console.log("Searching for tag", tag);
-  if (currentTags.value.includes(tag)) {
-    currentTags.value = currentTags.value.filter((t) => t !== tag);
-  } else {
-    currentTags.value.push(tag);
-  }
-}
-
 function workHasGraphic(work: any) {
   if (work) {
     const numid = parseInt(work.id);
@@ -465,7 +459,7 @@ async function searchAuthor2(query: string) {
   if (route.path.startsWith('/reuse/')) {
     if (store.author) {
       // find all authors that have reuse with the current author
-      const v = author_author_reuse[store.author!.id];
+      const v = author_author_reuse_typed[store.author!.id+""];
       // filter all authors for authors whose id is in v
       const authors2 = authors.filter((a) => v.includes(parseInt(a.id)));
       return authors2;
