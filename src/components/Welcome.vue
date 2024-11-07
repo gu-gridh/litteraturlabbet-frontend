@@ -28,7 +28,7 @@ import { searchStore } from "@/stores/search";
 import type { Work } from "@/types/litteraturlabbet";
 
 const store = searchStore();
-const workCount = ref<number>();
+const workCount = ref<number>(5647);
 
   // Update the work count
   countWorks();
