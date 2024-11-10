@@ -112,7 +112,7 @@ function setLabel(label: string) {
 }
 
 function updateTag(tag: string) {
-  setLabel("alla")
+  setLabel("illustrationer")
   selectedTag.value = tag
 
 }
