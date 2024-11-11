@@ -112,9 +112,8 @@ function setLabel(label: string) {
 }
 
 function updateTag(tag: string) {
-  setLabel("illustrationer")
-  selectedTag.value = tag
-
+  setLabel("illustrationer");
+  selectedTag.value = tag;
 }
 
 function resetTag() {
@@ -216,7 +215,7 @@ const initMasonry = () => {
 
 
   msnry = new Masonry(gallery, {
-    itemSelector: 'none', // select none at first
+    itemSelector: '.gallery_item', // select none at first
     columnWidth: '.gallery__col-sizer',
     gutter: '.gallery__gutter-sizer',
     percentPosition: true,
@@ -241,7 +240,7 @@ const initMasonry = () => {
       }
       canIncrement.value = false;
       // replace Alla label with empty string for search query so all results are returned
-      let searchQuery = 'label_sv='
+      let searchQuery = ''
       // Build the base query based on the selected label
       if (selectedLabel.value !== 'alla' && selectedLabel.value !== 'exlibris') { searchQuery += `${selectedLabel.value}` }
       // Handle use of provnance label in database instead of exlibris
@@ -271,11 +270,12 @@ const initMasonry = () => {
     outlayer: msnry,
     status: '.page-load-status',
     history: false,
-    scrollThreshold: 800,
+    scrollThreshold: 400,
     append: false,
     elementScroll: '.gallery',
     //elementScroll: true,
     loadOnScroll: true,
+    debug: true
   });
 
   infScroll.on('load', async function (response: any) {
@@ -304,6 +304,7 @@ const initMasonry = () => {
       }));
 
       images.value = [...images.value, ...newImages];
+      pageIndex.value++;
 
       imagesLoaded('.gallery', () => {
         msnry.reloadItems();
