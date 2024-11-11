@@ -275,7 +275,6 @@ const initMasonry = () => {
     elementScroll: '.gallery',
     //elementScroll: true,
     loadOnScroll: true,
-    debug: true
   });
 
   infScroll.on('load', async function (response: any) {
