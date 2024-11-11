@@ -35,10 +35,10 @@
     <!--Metadata display-->
     <div v-if="pageData" class="metadata">
       <h3>{{ pageData.work?.title }}</h3>
-      <div class="metadata-item" v-if="pageData & pageData.work?.main_author?.name">
+      <div class="metadata-item" v-if="pageData && pageData.work?.main_author?.name">
         <p>Författare: <span>{{ pageData.work?.main_author?.name }}</span></p>
       </div>
-      <div class="metadata-item" v-if="pageData & pageData.work?.sort_year">
+      <div class="metadata-item" v-if="pageData && pageData.work?.sort_year">
         <p>Utgiven: <span>{{ pageData.work?.sort_year }}</span></p>
       </div>
       <div class="metadata-item" v-if="publisher">
