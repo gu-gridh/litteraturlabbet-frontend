@@ -28,7 +28,7 @@ const router = createRouter({
       name: "reuse2",
       component: ReuseView,
       props: (route) => ({
-        author: route.params.author ? Number(route.params.author): undefined,
+        author: route.params.author ? Number(route.params.author) : undefined,
         work: route.params.work ? Number(route.params.work) : undefined,
       }),
       meta: { keepAlive: true },
@@ -57,7 +57,7 @@ const router = createRouter({
       name: "page",
       component: PageView,
       props: (route) => ({
-        id: route.params.id ? Number(route.params.id): undefined,
+        id: route.params.id ? Number(route.params.id) : undefined,
         segment: route.query.segment ? Number(route.query.segment) : undefined,
       }),
     },
@@ -66,7 +66,7 @@ const router = createRouter({
       name: "reuse-link",
       component: AuthorLink,
       props: (route) => ({
-        author1: route.params.id1 ? Number(route.params.id1): undefined,
+        author1: route.params.id1 ? Number(route.params.id1) : undefined,
         author2: route.params.id2 ? Number(route.params.id2) : undefined,
       }),
     },
@@ -75,7 +75,7 @@ const router = createRouter({
       name: "reuse-phrase",
       component: PhraseView,
       props: (route) => ({
-        author: route.params.author ? Number(route.params.author): undefined,
+        author: route.params.author ? Number(route.params.author) : undefined,
         work: route.params.work ? Number(route.params.work) : undefined,
         phrase: route.params.phrase ? route.params.phrase : undefined,
       }),
@@ -93,6 +93,18 @@ const router = createRouter({
       component: GalleryView,
       props: true,
     },
+    {
+      path: "/gallery/:tag",
+      name: "tag-search",
+      component: GalleryView,
+      props: true,
+    },
+    {
+      path: "/gallery/:author/:work/:tag",
+      name: "image-advanced-search",
+      component: GalleryView,
+      props: true,
+    }
   ],
 });
 
