@@ -32,11 +32,13 @@
       <div class="gallery-labels">
         <button v-for="label in galleryLabels" :key="label" :id="label" @click="setLabel(label)">{{ label }}</button>
       </div>
+      <!--
       <div class="filtering-labels">
         <button :class="[store.imageTag == '' ? 'reset-button disabled' : '', 'reset-button']" @click="resetTag()">Rensa
           tagg
           sök</button>
       </div>
+      -->
       <!--<button @click="reverseOrder">Reverse order</button>-->
     </div>
     <div>
@@ -120,6 +122,7 @@ function updateTag(tag: string) {
   setLabel("illustrationer");
   store.imageTag = tag;
   console.log("Tag: ", tag);
+  store.triggerImageSearch = true;
 }
 
 function resetTag() {
@@ -138,7 +141,7 @@ onBeforeMount(() => {
     showOverlay.value = true;
   }
   if (store.imageTag) {
-    history.replaceState(null, '', '/gallery/tag/' + store.imageTag);
+    //history.replaceState(null, '', '/gallery/tag/' + store.imageTag);
   }
   if (route.path.includes('/tag/') && !store.imageTag) {
     const tag = route.path.split('/tag/')[1];
