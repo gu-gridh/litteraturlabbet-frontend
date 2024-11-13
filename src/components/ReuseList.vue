@@ -2,17 +2,17 @@
   <div class="reuse-container">
   <div class="reuse-list-label">
     <div class="">
-      <div v-if="authorSelected && !workSelected">
+      <div v-if="store.author && !store.work">
         I verk av
-        <span class="author-name">{{ authorSelected?.name }}</span> finner vi
+        <span class="author-name">{{ store.author?.name??store.author?.formatted_name }}</span> finner vi
         <span class="author-name">{{ clusterCount }}</span> grupper av likartade stycken.
         <br/>
 
       </div>
-      <div v-if="workSelected && authorSelected">
+      <div v-if="store.work && store.author">
         I verket
-        <span class="work-title">{{ workTitle }}</span>
-        av <span class="author-name">{{ authorSelected?.name }}</span> finner vi
+        <span class="work-title">{{ store.work.short_title??store.work.title }}</span>
+        av <span class="author-name">{{ store.author?.name }}</span> finner vi
         <span class="work-title"> {{ clusterCount }} </span> grupper av återbruk.
       </div>
     </div>
@@ -25,7 +25,7 @@
     <div class="show-works">
       <div v-show="showWorks">
         <span class="mouse-pointer" @click="toggleShowWork()">Dölj verk</span>
-        <ChronoGraph :author="authorSelected?.id" :work="workSelected?.id"></ChronoGraph>
+        <ChronoGraph :author="store.author?.id" :work="store.work?.id"></ChronoGraph>
       </div>
       <span v-show="!showWorks" class="mouse-pointer" @click="toggleShowWork()">Visa vilka verk som ingår i sökningen</span>
     </div>
