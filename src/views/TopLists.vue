@@ -5,36 +5,24 @@ import { getByLbId, get } from "@/services/diana";
 import { ref } from 'vue';
 import router from '@/router/index'
 import { setBusy } from "@/components/Waiter.vue";
+import { searchStore } from "@/stores/search";
 
-const topTitles = ref(topList.titles.slice(0,10))
-const topAuthors = ref(topList.authors.slice(0,10))
-    //fetch and add id to json-file
-    topAuthors.value.forEach((a: any) => {
-        getByLbId<Author>("author", {lbauthorid: a.lbauthorid})
-            .then((b: any) => {
-                a.id = b.results[0].id
-            })
-    })
-    topTitles.value.forEach((a: any) => {
-        getByLbId<Work>("work", {lbworkid: a.lbworkid})
-            .then((b: any) => {
-                a.id = b.results[0].id
-            })
-    })
+const topTitles = ref(topList.titles)
+const topAuthors = ref(topList.authors)
+const store = searchStore();
 
-
-    const goToAuthor = (id: number) => {
-      setBusy();
-        router.push({ name: 'reuse2', params: { author: id } }); //.then(() => { router.go(0) })
-    }
-    const goToWork = (id: number) => {
-      setBusy();
-        get<Work>(id, "work")
-            .then((a: any) => {
-                const authorId = a.main_author
-                router.push({ name: 'reuse2', params: { work: id, author: authorId } }); //.then(() => { router.go(0) })
-            })
-    }
+const goToAuthor = async (id: number) => {
+  setBusy();
+  const author = await get<Author>(id, "author");
+  store.author = author;
+  router.push({ name: 'reuse2', params: { author: id } }); 
+}
+const goToWork = async (id: number, aid: number) => {
+  setBusy();
+  const work = await get<Work>(id, "work");
+  store.work = work;
+  router.push({ name: 'reuse2', params: { work: id, author: aid } }); 
+}
 
 </script>
 
@@ -53,8 +41,8 @@ const topAuthors = ref(topList.authors.slice(0,10))
       <div class="list-right">
         <ol>
           <h2>Verk</h2>
-          <li v-for="topTitle in topTitles" class="clickable"  @click="goToWork(topTitle.id)">
-            {{ topTitle.title }}
+          <li v-for="topTitle in topTitles" class="clickable"  @click="goToWork(topTitle.id, topTitle.aid)">
+            {{ topTitle.title }}. {{ topTitle.author }}
           </li>
         </ol>
       </div>

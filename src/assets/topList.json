@@ -1,236 +1,106 @@
 {
-    "titles" : [
-        {
-            "title": "Epigrammer, satirer och berättelser",
-            "lbworkid": "lb1595709",
-            "lbauthorid": "CederborghF",
-            "id": 0
-        },
-        {
-            "title": "Sjökadetten i konung Gustaf den tredjes tid af Pehr Sparre. Förf. till »Den siste friseglaren», »Adolf Findling» och »Standaret»",
-            "lbworkid":"lb2228705",
-            "lbauthorid":"SparreP",
-            "id": 0
-        },
-        {
-            "title": "Samlade allmogeberättelser I–II",
-            "lbworkid":"lb19466852",
-            "lbauthorid":"GeijerstamG",
-            "id": 0
-
-        },
-        {
-            "title": "Berättelser skizzer och noveller af C. A. Wetterbergh (Onkel Adam). Tredje bandet",
-            "lbworkid":"lb307357",
-            "lbauthorid":"WetterberghCA",
-            "id": 0
-        },
-        {
-            "title": "Skämtsamma dikter",
-            "lbworkid":"lb2223582",
-            "lbauthorid":"BraunWvon",
-            "id": 0
-        },
-        {
-            "title": "Berättelser skizzer och noveller af C. A. Wetterbergh (Onkel Adam). Fjerde bandet",
-            "lbworkid":"lb307358",
-            "lbauthorid":"WetterberghCA",
-            "id": 0
-        },
-        {
-            "title": "Millionärens dotterson. Öden och äfventyr till lands och sjös. Berättelse af Lodbrok",
-            "lbworkid": "lb8222204",
-            "lbauthorid": "PihlstrandR",
-            "id": 0
-        },
-        {
-            "title": "Ungdoms tidsfördrif. Andra Bandet",
-            "lbworkid": "lb1575672",
-            "lbauthorid": "CederborghF",
-            "id": 0
-        },
-        {
-            "title": "Ungdoms tidsfördrif. Första Bandet",
-            "lbworkid": "lb1575671",
-            "lbauthorid": "CederborghF",
-            "id": 0
-        },
-        {
-            "title": "Samlade dikter jemte lefnadsteckning utgifna af J. Oskar I. Rancken. Med Leistenii porträtt och facsimile",
-            "lbworkid": "lb10088367",
-            "lbauthorid": "LeisteniusJG",
-            "id": 0
-        },
-        {
-            "title": "Emancipationsvurmen. Berättelse",
-            "lbworkid": "lb1158285",
-            "lbauthorid": "SchwartzMS",
-            "id": 0
-        },
-        {
-            "title": "Kronofogdens berättelser af Gustaf af Geijerstam",
-            "lbworkid": "lb1622785",
-            "lbauthorid": "GeijerstamG",
-            "id": 0
-        },
-        {
-            "title": "Också en julklapp. Innehållande berättelser och utkast",
-            "lbworkid": "",
-            "lbauthorid": "",
-            "id": 0
-        },
-        {
-            "title": "Styckegods af signaturen Skoglar",
-            "lbworkid": "",
-            "lbauthorid": "",
-            "id": 0
-        },
-        {
-            "title": "Berättelser skizzer och noveller af C. A. Wetterbergh (Onkel Adam). Första bandet",
-            "lbworkid": "",
-            "lbauthorid": "",
-            "id": 0
-        },
-        {
-            "title": "Fosterländska sånger [II]",
-            "lbworkid": "",
-            "lbauthorid": "",
-            "id": 0
-        },
-        {
-            "title": "Tre historiska noveller af Wilhelmina. I. Studentkriget. II. Angelica Lillie. III. En annan Cendrillon",
-            "lbworkid": "",
-            "lbauthorid": "",
-            "id": 0
-        },
-        {
-            "title": "Läs! Noveller och skizzer af Nepomuk",
-            "lbworkid": "",
-            "lbauthorid": "",
-            "id": 0
-        }
-    ],
     "authors": [
         {
-            "name": "Johan Olof Åberg",
-            "titles": 120,
-            "lbauthorid": "ÅbergJO",
-            "id": 0
+            "id": 1568,
+            "name": "Gustaf af Geijerstam"
         },
         {
-            "name": "Pehr Thomasson",
-            "titles": 59,
-            "lbauthorid":"ThomassonP",
-            "id": 0
+            "id": 896,
+            "name": "Fredrik Cederborgh"
         },
         {
-            "name": "Marie Sophie Schwartz",
-            "titles": 45,
-            "lbauthorid": "SchwartzMS",
-            "id": 0
+            "id": 3213,
+            "name": "Gustaf Henrik Mellin"
         },
         {
-            "name": "Emilie Flygare-Carlén",
-            "titles": 42,
-            "lbauthorid": "FlygareCarlénE",
-            "id": 0
+            "id": 5051,
+            "name": "Carl Anton Wetterbergh"
         },
         {
-            "name": "Wilhelmina Stålberg",
-            "titles": 38,
-            "lbauthorid": "StålbergW",
-            "id": 0
+            "id": 823,
+            "name": "Carl Wilhelm Böttiger"
         },
         {
-            "name": "Zacharias Topelius",
-            "titles": 33,
-            "lbauthorid": "TopeliusZ",
-            "id": 0
+            "id": 1566,
+            "name": "Erik Gustaf Geijer"
         },
         {
-            "name": "Carl Anton Wetterbergh",
-            "titles": 28,
-            "lbauthorid": "WetterberghCA",
-            "id": 0
+            "id": 4473,
+            "name": "Oscar Patric Sturzen-Becker"
         },
         {
-            "name": "Gustaf Henrik Mellin",
-            "titles": 27,
-            "lbauthorid": "MellinGH",
-            "id": 0
+            "id": 3088,
+            "name": "Carl Julius Lénström"
         },
         {
-            "name": "Julius Axel Kiellman-Göranson",
-            "titles": 26,
-            "lbauthorid": "Kiellman-GöransonJA",
-            "id": 0
+            "id": 4685,
+            "name": "Pehr Thomasson"
         },
         {
-            "name": "Gustaf af Geijerstam",
-            "titles": 25,
-            "lbauthorid": "GeijerstamG",
-            "id": 0
+            "id": 2960,
+            "name": "Gustaf Ljunggren"
+        }
+    ],
+    "titles": [
+        {
+            "id": 2323,
+            "aid": 5237,
+            "title": "Blänkfyrar. Citat ur verldslitteraturen samlade och utgifna af K. Åberg & M. Henschen",
+            "author": "Katie Åberg"
         },
         {
-            "name": "Ragnar Pihlstrand",
-            "titles": 2,
-            "lbauthorid": "",
-            "id": 0
+            "id": 4689,
+            "aid": 309,
+            "title": "Läsebok i svensk prosa för de allmänna läroverkens öfre klasser. Utgifven af Peter Bagge, lektor vid Upsala h. allm. läroverk",
+            "author": "Peter Bagge"
         },
         {
-            "name": "Oskar II",
-            "titles": 2,
-            "lbauthorid": "",
-            "id": 0
+            "id": 3597,
+            "aid": 4590,
+            "title": "Samlade bygdehistorier. Illustrerade",
+            "author": "Thure Sällberg"
         },
         {
-            "name": "Marie Sophie Schwartz",
-            "titles": 2,
-            "lbauthorid": "",
-            "id": 0
+            "id": 4699,
+            "aid": 4873,
+            "title": "Svenske digtere i udvalg ved Johan Frederik Vinsnes og Hans Aanrud. Textrevision og korrektur besørget av Hellen Lindgren",
+            "author": "Johan Frederik Vinsnes"
         },
         {
-            "name": "Louis De Geer",
-            "titles": 2,
-            "lbauthorid": "",
-            "id": 0
+            "id": 2884,
+            "aid": 714,
+            "title": "Skämtsamma dikter",
+            "author": "Wilhelm von Braun"
         },
         {
-            "name": "Erik Gustaf Geijer",
-            "titles": 2,
-            "lbauthorid": "",
-            "id": 0
+            "id": 2316,
+            "aid": 1042,
+            "title": "Valda skrifter. Första delen",
+            "author": "Louis De Geer"
         },
         {
-            "name": "Johan Ludvig Runeberg",
-            "titles": 2,
-            "lbauthorid": "",
-            "id": 0
+            "id": 4036,
+            "aid": 2043,
+            "title": "Svenska folksägner samlade samt försedda med historiska och etnografiska anmärkningar. Med teckningar af svenska konstnärer",
+            "author": "Herman Hofberg"
         },
         {
-            "name": "Carl Vilhelm August Strandberg",
-            "titles": 2,
-            "lbauthorid": "",
-            "id": 0
+            "id": 3723,
+            "aid": 2880,
+            "title": "Ungdomens poesibok. Ett urval af svenska och utländska diktverk. För skolan och familjekretsen",
+            "author": "Hellen Lindgren"
         },
         {
-            "name": "Karl Robert Malmström",
-            "titles": 2,
-            "lbauthorid": "",
-            "id": 0
+            "id": 1243,
+            "aid": 2734,
+            "title": "Gyllene ord. Sentenser och maximer till själens och sinnets förädling samlade från flere hundra in- och utländska författare",
+            "author": "Viktor E. Lennstrand"
         },
         {
-            "name": "Anders Flodman",
-            "titles": 2,
-            "lbauthorid": "",
-            "id": 0
-        },
-        {
-            "name": "Theodor Björck",
-            "titles": 2,
-            "lbauthorid": "",
-            "id": 0
+            "id": 2218,
+            "aid": 2223,
+            "title": "Walda skalde-försök",
+            "author": "Georg Gabriel Ingelman"
         }
     ]
-
 }
