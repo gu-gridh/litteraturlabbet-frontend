@@ -94,7 +94,7 @@ const router = createRouter({
       props: true,
     },
     {
-      path: "/gallery/:tag",
+      path: "/gallery/tag/:tag",
       name: "tag-search",
       component: GalleryView,
       props: true,

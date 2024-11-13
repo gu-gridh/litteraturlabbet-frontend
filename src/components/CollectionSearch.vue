@@ -82,7 +82,7 @@
         </div> -->
         <Multiselect mode="single" spellcheck="false" placeholder="Tagg" noResultsText="Inga taggar matchar sökningen"
           noOptionsText="Inga taggar matchar sökningen" :searchable="true" :clear-on-select="false"
-          :clear-on-search="false" :options=tags @select="onSelectTag" @clear="onClearTag" ref="tagSelect" />
+          :clear-on-search="false" :options=tags @select="onSelectTag" @clear="onClearTag" ref="tagSelect" v-model=store.imageTag :value="store.imageTag" />
       </div>
       <div class="count-label">
         <p>Totalt {{ workCount }} verk i samlingen.</p>

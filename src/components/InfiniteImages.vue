@@ -33,7 +33,7 @@
         <button v-for="label in galleryLabels" :key="label" :id="label" @click="setLabel(label)">{{ label }}</button>
       </div>
       <div class="filtering-labels">
-        <button :class="[selectedTag == '' ? 'reset-button disabled' : '', 'reset-button']" @click="resetTag()">Rensa
+        <button :class="[store.imageTag == '' ? 'reset-button disabled' : '', 'reset-button']" @click="resetTag()">Rensa
           tagg
           sök</button>
       </div>
@@ -88,7 +88,6 @@ let infScroll: any;
 const images = ref([] as ImageI[]);
 const selectedLabel = ref("illustrationer");
 const galleryLabels = ["alla", "exlibris", "omslagsbilder", "illustrationer", "musiknoter", "anfanger", "ornament"];
-const selectedTag = ref("");
 const route = useRoute();
 const showOverlay = ref(false);
 const isExpanded = ref(false);
@@ -119,11 +118,16 @@ function setLabel(label: string) {
 
 function updateTag(tag: string) {
   setLabel("illustrationer");
-  selectedTag.value = tag;
+  store.imageTag = tag;
+  console.log("Tag: ", tag);
 }
 
 function resetTag() {
-  selectedTag.value = ""
+  store.imageTag = "";
+  console.log("Reset tag");
+  history.replaceState(null, '', '/gallery');
+  // trigger search
+  store.triggerImageSearch = true;
 }
 
 onBeforeMount(() => {
@@ -132,6 +136,13 @@ onBeforeMount(() => {
     console.log("Selected image id: ", selectedImageId.value);
     //activateOverlay(selectedImageId.value);
     showOverlay.value = true;
+  }
+  if (store.imageTag) {
+    history.replaceState(null, '', '/gallery/tag/' + store.imageTag);
+  }
+  if (route.path.includes('/tag/') && !store.imageTag) {
+    const tag = route.path.split('/tag/')[1];
+    store.imageTag = tag;
   }
 });
 
@@ -247,7 +258,7 @@ const initMasonry = () => {
     path: () => {
       if (canIncrement.value) {
         pageIndex.value++;
-      }
+      } 
       canIncrement.value = false;
       // replace Alla label with empty string for search query so all results are returned
       let searchQuery = ''
@@ -276,7 +287,7 @@ const initMasonry = () => {
       //addParam('category_sv', selectedTag.value);
       addParam('order', store.imageOrder ?? 'ASC');
       const offset = (pageIndex.value - 1) * 25;
-      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=25&offset=${offset}`;
+      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=25&page=${pageIndex.value}`;
       return url;
     },
     //append: '.gallery__item',
@@ -288,6 +299,7 @@ const initMasonry = () => {
     elementScroll: '.gallery',
     //elementScroll: true,
     loadOnScroll: true,
+    checkLastPage: true,
   });
 
   infScroll.on('load', async function (response: any) {
@@ -398,7 +410,7 @@ watch(selectedLabel, async () => {
   });
 });
 
-watch(selectedTag, async () => {
+watch(store.imageTag as unknown as object, async () => {
   images.value = [];
   pageIndex.value = 1;
   canIncrement.value = true;
