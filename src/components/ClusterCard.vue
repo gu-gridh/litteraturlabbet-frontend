@@ -14,7 +14,7 @@
   <div class="cluster-card">
     <div class="cluster-metadata-container">
       <div>
-        <p class="cluster-size-label">{{ cluster.size - cluster.selfReuseCount }} </p> hos andra
+        <p class="cluster-size-label">{{ Math.min(0,cluster.size - cluster.selfReuseCount) }} </p> hos andra
       </div>
       <div>
         <p class="cluster-size-label">{{ cluster.selfReuseCount }} </p> hos författaren
@@ -110,11 +110,6 @@ watch(() => props.cluster.selfReuseCount, () => {
   border-width: 0px 0.5px 0 0;
   border-style:dashed;
   border-color:black
-}
-
-.cluster-metadata-container:hover {
-
- 
 }
 
 .cluster-size-label {
