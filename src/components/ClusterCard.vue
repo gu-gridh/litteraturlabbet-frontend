@@ -48,12 +48,16 @@ import type { Cluster } from "@/types/litteraturlabbet";
 
 // init store
 import { searchStore } from "@/stores/search";
+import { watch } from "vue";
 
 const store = searchStore();
 const props = defineProps<{
   cluster: Cluster;
 }>();
 
+watch(() => props.cluster.selfReuseCount, () => {
+  console.log("selfReuseCount changed");
+});
 </script>
 
 <style scoped>
