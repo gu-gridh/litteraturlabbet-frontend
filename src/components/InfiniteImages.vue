@@ -37,6 +37,7 @@
           tagg
           sök</button>
       </div>
+      <!--<button @click="reverseOrder">Reverse order</button>-->
     </div>
     <div>
       <!-- No images to show -->
@@ -94,6 +95,11 @@ const isExpanded = ref(false);
 // let layoutKey = ref(0);
 // let loadedImagesCount = ref(0);
 const store = searchStore();
+
+function reverseOrder() {
+  console.log("Reverse order from", store.imageOrder);
+  store.imageOrder = store.imageOrder === 'ASC' ? 'DESC' : 'ASC';
+}
 
 function toggleContent() {
   isExpanded.value = !isExpanded.value;
@@ -160,8 +166,11 @@ const fetchData = async () => {
     addParam('author', store.author?.id); // Use optional chaining for potential undefined author
     addParam('work', store.work?.id); // Use optional chaining for potential undefined work
     addParam('display', 'true'); //Only return images that aren't near duplicates
-    addParam('category_sv', selectedTag.value);
-
+    if (store.imageTag) {
+      addParam('category_sv', store.imageTag);
+    }
+    //addParam('category_sv', selectedTag.value);
+    addParam('order', store.imageOrder ?? 'ASC');
     // change style of selected button to same as on hover style
     const deselectedStyle = window.getComputedStyle(<HTMLElement>document.querySelector("button"));
     const selectedElement = document.getElementById(selectedLabel.value);
@@ -175,6 +184,7 @@ const fetchData = async () => {
       document.getElementById(lbl)!.setAttribute('style', deselectedStyle.cssText);
     }
     const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&page_size=50&depth=3`;
+    //const urlToFetch = `http://localhost:8000/api/litteraturlabbet/graphic/?${searchQuery}&page_size=50&depth=3`;
     const res = await fetch(urlToFetch);
     const data = await res.json();
     const newImages = data.results.map((item: ImageI) => ({
@@ -260,8 +270,11 @@ const initMasonry = () => {
       addParam('author', store.author?.id); // Use optional chaining for potential undefined author
       addParam('work', store.work?.id); // Use optional chaining for potential undefined work
       addParam('display', 'true'); //Only return images that aren't near duplicates
-      addParam('category_sv', selectedTag.value);
-
+      if (store.imageTag) {
+        addParam('category_sv', store.imageTag);
+      }
+      //addParam('category_sv', selectedTag.value);
+      addParam('order', store.imageOrder ?? 'ASC');
       const offset = (pageIndex.value - 1) * 25;
       const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=25&offset=${offset}`;
       return url;
