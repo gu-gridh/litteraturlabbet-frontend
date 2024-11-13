@@ -14,7 +14,7 @@
   <div class="cluster-card">
     <div class="cluster-metadata-container">
       <div>
-        <p class="cluster-size-label">{{ Math.min(0,cluster.size - cluster.selfReuseCount) }} </p> hos andra
+        <p class="cluster-size-label">{{ Math.max(0,cluster.size - cluster.selfReuseCount) }} </p> hos andra
       </div>
       <div>
         <p class="cluster-size-label">{{ cluster.selfReuseCount }} </p> hos författaren
