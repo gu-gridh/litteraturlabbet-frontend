@@ -31,16 +31,21 @@
       </div>
       <div v-else>
         <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-top:20px;">
-          I verk av <span>andra författare</span> finner vi <span>{{ segmentsOther?.length }}</span> återbruk av stycket.
+          I verk av <span v-if="store.author"><span>andra</span></span><span v-else>alla</span> författare finner vi <span>{{ segmentsOther?.length }}</span> återbruk av stycket.
         </div>
           <segment-card v-for="segment in segmentsOther" v-bind:key="segment.id" :segment="segment" :other-target="otherTarget"></segment-card>
           <br>
-          <hr/>
+          
+          <div v-if="store.author">
+            <hr/>
           <br>
           <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-top:20px;">
+
           I verk av <span>{{ store.author?.name }}</span> finner vi <span>{{ segmentsSelf?.length }}</span> återbruk av stycket.
-        </div>
+        </div>  
           <segment-card v-for="segment in segmentsSelf" v-bind:key="segment.id" :segment="segment" :other-target="otherTarget"></segment-card>
+        </div>
+      
       </div>
     
   </div>
