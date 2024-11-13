@@ -82,7 +82,7 @@
         </div> -->
         <Multiselect mode="single" spellcheck="false" placeholder="Tagg" noResultsText="Inga taggar matchar sökningen"
           noOptionsText="Inga taggar matchar sökningen" :searchable="true" :clear-on-select="false"
-          :clear-on-search="false" :options=tags @select="onSelectTag()" @clear="onClearTag()" ref="tagSelect" />
+          :clear-on-search="false" :options=tags @select="onSelectTag" @clear="onClearTag" ref="tagSelect" />
       </div>
       <div class="count-label">
         <p>Totalt {{ workCount }} verk i samlingen.</p>
@@ -183,10 +183,10 @@ let author2changed = false;
 const imageSearch = ref(false);
 
 function onClearTag() {
-  currentTags.value = [];
+  store.imageTag = undefined;
 }
-function onSelectTag() {
-  console.log("Tag selected");
+function onSelectTag(e: any) {
+  store.imageTag = e;
 }
 // dynamic placeholder for author select
 // return "Författare" if in gallery, "Författare #1" if in reuse
@@ -336,6 +336,8 @@ function updateSearchQuery(e: any) {
   } else {
     hasQuery.value = true;
   }
+  // Update the work count
+  countWorks();
 }
 
 // Search functions    
@@ -657,6 +659,7 @@ async function onSelectAuthor2(e: any) {
 
 async function onSelectWork(e: any) {
   const value = { ...e };
+  console.log(value);
   // Fetch the current work and full author
   errorMessage.value = false;
   const author = await get<Author>(value.main_author, "author");
