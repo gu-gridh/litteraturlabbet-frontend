@@ -299,7 +299,7 @@ const initMasonry = () => {
     history: false,
     scrollThreshold: 400,
     append: false,
-    elementScroll: '.gallery',
+    elementScroll: '#gallery-container',
     //elementScroll: true,
     loadOnScroll: true,
     checkLastPage: true,
@@ -474,15 +474,27 @@ watch(store.yearEnd, async () => {
 </script>
 
 <style>
+  #gallery-container{
+  position: absolute;
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 5px;
+  padding-bottom: 200px;
+  max-height: calc(100% + 150px); 
+  overflow: scroll;
+  z-index: 100 !important;
+  }
+
 .module-content {
-  height: 150px;
+  height: auto;
   font-size: 1.1em;
 }
 
 .gallery {
   padding-top: 0px;
+  padding-bottom:30px;
   max-height: calc(100% - 35px);
-  overflow-y: auto;
+  overflow-y: scroll;
   max-width: 100%;
   margin: 0 auto;
   user-select: none;
@@ -504,7 +516,7 @@ watch(store.yearEnd, async () => {
   }
 
   .gallery {
-    max-height: calc(100% - 25px);
+   /*  max-height: calc(100% - 25px); */
   }
 }
 
@@ -517,11 +529,11 @@ watch(store.yearEnd, async () => {
 
 @media screen and (max-width: 1200px) {
   .module-content {
-    height: 170px;
+/*     height: 170px; */
   }
 
   .gallery {
-    max-height: calc(100% - 55px);
+  /*   max-height: calc(100% - 55px); */
   }
 
   #readmore {
@@ -531,13 +543,13 @@ watch(store.yearEnd, async () => {
 
 @media screen and (max-width: 900px) {
   .module-content {
-    height: 280px;
+/*     height: 280px; */
     font-size: 1.5em;
     text-align: left;
   }
 
   .gallery {
-    max-height: calc(100% - 100px);
+  max-height: calc(100% - 30px); 
   }
 
   #readmore {
@@ -574,16 +586,6 @@ watch(store.yearEnd, async () => {
   transform: scale(1.05);
 }
 
-#gallery-container {
-  position: absolute;
-  width: 100%;
-  padding-left: 10px;
-  padding-right: 5px;
-  padding-bottom: 400px;
-  height: calc(100% + 200px);
-  overflow: hidden;
-  z-index: 100 !important;
-}
 
 @media (max-height: 850px) {
   #gallery-container {
@@ -593,7 +595,7 @@ watch(store.yearEnd, async () => {
 
   .gallery {
     padding-top: 0px;
-    max-height: calc(465px);
+  max-height: calc(465px); 
     overflow-y: auto;
     max-width: 100%;
     margin: 0 auto;
