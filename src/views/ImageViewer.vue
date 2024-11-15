@@ -420,7 +420,7 @@ export default {
 
 #viewer {
   width: 100%;
-  height: 60vh;
+  height: 50vh;
   margin-bottom: 0px;
   user-select: none;
   -webkit-user-select: none;
@@ -440,7 +440,8 @@ export default {
 }
 
 .related-gallery {
-  height: 122px;
+  height: 165px;
+  padding-bottom:0px;
 }
 
 
@@ -677,7 +678,7 @@ export default {
   background-color: var(--theme-accent-color);
   text-transform: capitalize;
   color:white;
-  cursor:pointer;
+  cursor:pointer  ;
 }
 
 .tag-labels button:hover {
