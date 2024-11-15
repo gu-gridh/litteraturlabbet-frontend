@@ -674,12 +674,14 @@ export default {
   border: none;
   user-select: none;
   -webkit-user-select: none;
-  background-color: white;
+  background-color: var(--theme-accent-color);
   text-transform: capitalize;
+  color:white;
+  cursor:pointer;
 }
 
 .tag-labels button:hover {
-  background-color: var(--theme-accent-color);
+  background-color: var(--theme-accent-color-dark);
   color: white;
 }
 </style>
