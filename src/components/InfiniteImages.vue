@@ -47,9 +47,11 @@
         <p>Inga bilder att visa.</p>
       </div>
     </div>
+
     <div class="gallery are-images-unloaded" v-show="!showOverlay">
       <div class="gallery__col-sizer"></div>
       <div class="gallery__gutter-sizer"></div>
+      
       <div v-for="item in images" :key="item.id" class="gallery__item">
         <div class="item-info">
           <div class="item-info-meta">
@@ -59,15 +61,21 @@
           </div>
         </div>
         <div class="image-wrapper">
-          <img :src="`${item.iiif_file}/full/250,/0/default.jpg`" loading="lazy" @click="activateOverlay(item)" />
+          <img :src="`${item.img_file}`" loading="lazy" @click="activateOverlay(item)" />
+          <!-- <img :src="`${item.iiif_file}/full/250,/0/default.jpg`" loading="lazy" @click="activateOverlay(item)" /> -->
         </div>
       </div>
     </div>
+    <div class="page-load-status">
+      <p class="infinite-scroll-request"><img src="src\assets\interface\6-dots-rotate.svg" alt="Loading..." /></p>
+      <p class="infinite-scroll-last">Slut på bilder</p>
+      <p class="infinite-scroll-error">Det gick inte att läsa in bilder</p>
+    </div>
   </div>
-
-
+ 
   <ImageViewer v-if="showOverlay" @unshow="deactivateOverlay" @navigate="parentNavigate" @tagClicked="updateTag"
     :imageId="selectedImageId" />
+     
 </template>
 
 <script lang="ts" setup>
@@ -184,7 +192,7 @@ const fetchData = async () => {
       addParam('category_sv', store.imageTag);
     }
     //addParam('category_sv', selectedTag.value);
-    addParam('order', store.imageOrder ?? 'ASC');
+    // addParam('order', store.imageOrder ?? 'ASC');
     // change style of selected button to same as on hover style
     const deselectedStyle = window.getComputedStyle(<HTMLElement>document.querySelector("button"));
     const selectedElement = document.getElementById(selectedLabel.value);
@@ -197,7 +205,7 @@ const fetchData = async () => {
     for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) {
       document.getElementById(lbl)!.setAttribute('style', deselectedStyle.cssText);
     }
-    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&page_size=50&depth=3`;
+    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&page_size=25&depth=3`;
     //const urlToFetch = `http://localhost:8000/api/litteraturlabbet/graphic/?${searchQuery}&page_size=50&depth=3`;
     const res = await fetch(urlToFetch);
     const data = await res.json();
@@ -288,9 +296,9 @@ const initMasonry = () => {
         addParam('category_sv', store.imageTag);
       }
       //addParam('category_sv', selectedTag.value);
-      addParam('order', store.imageOrder ?? 'ASC');
-      const offset = (pageIndex.value - 1) * 25;
-      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=25&page=${pageIndex.value}`;
+      // addParam('order', store.imageOrder ?? 'ASC');
+      const offset = (pageIndex.value - 1) * 15;
+      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=15&page=${pageIndex.value}`;
       return url;
     },
     //append: '.gallery__item',
@@ -746,10 +754,21 @@ watch(store.yearEnd, async () => {
 
 .page-load-status {
   display: none;
-  padding-top: 20px;
-  border-top: 1px solid #DDD;
+  padding-top: 10px;
+  /* border-top: 1px solid #DDD; */
   text-align: center;
   color: #777;
+  z-index: 1000;
+  
+}
+
+.infinite-scroll-request, .infinite-scroll-error, .infinite-scroll-last{
+  margin-top: 10px;
+  border-radius: 4px;
+  padding: 4px 10px 4px 10px;
+  font-family: "Barlow Condensed", sans-serif !important;
+  font-size: 0.9em;
+  border: none;
 }
 
 .gallery-labels-container {
