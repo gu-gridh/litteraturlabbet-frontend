@@ -61,8 +61,9 @@
           </div>
         </div>
         <div class="image-wrapper">
-          <img :src="`${item.img_file}`" loading="lazy" @click="activateOverlay(item)" />
+          <!-- <img :src="`${item.img_file}`" loading="lazy" @click="activateOverlay(item)" /> -->
           <!-- <img :src="`${item.iiif_file}/full/250,/0/default.jpg`" loading="lazy" @click="activateOverlay(item)" /> -->
+          <img :src="`${item.iiif_file}/full/175,/0/default.jpg`" loading="lazy" @click="activateOverlay(item)" />
         </div>
       </div>
     </div>
