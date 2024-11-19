@@ -441,7 +441,7 @@ export default {
 
 .related-gallery {
   height: 165px;
-  padding-bottom:0px;
+  padding-bottom: 0px;
 }
 
 
@@ -470,11 +470,17 @@ export default {
 }
 
 .metadata p span {
-  color: var(--theme-accent-color-dark);
+  color: var(--theme-plain-text);
   font-weight: 500;
 }
 
+.metadata-item p>a>span {
+  color: var(--theme-accent-color);
+}
 
+.metadata-item p>a>span:hover {
+  color: var(--theme-accent-color-dark);
+}
 
 .close-button {
   font-size: 16px;
@@ -677,8 +683,8 @@ export default {
   -webkit-user-select: none;
   background-color: var(--theme-accent-color);
   text-transform: capitalize;
-  color:white;
-  cursor:pointer  ;
+  color: white;
+  cursor: pointer;
 }
 
 .tag-labels button:hover {
