@@ -68,7 +68,7 @@
       </div>
     </div>
     <div class="page-load-status">
-      <p class="infinite-scroll-request"><img src="src\assets\interface\6-dots-rotate.svg" alt="Loading..." /></p>
+      <p class="infinite-scroll-request"><img src="/src/assets/interface/6-dots-rotate.svg" alt="Loading..." /></p>
       <p class="infinite-scroll-last">Slut på bilder</p>
       <p class="infinite-scroll-error">Det gick inte att läsa in bilder</p>
     </div>
