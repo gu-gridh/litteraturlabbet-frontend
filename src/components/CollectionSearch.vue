@@ -82,7 +82,8 @@
         </div> -->
         <Multiselect mode="single" spellcheck="false" placeholder="Tagg" noResultsText="Inga taggar matchar sökningen"
           noOptionsText="Inga taggar matchar sökningen" :searchable="true" :clear-on-select="false"
-          :clear-on-search="false" :options=tags @select="onSelectTag" @clear="onClearTag" ref="tagSelect" v-model=store.imageTag :value="store.imageTag" />
+          :clear-on-search="false" :options=tags @select="onSelectTag" @clear="onClearTag" ref="tagSelect"
+          v-model=store.imageTag :value="store.imageTag" />
       </div>
       <div class="count-label">
         <p>Totalt {{ workCount }} verk i samlingen.</p>
@@ -165,7 +166,7 @@ const showSearch = ref(false);
 const showWelcome = ref(true);
 const showGraphicSearch = ref(false);
 
-const tags = ["porträtt", "föremål", "konstruktion(montering)", "öppna ytor", "fartyg", "arkitektoniska element", "legendariska varelser", "säsonger", "perioder", "levande organismer", "scenkonst", "material", "lantbruk", "scenkonstnärer", "genre", "begravningsstrukturer", "underhållningsevenemang", "rum och utrymmen", "djurarkitektur", "bebodda platser", "religiös", "fysiska aktiviteter", "evenemang(aktiviteter)", "organisationer", "fordonskomponenter", "naturliga händelser", "utrustning", "mat", "skyddsslitage", "vapen", "väder", "frukt", "fysikaliska begrepp", "ljudenheter", "transport", "enkelbyggda verk", "visuella verk", "växter", "landskap", "djur", "inredning", "personer", "informationsformulär(objekt)"].sort((a, b) => a.localeCompare(b))
+const tags = ["fest", "krig och strider", "konst och kultur", "byggnader", "porträtt", "fartyg", "legendariska varelser", "antiken", "kyrkogårdar", "rum och utrymmen", "religion", "fysiska aktiviteter", "militärer", "fordon och båtar", "föremål", "mat och dryck", "vapen", "natur", "frukt", "musikinstrument", "visuella verk", "växter", "landskap", "djur", "inredning", "personer"].sort((a, b) => a.localeCompare(b))
 
 const route = useRoute();
 
@@ -461,7 +462,7 @@ async function searchAuthor2(query: string) {
   if (route.path.startsWith('/reuse/')) {
     if (store.author) {
       // find all authors that have reuse with the current author
-      const v = author_author_reuse_typed[store.author!.id+""];
+      const v = author_author_reuse_typed[store.author!.id + ""];
       // filter all authors for authors whose id is in v
       const authors2 = authors.filter((a) => v.includes(parseInt(a.id)));
       return authors2;
@@ -631,7 +632,7 @@ async function onSelectAuthor1(e: any) {
 
   // Set global store value
   store.author = value;
-  
+
   workSelect.value.refreshOptions();
   searchQuery.value = "";
   hasQuery.value = false;
