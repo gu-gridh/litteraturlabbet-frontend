@@ -80,7 +80,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, watch, onBeforeMount } from "vue";
+import { ref, onMounted, watch, onBeforeMount, nextTick } from "vue";
 import Masonry from 'masonry-layout';
 import InfiniteScroll from 'infinite-scroll';
 import imagesLoaded from 'imagesloaded';
@@ -233,7 +233,6 @@ const fetchData = async () => {
 
     images.value = images.value.sort()
 
-
   } catch (error) {
     console.error("Error fetching additional images:", error);
   }
@@ -245,7 +244,6 @@ const initMasonry = () => {
     console.error('gallery element not found.');
     return;
   }
-
 
   msnry = new Masonry(gallery, {
     itemSelector: '.gallery_item', // select none at first
@@ -341,6 +339,8 @@ const initMasonry = () => {
 
       images.value = [...images.value, ...newImages];
       pageIndex.value++;
+      
+      await nextTick();
 
       imagesLoaded('.gallery', () => {
         msnry.reloadItems();
