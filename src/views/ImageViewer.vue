@@ -682,7 +682,6 @@ export default {
   user-select: none;
   -webkit-user-select: none;
   background-color: var(--theme-accent-color);
-  text-transform: capitalize;
   color: white;
   cursor: pointer;
 }
