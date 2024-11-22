@@ -168,12 +168,14 @@ async function fetchClusters(page: number, authorID: number | undefined, workID:
   };
 
   const clusterResults = await list<Cluster>("cluster", params);
-  console.log(clusterResults);
+  
   // for each cluster, count number of segments where the main author is the same as the author selected
   clusterResults.results.forEach((cluster) => {
     let count = 0;
     cluster.segments.forEach((segment) => {
-      if ((<any>segment.series.main_author) as number === store.author?.id) {
+      // comparison fails on first load due to type mismatch between number and string, even though store author is declared as number
+      // this is a workaround, using automatic type conversion    
+      if ((<any>segment.series.main_author) as number == store.author?.id) {
         count++;
       }
     });
