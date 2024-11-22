@@ -686,6 +686,10 @@ export default {
   cursor: pointer;
 }
 
+.tag-labels button::first-letter {
+  text-transform: uppercase;
+}
+
 .tag-labels button:hover {
   background-color: var(--theme-accent-color-dark);
   color: white;
