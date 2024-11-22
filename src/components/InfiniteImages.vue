@@ -318,7 +318,7 @@ const initMasonry = () => {
     outlayer: msnry,
     status: '.page-load-status',
     history: false,
-    scrollThreshold: 100,
+    scrollThreshold: 300,
     append: false,
     elementScroll: '#gallery-container',
     //elementScroll: true,
