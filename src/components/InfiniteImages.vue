@@ -67,13 +67,13 @@
         </div>
       </div>
     </div>
-    <div class="page-load-status">
-      <p class="infinite-scroll-request"><img src="/src/assets/interface/6-dots-rotate.svg" alt="Loading..." /></p>
-      <p class="infinite-scroll-last">Slut på bilder</p>
-      <p class="infinite-scroll-error">Det gick inte att läsa in bilder</p>
-    </div>
   </div>
- 
+
+  <div class="page-load-status">
+    <div class="infinite-scroll-request"></div>
+    <div class="infinite-scroll-last">Slut på bilder</div>
+    <div class="infinite-scroll-error">Det gick inte att läsa in bilder</div>
+  </div>
   <ImageViewer v-if="showOverlay" @unshow="deactivateOverlay" @navigate="parentNavigate" @tagClicked="updateTag"
     :imageId="selectedImageId" />
      
@@ -98,7 +98,7 @@ let canIncrement = ref(true);
 let infScroll: any;
 const images = ref([] as ImageI[]);
 const selectedLabel = ref("illustrationer");
-const galleryLabels = ["alla", "omslagsbilder", "illustrationer", "musiknoter", "anfanger", "exlibris", "ornament"];
+const galleryLabels = ["alla", "omslagsbilder",  "musiknoter", "illustrationer", "anfanger", "exlibris", "ornament"];
 const route = useRoute();
 const showOverlay = ref(false);
 const isExpanded = ref(false);
@@ -318,7 +318,7 @@ const initMasonry = () => {
     outlayer: msnry,
     status: '.page-load-status',
     history: false,
-    scrollThreshold: 400,
+    scrollThreshold: 100,
     append: false,
     elementScroll: '#gallery-container',
     //elementScroll: true,
@@ -511,10 +511,17 @@ watch(store.yearEnd, async () => {
   padding-left: 10px;
   padding-right: 5px;
   padding-bottom: 200px;
-  max-height: calc(100% + 150px); 
+  max-height: calc(100% + 250px); 
   overflow: scroll;
   z-index: 100 !important;
+  -ms-overflow-style: none;
+  overflow-style: none !important;
+  scrollbar-width: none !important;
   }
+
+  #gallery-container::-webkit-scrollbar {
+  width: 0px !important;
+}
 
 .module-content {
   height: auto;
@@ -620,14 +627,14 @@ watch(store.yearEnd, async () => {
 
 @media (max-height: 850px) {
   #gallery-container {
-    padding-bottom: 40px;
-    height: calc(690px);
+    padding-bottom: 0px;
+    height: auto;
   }
 
   .gallery {
     padding-top: 0px;
-  max-height: calc(465px); 
-    overflow-y: auto;
+    height: 100%; 
+    overflow-y: hidden;
     max-width: 100%;
     margin: 0 auto;
     user-select: none;
@@ -776,13 +783,15 @@ watch(store.yearEnd, async () => {
 }
 
 .page-load-status {
-  display: none;
-  padding-top: 10px;
   /* border-top: 1px solid #DDD; */
   text-align: center;
   color: #777;
   z-index: 1000;
-  
+  position:absolute;
+  bottom:30px;
+  height:auto;
+  display:none;
+  width:100%;
 }
 
 .infinite-scroll-request, .infinite-scroll-error, .infinite-scroll-last{
@@ -792,6 +801,25 @@ watch(store.yearEnd, async () => {
   font-family: "Barlow Condensed", sans-serif !important;
   font-size: 0.9em;
   border: none;
+}
+
+.infinite-scroll-request{
+background-color:rgba(255,255,255,0.8);
+background-image: url("/src/assets/interface/6-dots-rotate.svg");
+background-size: 80%;
+background-position: 50% 50%;
+background-repeat: no-repeat;
+width:50px;
+height:50px;
+margin-top: 0px;
+  border-radius: 50%;
+  padding: 0px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  left:calc(50% - 25px);
+  
 }
 
 .gallery-labels-container {
