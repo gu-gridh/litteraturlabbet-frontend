@@ -206,7 +206,9 @@ const fetchData = async () => {
     for (let lbl of galleryLabels.filter(label => label != selectedLabel.value)) {
       document.getElementById(lbl)!.setAttribute('style', deselectedStyle.cssText);
     }
-    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&page_size=25&depth=3`;
+    //const page_size = selectedLabel.value === 'ornament' ? 50 : 25;
+    //console.log(page_size);
+    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&page_size=$25&depth=3`;
     //const urlToFetch = `http://localhost:8000/api/litteraturlabbet/graphic/?${searchQuery}&page_size=50&depth=3`;
     const res = await fetch(urlToFetch);
     const data = await res.json();
@@ -297,7 +299,7 @@ const initMasonry = () => {
       //addParam('category_sv', selectedTag.value);
       // addParam('order', store.imageOrder ?? 'ASC');
       const offset = (pageIndex.value - 1) * 15;
-      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=15&page=${pageIndex.value}`;
+      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=15&offset=${offset}`;
       return url;
     },
     //append: '.gallery__item',
