@@ -98,7 +98,7 @@ let canIncrement = ref(true);
 let infScroll: any;
 const images = ref([] as ImageI[]);
 const selectedLabel = ref("illustrationer");
-const galleryLabels = ["alla", "exlibris", "omslagsbilder", "illustrationer", "musiknoter", "anfanger", "ornament"];
+const galleryLabels = ["alla", "omslagsbilder", "illustrationer", "musiknoter", "anfanger", "exlibris", "ornament"];
 const route = useRoute();
 const showOverlay = ref(false);
 const isExpanded = ref(false);
