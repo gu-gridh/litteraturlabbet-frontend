@@ -63,12 +63,11 @@
               v-for="tag in imageTags">{{ tag
               }}</button></span> <span v-else> Inga taggar registrerade</span></p>
       </div>
+      <div class="metadata-item">
+        <p class="info-available">Liknande bilder i alla verk: <span class='info-text'>Liknande bilder beräknades med maskininlärning</span></p>
+      </div>
     </div>
 
-    <!-- <div class="metadata">
-     <h4 id="image-copyright">Alla bilder som visas är licensierade <a
-          href='https://creativecommons.org/publicdomain/zero/1.0/deed.sv' target="_blank"> CC0 1.0</a></h4> 
-    </div>-->
     <!--Gallery display-->
     <div class="related-gallery">
       <div v-if="loadingMessage" class="loading-message">{{ loadingMessage }}</div>
@@ -668,7 +667,7 @@ export default {
   align-items: center;
   width: 100%;
   z-index: 1000;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 
@@ -682,13 +681,38 @@ export default {
   user-select: none;
   -webkit-user-select: none;
   background-color: var(--theme-accent-color);
-  text-transform: capitalize;
   color: white;
   cursor: pointer;
+}
+
+.tag-labels button::first-letter {
+  text-transform: uppercase;
 }
 
 .tag-labels button:hover {
   background-color: var(--theme-accent-color-dark);
   color: white;
+}
+
+.info-available {
+  border-bottom: 2px dotted var(--theme-plain-text);
+  cursor: pointer;
+}
+
+.info-available .info-text {
+  visibility: hidden;
+  width: 200%;
+  background-color: var(--vt-c-white-soft);
+  color: var(--theme-plain-text);
+  text-align: center;
+  padding: 8px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  font-weight: 400;
+}
+
+.info-available:hover .info-text {
+  visibility: visible;
 }
 </style>
