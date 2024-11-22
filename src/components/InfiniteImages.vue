@@ -450,6 +450,14 @@ watch(() => store.triggerImageSearch,
     pageIndex.value = 1;
     canIncrement.value = true;
 
+    if (store.author) {
+    setLabel('alla')  
+    }
+
+    else {
+      setLabel('illustrationer')
+    }
+
     // if (infScroll) {
     //   infScroll.destroy();
     // }
