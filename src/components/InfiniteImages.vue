@@ -310,8 +310,8 @@ const initMasonry = () => {
       }
       //addParam('category_sv', selectedTag.value);
       // addParam('order', store.imageOrder ?? 'ASC');
-      const offset = (pageIndex.value - 1) * 15;
-      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=15&offset=${offset}`;
+      const offset = (pageIndex.value - 1) * 25;
+      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=25&offset=${offset}`;
       return url;
     },
     //append: '.gallery__item',
