@@ -50,7 +50,7 @@ if (props.segment) {
       }
     }
     // set the text to include the phrase and up to 50 characters before and 250 characters after the phrase
-    text = text.slice(Math.max(0,index-50), Math.min(index+250, text.length));
+    //text = text.slice(Math.max(0,index-50), Math.min(index+250, text.length));
 
     // highlight phrase in text
     const fuz = new Fuzzy({pre: "<span class='highlight'>", post: "</span>"});
