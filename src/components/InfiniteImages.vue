@@ -184,8 +184,14 @@ const fetchData = async () => {
       }
     };
 
-    addParam('year_start', store.yearStart ?? 1800);
-    addParam('year_end', store.yearEnd ?? 1900);
+    if (store.yearStart && store.yearStart !== 1800) {
+      addParam('year_start', store.yearStart);
+    }
+    //addParam('year_start', store.yearStart ?? 1800);
+    if (store.yearEnd && store.yearEnd !== 1900) {
+      addParam('year_end', store.yearEnd);
+    }
+    //addParam('year_end', store.yearEnd ?? 1900);
     addParam('author', store.author?.id); // Use optional chaining for potential undefined author
     addParam('work', store.work?.id); // Use optional chaining for potential undefined work
     addParam('display', 'true'); //Only return images that aren't near duplicates
@@ -208,7 +214,7 @@ const fetchData = async () => {
     }
     //const page_size = selectedLabel.value === 'ornament' ? 50 : 25;
     //console.log(page_size);
-    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&page_size=$25&depth=3`;
+    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&page_size=25&depth=3`;
     //const urlToFetch = `http://localhost:8000/api/litteraturlabbet/graphic/?${searchQuery}&page_size=50&depth=3`;
     const res = await fetch(urlToFetch);
     const data = await res.json();
@@ -288,8 +294,14 @@ const initMasonry = () => {
         }
       };
 
-      addParam('year_start', store.yearStart ?? 1800);
-      addParam('year_end', store.yearEnd ?? 1900);
+      if (store.yearStart && store.yearStart !== 1800) {
+        addParam('year_start', store.yearStart);
+      }
+      //addParam('year_start', store.yearStart ?? 1800);
+      if (store.yearEnd && store.yearEnd !== 1900) {
+        addParam('year_end', store.yearEnd);
+      }
+      //addParam('year_end', store.yearEnd ?? 1900);
       addParam('author', store.author?.id); // Use optional chaining for potential undefined author
       addParam('work', store.work?.id); // Use optional chaining for potential undefined work
       addParam('display', 'true'); //Only return images that aren't near duplicates
