@@ -64,7 +64,9 @@
               }}</button></span> <span v-else> Inga taggar registrerade</span></p>
       </div>
       <div class="metadata-item">
-        <p class="info-available">Liknande bilder i alla verk: <span class='info-text'>Liknande bilder beräknades med maskininlärning</span></p>
+        <p class="info-available">Liknande bilder i alla verk (beräknade med maskininlärning): 
+          <!-- <span class='info-text'>Liknande bilder beräknades med maskininlärning</span> -->
+        </p>
       </div>
     </div>
 
@@ -695,8 +697,9 @@ export default {
 }
 
 .info-available {
-  border-bottom: 2px dotted var(--theme-plain-text);
-  cursor: pointer;
+/*   border-bottom: 2px dotted var(--theme-plain-text);
+  cursor: pointer; */
+  font-weight:400;
 }
 
 .info-available .info-text {
@@ -710,6 +713,8 @@ export default {
   position: absolute;
   z-index: 1;
   font-weight: 400;
+  margin-top: -7px;
+  margin-left: 10px;
 }
 
 .info-available:hover .info-text {
