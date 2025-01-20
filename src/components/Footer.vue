@@ -11,11 +11,11 @@
       <div class="links-stack">
         <a class="site-link link" href="https://litteraturbanken.se/diktensmuseum/nya-vagar-inledning/" target="_blank">
           Projektet <i>Nya vägar till det förflutna</i></a>
-
-      
+          <!--
           <a class="download-link" href="" target="_blank">
             Texter: CC BY 4.0 |  Bilder: CC0 1.0</a>
-
+            -->
+            <a class="site-link link" href="https://forms.office.com/e/FmayeH5W7D" target="_blank">Feedback</a>
       </div>
     </div>
     <div class="partners">
