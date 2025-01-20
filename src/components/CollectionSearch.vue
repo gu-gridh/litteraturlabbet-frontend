@@ -41,7 +41,9 @@
             :clear-on-search="true" :disabled="store.work || !store.author" @select="onSelectAuthor2"
             @clear="onClearAuthor2" ref="authorSelect2" style="margin-top:10px; font-size: 18px;" />
         </div>
-
+        <div class="littlabbnotice" v-if="showReuseSearch">
+          <p>Endast författare med återbrukskopplingar till den valda författaren visas i det andra fältet.</p>
+        </div>
       </div>
       <div class="multiselect-input" id="work-select">
         <div class="select-label">
@@ -199,7 +201,10 @@ function dynamicPlaceholder(index: number) {
     }
     return "Författare";
   } else if (index === 1) {
-    return "Sök återbruk mellan två författare";
+    if (store.author) {
+      return "Sök återbruk mellan " + store.author.formatted_name + " och en annan författare";
+    } 
+    return "Välj en författare";
   }
 
 }
@@ -523,7 +528,9 @@ async function searchWork(query: string, params: any) {
   if (route.path.startsWith("/reuse")) {
     if (params.main_author) {
       const pma = params.main_author + "";
+      console.log("Pre-filtering works for author", pma);
       let subset = works.filter((w) => w.main_author === pma);
+      console.log("Subset length", subset.length);
       if (store.yearStart) {
         subset = subset.filter((w) => parseInt(w.imprint_year) >= store.yearStart!);
       }
@@ -722,6 +729,7 @@ watch(() => route.path, (path) => {
     showWelcome.value = false;
     authorSelect.value.refreshOptions();
     imageSearch.value = true;
+    workSelect.value.refreshOptions();
   }
   else if (path.startsWith('/reuse/')) {
     showSearch.value = true;
@@ -734,6 +742,7 @@ watch(() => route.path, (path) => {
     }
     authorSelect.value.refreshOptions();
     imageSearch.value = false;
+    workSelect.value.refreshOptions();
   }
 
   else if (path === '/about/') {
@@ -754,6 +763,12 @@ watch(() => route.path, (path) => {
 <style src="@vueform/slider/themes/default.css"></style>
 
 <style scoped>
+.littlabbnotice {
+  font-size: 0.9em;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--theme-accent-color);
+}
 .tag-organise {
   display: flex;
   flex-direction: row;
