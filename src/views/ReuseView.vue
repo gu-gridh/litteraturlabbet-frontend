@@ -40,7 +40,10 @@
       ursprungligen kommer. Av denna anledning kan man inte med enkla medel
       bestämma vem som eventuellt plagierat vem.    
     </div>
-    <TopLists/>
+    
+    <ReuseShowcase />
+
+    <!--<TopLists/>-->
   </div>
 </div>
 </template>
@@ -56,6 +59,7 @@ import type { Link, Node } from "@/types/network";
 import { unpaginated, list } from "@/services/diana";
 import { onBeforeUnmount, onMounted, ref, toRaw, watch } from "vue";
 import TopLists from "./TopLists.vue";
+import ReuseShowcase from "./ReuseShowcase.vue";
 import { setBusy, setNotBusy } from "@/components/Waiter.vue";
 import { authors } from "@/assets/authors_years.json";
 import { onBeforeMount } from "vue";
