@@ -137,7 +137,9 @@ watch(
 <template>
          <div style="width:100%; "> <div class="back-button" @click="customBack()">Tillbaka</div> </div>
 
-        <h2>Textåterbruk mellan <span class="author-name">{{ author1.name }}</span> och <span class="author-name">{{ author2.name }}</span></h2>
+        <h2>Mellan <span class="author-name">{{ author1.name }}</span> och <span class="author-name">{{ author2.name }}</span> hittar vi <span class="author-name">{{ segments2.length}} stycken</span> textåterbruk</h2>
+
+        
 
         <div class="littlabbinfo" v-if="segments2.length > 1">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
 
