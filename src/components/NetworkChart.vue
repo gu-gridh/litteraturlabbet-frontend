@@ -219,6 +219,7 @@ function build(graphData: any, author?: number) {
       if (authorStore.author?.id !== node.id) {
         setBusy();
         showNetwork.value = false;
+        store.work = undefined;
         authorStore.author = await get<Author>(node.id as number, "author");
         await router.push({
           name: "reuse2",
