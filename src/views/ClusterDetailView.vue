@@ -13,8 +13,11 @@
     <!-- Exclusion container -->
    
       <!-- End exclusion container -->
-      <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-bottom:10px;">Klicka på ett stycke för att se hela texten hos Litteraturbanken</div>
+      <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-bottom:10px;">Klicka på ett stycke för att se hela texten hos Litteraturbanken.</div>
       
+      <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-top:20px;">
+        Externa överensstämmelser presenteras först, medan de interna placeras underst.
+      </div>
       <div v-if="numExcluded > 0">
         <div class="exclude-label label-color">
           <span class="exclusion-number">{{ numExcluded }} stycke<span v-if="numExcluded > 1">n</span></span> 
