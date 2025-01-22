@@ -91,7 +91,7 @@ import { searchStore } from "@/stores/search";
 import { setBusy, setNotBusy } from "./Waiter.vue";
 
 const selectedImageId = ref("");
-const router = useRouter();
+// const router = useRouter();
 let msnry: any;
 let pageIndex = ref(1);
 let canIncrement = ref(true);
