@@ -15,7 +15,7 @@
           <a class="download-link" href="" target="_blank">
             Texter: CC BY 4.0 |  Bilder: CC0 1.0</a>
             -->
-            <a class="site-link link" href="https://forms.office.com/e/FmayeH5W7D" target="_blank">Feedback</a>
+            <a class="site-link link" href="https://forms.office.com/Pages/ResponsePage.aspx?id=Me2YB7D1NUmGPHPuJQWAbmdXRr3cK25GueyGor0N2MVUN1lHRzdDQThJQVpPMlFPSFgyUFZQM1VYUy4u" target="_blank">Feedback-formulär</a>
       </div>
     </div>
     <div class="partners">
