@@ -137,7 +137,7 @@ function updateTag(tag: string) {
 function resetTag() {
   store.imageTag = "";
   console.log("Reset tag");
-  history.replaceState(null, '', '/gallery');
+  history.pushState(null, '', '/gallery');
   // trigger search
   store.triggerImageSearch = true;
 }
@@ -163,7 +163,7 @@ function parentNavigate(id: string) {
   showOverlay.value = false;
   selectedImageId.value = id;
   showOverlay.value = true;
-  history.replaceState(null, '', `/gallery/${id}`);
+  history.pushState(null, '', `/gallery/${id}`);
 }
 
 const fetchData = async () => {
@@ -386,7 +386,7 @@ function activateOverlay(item: ImageI) {
   showOverlay.value = true;
   console.log("Activate");
   //router.push(`/gallery/${item.id}`);
-  history.replaceState(null, '', `/gallery/${item.id}`);
+  history.pushState(null, '', `/gallery/${item.id}`);
 }
 
 function deactivateOverlay() {
@@ -395,7 +395,7 @@ function deactivateOverlay() {
   showOverlay.value = false;
   // reset route
   //router.push('/gallery');
-  history.replaceState(null, '', '/gallery');
+  history.pushState(null, '', '/gallery');
   console.log("Deactivate");
   if (infScroll) {
     infScroll.destroy();
