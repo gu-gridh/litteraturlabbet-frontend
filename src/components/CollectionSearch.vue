@@ -765,6 +765,7 @@ watch(() => route.path, (path) => {
 <style scoped>
 .littlabbnotice {
   font-size: 0.9em;
+  line-height: 1.1;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   color: var(--theme-accent-color);
@@ -1010,6 +1011,7 @@ button:hover {
   --ms-option-color-selected-pointed: #ffffff;
   --ms-option-bg-selected-disabled: black;
   --ms-option-color-selected-disabled: #d1fae5;
+  --ms-line-height:1;
 }
 
 .errormessage-container {
