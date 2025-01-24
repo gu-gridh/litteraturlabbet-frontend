@@ -202,7 +202,7 @@ function dynamicPlaceholder(index: number) {
     return "Författare";
   } else if (index === 1) {
     if (store.author) {
-      return "Sök återbruk mellan " + store.author.formatted_name + " och en annan författare";
+      return "Sök återbruk mellan " + store.author.formatted_name.split(",")[0] + " och en annan författare";
     } 
     return "Välj en författare";
   }
