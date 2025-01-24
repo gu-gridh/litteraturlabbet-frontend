@@ -145,13 +145,14 @@ export default {
         return;
       }
 
-      fetch(downloadName)
+      fetch(imageUrl)
         .then(response => response.blob())
         .then(blob => {
           const blobUrl = window.URL.createObjectURL(blob);
           const link = document.createElement('a');
           link.href = blobUrl;
-          link.setAttribute('download', downloadName);
+          link.download = downloadName || "littlab_image.jpg";
+          // link.setAttribute('download', downloadName);
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
