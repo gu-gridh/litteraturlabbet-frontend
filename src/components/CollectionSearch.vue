@@ -354,6 +354,7 @@ function triggerImageSearch() {
   });
   //console.log("Image search");
   // emit event
+  router.push({ name: 'image-advanced-search', params: { author: store.author?.id, work: store.work?.id, tag: store.imageTag } });
   store.triggerImageSearch = true;
 }
 

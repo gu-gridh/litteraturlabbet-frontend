@@ -84,11 +84,12 @@ import { ref, onMounted, watch, onBeforeMount, nextTick } from "vue";
 import Masonry from 'masonry-layout';
 import InfiniteScroll from 'infinite-scroll';
 import imagesLoaded from 'imagesloaded';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute} from 'vue-router';
 import ImageViewer from "../views/ImageViewer.vue";
 import type { ImageI } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
 import { setBusy, setNotBusy } from "./Waiter.vue";
+import router from "@/router";
 
 const selectedImageId = ref("");
 // const router = useRouter();
@@ -130,15 +131,17 @@ function setLabel(label: string) {
 function updateTag(tag: string) {
   setLabel("illustrationer");
   store.imageTag = tag;
-  console.log("Tag: ", tag);
+  // console.log("Tag: ", tag);
   store.triggerImageSearch = true;
+  router.push({ name: 'tag-search', params: { tag: store.imageTag } });
 }
 
 function resetTag() {
   store.imageTag = "";
   console.log("Reset tag");
-  history.pushState(null, '', '/gallery');
+  // history.pushState(null, '', '/gallery');
   // trigger search
+  router.push({ name: 'gallery' });
   store.triggerImageSearch = true;
 }
 
@@ -163,7 +166,8 @@ function parentNavigate(id: string) {
   showOverlay.value = false;
   selectedImageId.value = id;
   showOverlay.value = true;
-  history.pushState(null, '', `/gallery/${id}`);
+  router.push({ name: 'image-viewer', params: { id:id } });
+  // history.pushState(null, '', `/gallery/${id}`);
 }
 
 const fetchData = async () => {
@@ -381,12 +385,12 @@ const initMasonry = () => {
 // };
 function activateOverlay(item: ImageI) {
   setBusy();
-  //  router.push({ name: 'image-viewer', params: { id: item.id } });
+  router.push({ name: 'image-viewer', params: { id:item.id } });
   selectedImageId.value = item.id + "";
   showOverlay.value = true;
   console.log("Activate");
   //router.push(`/gallery/${item.id}`);
-  history.pushState(null, '', `/gallery/${item.id}`);
+  // history.pushState(null, '', `/gallery/${item.id}`);
 }
 
 function deactivateOverlay() {
@@ -395,7 +399,7 @@ function deactivateOverlay() {
   showOverlay.value = false;
   // reset route
   //router.push('/gallery');
-  history.pushState(null, '', '/gallery');
+  // history.pushState(null, '', '/gallery');
   console.log("Deactivate");
   if (infScroll) {
     infScroll.destroy();

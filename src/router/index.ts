@@ -100,7 +100,7 @@ const router = createRouter({
       props: true,
     },
     {
-      path: "/gallery/:author/:work/:tag",
+      path: "/gallery/advanced/:author?/:work?/:tag?",
       name: "image-advanced-search",
       component: GalleryView,
       props: true,
