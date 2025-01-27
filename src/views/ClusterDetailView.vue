@@ -15,7 +15,7 @@
       <!-- End exclusion container -->
       <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-bottom:10px;">Klicka på ett stycke för att se hela texten hos Litteraturbanken.</div>
       
-      <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-top:20px;">
+      <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-top:20px;" v-if="store.selfReuse">
         Externa överensstämmelser presenteras först, medan de interna placeras underst.
       </div>
       <div v-if="numExcluded > 0">
@@ -25,7 +25,7 @@
         </div>
       </div>
 
-      <div v-if="segments?.length === 0">
+      <div v-if="segments?.length === 0 || (!store.selfReuse && segmentsOther?.length === 0)">
         <div class="text-container">
           <p>
             Det finns inga textstycken som matchar dina sökkriterier.
@@ -39,7 +39,7 @@
           <segment-card v-for="segment in segmentsOther" v-bind:key="segment.id" :segment="segment" :other-target="otherTarget"></segment-card>
           <br>
           
-          <div v-if="store.author">
+          <div v-if="store.author&&store.selfReuse">
             <hr/>
           <br>
           <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-top:20px;">
@@ -173,6 +173,7 @@ function filterData() {
     segmentsSelf.value = segmentsCurrent;
     segmentsOther.value = segmentsOthers;
     });
+    setNotBusy();
 }
 
 onBeforeMount(() => {

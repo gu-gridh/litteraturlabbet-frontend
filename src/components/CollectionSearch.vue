@@ -65,12 +65,12 @@
           :value="searchQuery" @keydown="handleBackspace" @input="updateSearchQuery" @keydown.enter="triggerSearch"
           @clear="onClearPhrase" />
       </div>
-      <!--
+
       <div class="self-reuse-wrapper" id="self-reuse-check" v-show="showReuseSearch">
         <input type="checkbox" id="self-reuse" name="self-reuse" v-model="store.selfReuse" />
         <label for="self-reuse">Inkludera självåterbruk</label>
       </div>
--->
+
       <div class="multiselect-input" id="tag-select" v-show="showGraphicSearch">
         <!-- Add chips for searching by tags -->
         <div class="select-label">
