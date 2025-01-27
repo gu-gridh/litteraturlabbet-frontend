@@ -5,28 +5,31 @@
       <div class="links-stack border-style">
         <a class="site-link link" href="https://github.com/gu-gridh/litteraturlabbet-frontend#development" target="_blank">
           Kod och utveckling</a>
-        <a class="site-link link" href="http://lb.se"
-          target="_blank">Litteraturbanken</a>
+        <!--<a class="site-link link" href="http://lb.se"
+          target="_blank">Litteraturbanken</a>-->
+          <a class="site-link link" href="https://forms.office.com/Pages/ResponsePage.aspx?id=Me2YB7D1NUmGPHPuJQWAbmdXRr3cK25GueyGor0N2MVUN1lHRzdDQThJQVpPMlFPSFgyUFZQM1VYUy4u" target="_blank">Feedback-formulär</a>
       </div>
       <div class="links-stack">
         <a class="site-link link" href="https://litteraturbanken.se/diktensmuseum/nya-vagar-inledning/" target="_blank">
           Projektet <i>Nya vägar till det förflutna</i></a>
-          <!--
+          
           <a class="download-link" href="" target="_blank">
             Texter: CC BY 4.0 |  Bilder: CC0 1.0</a>
-            -->
-            <a class="site-link link" href="https://forms.office.com/Pages/ResponsePage.aspx?id=Me2YB7D1NUmGPHPuJQWAbmdXRr3cK25GueyGor0N2MVUN1lHRzdDQThJQVpPMlFPSFgyUFZQM1VYUy4u" target="_blank">Feedback-formulär</a>
+          
+            
       </div>
     </div>
     <div class="partners">
 
       <div class="partner-1">
+<!--
       <a href="">
         <div class="PartnerLogo" id="">Litteraturlaboratoriet</div>
       </a>
+    -->
     </div>
       <a href="http://www.litteraturbanken.se">
-        <div class="PartnerLogo" id="">LB</div>
+        <div class="PartnerLogo" id="">Litteraturbanken</div>
       </a>
      
       <a href="https://dh.gu.se/">
