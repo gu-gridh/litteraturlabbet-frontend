@@ -15,7 +15,7 @@
       <!-- End exclusion container -->
       <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-bottom:10px;">Klicka på ett stycke för att se hela texten hos Litteraturbanken.</div>
       
-      <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-top:20px;" v-if="store.selfReuse">
+      <div class="littlabbinfo label-color" style="font-size:1.2em; line-height:1.0; padding-top:20px;" v-if="store.selfReuse&&store.author?.name">
         Externa överensstämmelser presenteras först, medan de interna placeras underst.
       </div>
       <div v-if="numExcluded > 0">
