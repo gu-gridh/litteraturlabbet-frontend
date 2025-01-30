@@ -39,10 +39,10 @@
             :object="true" valueProp="id" label="formatted_name"
             :options="async (query: string, select$: any) => searchAuthor2(query)" :clear-on-select="true"
             :clear-on-search="true" :disabled="store.work || !store.author" @select="onSelectAuthor2"
-            @clear="onClearAuthor2" ref="authorSelect2" style="margin-top:10px; font-size: 18px;" />
+            @clear="onClearAuthor2" ref="authorSelect2" style="margin-top:10px; font-size: 17px; width:100%; white-space: nowrap;" />
         </div>
         <div class="littlabbnotice" v-if="showReuseSearch">
-          <p>Endast författare med återbrukskopplingar till den valda författaren visas i det andra fältet.</p>
+          <p>Du kan begränsa sökningen till att visa återbruk mellan endast två författare. Endast författare med återbrukskopplingar till den valda författaren visas i det andra fältet.</p>
         </div>
       </div>
       <div class="multiselect-input" id="work-select">
@@ -202,9 +202,10 @@ function dynamicPlaceholder(index: number) {
     return "Författare";
   } else if (index === 1) {
     if (store.author) {
-      return "Sök återbruk mellan " + store.author.formatted_name.split(",")[0] + " och en annan författare";
+      //return "Sök återbruk med...";
+     return "Sök återbruk mellan " + store.author.formatted_name.split(",")[0] + " och...";
     } 
-    return "Välj en författare";
+    return "";
   }
 
 }

@@ -24,7 +24,7 @@
           (GRIDH)</a> i samarbete med <a href="https://www.litteraturbanken.se">Litteraturbanken</a>.
         Jonathan Westin och Siska Humlesjö har varit projektledare. Primära utvecklare har varit Victor Wåhlstrand Skärström, Aram Karimi, David Alfter, Ashely Green, Jonathan Westin, Kristin Åkerlund och Tristan
         Bridge. Första versionen publicerades i oktober 2023. Kodbasen finns att hämta på <a
-          href="https://github.com/gu-gridh/litteraturlabbet-frontend">GitHub</a>
+          href="https://github.com/gu-gridh/litteraturlabbet-frontend">GitHub</a>.
         <br> <br>
         Verktyget <i>Textåterbruk</i> använder sig av <i><a href="https://github.com/dasmiq/passim">Passim</a></i>,
         utvecklat av David Smith, för att upptäcka liknande fraser.
