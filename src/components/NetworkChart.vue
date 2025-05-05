@@ -24,7 +24,7 @@
     <div class="dropdown">
       <button class="dropbtn">Instruktioner</button>
       <div class="dropdown-content">
-        <div>Skrolla för att zooma.</div>
+        <!-- <div>Skrolla för att zooma.</div> -->
         <div>Klicka på en författare eller kopplingen <br>
             mellan två författare för att göra en sökning.</div>
         <div>Klicka och dra vid sidan av nätverket för att justera vyn, och klicka och dra individuella författare <br>för att organisera om nätverket.</div>
@@ -336,7 +336,7 @@ function build(graphData: any, author?: number) {
       node.fx = node.x;
       node.fy = node.y;
     })
-    .enableZoomInteraction(false)
+    
 }
 watch(
   () => [route, props.author],
