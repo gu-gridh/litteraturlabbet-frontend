@@ -5,7 +5,7 @@
 <p>Klicka på länkarna för att se resultaten</p>
 <ul>
     <li>
-<a href="https://littlabb.dh.gu.se/reuse/cluster/8589945208/4153">Marie Sophie Schwarts återbruk av Emilie Flygare-Carléns beskrivning av Rödgavels grotta</a>
+<a href="https://littlabb.dh.gu.se/reuse/cluster/8589945208/4153">Marie Sophie Schwartz och Octavia Carléns återbruk av Emilie Flygare-Carléns beskrivning av Rödgavels grotta</a>
 </li>
 <li>
 <a href="https://littlabb.dh.gu.se/reuse/cluster/14566/3866">Henrik af Trolles återbruk av Carl Fredrik Ridderstads beskrivning av Katarina II</a>
