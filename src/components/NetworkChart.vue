@@ -336,7 +336,7 @@ function build(graphData: any, author?: number) {
       node.fx = node.x;
       node.fy = node.y;
     })
-    
+    .enableZoomInteraction(false)
 }
 watch(
   () => [route, props.author],
