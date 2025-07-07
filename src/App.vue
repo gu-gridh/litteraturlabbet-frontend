@@ -92,7 +92,7 @@ const isActive = (routeName: string) => {
   position: absolute;
   top: 80px;
   right: 50px;
-  z-index: 50;
+   z-index:50;
 }
 
 .manual-link {
@@ -107,11 +107,16 @@ const isActive = (routeName: string) => {
   font-size: 24px;
   cursor: pointer;
   font-family: "Cormorant Garamond", serif;
-  
   transition: background-color 0.3s ease;
 }
 
 .manual-link:hover {
   background-color: var(--theme-main-color-light);
+}
+
+@media (max-width: 950px) {
+.manual-toggle-container {
+  top: 180px;
+}
 }
 </style>

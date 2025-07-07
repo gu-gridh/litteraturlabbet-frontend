@@ -338,9 +338,9 @@ button {
     box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
   }
   .nav-content {
-   top:80px;
-   margin-left: 10px;
-   z-index:100;
+   top:120px;
+   margin-left: 0px;
+   z-index:49;
   }
 
   .nav-link {
