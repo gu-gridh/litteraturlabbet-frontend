@@ -49,7 +49,7 @@ import ForceGraph, { type NodeObject } from "force-graph";
 import type { Author } from "@/types/litteraturlabbet";
 import { ref, watch, onMounted } from "vue";
 import type { Link, Node } from "@/types/network";
-import { get } from "@/services/diana";
+import { get } from "@/services/littlabb";
 import { useRoute } from "vue-router";
 import { useRouter } from "vue-router";
 import { searchStore } from "@/stores/search";

@@ -2,7 +2,7 @@
     "project": {
         "name": "Litteraturlabbet",
         "urls": {
-            "baseURL": "https://diana.dh.gu.se/api/litteraturlabbet",
+            "baseURL": "https://littlabb.dh.gu.se/api/litteraturlabbet",
             "page": "page",
             "work": "texts",
             "author": "author",

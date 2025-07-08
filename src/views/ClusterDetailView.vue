@@ -56,7 +56,7 @@
 
 <script setup lang="ts">
 import { onBeforeMount, onBeforeUnmount, ref, watch } from "vue";
-import { get } from "@/services/diana";
+import { get } from "@/services/littlabb";
 import SegmentCard from "@/components/SegmentCard.vue";
 import type {
   Segment,

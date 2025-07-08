@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { list } from "@/services/diana";
+import { list } from "@/services/littlabb";
 import { searchStore } from "@/stores/search";
 import type { Work } from "@/types/litteraturlabbet";
 

@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { setBusy } from "@/components/Waiter.vue";
-import { get } from "@/services/diana";
+import { get } from "@/services/littlabb";
 import type {
   Author,
   Page,

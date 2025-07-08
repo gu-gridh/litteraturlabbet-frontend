@@ -52,7 +52,7 @@ import VPagination from "@hennge/vue3-pagination";
 import "@hennge/vue3-pagination/dist/vue3-pagination.css";
 import { ref, watch, computed, onMounted, onBeforeUnmount } from "vue";
 import { useRoute } from "vue-router";
-import { list, get } from "@/services/diana";
+import { list, get } from "@/services/littlabb";
 import ClusterCard from "@/components/ClusterCard.vue";
 import type { Author, Cluster, Work } from "@/types/litteraturlabbet";
 import { setBusy, setNotBusy } from "./Waiter.vue";

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import  topList from "@/assets/topList.json"
 import type { Work, Author } from "@/types/litteraturlabbet";
-import { getByLbId, get } from "@/services/diana";
+import { getByLbId, get } from "@/services/littlabb";
 import { ref } from 'vue';
 import router from '@/router/index'
 import { setBusy } from "@/components/Waiter.vue";

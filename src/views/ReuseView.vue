@@ -52,11 +52,11 @@
 import NetworkChart from "@/components/NetworkChart.vue";
 import ReuseList from "@/components/ReuseList.vue";
 import type { Work, Author } from "@/types/litteraturlabbet";
-import { get } from "@/services/diana";
+import { get } from "@/services/littlabb";
 import { searchStore } from "@/stores/search";
 import { networkStore } from "@/stores/network";
 import type { Link, Node } from "@/types/network";
-import { unpaginated, list } from "@/services/diana";
+import { unpaginated, list } from "@/services/littlabb";
 import { onBeforeUnmount, onMounted, ref, toRaw, watch } from "vue";
 import TopLists from "./TopLists.vue";
 import ReuseShowcase from "./ReuseShowcase.vue";

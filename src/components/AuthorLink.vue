@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import { get, getAligned } from "@/services/diana";
+import { get, getAligned } from "@/services/littlabb";
 import { useRoute } from "vue-router";
 import type { Author } from "@/types/litteraturlabbet";
 import SegmentPairCard from './SegmentPairCard.vue';

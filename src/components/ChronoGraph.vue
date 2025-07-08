@@ -79,7 +79,7 @@
  
 <script setup lang="ts">
 import type { Cluster } from '@/types/litteraturlabbet';
-import { list } from "@/services/diana";
+import { list } from "@/services/littlabb";
 import { useRouter } from 'vue-router';
 import { ref, watch } from 'vue';
 import { searchStore } from '@/stores/search';

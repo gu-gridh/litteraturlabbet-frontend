@@ -128,7 +128,7 @@
 import { ref, onMounted, watch, onBeforeMount } from "vue";
 import Multiselect from "@vueform/multiselect";
 import Slider from '@vueform/slider'
-import { get } from "@/services/diana";
+import { get } from "@/services/littlabb";
 import type { Author, Work } from "@/types/litteraturlabbet";
 import { searchStore } from "@/stores/search";
 import reuseAuthors from "@/assets/authors_with_reuse.json";

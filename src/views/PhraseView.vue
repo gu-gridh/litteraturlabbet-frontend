@@ -47,7 +47,7 @@
   
   <script setup lang="ts">
   import { onBeforeUnmount, onMounted, watch } from 'vue';
-  import { search2 } from "@/services/diana";
+  import { search2 } from "@/services/littlabb";
   import { ref } from "vue";
   import Fuse from "fuse.js";
   // import cluster Phrase card

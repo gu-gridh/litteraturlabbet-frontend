@@ -218,7 +218,7 @@ const fetchData = async () => {
     }
     //const page_size = selectedLabel.value === 'ornament' ? 50 : 25;
     //console.log(page_size);
-    const urlToFetch = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&page_size=25&depth=3`;
+    const urlToFetch = `https://littlabb.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&page_size=25&depth=3`;
     //const urlToFetch = `http://localhost:8000/api/litteraturlabbet/graphic/?${searchQuery}&page_size=50&depth=3`;
     const res = await fetch(urlToFetch);
     const data = await res.json();
@@ -237,7 +237,7 @@ const fetchData = async () => {
       type: item?.label_sv ?? null,
       label: item?.label_sv ?? null,
       img_file: item.file ?? null,
-      correct_file: 'https://data.dh.gu.se/diana/static/litteraturlabbet/original/' + item.extract_id,
+      correct_file: 'https://data.dh.gu.se/litteraturlabbet/static/litteraturlabbet/original/' + item.extract_id,
       lb_link: 'https://litteraturbanken.se/f%C3%B6rfattare/' + item.page.work.main_author.lbauthorid + '/titlar/' + item.page.work.modernized_title + '/sida/' + item.page.number + '/faksimil'
     }))
 
@@ -315,7 +315,7 @@ const initMasonry = () => {
       //addParam('category_sv', selectedTag.value);
       // addParam('order', store.imageOrder ?? 'ASC');
       const offset = (pageIndex.value - 1) * 25;
-      const url = `https://diana.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=25&offset=${offset}`;
+      const url = `https://littlabb.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=25&offset=${offset}`;
       return url;
     },
     //append: '.gallery__item',
@@ -351,7 +351,7 @@ const initMasonry = () => {
         type: item?.label_sv ?? null,
         label: item?.label_sv ?? null,
         img_file: item.file ?? null,
-        correct_file: 'https://data.dh.gu.se/diana/static/litteraturlabbet/original/' + item.extract_id,
+        correct_file: 'https://data.dh.gu.se/litteraturlabbet/static/litteraturlabbet/original/' + item.extract_id,
         lb_link: 'https://litteraturbanken.se/f%C3%B6rfattare/' + item.page.work.main_author.lbauthorid + '/titlar/' + item.page.work.modernized_title + '/sida/' + item.page.number + '/faksimil'
       }));
 
