@@ -218,7 +218,7 @@ const fetchData = async () => {
     }
     //const page_size = selectedLabel.value === 'ornament' ? 50 : 25;
     //console.log(page_size);
-    const urlToFetch = `https://littlabb.dh.gu.se/api/litteraturlabbet/graphic/?${searchQuery}&page_size=25&depth=3`;
+    const urlToFetch = `https://littlabb.dh.gu.se/api/graphic/?${searchQuery}&page_size=25&depth=3`;
     //const urlToFetch = `http://localhost:8000/api/litteraturlabbet/graphic/?${searchQuery}&page_size=50&depth=3`;
     const res = await fetch(urlToFetch);
     const data = await res.json();
@@ -315,7 +315,7 @@ const initMasonry = () => {
       //addParam('category_sv', selectedTag.value);
       // addParam('order', store.imageOrder ?? 'ASC');
       const offset = (pageIndex.value - 1) * 25;
-      const url = `https://littlabb.dh.gu.se/api/litteraturlabbet/graphic/?depth=3&label_sv=${searchQuery}&page_size=25&offset=${offset}`;
+      const url = `https://littlabb.dh.gu.se/api/graphic/?depth=3&label_sv=${searchQuery}&page_size=25&offset=${offset}`;
       return url;
     },
     //append: '.gallery__item',

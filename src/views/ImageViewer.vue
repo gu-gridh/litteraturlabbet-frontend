@@ -165,7 +165,7 @@
 
       const fetchNeighboursData = async () => {
         loadingMessage.value = "Hämtar relaterade bilder...";
-        const baseUrl = 'https://littlabb.dh.gu.se/api/litteraturlabbet/nearest_neighbours/';
+        const baseUrl = 'https://littlabb.dh.gu.se/api/nearest_neighbours/';
         const response = await fetch(`${baseUrl}?image_id=${props.imageId}&depth=2`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -250,7 +250,7 @@
           relatedImages.value = [];
           currentImageId.value = newVal;
 
-          const response = await fetch(`https://littlabb.dh.gu.se/api/litteraturlabbet/graphic/?id=${newVal}&depth=4`);
+          const response = await fetch(`https://littlabb.dh.gu.se/api/graphic/?id=${newVal}&depth=4`);
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
@@ -267,7 +267,7 @@
 
           //fetch metadata
           if (pageId) {
-            const pageResponse = await fetch(`https://littlabb.dh.gu.se/api/litteraturlabbet/page/?id=${pageId.value}&depth=4`);
+            const pageResponse = await fetch(`https://littlabb.dh.gu.se/api/page/?id=${pageId.value}&depth=4`);
             if (!pageResponse.ok) {
               throw new Error(`HTTP error! Status: ${pageResponse.status}`);
             }
@@ -296,7 +296,7 @@
 
 
       const initComponent = async () => {
-        const response = await fetch(`https://littlabb.dh.gu.se/api/litteraturlabbet/graphic/?id=${currentImageId.value}&depth=4`);
+        const response = await fetch(`https://littlabb.dh.gu.se/api/graphic/?id=${currentImageId.value}&depth=4`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -340,7 +340,7 @@
 
         //fetch metadata
         if (pageId) {
-          const pageResponse = await fetch(`https://littlabb.dh.gu.se/api/litteraturlabbet/page/?id=${pageId.value}&depth=4`);
+          const pageResponse = await fetch(`https://littlabb.dh.gu.se/api/page/?id=${pageId.value}&depth=4`);
           if (!pageResponse.ok) {
             throw new Error(`HTTP error! Status: ${pageResponse.status}`);
           }
