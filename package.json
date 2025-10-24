@@ -9,7 +9,6 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
-    
   },
   "dependencies": {
     "@hennge/vue3-pagination": "^1.0.17",
@@ -25,7 +24,7 @@
     "infinite-scroll": "^4.0.1",
     "lodash": "^4.17.21",
     "masonry-layout": "^4.2.2",
-    "openseadragon": "^4.1.0",
+    "openseadragon": "^5.0.1",
     "pinia": "^2.0.26",
     "plotly.js-dist": "2.29.1",
     "vue": "^3.2.45",
